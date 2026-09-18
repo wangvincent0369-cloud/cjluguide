@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国计量大学2026级培养方案指南</title>
+    <link rel="stylesheet" href="theme.css?v=20260918a">
+    <script src="theme.js?v=20260918a"></script>
+<style>
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+        
+        body {
+            zoom:75%;
+            font-family:var(--font);
+            background:var(--bg);
+            min-height:100vh;
+            color:var(--text);
+        }
+        
+        /* 头部样式 */
+        .header {
+            padding:var(--gap-4xl) var(--gap-2xl) var(--gap-3xl);
+            text-align:center;
+        }
+
+        .header h1 {
+            font-size:var(--fs-h1);
+            font-weight:800;
+            margin-bottom:var(--gap-md);
+            background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink));
+            -webkit-background-clip:text;
+            background-clip:text;
+            -webkit-text-fill-color:transparent;
+            color:transparent;
+        }
+        
+        .header p {
+            color:var(--text);
+            font-size:var(--fs-xl-em);
+        }
+        
+        /* 搜索框 */
+        .search-container {
+            max-width:var(--w-grid);
+            margin:30px auto;
+            padding:0 var(--gap-2xl);
+        }
+        
+        .search-box {
+            width:100%;
+            padding:var(--gap-xl) var(--gap-3xl);
+            font-size:var(--fs-xl-em);
+            border:none;
+            border-radius:var(--r-lg);
+            background:var(--card2);
+            color:var(--text);
+            backdrop-filter:blur(10px);
+            box-shadow:0 4px 15px rgba(15,23,42,.08);
+            transition:all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline:none;
+            background:var(--card);
+            box-shadow:0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .search-box::placeholder {
+            color:var(--sub2);
+        }
+        
+        /* 学院导航 */
+        .college-nav {
+            max-width:var(--w-grid);
+            margin:20px auto;
+            padding:0 var(--gap-2xl);
+            display:flex;
+            flex-wrap:wrap;
+            gap:var(--gap-md);
+            justify-content:center;
+        }
+        
+        .college-btn {
+            padding:var(--gap-md) var(--gap-2xl);
+            border:none;
+            border-radius:var(--r-lg);
+            background:var(--card2);
+            color:var(--text);
+            cursor:pointer;
+            transition:all 0.3s ease;
+            font-size:var(--fs-md-em);
+        }
+        
+        .college-btn:hover, .college-btn.active {
+            background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); color:#FFFFFF;
+            transform:translateY(-2px);
+            box-shadow:0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* 专业列表 */
+        .container {
+            max-width:var(--w-grid);
+            margin:0 auto;
+            padding:var(--gap-2xl);
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(350px, 1fr));
+            gap:var(--gap-3xl);
+        }
+        
+        /* 专业卡片 */
+        .major-card {
+            background:var(--card);
+            border-radius:var(--r-lg);
+            padding:var(--gap-3xl);
+            backdrop-filter:blur(10px);
+            border:1px solid var(--line);
+            transition:all 0.3s ease;
+            cursor:pointer;
+        }
+        
+        .major-card:hover {
+            transform:translateY(-5px);
+            background:var(--card2);
+            border-color:rgba(102, 126, 234, 0.5);
+            box-shadow:0 10px 30px rgba(15,23,42,.08);
+        }
+        
+        .card-header {
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+            margin-bottom:var(--gap-xl);
+        }
+        
+        .major-name {
+            font-size:var(--fs-h2-em);
+            font-weight:bold;
+            color:var(--accent);
+            margin-bottom:var(--gap-xs);
+        }
+        
+        .college-tag {
+            display:inline-block;
+            padding:var(--gap-xs) var(--gap-lg);
+            background:rgba(102, 126, 234, 0.2);
+            border-radius:var(--r-lg);
+            font-size:var(--fs-sm-em);
+            color:#2039B7;
+        }
+        
+        .credit-info {
+            display:flex;
+            gap:var(--gap-xl);
+            margin:var(--gap-xl) 0;
+            padding:var(--gap-xl);
+            background:rgba(0,0,0,0.2);
+            border-radius:var(--r-md);
+        }
+        
+        .credit-item {
+            text-align:center;
+            flex:1;
+        }
+        
+        .credit-value {
+            font-size:var(--fs-h2-em);
+            font-weight:bold;
+            color:var(--purple);
+        }
+        
+        .credit-label {
+            font-size:var(--fs-xs-em);
+            color:var(--sub);
+            margin-top:var(--gap-xs);
+        }
+        
+        .core-courses {
+            margin-top:var(--gap-xl);
+        }
+        
+        .core-courses h4 {
+            color:var(--sub);
+            font-size:var(--fs-md-em);
+            margin-bottom:var(--gap-md);
+        }
+        
+        .course-tags {
+            display:flex;
+            flex-wrap:wrap;
+            gap:var(--gap);
+        }
+        
+        .course-tag {
+            padding:var(--gap-xs) var(--gap-lg);
+            background:var(--card2);
+            border-radius:var(--r-md);
+            font-size:var(--fs-sm-em);
+            color:var(--sub2);
+        }
+        
+        .simplified-goal {
+            margin-top:var(--gap-xl);
+            padding:var(--gap-lg);
+            background:rgba(102, 126, 234, 0.1);
+            border-radius:var(--r-sm);
+            font-size:var(--fs-md-em);
+            color:var(--sub2);
+            border-left:3px solid var(--brand-light);
+        }
+        
+        /* 弹窗样式 */
+        .modal {
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.8);
+            z-index:1000;
+            overflow-y:auto;
+            padding:var(--gap-5xl) var(--gap-2xl);
+        }
+        
+        .modal.active {
+            display:flex;
+            justify-content:center;
+            align-items:flex-start;
+        }
+        
+        .modal-content {
+            background:linear-gradient(135deg, #FFFFFF 0%, var(--bg) 100%);
+            border-radius:var(--r-lg);
+            max-width:var(--w-wide);
+            width:100%;
+            padding:var(--gap-5xl);
+            position:relative;
+            border:1px solid var(--line);
+            box-shadow:0 20px 60px rgba(15,23,42,.08);
+        }
+        
+        .close-btn {
+            position:absolute;
+            top:20px;
+            right:25px;
+            font-size:var(--fs-h1);
+            color:var(--sub);
+            cursor:pointer;
+            transition:color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color:var(--text);
+        }
+        
+        .modal-header {
+            text-align:center;
+            margin-bottom:var(--gap-4xl);
+            padding-bottom:var(--gap-2xl);
+            border-bottom:1px solid var(--line);
+        }
+        
+        .modal-header h2 {
+            font-size:var(--fs-h1);
+            color:var(--accent);
+            margin-bottom:var(--gap-md);
+        }
+        
+        .modal-header .college-info {
+            color:var(--sub);
+            font-size:var(--fs-lg-em);
+        }
+        
+        /* 学分分配可视化 */
+        .credit-breakdown {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+            gap:var(--gap-xl);
+            margin:var(--gap-2xl) 0;
+        }
+        
+        .credit-block {
+            background:var(--card);
+            padding:var(--gap-xl);
+            border-radius:var(--r-md);
+            text-align:center;
+        }
+        
+        .credit-block .label {
+            color:var(--sub);
+            font-size:var(--fs-md-em);
+            margin-bottom:var(--gap);
+        }
+        
+        .credit-block .value {
+            font-size:var(--fs-h2-em);
+            font-weight:bold;
+            color:var(--purple);
+        }
+        
+        .credit-block .bar {
+            height:6px;
+            background:rgba(102, 126, 234, 0.3);
+            border-radius:var(--r-xs);
+            margin-top:var(--gap-md);
+            overflow:hidden;
+        }
+        
+        .credit-block .bar-fill {
+            height:100%;
+            background:linear-gradient(90deg, var(--accent), var(--purple));
+            border-radius:var(--r-xs);
+            transition:width 0.5s ease;
+        }
+        
+        /* 课程表 */
+        .schedule-section {
+            margin-top:var(--gap-4xl);
+        }
+        
+        .schedule-section h3 {
+            color:var(--accent);
+            margin-bottom:var(--gap-xl);
+            font-size:var(--fs-xl-em);
+        }
+        
+        .semester-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+            gap:var(--gap-xl);
+        }
+        
+        .semester-block {
+            background:var(--card);
+            border-radius:var(--r-md);
+            padding:var(--gap-xl);
+            border:1px solid var(--line);
+        }
+        
+        .semester-block h4 {
+            color:var(--accent);
+            margin-bottom:var(--gap-md);
+            font-size:var(--fs-lg-em);
+        }
+        
+        .semester-block ul {
+            list-style:none;
+            font-size:var(--fs-sm-em);
+            color:var(--sub);
+        }
+        
+        .semester-block li {
+            padding:var(--gap-xs) 0;
+            border-bottom:1px solid var(--line);
+        }
+        
+        .semester-block li:last-child {
+            border-bottom:none;
+        }
+        
+        /* 核心课程详情 */
+        .core-courses-detail {
+            margin-top:var(--gap-4xl);
+        }
+        
+        .core-courses-detail h3 {
+            color:var(--accent);
+            margin-bottom:var(--gap-xl);
+        }
+        
+        .core-list {
+            display:flex;
+            flex-wrap:wrap;
+            gap:var(--gap-md);
+        }
+        
+        .core-item {
+            background:rgba(102, 126, 234, 0.2);
+            padding:var(--gap) var(--gap-xl);
+            border-radius:var(--r-lg);
+            font-size:var(--fs-md-em);
+            color:#2039B7;
+        }
+        
+        /* 毕业要求 */
+        .requirements-section {
+            margin-top:var(--gap-4xl);
+            padding:var(--gap-2xl);
+            background:var(--card);
+            border-radius:var(--r-md);
+        }
+        
+        .requirements-section h3 {
+            color:var(--accent);
+            margin-bottom:var(--gap-xl);
+        }
+        
+        .requirements-text {
+            color:var(--sub);
+            font-size:var(--fs-md-em);
+            line-height:var(--lh-loose);
+        }
+        
+        /* 隐藏类 */
+        .hidden {
+            display:none !important;
+        }
+        
+        /* 统计信息 */
+        .stats {
+            text-align:center;
+            padding:var(--gap-2xl);
+            color:var(--sub);
+            font-size:var(--fs-md-em);
+        }
+        
+
+        /* 生存问答样式 */
+        .survival-qa {
+            margin-top:var(--gap-4xl);
+            padding:var(--gap-2xl);
+            background:rgba(102, 126, 234, 0.08);
+            border-radius:var(--r-md);
+            border:1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .survival-qa h3 {
+            color:var(--accent);
+            margin-bottom:var(--gap-2xl);
+            font-size:var(--fs-xl-em);
+            display:flex;
+            align-items:center;
+            gap:var(--gap);
+        }
+        
+        .qa-item {
+            margin-bottom:var(--gap-xl);
+            padding:var(--gap-xl);
+            background:var(--card);
+            border-radius:var(--r-md);
+            border-left:3px solid var(--brand-light);
+        }
+        
+        .qa-item.warning {
+            background:rgba(239, 68, 68, 0.08);
+            border-left-color:#ef4444;
+        }
+        
+        .qa-item.info {
+            background:rgba(59, 130, 246, 0.08);
+            border-left-color:#3b82f6;
+        }
+        
+        .qa-q {
+            color:var(--purple);
+            font-weight:600;
+            margin-bottom:var(--gap);
+            font-size:var(--fs-md-em);
+        }
+        
+        .qa-item.warning .qa-q {
+            color:var(--red);
+        }
+        
+        .qa-item.info .qa-q {
+            color:var(--accent);
+        }
+        
+        .qa-a {
+            color:var(--text);
+            font-size:var(--fs-md-em);
+            line-height:var(--lh);
+        }
+        
+        .warning-text {
+            color:var(--yellow);
+            font-size:var(--fs-sm-em);
+            display:inline-block;
+            margin-bottom:var(--gap);
+            background:rgba(251, 191, 36, 0.1);
+            padding:var(--gap-xs) var(--gap);
+            border-radius:var(--r-xs);
+        }
+        
+        .info-text {
+            color:var(--accent);
+            font-size:var(--fs-sm-em);
+            display:block;
+            margin-top:var(--gap);
+            background:rgba(59, 130, 246, 0.1);
+            padding:var(--gap) var(--gap-md);
+            border-radius:var(--r-sm);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns:1fr;
+            }
+            
+            .modal-content {
+                padding:var(--gap-3xl);
+            }
+            
+            .header h1 {
+                font-size:var(--fs-h1);
+            }
+        }
+    
+/* Watermark */
+/* ===== 结尾转化卡 ===== */
+.cta-card{max-width:var(--w-narrow);margin:26px auto 34px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 34px rgba(15,23,42,.08)}
+.cta-hook{margin:0 0 var(--gap-lg);color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+.cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+.cta-wx-id{color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+.cta-wx-tip{color:var(--sub2);font-size:var(--fs-xs)}
+.cta-ask{margin:var(--gap-lg) 0 0;color:var(--text);font-size:var(--fs-sm);line-height:var(--lh)}
+.cta-ask b{color:var(--accent)}
+.cta-note{margin:var(--gap-md) 0 0;color:var(--sub);font-size:var(--fs-2xs);line-height:var(--lh)}
+.cta-home{display:inline-block;margin-top:var(--gap-lg);color:var(--sub2);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.cta-home:hover{color:var(--text)}
+@media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+</style>
+</head>
+<body><div style="text-align:center;padding:var(--gap) var(--gap-lg);background:var(--brand-soft);border-bottom:1px solid var(--brand-line);font-size:var(--fs-lg);color:var(--accent)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+    <div class="header">
+        <h1>📚 中国计量大学2026级培养方案指南</h1>
+        <p>一站式查询所有专业培养方案，轻松找到你的大学规划 🎯含专业生存问答</p>
+<div style="max-width:var(--w-page);margin:8px auto 0;padding:var(--gap-md) var(--gap-xl);background:var(--yellow-soft);border:1px solid var(--yellow-line);border-radius:var(--r-sm);font-size:var(--fs-2xs-em);color:var(--yellow);text-align:center">
+  ⚠️ 基于<strong>2025级</strong>培养方案整理，<strong>2026级</strong>以学校公布为准
+</div>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索专业名称或学院...">
+    </div>
+    
+    <div class="college-nav" id="collegeNav">
+        <button class="college-btn active" data-college="all">全部学院</button>
+        <button class="college-btn" data-college="机电工程学院">机电工程学院</button>
+        <button class="college-btn" data-college="计量测试与仪器学院">计量测试与仪器学院</button>
+        <button class="college-btn" data-college="信息工程学院">信息工程学院</button>
+        <button class="college-btn" data-college="光学与电子科技学院">光学与电子科技学院</button>
+        <button class="college-btn" data-college="材料与化学学院">材料与化学学院</button>
+        <button class="college-btn" data-college="能源环境与安全工程学院">能源环境与安全工程学院</button>
+        <button class="college-btn" data-college="经济与管理学院">经济与管理学院</button>
+        <button class="college-btn" data-college="理学院">理学院</button>
+        <button class="college-btn" data-college="生命科学学院">生命科学学院</button>
+        <button class="college-btn" data-college="法学院">法学院</button>
+        <button class="college-btn" data-college="人文与外语学院">人文与外语学院</button>
+        <button class="college-btn" data-college="艺术与传播学院">艺术与传播学院</button>
+        <button class="college-btn" data-college="质量与标准化学院">质量与标准化学院</button>
+    </div>
+    
+    <div class="container" id="majorContainer">
+        <!-- 专业卡片将通过JavaScript动态生成 -->
+    </div>
+    
+    <div class="stats" id="stats">
+        正在加载...
+    </div>
+    
+    <!-- 详情弹窗 -->
+    <div class="modal" id="majorModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalContent">
+                <!-- 详情内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 专业数据
+        const majorsData = [{"name": "机械电子工程", "college": "机电工程学院", "total_credits": 167, "degree": "工学学士", "simplified_goal": "主要就业方向：企业管理层、工程技术、数据分析", "core_courses": ["电路与模拟电子技术", "机电传动控制", "机电一体化系统设计", "机械设计", "机械原理", "检测技术B", "理论力学", "数字电子技术", "微机原理及其应用", "自动控制理论"], "credit_table": {"通识教育必修": 39.5, "通识教育选修": 32.5, "学科基础必修": 16, "学科基础选修": 30.5, "专业教育必修": 5, "专业教育选修": 11.5, "集中实践": 29, "第二课堂": 3, "总计": 167}, "schedule": {"第1学期": ["大学计算机应用基础", "高等数学A1", "形势与政策", "思想道德与法治", "体育", "军事理论"], "第2学期": ["高等数学A2", "大学物理B", "大学生职业发展与就业指导", "中国近现代史纲要", "习近平新时代中国特色社会主义思想概论", "心理健康教育"], "第3学期": ["马克思主义基本原理", "概率论与数理统计B", "物理实验B", "大学英语"], "第4学期": ["毛泽东思想和中国特色社会主义理论体系概论", "工程训练C"], "第5学期": ["机械设计课程设计B", "电子实习B"], "第6学期": ["检测技术课程设计"], "第7学期": ["生产实习", "机电一体化课程设计"], "第8学期": ["思想政治理论课实践2", "毕业设计"]}}, {"name": "机械设计制造及其自动化", "college": "机电工程学院", "total_credits": 167, "degree": "工学学士", "simplified_goal": "主要就业方向：企业管理层、工程技术", "core_courses": ["材料力学A", "电路与模拟电子技术", "工程图学A1/A2", "互换性与测量基础", "机械设计", "机械原理", "机械制造技术", "计算机辅助设计与制造", "理论力学", "自动控制理论"], "credit_table": {"通识教育必修": 39.5, "通识教育选修": 32.5, "学科基础必修": 16, "学科基础选修": 30.5, "专业教育必修": 5, "专业教育选修": 11.5, "集中实践": 29, "第二课堂": 3, "总计": 167}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "工程图学A1", "C语言程序设计", "思想道德与法治"], "第2学期": ["高等数学A2", "大学物理B2", "工程图学A2", "电路与模拟电子技术"], "第3学期": ["理论力学", "材料力学A", "机械原理", "数字电子技术"], "第4学期": ["互换性与测量基础", "机械设计", "自动控制理论"], "第5学期": ["机械制造技术", "计算机辅助设计与制造", "机电传动控制"], "第6学期": ["先进制造技术", "数控技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "机械设计制造及其自动化(卓越)", "college": "机电工程学院", "total_credits": 170, "degree": "工学学士", "simplified_goal": "主要就业方向：工程技术、企业管理层", "core_courses": ["机械设计", "机械原理", "机械制造技术", "自动控制理论", "机电传动控制", "计算机辅助设计与制造", "互换性与测量基础"], "credit_table": {"通识教育必修": 39.5, "通识教育选修": 32.5, "学科基础必修": 18, "学科基础选修": 32, "专业教育必修": 6, "专业教育选修": 12, "集中实践": 27, "第二课堂": 3, "总计": 170}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "工程图学A1", "C语言程序设计"], "第2学期": ["高等数学A2", "电路与模拟电子技术", "工程图学A2"], "第3学期": ["理论力学", "材料力学A", "机械原理", "数字电子技术"], "第4学期": ["互换性与测量基础", "机械设计", "自动控制理论"], "第5学期": ["机械制造技术", "计算机辅助设计与制造"], "第6学期": ["先进制造技术", "数控技术", "卓越工程师实践"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "自动化", "college": "机电工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：IT/互联网、自动化控制", "core_courses": ["自动控制理论", "现代控制理论", "电力电子技术", "电机与拖动", "过程控制", "计算机控制系统", "传感器与检测技术", "微机原理及其应用"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "工程图学"], "第2学期": ["高等数学A2", "电路与模拟电子技术", "数字电子技术"], "第3学期": ["信号与系统", "微机原理及其应用", "自动控制理论"], "第4学期": ["电机与拖动", "电力电子技术", "传感器与检测技术"], "第5学期": ["过程控制", "计算机控制系统", "运动控制系统"], "第6学期": ["集散控制系统", "现场总线技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "自动化(卓越)", "college": "机电工程学院", "total_credits": 168, "degree": "工学学士", "simplified_goal": "主要就业方向：自动化控制、IT/互联网", "core_courses": ["自动控制理论", "现代控制理论", "电力电子技术", "电机与拖动", "过程控制", "计算机控制系统", "传感器与检测技术", "微机原理及其应用"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 20, "学科基础选修": 30, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 25, "第二课堂": 3, "总计": 168}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "工程图学"], "第2学期": ["高等数学A2", "电路与模拟电子技术", "数字电子技术"], "第3学期": ["信号与系统", "微机原理及其应用", "自动控制理论"], "第4学期": ["电机与拖动", "电力电子技术", "传感器与检测技术"], "第5学期": ["过程控制", "计算机控制系统", "卓越工程师实践"], "第6学期": ["集散控制系统", "现场总线技术", "项目实训"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "电气工程及其自动化", "college": "机电工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：电力系统、新能源", "core_courses": ["电路", "模拟电子技术", "数字电子技术", "电机学", "电力电子技术", "电力系统分析", "自动控制理论", "微机原理及其应用"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "工程图学"], "第2学期": ["高等数学A2", "电路", "模拟电子技术"], "第3学期": ["数字电子技术", "电机学", "自动控制理论"], "第4学期": ["电力电子技术", "电力系统分析", "微机原理及其应用"], "第5学期": ["电气控制与PLC", "新能源发电技术"], "第6学期": ["电力系统继电保护", "高电压技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "测控技术与仪器", "college": "计量测试与仪器学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：检测技术、仪器仪表", "core_courses": ["精密机械设计基础", "电路与模拟电子技术", "数字电子技术", "自动控制理论", "传感器与检测技术", "误差理论与数据处理", "智能仪器设计", "计量学基础"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "精密机械设计基础"], "第2学期": ["高等数学A2", "电路与模拟电子技术", "数字电子技术"], "第3学期": ["自动控制理论", "传感器与检测技术", "误差理论与数据处理"], "第4学期": ["智能仪器设计", "计量学基础", "信号与系统"], "第5学期": ["精密测量技术", "光电检测技术"], "第6学期": ["计算机辅助测量", "虚拟仪器技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "测控技术与仪器(卓越)", "college": "计量测试与仪器学院", "total_credits": 168, "degree": "工学学士", "simplified_goal": "主要就业方向：检测技术、仪器仪表", "core_courses": ["精密机械设计基础", "电路与模拟电子技术", "数字电子技术", "自动控制理论", "传感器与检测技术", "误差理论与数据处理", "智能仪器设计", "计量学基础"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 20, "学科基础选修": 30, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 25, "第二课堂": 3, "总计": 168}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "精密机械设计基础"], "第2学期": ["高等数学A2", "电路与模拟电子技术", "数字电子技术"], "第3学期": ["自动控制理论", "传感器与检测技术", "误差理论与数据处理"], "第4学期": ["智能仪器设计", "计量学基础", "信号与系统"], "第5学期": ["精密测量技术", "光电检测技术", "卓越工程师实践"], "第6学期": ["计算机辅助测量", "虚拟仪器技术", "项目实训"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "智能感知工程", "college": "计量测试与仪器学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：智能传感、物联网", "core_courses": ["传感器原理", "智能感知技术", "物联网技术", "人工智能", "机器视觉", "信号处理", "嵌入式系统", "数据融合技术"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "电路基础"], "第2学期": ["高等数学A2", "模拟电子技术", "数字电子技术"], "第3学期": ["传感器原理", "信号处理", "微机原理"], "第4学期": ["智能感知技术", "物联网技术", "人工智能基础"], "第5学期": ["机器视觉", "数据融合技术"], "第6学期": ["嵌入式系统", "智能系统设计"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "电子信息工程", "college": "信息工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：电子技术、通信", "core_courses": ["电路", "模拟电子技术", "数字电子技术", "信号与系统", "数字信号处理", "通信原理", "微机原理及其应用", "电磁场与电磁波"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "电路"], "第2学期": ["高等数学A2", "模拟电子技术", "数字电子技术"], "第3学期": ["信号与系统", "电磁场与电磁波", "微机原理及其应用"], "第4学期": ["数字信号处理", "通信原理", "高频电子线路"], "第5学期": ["微波技术", "天线原理"], "第6学期": ["无线通信系统", "电子系统设计"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "通信工程", "college": "信息工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：通信技术、5G/6G", "core_courses": ["通信原理", "数字信号处理", "电磁场与电磁波", "高频电子线路", "微波技术", "天线原理", "移动通信", "光通信技术"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "电路"], "第2学期": ["高等数学A2", "模拟电子技术", "数字电子技术"], "第3学期": ["信号与系统", "电磁场与电磁波", "高频电子线路"], "第4学期": ["通信原理", "数字信号处理", "微机原理"], "第5学期": ["移动通信", "微波技术"], "第6学期": ["光通信技术", "天线原理"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "计算机科学与技术", "college": "信息工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：IT/互联网、软件开发", "core_courses": ["数据结构", "算法设计与分析", "操作系统", "计算机网络", "数据库系统", "软件工程", "计算机组成原理", "人工智能"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "C语言程序设计", "离散数学", "计算机导论"], "第2学期": ["高等数学A2", "数据结构", "数字电子技术"], "第3学期": ["算法设计与分析", "操作系统", "计算机组成原理"], "第4学期": ["计算机网络", "数据库系统", "软件工程"], "第5学期": ["人工智能", "Web开发技术"], "第6学期": ["云计算", "大数据技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "人工智能", "college": "信息工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：AI研发、机器学习", "core_courses": ["机器学习", "深度学习", "自然语言处理", "计算机视觉", "模式识别", "神经网络", "Python数据分析", "人工智能伦理"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "C语言程序设计", "Python程序设计", "人工智能导论"], "第2学期": ["高等数学A2", "线性代数", "概率论"], "第3学期": ["数据结构", "机器学习基础", "算法设计与分析"], "第4学期": ["深度学习", "计算机视觉", "模式识别"], "第5学期": ["自然语言处理", "强化学习"], "第6学期": ["计算机图形学", "智能系统设计"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "电子科学与技术", "college": "光学与电子科技学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：电子技术、集成电路", "core_courses": ["半导体物理", "半导体器件", "集成电路设计", "微电子工艺", "模拟电子技术", "数字电子技术", "信号与系统", "电磁场理论"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "电路"], "第2学期": ["高等数学A2", "模拟电子技术", "数字电子技术"], "第3学期": ["半导体物理", "电磁场理论", "信号与系统"], "第4学期": ["半导体器件", "微电子工艺", "集成电路设计"], "第5学期": ["VLSI设计", "光电子技术"], "第6学期": ["集成电路测试", "电子材料"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "电子科学与技术(卓越)", "college": "光学与电子科技学院", "total_credits": 168, "degree": "工学学士", "simplified_goal": "主要就业方向：电子技术、集成电路", "core_courses": ["半导体物理", "半导体器件", "集成电路设计", "微电子工艺", "模拟电子技术", "数字电子技术", "信号与系统", "电磁场理论"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 20, "学科基础选修": 30, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 25, "第二课堂": 3, "总计": 168}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "电路"], "第2学期": ["高等数学A2", "模拟电子技术", "数字电子技术"], "第3学期": ["半导体物理", "电磁场理论", "信号与系统"], "第4学期": ["半导体器件", "微电子工艺", "集成电路设计"], "第5学期": ["VLSI设计", "光电子技术", "卓越工程师实践"], "第6学期": ["集成电路测试", "电子材料", "项目实训"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "微电子科学与工程", "college": "光学与电子科技学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：芯片设计、半导体", "core_courses": ["半导体物理", "半导体器件物理", "集成电路设计基础", "微电子工艺原理", "VLSI设计", "版图设计", "芯片制造技术", "封装测试技术"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "电路基础"], "第2学期": ["高等数学A2", "模拟电子技术", "数字电子技术"], "第3学期": ["半导体物理", "半导体器件物理", "材料科学基础"], "第4学期": ["微电子工艺原理", "集成电路设计基础", "VLSI设计"], "第5学期": ["版图设计", "芯片制造技术"], "第6学期": ["封装测试技术", "可靠性分析"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "光电信息科学与工程", "college": "光学与电子科技学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：光学工程、光电技术", "core_courses": ["物理光学", "应用光学", "激光原理", "光电检测技术", "光纤通信", "光电子器件", "光学设计", "光电信息系统"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "C语言程序设计", "光学导论"], "第2学期": ["高等数学A2", "大学物理B2", "模拟电子技术"], "第3学期": ["物理光学", "应用光学", "波动光学"], "第4学期": ["激光原理", "光电检测技术", "光纤通信"], "第5学期": ["光电子器件", "光学设计"], "第6学期": ["光电信息系统", "光通信技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "功能材料", "college": "光学与电子科技学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：材料研发、新材料", "core_courses": ["材料科学基础", "材料化学", "功能材料", "材料分析方法", "材料性能测试", "材料制备技术", "材料力学", "材料物理性能"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学化学", "材料科学导论", "大学物理B1"], "第2学期": ["材料化学", "物理化学", "材料力学"], "第3学期": ["材料科学基础", "材料物理性能", "材料分析方法"], "第4学期": ["功能材料", "材料制备技术", "材料性能测试"], "第5学期": ["先进功能材料", "纳米材料"], "第6学期": ["新能源材料", "智能材料"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "材料科学与工程", "college": "材料与化学学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：材料研发、材料工程", "core_courses": ["材料科学基础", "材料化学", "材料力学", "材料物理性能", "材料分析方法", "材料制备技术", "材料加工原理", "材料工程基础"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学化学", "材料科学导论", "大学物理B1"], "第2学期": ["材料化学", "物理化学", "材料力学"], "第3学期": ["材料科学基础", "材料物理性能", "材料分析方法"], "第4学期": ["材料制备技术", "材料加工原理", "材料工程基础"], "第5学期": ["金属材料", "高分子材料"], "第6学期": ["无机非金属材料", "复合材料"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "应用化学", "college": "材料与化学学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：化学化工、制药", "core_courses": ["无机化学", "有机化学", "分析化学", "物理化学", "化工原理", "化学工艺学", "精细化学品化学", "仪器分析"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "无机化学", "大学化学", "大学物理B1"], "第2学期": ["有机化学", "分析化学", "物理化学"], "第3学期": ["化工原理", "仪器分析", "化学工艺学"], "第4学期": ["精细化学品化学", "表面化学", "电化学"], "第5学期": ["现代分析技术", "绿色化学"], "第6学期": ["化学工程设计", "实验技能训练"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "安全工程", "college": "能源环境与安全工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：安全管理、安全技术", "core_courses": ["安全学原理", "安全管理学", "安全系统工程", "安全检测与监控", "职业卫生工程", "危险源辨识与评价", "应急预案与救援", "安全法规"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "安全学原理", "工程力学"], "第2学期": ["安全管理学", "工程流体力学", "热工学"], "第3学期": ["安全系统工程", "安全检测与监控", "职业卫生工程"], "第4学期": ["危险源辨识与评价", "安全评价", "事故调查与分析"], "第5学期": ["应急预案与救援", "工业安全技术"], "第6学期": ["特种设备安全", "建筑安全"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "安全工程(专升本)", "college": "能源环境与安全工程学院", "total_credits": 80, "degree": "工学学士", "simplified_goal": "主要就业方向：安全管理、安全技术", "core_courses": ["安全学原理", "安全管理学", "安全系统工程", "安全检测与监控", "职业卫生工程", "危险源辨识与评价"], "credit_table": {"通识教育必修": 20, "通识教育选修": 15, "学科基础必修": 8, "学科基础选修": 12, "专业教育必修": 3, "专业教育选修": 8, "集中实践": 12, "第二课堂": 2, "总计": 80}, "schedule": {"第1学期": ["安全学原理", "安全管理学", "工程力学"], "第2学期": ["安全系统工程", "安全检测与监控", "职业卫生工程"], "第3学期": ["危险源辨识与评价", "安全评价", "应急预案"], "第4学期": ["毕业实习", "毕业设计"]}}, {"name": "环境工程", "college": "能源环境与安全工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：环境保护、污水处理", "core_courses": ["环境化学", "环境监测", "水污染控制工程", "大气污染控制工程", "固体废物处理与处置", "环境评价", "环境规划与管理", "环境微生物学"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学化学", "环境科学导论", "大学物理B1"], "第2学期": ["环境化学", "环境微生物学", "工程力学"], "第3学期": ["环境监测", "水污染控制工程", "流体力学"], "第4学期": ["大气污染控制工程", "固体废物处理与处置", "环境评价"], "第5学期": ["环境规划与管理", "环境影响评价"], "第6学期": ["环境工程设计", "清洁生产"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "能源与动力工程", "college": "能源环境与安全工程学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：能源行业、动力系统", "core_courses": ["工程热力学", "传热学", "流体力学", "燃烧学", "锅炉原理", "汽轮机原理", "热力发电厂", "制冷与低温技术"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "工程力学", "热工基础"], "第2学期": ["高等数学A2", "工程热力学", "流体力学"], "第3学期": ["传热学", "燃烧学", "电工电子技术"], "第4学期": ["锅炉原理", "汽轮机原理", "热力发电厂"], "第5学期": ["制冷与低温技术", "空调用制冷技术"], "第6学期": ["新能源发电技术", "能源管理"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "工商管理", "college": "经济与管理学院", "total_credits": 160, "degree": "管理学学士", "simplified_goal": "主要就业方向：企业管理、市场营销", "core_courses": ["管理学", "经济学", "会计学", "财务管理", "市场营销学", "人力资源管理", "战略管理", "运营管理"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["管理学", "经济学原理", "高等数学B", "大学语文"], "第2学期": ["会计学", "统计学", "经济法"], "第3学期": ["财务管理", "市场营销学", "人力资源管理"], "第4学期": ["战略管理", "运营管理", "组织行为学"], "第5学期": ["管理信息系统", "项目管理"], "第6学期": ["质量管理", "创业管理"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "信息管理与信息系统", "college": "经济与管理学院", "total_credits": 160, "degree": "管理学学士", "simplified_goal": "主要就业方向：信息系统、电子商务", "core_courses": ["管理学", "经济学", "信息系统分析与设计", "数据库原理", "计算机网络", "电子商务", "管理信息系统", "数据分析与挖掘"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["管理学", "经济学原理", "高等数学B", "程序设计基础"], "第2学期": ["数据库原理", "统计学", "会计学"], "第3学期": ["计算机网络", "管理信息系统", "信息系统分析与设计"], "第4学期": ["电子商务", "数据分析与挖掘", "运筹学"], "第5学期": ["企业资源计划", "信息系统项目管理"], "第6学期": ["大数据分析", "商业智能"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "财务管理", "college": "经济与管理学院", "total_credits": 160, "degree": "管理学学士", "simplified_goal": "主要就业方向：财务会计、金融", "core_courses": ["基础会计", "中级财务会计", "成本会计", "财务管理", "管理会计", "审计学", "财务分析", "金融学"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["管理学", "经济学原理", "高等数学B", "基础会计"], "第2学期": ["中级财务会计", "统计学", "经济法"], "第3学期": ["成本会计", "财务管理", "金融学"], "第4学期": ["管理会计", "审计学", "财务分析"], "第5学期": ["税法", "资产评估"], "第6学期": ["公司战略与风险管理", "证券投资"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "国际经济与贸易", "college": "经济与管理学院", "total_credits": 160, "degree": "经济学学士", "simplified_goal": "主要就业方向：国际贸易、跨境电商", "core_courses": ["微观经济学", "宏观经济学", "国际贸易理论", "国际贸易实务", "国际结算", "外贸函电", "国际商法", "跨境电商"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["微观经济学", "宏观经济学", "高等数学B", "大学语文"], "第2学期": ["国际贸易理论", "统计学", "会计学"], "第3学期": ["国际贸易实务", "国际金融", "外贸函电"], "第4学期": ["国际结算", "国际商法", "商务英语"], "第5学期": ["跨境电商", "国际市场营销"], "第6学期": ["国际物流", "商务谈判"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "金融工程", "college": "经济与管理学院", "total_credits": 160, "degree": "经济学学士", "simplified_goal": "主要就业方向：金融行业、投资分析", "core_courses": ["金融学", "公司金融", "投资学", "衍生金融工具", "金融工程学", "金融市场与金融机构", "风险管理", "金融计量经济学"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["微观经济学", "宏观经济学", "高等数学B", "会计学"], "第2学期": ["金融学", "统计学", "概率论与数理统计"], "第3学期": ["公司金融", "投资学", "金融市场与金融机构"], "第4学期": ["衍生金融工具", "金融工程学", "风险管理"], "第5学期": ["金融计量经济学", "量化投资"], "第6学期": ["互联网金融", "金融科技"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "金融工程(合作办学)", "college": "经济与管理学院", "total_credits": 160, "degree": "经济学学士", "simplified_goal": "主要就业方向：金融行业、国际金融", "core_courses": ["金融学", "公司金融", "投资学", "衍生金融工具", "国际金融", "金融风险管理", "金融计量经济学", "商务英语"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["微观经济学", "宏观经济学", "高等数学B", "会计学", "商务英语"], "第2学期": ["金融学", "统计学", "商务英语"], "第3学期": ["公司金融", "投资学", "国际金融"], "第4学期": ["衍生金融工具", "金融风险管理", "金融计量经济学"], "第5学期": ["量化投资", "金融科技"], "第6学期": ["国际金融市场", "跨境金融"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "数学与应用数学", "college": "理学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：金融行业、IT/互联网、教育领域", "core_courses": ["数学分析1", "数学分析2", "数学分析3", "高等代数1", "高等代数2", "常微分方程", "复变函数", "概率论与数理统计", "近世代数", "实变函数", "数学建模", "数值分析"], "credit_table": {"通识教育必修": 33, "通识教育选修": 19, "学科基础必修": 28, "学科基础选修": 26, "专业教育必修": 9, "专业教育选修": 26, "集中实践": 22, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["数学分析1", "高等代数1", "解析几何", "大学英语1", "思想道德与法治", "体育"], "第2学期": ["数学分析2", "高等代数2", "大学物理A1", "大学英语2", "中国近现代史纲要"], "第3学期": ["数学分析3", "常微分方程", "大学物理A2", "大学英语3", "毛泽东思想"], "第4学期": ["复变函数", "概率论与数理统计", "大学英语4", "马克思主义基本原理"], "第5学期": ["近世代数", "实变函数", "数值分析", "数学建模"], "第6学期": ["运筹与优化", "泛函分析", "偏微分方程"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "应用物理学", "college": "理学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：科研院所、电子技术", "core_courses": ["力学", "热学", "光学", "电磁学", "原子物理学", "理论力学", "量子力学", "电动力学", "统计物理", "模拟电子技术"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "力学", "大学化学", "C语言程序设计"], "第2学期": ["高等数学A2", "热学", "光学", "电磁学"], "第3学期": ["原子物理学", "理论力学", "模拟电子技术"], "第4学期": ["量子力学", "电动力学", "数字电子技术"], "第5学期": ["统计物理", "固体物理", "计算物理"], "第6学期": ["传感器技术", "光电检测技术"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "声学", "college": "理学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：声学工程、音频技术", "core_courses": ["声学基础", "超声学", "水声学", "建筑声学", "噪声控制", "音频技术", "信号与系统", "数字信号处理"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "大学物理B1", "声学基础", "C语言程序设计"], "第2学期": ["高等数学A2", "信号与系统", "电路基础"], "第3学期": ["数字信号处理", "超声学", "大学物理B2"], "第4学期": ["水声学", "建筑声学", "噪声控制"], "第5学期": ["音频技术", "声学测量"], "第6学期": ["声学仪器设计", "声学工程应用"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "数据科学与大数据技术", "college": "理学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：数据分析、AI研发", "core_courses": ["数据结构", "算法设计与分析", "概率论与数理统计", "数据库原理", "机器学习", "深度学习", "大数据技术", "数据挖掘", "云计算", "Python数据分析"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学A1", "Python程序设计", "数据科学导论", "线性代数"], "第2学期": ["高等数学A2", "数据结构", "概率论与数理统计"], "第3学期": ["算法设计与分析", "数据库原理", "统计学"], "第4学期": ["机器学习", "数据挖掘", "大数据技术"], "第5学期": ["深度学习", "云计算", "分布式系统"], "第6学期": ["自然语言处理", "计算机视觉"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "生物工程", "college": "生命科学学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：生物医药、发酵工程", "core_courses": ["生物化学", "微生物学", "细胞生物学", "分子生物学", "基因工程", "细胞工程", "发酵工程", "生物工艺学"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学C", "大学化学", "生物化学", "大学物理B"], "第2学期": ["微生物学", "有机化学", "细胞生物学"], "第3学期": ["分子生物学", "生物工艺学", "工程制图"], "第4学期": ["基因工程", "细胞工程", "发酵工程"], "第5学期": ["酶工程", "蛋白质工程"], "第6学期": ["生物分离工程", "生物制药"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "食品质量与安全", "college": "生命科学学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：食品检测、质量监督", "core_courses": ["食品化学", "食品微生物学", "食品分析", "食品质量控制", "食品安全学", "食品工艺学", "食品标准与法规", "食品检测技术"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学C", "大学化学", "食品化学", "食品微生物学"], "第2学期": ["有机化学", "食品分析", "生物化学"], "第3学期": ["食品质量控制", "食品安全学", "食品工艺学"], "第4学期": ["食品标准与法规", "食品检测技术", "食品添加剂"], "第5学期": ["食品保藏技术", "食品工厂设计"], "第6学期": ["食品质量管理", "认证与审核"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "药学", "college": "生命科学学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：制药行业、药品研发", "core_courses": ["药物化学", "药理学", "药剂学", "药物分析", "天然药物化学", "制药工艺学", "临床医学概论", "药品生产质量管理"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学C", "大学化学", "药物化学", "基础医学概论"], "第2学期": ["有机化学", "药理学", "生物化学"], "第3学期": ["药剂学", "药物分析", "天然药物化学"], "第4学期": ["制药工艺学", "临床医学概论", "药品质量控制"], "第5学期": ["新药研发", "生物药剂学"], "第6学期": ["药品生产质量管理", "药事管理"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "卫生检验与检疫", "college": "生命科学学院", "total_credits": 166, "degree": "理学学士", "simplified_goal": "主要就业方向：卫生检验、疾病防控", "core_courses": ["分析化学", "仪器分析", "卫生微生物学", "卫生化学", "免疫学检验", "分子生物学检验", "卫生学", "流行病学"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["高等数学C", "大学化学", "分析化学", "卫生学基础"], "第2学期": ["仪器分析", "卫生微生物学", "有机化学"], "第3学期": ["卫生化学", "免疫学检验", "生物化学"], "第4学期": ["分子生物学检验", "流行病学", "卫生统计学"], "第5学期": ["食品卫生检验", "水质检验"], "第6学期": ["空气卫生检验", "生物材料检验"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "法学", "college": "法学院", "total_credits": 160, "degree": "法学学士", "simplified_goal": "主要就业方向：法律服务、司法机关", "core_courses": ["法理学", "宪法学", "民法学", "刑法学", "行政法与行政诉讼法学", "刑事诉讼法学", "民事诉讼法学", "经济法学"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["法理学", "宪法学", "大学语文", "逻辑学"], "第2学期": ["民法学1", "刑法学1", "中国法制史"], "第3学期": ["民法学2", "刑法学2", "行政法与行政诉讼法学"], "第4学期": ["刑事诉讼法学", "民事诉讼法学", "商法学"], "第5学期": ["经济法学", "知识产权法", "国际法学"], "第6学期": ["劳动与社会保障法", "环境资源法"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "法学(专升本)", "college": "法学院", "total_credits": 80, "degree": "法学学士", "simplified_goal": "主要就业方向：法律服务、司法机关", "core_courses": ["法理学", "宪法学", "民法学", "刑法学", "行政法与行政诉讼法学", "刑事诉讼法学"], "credit_table": {"通识教育必修": 20, "通识教育选修": 15, "学科基础必修": 8, "学科基础选修": 12, "专业教育必修": 3, "专业教育选修": 8, "集中实践": 12, "第二课堂": 2, "总计": 80}, "schedule": {"第1学期": ["法理学", "宪法学", "民法学1"], "第2学期": ["刑法学1", "行政法", "诉讼法"], "第3学期": ["民法学2", "刑法学2", "商法学"], "第4学期": ["毕业实习", "毕业论文"]}}, {"name": "知识产权", "college": "法学院", "total_credits": 160, "degree": "法学学士", "simplified_goal": "主要就业方向：知识产权代理、企业法务", "core_courses": ["法理学", "民法学", "知识产权法总论", "著作权法", "专利法", "商标法", "知识产权管理", "知识产权贸易"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["法理学", "民法学", "知识产权法总论", "大学语文"], "第2学期": ["著作权法", "商标法", "专利法基础"], "第3学期": ["专利法", "反不正当竞争法", "合同法"], "第4学期": ["知识产权管理", "知识产权贸易", "知识产权诉讼"], "第5学期": ["专利代理实务", "商标代理实务"], "第6学期": ["知识产权评估", "商业秘密保护"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "知识产权(专升本)", "college": "法学院", "total_credits": 80, "degree": "法学学士", "simplified_goal": "主要就业方向：知识产权代理、企业法务", "core_courses": ["知识产权法总论", "著作权法", "专利法", "商标法", "知识产权管理", "知识产权贸易"], "credit_table": {"通识教育必修": 20, "通识教育选修": 15, "学科基础必修": 8, "学科基础选修": 12, "专业教育必修": 3, "专业教育选修": 8, "集中实践": 12, "第二课堂": 2, "总计": 80}, "schedule": {"第1学期": ["知识产权法总论", "著作权法", "商标法"], "第2学期": ["专利法", "知识产权管理", "合同法"], "第3学期": ["知识产权贸易", "知识产权诉讼"], "第4学期": ["毕业实习", "毕业论文"]}}, {"name": "知识产权(第二学士学位)", "college": "法学院", "total_credits": 60, "degree": "法学学士", "simplified_goal": "主要就业方向：知识产权代理、企业法务", "core_courses": ["知识产权法总论", "著作权法", "专利法", "商标法", "知识产权管理", "知识产权贸易", "知识产权诉讼"], "credit_table": {"通识教育必修": 10, "通识教育选修": 10, "学科基础必修": 10, "学科基础选修": 10, "专业教育必修": 5, "专业教育选修": 10, "集中实践": 5, "第二课堂": 0, "总计": 60}, "schedule": {"第1学期": ["知识产权法总论", "著作权法", "专利法"], "第2学期": ["商标法", "知识产权管理", "知识产权贸易"], "第3学期": ["知识产权诉讼", "专利代理实务"], "第4学期": ["毕业实习", "毕业论文"]}}, {"name": "行政管理", "college": "人文与外语学院", "total_credits": 160, "degree": "管理学学士", "simplified_goal": "主要就业方向：政府机关、事业单位", "core_courses": ["政治学原理", "行政管理学", "公共政策学", "组织行为学", "人力资源管理", "政府经济学", "公共关系学", "行政法学"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["政治学原理", "行政管理学", "大学语文", "社会学概论"], "第2学期": ["组织行为学", "公共政策学", "管理学基础"], "第3学期": ["人力资源管理", "政府经济学", "公共关系学"], "第4学期": ["行政法学", "市政学", "公共危机管理"], "第5学期": ["电子政务", "公共部门绩效管理"], "第6学期": ["公共治理", "社会调查方法"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "汉语言文学", "college": "人文与外语学院", "total_credits": 160, "degree": "文学学士", "simplified_goal": "主要就业方向：教育行业、新闻媒体", "core_courses": ["现代汉语", "古代汉语", "中国现当代文学", "中国古代文学", "外国文学", "文学理论", "写作", "语言学概论"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["现代汉语1", "中国现代文学1", "古代文学1", "写作基础"], "第2学期": ["现代汉语2", "中国现代文学2", "古代文学2", "外国文学1"], "第3学期": ["古代汉语1", "中国当代文学", "外国文学2", "文学理论"], "第4学期": ["古代汉语2", "语言学概论", "比较文学"], "第5学期": ["文学批评", "应用写作"], "第6学期": ["语文教学论", "文案策划"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "汉语言文学(专升本)", "college": "人文与外语学院", "total_credits": 80, "degree": "文学学士", "simplified_goal": "主要就业方向：教育行业、新闻媒体", "core_courses": ["现代汉语", "古代汉语", "中国现当代文学", "中国古代文学", "写作", "文学理论"], "credit_table": {"通识教育必修": 20, "通识教育选修": 15, "学科基础必修": 10, "学科基础选修": 12, "专业教育必修": 4, "专业教育选修": 8, "集中实践": 9, "第二课堂": 2, "总计": 80}, "schedule": {"第1学期": ["现代汉语", "中国现代文学", "古代文学1"], "第2学期": ["古代文学2", "外国文学", "写作"], "第3学期": ["文学理论", "语言学概论"], "第4学期": ["毕业实习", "毕业论文"]}}, {"name": "汉语言文学(第二学士学位)", "college": "人文与外语学院", "total_credits": 60, "degree": "文学学士", "simplified_goal": "主要就业方向：教育行业、新闻媒体", "core_courses": ["现代汉语", "古代汉语", "中国现当代文学", "中国古代文学", "写作", "文学理论"], "credit_table": {"通识教育必修": 10, "通识教育选修": 10, "学科基础必修": 10, "学科基础选修": 10, "专业教育必修": 5, "专业教育选修": 10, "集中实践": 5, "第二课堂": 0, "总计": 60}, "schedule": {"第1学期": ["现代汉语", "中国现代文学", "古代文学1"], "第2学期": ["古代文学2", "外国文学", "写作"], "第3学期": ["文学理论", "语言学概论"], "第4学期": ["毕业论文"]}}, {"name": "英语", "college": "人文与外语学院", "total_credits": 160, "degree": "文学学士", "simplified_goal": "主要就业方向：翻译、外贸、教育", "core_courses": ["基础英语", "高级英语", "英语听力", "英语口语", "英语写作", "翻译理论与实践", "口译", "英美文学"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["基础英语1", "英语听力1", "英语口语1", "英语写作基础"], "第2学期": ["基础英语2", "英语听力2", "英语口语2", "英语语法"], "第3学期": ["高级英语1", "翻译理论与实践1", "英语国家概况"], "第4学期": ["高级英语2", "翻译理论与实践2", "口译基础"], "第5学期": ["口译", "英美文学", "跨文化交际"], "第6学期": ["商务英语", "语言学概论"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "英语(专升本)", "college": "人文与外语学院", "total_credits": 80, "degree": "文学学士", "simplified_goal": "主要就业方向：翻译、外贸、教育", "core_courses": ["基础英语", "高级英语", "翻译理论与实践", "口译", "英美文学"], "credit_table": {"通识教育必修": 20, "通识教育选修": 15, "学科基础必修": 10, "学科基础选修": 12, "专业教育必修": 4, "专业教育选修": 8, "集中实践": 9, "第二课堂": 2, "总计": 80}, "schedule": {"第1学期": ["基础英语", "翻译理论与实践1", "英语听力"], "第2学期": ["高级英语", "翻译理论与实践2", "口译"], "第3学期": ["英美文学", "跨文化交际"], "第4学期": ["毕业实习", "毕业论文"]}}, {"name": "汉语国际教育", "college": "人文与外语学院", "total_credits": 160, "degree": "文学学士", "simplified_goal": "主要就业方向：对外汉语教学、文化交流", "core_courses": ["现代汉语", "古代汉语", "语言学概论", "对外汉语教学概论", "汉语作为第二语言教学", "中华文化", "跨文化交际", "英语听说"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["现代汉语1", "古代汉语1", "语言学概论1", "英语听说1"], "第2学期": ["现代汉语2", "古代汉语2", "语言学概论2", "英语听说2"], "第3学期": ["对外汉语教学概论", "汉语作为第二语言教学", "中华文化1"], "第4学期": ["跨文化交际", "中华文化2", "课堂教学设计"], "第5学期": ["汉字教学", "中国文化传播"], "第6学期": ["教育实习准备", "案例分析"], "第7学期": ["教学实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "工业设计", "college": "艺术与传播学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：产品设计、用户体验", "core_courses": ["工业设计史", "设计素描", "设计色彩", "三大构成", "人机工程学", "产品设计方法", "计算机辅助工业设计", "模型制作"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["设计素描", "设计色彩", "工业设计史", "三大构成1"], "第2学期": ["三大构成2", "人机工程学", "设计概论"], "第3学期": ["产品设计方法", "计算机辅助工业设计1", "材料与工艺"], "第4学期": ["计算机辅助工业设计2", "模型制作", "设计心理学"], "第5学期": ["产品开发设计", "交互设计基础"], "第6学期": ["设计管理", "设计战略"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "环境设计", "college": "艺术与传播学院", "total_credits": 160, "degree": "艺术学学士", "simplified_goal": "主要就业方向：室内设计、景观设计", "core_courses": ["设计素描", "设计色彩", "三大构成", "建筑史", "室内设计原理", "景观设计原理", "计算机辅助设计", "装饰材料与构造"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["设计素描", "设计色彩", "三大构成1", "建筑史"], "第2学期": ["三大构成2", "室内设计原理", "景观设计原理"], "第3学期": ["计算机辅助设计1", "装饰材料与构造", "人体工程学"], "第4学期": ["计算机辅助设计2", "室内专题设计", "景观专题设计"], "第5学期": ["设计表达", "快题设计"], "第6学期": ["设计管理", "毕业设计准备"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "视觉传达设计", "college": "艺术与传播学院", "total_credits": 160, "degree": "艺术学学士", "simplified_goal": "主要就业方向：平面设计、品牌设计", "core_courses": ["设计素描", "设计色彩", "三大构成", "字体设计", "标志设计", "包装设计", "广告设计", "品牌视觉设计", "计算机辅助设计"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["设计素描", "设计色彩", "三大构成1", "设计概论"], "第2学期": ["三大构成2", "字体设计", "图案设计"], "第3学期": ["标志设计", "包装设计", "计算机辅助设计1"], "第4学期": ["广告设计", "品牌视觉设计", "计算机辅助设计2"], "第5学期": ["书籍装帧设计", "界面设计"], "第6学期": ["设计管理", "毕业设计准备"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "标准化工程", "college": "质量与标准化学院", "total_credits": 160, "degree": "管理学学士", "simplified_goal": "主要就业方向：标准化管理、质量监督", "core_courses": ["标准化概论", "质量管理学", "标准化原理与方法", "产品标准化设计", "标准制定与编写", "质量管理体系", "认证与认可", "计量学基础"], "credit_table": {"通识教育必修": 36, "通识教育选修": 30, "学科基础必修": 20, "学科基础选修": 26, "专业教育必修": 8, "专业教育选修": 14, "集中实践": 23, "第二课堂": 3, "总计": 160}, "schedule": {"第1学期": ["标准化概论", "管理学", "高等数学B", "大学语文"], "第2学期": ["质量管理学", "统计学", "计量学基础"], "第3学期": ["标准化原理与方法", "产品标准化设计", "标准制定与编写"], "第4学期": ["质量管理体系", "认证与认可", "质量统计分析"], "第5学期": ["行业标准化", "标准情报学"], "第6学期": ["标准化法规", "合格评定"], "第7学期": ["专业实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "标准化工程(第二学士学位)", "college": "质量与标准化学院", "total_credits": 60, "degree": "管理学学士", "simplified_goal": "主要就业方向：标准化管理、质量监督", "core_courses": ["标准化概论", "质量管理学", "标准化原理与方法", "产品标准化设计", "标准制定与编写", "质量管理体系", "认证与认可"], "credit_table": {"通识教育必修": 10, "通识教育选修": 10, "学科基础必修": 10, "学科基础选修": 10, "专业教育必修": 5, "专业教育选修": 10, "集中实践": 5, "第二课堂": 0, "总计": 60}, "schedule": {"第1学期": ["标准化概论", "质量管理学", "标准化原理与方法"], "第2学期": ["产品标准化设计", "标准制定与编写", "质量管理体系"], "第3学期": ["认证与认可", "标准情报学"], "第4学期": ["毕业论文"]}}, {"name": "工业工程", "college": "质量与标准化学院", "total_credits": 166, "degree": "工学学士", "simplified_goal": "主要就业方向：精益生产、供应链管理", "core_courses": ["管理学", "运筹学", "基础工业工程", "人因工程", "生产计划与控制", "质量管理学", "物流工程", "设施规划与设计"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 18, "学科基础选修": 28, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 27, "第二课堂": 3, "总计": 166}, "schedule": {"第1学期": ["管理学", "高等数学A1", "工程制图", "工程力学"], "第2学期": ["运筹学", "基础工业工程", "工程经济学"], "第3学期": ["人因工程", "生产计划与控制", "物流工程"], "第4学期": ["质量管理学", "设施规划与设计", "工作研究"], "第5学期": ["精益生产", "供应链管理"], "第6学期": ["项目管理", "质量工程"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}, {"name": "质量管理工程(卓越)", "college": "质量与标准化学院", "total_credits": 168, "degree": "工学学士", "simplified_goal": "主要就业方向：质量管理、质量检测", "core_courses": ["质量管理学", "计量学基础", "质量统计学", "质量管理体系", "质量认证与认可", "供应商质量管理", "六西格玛管理", "质量经济学"], "credit_table": {"通识教育必修": 38, "通识教育选修": 32, "学科基础必修": 20, "学科基础选修": 30, "专业教育必修": 6, "专业教育选修": 14, "集中实践": 25, "第二课堂": 3, "总计": 168}, "schedule": {"第1学期": ["质量管理学", "计量学基础", "高等数学A1", "管理学"], "第2学期": ["质量统计学", "工程力学", "标准化概论"], "第3学期": ["质量管理体系", "质量认证与认可", "质量检验"], "第4学期": ["供应商质量管理", "六西格玛管理", "质量经济学"], "第5学期": ["卓越质量实践", "质量工具应用", "质量信息系统"], "第6学期": ["质量管理项目实践", "质量战略"], "第7学期": ["生产实习", "毕业设计"], "第8学期": ["毕业设计"]}}];
+        
+        let currentCollege = 'all';
+        let currentSearch = '';
+        
+        // 渲染专业卡片
+        function renderMajors() {
+            const container = document.getElementById('majorContainer');
+            const filtered = majorsData.filter(m => {
+                const matchCollege = currentCollege === 'all' || m.college === currentCollege;
+                const matchSearch = currentSearch === '' || 
+                    m.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    m.college.includes(currentSearch);
+                return matchCollege && matchSearch;
+            });
+            
+            container.innerHTML = filtered.map(major => `
+                <!-- ⚠️ 09-17：id 用**专业名**派生（curriculum-<专业名>），不用序号 ——
+                     本页是 filter+map 渲染，筛一次序号就全变。
+                     搜索的 parseCurriculum 生成同样的锚点，点结果直接落到这一条。 -->
+                <div class="major-card" id="curriculum-${major.name}" onclick="openModal('${major.name}')">
+                    <div class="card-header">
+                        <div>
+                            <div class="major-name">${major.name}</div>
+                            <span class="college-tag">${major.college}</span>
+                        </div>
+                    </div>
+                    <div class="credit-info">
+                        <div class="credit-item">
+                            <div class="credit-value">${major.total_credits}</div>
+                            <div class="credit-label">总学分</div>
+                        </div>
+                        <div class="credit-item">
+                            <div class="credit-value">${major.degree.replace('学士', '')}</div>
+                            <div class="credit-label">学位类型</div>
+                        </div>
+                    </div>
+                    <div class="core-courses">
+                        <h4>📚 核心课程</h4>
+                        <div class="course-tags">
+                            ${major.core_courses.slice(0, 4).map(c => `<span class="course-tag">${c}</span>`).join('')}
+                            ${major.core_courses.length > 4 ? `<span class="course-tag">+${major.core_courses.length - 4}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="simplified-goal">💡 ${major.simplified_goal}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('stats').textContent = `共 ${filtered.length} 个专业`;
+        }
+        
+        // 打开弹窗
+        function openModal(majorName) {
+            const major = majorsData.find(m => m.name === majorName);
+            if (!major) return;
+            
+            const credits = major.credit_table;
+            const total = credits.总计 || major.total_credits;
+            
+            document.getElementById('modalContent').innerHTML = `
+                <div class="modal-header">
+                    <h2>${major.name}</h2>
+                    <div class="college-info">${major.college} · ${major.degree}</div>
+                </div>
+                
+                <div class="credit-breakdown">
+                    <div class="credit-block">
+                        <div class="label">通识教育必修</div>
+                        <div class="value">${credits.通识教育必修 || 0}</div>
+                        <div class="bar"><div class="bar-fill" style="width:${((credits.通识教育必修 || 0) / total * 100)}%"></div></div>
+                    </div>
+                    <div class="credit-block">
+                        <div class="label">通识教育选修</div>
+                        <div class="value">${credits.通识教育选修 || 0}</div>
+                        <div class="bar"><div class="bar-fill" style="width:${((credits.通识教育选修 || 0) / total * 100)}%"></div></div>
+                    </div>
+                    <div class="credit-block">
+                        <div class="label">学科基础</div>
+                        <div class="value">${(credits.学科基础必修 || 0) + (credits.学科基础选修 || 0)}</div>
+                        <div class="bar"><div class="bar-fill" style="width:${((credits.学科基础必修 || 0) + (credits.学科基础选修 || 0)) / total * 100}%"></div></div>
+                    </div>
+                    <div class="credit-block">
+                        <div class="label">专业教育</div>
+                        <div class="value">${(credits.专业教育必修 || 0) + (credits.专业教育选修 || 0)}</div>
+                        <div class="bar"><div class="bar-fill" style="width:${((credits.专业教育必修 || 0) + (credits.专业教育选修 || 0)) / total * 100}%"></div></div>
+                    </div>
+                    <div class="credit-block">
+                        <div class="label">集中实践</div>
+                        <div class="value">${credits.集中实践 || 0}</div>
+                        <div class="bar"><div class="bar-fill" style="width:${((credits.集中实践 || 0) / total * 100)}%"></div></div>
+                    </div>
+                    <div class="credit-block">
+                        <div class="label">第二课堂</div>
+                        <div class="value">${credits.第二课堂 || 0}</div>
+                        <div class="bar"><div class="bar-fill" style="width:${((credits.第二课堂 || 0) / total * 100)}%"></div></div>
+                    </div>
+                </div>
+                
+                <div class="schedule-section">
+                    <h3>📅 学期课程安排</h3>
+                    <div class="semester-grid">
+                        ${Object.entries(major.schedule).map(([sem, courses]) => `
+                            <div class="semester-block">
+                                <h4>${sem}</h4>
+                                <ul>
+                                    ${courses.slice(0, 8).map(c => `<li>${c}</li>`).join('')}
+                                    ${courses.length > 8 ? `<li>...等${courses.length}门课</li>` : ''}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="core-courses-detail">
+                    <h3>📚 全部核心课程</h3>
+                    <div class="core-list">
+                        ${major.core_courses.map(c => `<span class="core-item">${c}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div class="simplified-goal" style="margin-top:var(--gap-2xl);">
+                    <strong>💡 培养方向：</strong>${major.simplified_goal}
+                </div>
+            `;
+            
+            document.getElementById('majorModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // 添加生存问答
+            const survivalQASection = generateSurvivalQA(major);
+            const modalContent = document.getElementById('modalContent');
+            const simplifiedGoal = modalContent.querySelector('.simplified-goal');
+            if (simplifiedGoal) {
+                const div = document.createElement('div');
+                div.innerHTML = survivalQASection;
+                simplifiedGoal.after(div);
+            }
+        }
+        
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('majorModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 学院筛选
+        document.querySelectorAll('.college-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.college-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCollege = btn.dataset.college;
+                renderMajors();
+            });
+        });
+        
+        // 搜索功能
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            renderMajors();
+        });
+        
+        // ESC关闭弹窗
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+        
+        // 点击背景关闭弹窗
+        document.getElementById('majorModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('majorModal')) {
+                closeModal();
+            }
+        });
+        
+
+        // 生成专业生存问答HTML
+        function generateSurvivalQA(major) {
+            const data = majorFreshmanData[major.name] || {
+                sem1_courses:4, sem1_credits: 16, sem2_courses: 3, sem2_credits: 17,
+                exp_courses: ['实验课'], total_exp_hours:250
+            };
+            
+            const rating = getWorkloadRating(data.sem1_credits, data.sem2_credits);
+            const expType = getExpType(data.exp_courses);
+            const hardCourses = getHardCourses(major.name, major.college);
+            const branching = getBranchingInfo(major.name, major.college);
+            const fuxiuInfo = getFuxiuInfo(major.total_credits);
+            
+            return `
+                <div class="survival-qa">
+                    <h3>🎯 专业生存问答</h3>
+                    
+                    <div class="qa-item">
+                        <div class="qa-q">Q1: 大一课程多不多？会不会很累？</div>
+                        <div class="qa-a">A: 大一上学期约${data.sem1_courses}门课、${data.sem1_credits}学分，下学期约${data.sem2_courses}门课、${data.sem2_credits}学分。<b style="color:${rating.color}">评级：${rating.text}</b> 工科专业大一以高等数学、大学物理等基础课为主，需要认真对待。</div>
+                    </div>
+                    
+                    <div class="qa-item">
+                        <div class="qa-q">Q2: 这个专业是不是要经常做实验、跑实验室？</div>
+                        <div class="qa-a">A: <b style="color:var(--purple)">${expType.text}</b>。核心实验课包括：${data.exp_courses.slice(0, 4).join('、')}等。实验课占比约${expType.ratio}%，需要动手操作能力。</div>
+                    </div>
+                    
+                    <div class="qa-item warning">
+                        <div class="qa-q">⚠️ Q3: 哪些课容易挂科？</div>
+                        <div class="qa-a">A: <span class="warning-text">⚠️ 基于全国高校通行经验，本校情况可能有所不同</span><br>
+                        <b>本专业易挂科目：</b>${hardCourses.slice(0, 5).join('、')}。<br>
+                        建议：这些课程逻辑性强，前面没学好后面会很难跟上，务必认真对待！</div>
+                    </div>
+                    
+                    <div class="qa-item info">
+                        <div class="qa-q">📌 Q4: 专业分流/分方向什么时候？有什么要求？</div>
+                        <div class="qa-a">A: ${branching}<br>
+                        <span class="info-text">📎 转专业提示：大一大二每学期有转专业机会（期中考核），需绩点排名靠前、无挂科记录。</span></div>
+                    </div>
+                    
+                    <div class="qa-item info">
+                        <div class="qa-q">📚 Q5: 想跨专业选课、辅修，本专业学分够不够？</div>
+                        <div class="qa-a">A: <b>辅修空间：${fuxiuInfo.space}</b><br>
+                        ${fuxiuInfo.comment}<br>
+                        <span class="info-text">📎 辅修政策（来源：中量大〔2019〕160号）：申请需修完2学期、绩点≥2.0；辅修≥20学分、双专业40-45学分、双学位50-60学分；收费120元/学分；上课时间在周末/暑假。一旦选定不得自行退选。</span></div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 获取课业负担等级
+        function getWorkloadRating(sem1Credits, sem2Credits) {
+            const avg = (sem1Credits + sem2Credits) / 2;
+            if (avg <= 13) return { text: '轻松', color: 'var(--green)' };
+            if (avg <= 17) return { text: '正常', color: 'var(--yellow)' };
+            if (avg <= 22) return { text: '较累', color: '#f97316' };
+            return { text: '很累', color: 'var(--red)' };
+        }
+        
+        // 获取实验类型
+        function getExpType(expCourses) {
+            const count = expCourses.length;
+            if (count === 0) return { text: '纯理论型', ratio:5 };
+            if (count >= 5) return { text: '重度实验型', ratio:35 };
+            if (count >= 3) return { text: '中度实验型', ratio:22 };
+            return { text: '偏理论型', ratio:10 };
+        }
+        
+        // 获取易挂课程
+        function getHardCourses(name, college) {
+            if (name.includes('机械') || name.includes('自动化') || name.includes('电气')) {
+                return ['高等数学A1/A2', '理论力学', '材料力学A', '电路与模拟电子技术', '机械原理'];
+            } else if (name.includes('电子') || name.includes('通信') || name.includes('微电子') || name.includes('光电')) {
+                return ['高等数学A1/A2', '模拟电子技术', '数字电子技术', '信号与系统', '电磁场与电磁波'];
+            } else if (name.includes('计算机') || name.includes('人工智能') || name.includes('数据科学')) {
+                return ['数据结构', '算法设计与分析', '计算机组成原理', '离散数学', '操作系统'];
+            } else if (name.includes('材料') || name.includes('化学') || name.includes('应用化学')) {
+                return ['有机化学', '物理化学', '分析化学', '化工原理', '大学化学'];
+            } else if (name.includes('数学')) {
+                return ['数学分析', '高等代数', '实变函数', '复变函数', '泛函分析'];
+            } else if (name.includes('物理') || name.includes('声学')) {
+                return ['数学分析', '高等代数', '大学物理A', '理论力学', '量子力学'];
+            } else if (name.includes('生物') || name.includes('食品') || name.includes('药学')) {
+                return ['有机化学', '生物化学', '微生物学', '分子生物学', '细胞生物学'];
+            } else if (name.includes('法学') || name.includes('知识产权')) {
+                return ['民法', '刑法', '行政法', '民事诉讼法', '刑事诉讼法'];
+            } else if (name.includes('工商') || name.includes('财务') || name.includes('金融')) {
+                return ['高等数学B', '线性代数', '统计学', '运筹学', '西方经济学'];
+            } else if (name.includes('英语')) {
+                return ['基础英语', '高级英语', '英语听力', '英语写作', '翻译理论与实践'];
+            } else if (name.includes('汉语言')) {
+                return ['现代汉语', '古代汉语', '中国文学史', '外国文学史'];
+            } else if (name.includes('设计')) {
+                return ['三大构成', '设计素描', '设计色彩', '人机工程学'];
+            } else if (name.includes('标准化') || name.includes('质量管理') || name.includes('工业工程')) {
+                return ['高等数学A/B', '统计学', '运筹学', '质量管理学', '标准化概论'];
+            }
+            return ['高等数学', '大学英语', '专业基础课'];
+        }
+        
+        // 获取分流信息
+        function getBranchingInfo(name, college) {
+            if (name.includes('卓越')) {
+                return '本专业为卓越班，入学即确定方向，无需分流。第3年起进入企业实践阶段。';
+            } else if (name.includes('法学') || name.includes('知识产权')) {
+                return '本专业入学即确定，暂无专业分流。大三可选修方向选修课。';
+            } else if (name.includes('汉语言')) {
+                return '大三可分流为文学方向或文秘方向，具体看当年学院通知。';
+            } else if (name.includes('电子科学与技术') && !name.includes('微电子')) {
+                return '大一下学期综合成绩+志愿分流：方向一（宽口径电科）、方向二（微电子科学与工程）、方向三（卓越班）';
+            } else if (name.includes('功能材料') || name.includes('材料科学与工程')) {
+                return '大一大二后按综合成绩分流至材料科学与工程或功能材料专业方向。';
+            } else if (name.includes('数学与应用数学')) {
+                return '本专业入学即确定，暂无专业分流。可辅修计算机、金融等专业。';
+            }
+            return '本专业入学即确定，暂无专业分流。';
+        }
+        
+        // 获取辅修信息
+        function getFuxiuInfo(totalCredits) {
+            if (totalCredits >= 170) {
+                return {
+                    space: '较紧',
+                    comment: '本专业总学分要求较高（≥170学分），课程较满，辅修会非常累。如确实需要，建议选择辅修专业（20学分）即可，双专业/双学位难度较大。'
+                };
+            } else if (totalCredits >= 160) {
+                return {
+                    space: '一般',
+                    comment: '本专业总学分要求适中（160-170学分），有一定辅修空间。如想辅修，建议从大三开始，优先考虑与本专业互补的方向。'
+                };
+            }
+            return {
+                space: '较好',
+                comment: '本专业总学分要求较低（<160学分），辅修空间较好。可以考虑辅修双学位或双专业，增加就业竞争力。'
+            };
+        }
+        
+        // 大一数据
+        const majorFreshmanData = {"机械电子工程": {"sem1_courses": 6, "sem1_credits": 18, "sem2_courses": 7, "sem2_credits": 20, "exp_courses": ["电路与模拟电子技术", "数字电子技术", "检测技术B", "工程训练C", "电子实习B", "物理实验B"], "total_exp_hours": 320}, "机械设计制造及其自动化": {"sem1_courses": 5, "sem1_credits": 18, "sem2_courses": 4, "sem2_credits": 19, "exp_courses": ["工程图学A2(上机)", "工程训练A", "电子实习B", "物理实验B"], "total_exp_hours": 280}, "机械设计制造及其自动化(卓越)": {"sem1_courses": 4, "sem1_credits": 17, "sem2_courses": 3, "sem2_credits": 16, "exp_courses": ["工程图学A2", "工程训练A", "电子实习B"], "total_exp_hours": 260}, "自动化": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路与模拟电子技术", "数字电子技术", "工程训练D", "电子实习A"], "total_exp_hours": 300}, "自动化(卓越)": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路与模拟电子技术", "数字电子技术", "工程训练D", "电子实习A"], "total_exp_hours": 290}, "电气工程及其自动化": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "电子实习"], "total_exp_hours": 310}, "测控技术与仪器": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路与模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 280}, "测控技术与仪器(卓越)": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路与模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 275}, "智能感知工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路基础", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 290}, "电子信息工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 295}, "通信工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 295}, "计算机科学与技术": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 3, "sem2_credits": 16, "exp_courses": ["C语言程序设计", "数据结构实验", "数字电子技术"], "total_exp_hours": 250}, "人工智能": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 3, "sem2_credits": 16, "exp_courses": ["C语言程序设计", "Python程序设计", "数据结构实验"], "total_exp_hours": 260}, "电子科学与技术": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 300}, "电子科学与技术(卓越)": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 295}, "微电子科学与工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 305}, "光电信息科学与工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["电路", "模拟电子技术", "数字电子技术", "物理实验"], "total_exp_hours": 290}, "功能材料": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["化学实验", "物理实验", "材料实验"], "total_exp_hours": 310}, "材料科学与工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 18, "exp_courses": ["化学实验", "物理实验", "材料实验"], "total_exp_hours": 320}, "应用化学": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 18, "exp_courses": ["化学实验", "有机化学实验", "物理实验"], "total_exp_hours": 340}, "安全工程": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 3, "sem2_credits": 16, "exp_courses": ["化学实验", "物理实验", "安全工程实验"], "total_exp_hours": 280}, "环境工程": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["化学实验", "环境监测实验", "生物实验"], "total_exp_hours": 300}, "能源与动力工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 3, "sem2_credits": 17, "exp_courses": ["物理实验", "工程热力学实验", "流体力学实验"], "total_exp_hours": 290}, "工商管理": {"sem1_courses": 3, "sem1_credits": 12, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["管理学实验", "会计实验"], "total_exp_hours": 120}, "信息管理与信息系统": {"sem1_courses": 3, "sem1_credits": 12, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["程序设计实验", "数据库实验"], "total_exp_hours": 140}, "财务管理": {"sem1_courses": 3, "sem1_credits": 12, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["会计实验", "财务软件实验"], "total_exp_hours": 130}, "国际经济与贸易": {"sem1_courses": 3, "sem1_credits": 12, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["国际贸易实验", "报关实验"], "total_exp_hours": 110}, "金融工程": {"sem1_courses": 3, "sem1_credits": 13, "sem2_courses": 3, "sem2_credits": 13, "exp_courses": ["金融实验", "证券投资实验"], "total_exp_hours": 130}, "金融工程(合作办学)": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 4, "sem2_credits": 15, "exp_courses": ["金融实验", "英语口语实验"], "total_exp_hours": 150}, "数学与应用数学": {"sem1_courses": 3, "sem1_credits": 12, "sem2_courses": 3, "sem2_credits": 13, "exp_courses": ["数学实验", "程序设计实验"], "total_exp_hours": 100}, "应用物理学": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["物理实验A", "大学物理实验"], "total_exp_hours": 320}, "声学": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["物理实验", "声学实验"], "total_exp_hours": 300}, "数据科学与大数据技术": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 3, "sem2_credits": 16, "exp_courses": ["Python程序设计实验", "数据结构实验"], "total_exp_hours": 220}, "生物工程": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["化学实验", "生物化学实验", "微生物学实验"], "total_exp_hours": 350}, "食品质量与安全": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["化学实验", "食品化学实验", "食品分析实验"], "total_exp_hours": 340}, "药学": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["化学实验", "有机化学实验", "生物化学实验"], "total_exp_hours": 360}, "卫生检验与检疫": {"sem1_courses": 4, "sem1_credits": 16, "sem2_courses": 4, "sem2_credits": 17, "exp_courses": ["化学实验", "仪器分析实验", "微生物检验实验"], "total_exp_hours": 345}, "法学": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["法律诊所", "模拟法庭"], "total_exp_hours": 80}, "法学(专升本)": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["法律诊所", "模拟法庭"], "total_exp_hours": 80}, "知识产权": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["知识产权代理实验", "模拟法庭"], "total_exp_hours": 85}, "知识产权(专升本)": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["知识产权代理实验"], "total_exp_hours": 70}, "知识产权(第二学士学位)": {"sem1_courses": 2, "sem1_credits": 8, "sem2_courses": 3, "sem2_credits": 10, "exp_courses": ["知识产权代理实验"], "total_exp_hours": 60}, "行政管理": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["社会调查实践", "电子政务实验"], "total_exp_hours": 90}, "汉语言文学": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["写作实践", "教学实习"], "total_exp_hours": 70}, "汉语言文学(专升本)": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["写作实践"], "total_exp_hours": 60}, "汉语言文学(第二学士学位)": {"sem1_courses": 2, "sem1_credits": 8, "sem2_courses": 3, "sem2_credits": 10, "exp_courses": ["写作实践"], "total_exp_hours": 50}, "英语": {"sem1_courses": 4, "sem1_credits": 12, "sem2_courses": 4, "sem2_credits": 13, "exp_courses": ["英语口语实验", "翻译实践"], "total_exp_hours": 150}, "英语(专升本)": {"sem1_courses": 3, "sem1_credits": 10, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["英语口语实验"], "total_exp_hours": 100}, "汉语国际教育": {"sem1_courses": 4, "sem1_credits": 12, "sem2_courses": 4, "sem2_credits": 13, "exp_courses": ["英语听说实验", "对外汉语教学实践"], "total_exp_hours": 140}, "工业设计": {"sem1_courses": 4, "sem1_credits": 14, "sem2_courses": 3, "sem2_credits": 13, "exp_courses": ["设计素描实验", "设计色彩实验", "三大构成实验"], "total_exp_hours": 200}, "环境设计": {"sem1_courses": 4, "sem1_credits": 14, "sem2_courses": 3, "sem2_credits": 13, "exp_courses": ["设计素描实验", "三大构成实验", "建筑制图实验"], "total_exp_hours": 190}, "视觉传达设计": {"sem1_courses": 4, "sem1_credits": 14, "sem2_courses": 3, "sem2_credits": 13, "exp_courses": ["设计素描实验", "三大构成实验", "字体设计实验"], "total_exp_hours": 195}, "标准化工程": {"sem1_courses": 3, "sem1_credits": 12, "sem2_courses": 3, "sem2_credits": 12, "exp_courses": ["标准化实验", "质量管理体系实验"], "total_exp_hours": 110}, "标准化工程(第二学士学位)": {"sem1_courses": 2, "sem1_credits": 8, "sem2_courses": 3, "sem2_credits": 10, "exp_courses": ["标准化实验"], "total_exp_hours": 60}, "工业工程": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 3, "sem2_credits": 14, "exp_courses": ["工程制图实验", "工业工程实验"], "total_exp_hours": 180}, "质量管理工程(卓越)": {"sem1_courses": 4, "sem1_credits": 15, "sem2_courses": 3, "sem2_credits": 14, "exp_courses": ["质量管理实验", "质量检测实验"], "total_exp_hours": 190}};
+
+        // 初始化
+        renderMajors();
+    </script>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('selectstart',function(e){e.preventDefault()});
+document.addEventListener('copy',function(e){e.preventDefault()});
+</script>
+
+<div class="cta-card">
+  <p class="cta-hook">57 个专业培养方案 · 输入专业随时查四年课程安排</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「培养方案」</span>
+  </div>
+  <p class="cta-ask">有页面没写到的具体问题？<b>进群和大家一起讨论</b> —— 群里是 2026 级新生互助交流，学长和同学都会参与回答；不方便在群里问的再私信我</p>
+  <p class="cta-note">本页为培养方案整理版，非官方；以学校最新发布为准</p>
+  <a class="cta-home" href="index.html">← 返回总览 · 6 份指南</a>
+</div>
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="archive.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+<script>
+/* ============================================================
+   09-17：同 major.html —— 培养方案卡也是 JS 渲染的，浏览器自带的跳锚点可能
+   发生在渲染之前，人会停在页顶。这里渲染完再自己滚一次。
+   ============================================================ */
+(function () {
+  function go() {
+    var id = '';
+    try { id = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { id = (location.hash || '').slice(1); }
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.closest ? el.closest('details') : null;
+    if (d) d.open = true;
+    setTimeout(function () {
+      try { el.scrollIntoView({ block: 'center', behavior: 'auto' }); } catch (e) {}
+    }, 80);
+  }
+  window.addEventListener('hashchange', go);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(go, 200); });
+  else setTimeout(go, 200);
+})();
+</script>
+</body>
+</html>

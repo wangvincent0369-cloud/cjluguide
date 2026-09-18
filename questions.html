@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新生问题汇总 · 中国计量大学2026</title>
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    zoom:75%;
+    font-family:var(--font);
+    background:var(--bg); color:var(--text); line-height:var(--lh);
+  }
+  .hero { text-align:center; padding:var(--gap-4xl) var(--gap-2xl) var(--gap-3xl); }
+  .hero h1 { font-size:var(--fs-h1); font-weight:800; letter-spacing:2px; margin-bottom:var(--gap-sm); background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+  .hero .sub { font-size:var(--fs-md-em); color:var(--sub); }
+  .alert { max-width:var(--w-wide); margin:10px auto 0; padding:var(--gap-md) var(--gap-xl); background:var(--yellow-soft); border:1px solid var(--yellow-line); border-radius:var(--r-sm); font-size:var(--fs-2xs-em); color:var(--yellow); text-align:center; }
+  .wrap { max-width:var(--w-wide); margin:0 auto; padding:var(--gap) var(--gap-2xl) var(--gap-5xl); }
+  .group-title { font-size:var(--fs-xl); font-weight:800; color:var(--text); margin:var(--gap-4xl) 0 var(--gap-lg); display:flex; align-items:center; gap:var(--gap-md); flex-wrap:wrap; }
+  .group-title span { font-size:var(--fs-xs); color:var(--sub); font-weight:400; }
+  .qa-item { background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); padding:var(--gap-lg) var(--gap-xl); margin-bottom:var(--gap-md); }
+  .qa-item .q { font-size:var(--fs-lg); font-weight:700; color:var(--text); }
+  .qa-item .a { font-size:var(--fs-sm); color:var(--text); margin-top:var(--gap-sm); line-height:var(--lh-loose); }
+  .qa-item .a b { color:var(--accent); }
+  .qa-item .a .hl-r { color:var(--red); font-weight:600; }
+  /* A床对照表：三列（项目 / A床 / 其他床），手机上也能一眼看清 */
+  .cmp { margin:var(--gap) 0 var(--gap-xs); border:1px solid var(--line2); border-radius:var(--r-sm); overflow:hidden; }
+  .cmp div { display:flex; font-size:var(--fs-sm); }
+  .cmp div + div { border-top:1px solid var(--line); }
+  .cmp div span { padding:var(--gap-sm) var(--gap-md); }
+  .cmp div span:nth-child(1) { flex:0 0 66px; background:var(--brand-soft); color:var(--accent); font-weight:700; }
+  .cmp div span:nth-child(2) { flex:1 1 0; border-left:1px solid var(--line); color:var(--text); }
+  .cmp div span:nth-child(3) { flex:1 1 0; border-left:1px solid var(--line); color:var(--sub2); }
+  .cmp .hd { background:var(--card); font-size:var(--fs-xs); }
+  .cmp .hd span { color:var(--sub); font-weight:700; }
+  .qa-item .a .tip { display:block; margin-top:var(--gap-sm); font-size:var(--fs-xs); color:var(--yellow); }
+  /* 商品链接按钮（床帘推荐） */
+  .qa-item .a .buy { display:inline-block; margin:var(--gap-sm) 0 var(--gap-2xs); background:var(--brand-soft); border:1px solid var(--brand-light); color:var(--accent); border-radius:var(--r-sm); padding:var(--gap-sm) var(--gap-lg); font-size:var(--fs-sm); font-weight:700; text-decoration:none; }
+  .qa-item .a .say { display:block; margin-top:var(--gap-sm); padding:var(--gap) var(--gap-md); background:var(--card); border-left:3px solid var(--brand-light); border-radius:0 var(--r-sm) var(--r-sm) 0; font-size:var(--fs-xs); color:var(--sub2); }
+  details.qa-item summary { cursor:pointer; list-style:none; -webkit-tap-highlight-color:transparent; }
+  details.qa-item summary::-webkit-details-marker { display:none; }
+  details.qa-item summary::after { content: ' ▾'; font-size:var(--fs-xs-em); color:var(--accent); }
+  details.qa-item[open] summary::after { content: ' ▴'; }
+  .link-row { display:flex; flex-wrap:wrap; gap:var(--gap); margin:var(--gap-xl) 0 var(--gap-xs); }
+  .link-row a { background:var(--brand-soft); border:1px solid var(--brand-line); color:var(--accent); border-radius:var(--r-lg); padding:var(--gap-sm) var(--gap-lg); font-size:var(--fs-xs); text-decoration:none; }
+  .warn-card { background:var(--yellow-soft); border:1px solid var(--yellow-line); border-radius:var(--r-md); padding:var(--gap-xl) var(--gap-xl); margin-top:var(--gap-sm); }
+  .warn-card .t { color:var(--yellow); font-weight:700; font-size:var(--fs-lg); margin-bottom:var(--gap); }
+  .warn-card ul { padding-left:var(--gap-xl); }
+  .warn-card li { font-size:var(--fs-sm); color:var(--text); margin-bottom:var(--gap-xs); line-height:var(--lh-loose); }
+  /* ===== 结尾转化卡（无时效承诺的信任版） ===== */
+  .cta-card{max-width:var(--w-narrow);margin:26px auto 34px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 34px rgba(15,23,42,.08)}
+  .cta-hook{margin:0 0 var(--gap);color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+  .cta-sub{color:var(--sub2);font-size:var(--fs-xs);line-height:var(--lh);max-width:420px;margin:0 auto 14px}
+  .cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+  .cta-wx-id{color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+  .cta-wx-tip{color:var(--sub2);font-size:var(--fs-xs)}
+  .cta-note{margin:var(--gap-md) 0 0;color:var(--sub);font-size:var(--fs-2xs);line-height:var(--lh)}
+  .cta-home{display:inline-block;margin-top:var(--gap-lg);color:var(--sub2);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+  .cta-home:hover{color:var(--text)}
+  @media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+  .footer { text-align:center; padding:var(--gap-3xl) var(--gap-2xl) var(--gap-4xl); color:var(--sub); font-size:var(--fs-xs); border-top:1px solid var(--line); }
+  .footer b { color:var(--accent); }
+  /* ===== 问 AI 提示词区 ===== */
+  .ai-box{margin:var(--gap-3xl) 0 var(--gap-sm)}
+  .ai-desc{font-size:var(--fs-xs);color:var(--sub2);line-height:var(--lh-loose);margin:0 0 var(--gap-lg)}
+  .ai-desc b{color:var(--accent)}
+  .ai-item{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--gap-lg) var(--gap-xl);margin-bottom:var(--gap)}
+  .ai-item>summary{cursor:pointer;list-style:none;font-size:var(--fs-md);font-weight:700;color:var(--text);-webkit-tap-highlight-color:transparent}
+  .ai-item>summary::-webkit-details-marker{display:none}
+  .ai-item>summary::after{content:' ▾';font-size:var(--fs-xs-em);color:var(--accent)}
+  .ai-item[open]>summary::after{content:' ▴'}
+  .ai-prompt{white-space:pre-wrap;word-break:break-word;font-size:var(--fs-xs);line-height:var(--lh-loose);color:var(--text);background:rgba(0,0,0,.28);border-radius:var(--r-sm);padding:var(--gap-lg) var(--gap-lg);max-height:240px;overflow:auto;margin:var(--gap-md) 0 0}
+  .ai-copy{display:inline-block;margin-top:var(--gap-md);background:var(--brand-soft);border:1px solid var(--brand-line);color:var(--accent);border-radius:var(--r-lg);padding:var(--gap-sm) var(--gap-xl);font-size:var(--fs-xs);cursor:pointer;font-family:inherit}
+  .ai-copy:active{background:var(--brand-soft)}
+  .ai-tip{font-size:var(--fs-xs);color:var(--sub);line-height:var(--lh);margin:var(--gap-lg) 0 0}
+</style>
+</head>
+<body>
+<div style="text-align:center;padding:var(--gap) var(--gap-lg);background:var(--brand-soft);border-bottom:1px solid var(--brand-line);font-size:var(--fs-lg);color:var(--accent)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+
+<div class="hero">
+  <h1>新生问题汇总</h1>
+  <p class="sub">大家最关心的问题，一次整理</p>
+  <div class="alert">整理时间 2026-09-08 · 均为学长整理的回答，具体以<strong>录取通知书</strong>和<strong>学校通知</strong>为准</div>
+</div>
+
+<div class="wrap">
+
+  <div class="group-title">📌 报到前最常问 <span>这些早点搞清楚，报到当天不慌</span></div>
+
+  <div class="qa-item" id="qa-1">
+    <div class="q">报到时间定了吗？可以提前到吗？</div>
+    <div class="a">9/13 当天 8:00–20:00。别提前到——提前到进不了宿舍楼，只能住校外酒店。建议当天早点到，免得晚上收拾不过来。</div>
+  </div>
+  <div class="qa-item" id="qa-2">
+    <div class="q">报到当天大概是什么流程？</div>
+    <div class="a">宿舍大扫除 → 认识舍友 → 一起拿快递（<span class="hl-r">别自己一个人拿</span>，刚来容易迷路还费劲）→ 装床帘 → 一起去报到（签名、领袋子含新生手册）→ 一起吃饭 → 晚上开班会（可能会自我介绍）。</div>
+  </div>
+  <div class="qa-item" id="qa-3">
+    <div class="q">报到要带哪些材料？</div>
+    <div class="a">录取通知书 / 身份证 / 一寸照 8 张 / 档案（别拆封）。建议复印件也打印几份，手机相册里存一份电子档案备份。</div>
+  </div>
+  <div class="qa-item" id="qa-4">
+    <div class="q">怎么到学校？有接站吗？</div>
+    <div class="a">往年有迎新接站，以学校当年通知为准。导航直接搜「中国计量大学钱塘校区」（杭州市钱塘区学源街 258 号）。我自己当年是地铁+打车到校的，路线不知道怎么走可以私信我。</div>
+  </div>
+  <div class="qa-item" id="qa-5">
+    <div class="q">宿舍几人间？有独卫空调吗？东西区有区别吗？</div>
+    <div class="a">四/五人寝、独卫+空调+热水器（热水全天供应，只能洗澡用，不能喝）。西区五人寝、东区四人寝；西区 10 号楼没有阳台。</div>
+  </div>
+  <div class="qa-item" id="qa-6">
+    <div class="q">A床值得选吗？A床和其他床有什么区别？（选床位前先看这条）</div>
+    <div class="a">我住的就是 F8 的 A床，让我重新选一次我还是选 A床——最明显的感受是<b>空间大、更独立、隐私感更强</b>。下面是同一间宿舍里的实测对比：
+      <div class="cmp">
+        <div class="hd"><span>项目</span><span>A床</span><span>其他床</span></div>
+        <div><span>梯子</span><span>自己独立一个，宽度正常，就在床旁边</span><span>两张床共用一个，而且更窄</span></div>
+        <div><span>衣柜（宽）</span><span>约 90cm，双开门，比较新</span><span>约 60cm，小一些、旧一些</span></div>
+        <div><span>衣柜（深）</span><span>约 60cm</span><span>约 70cm</span></div>
+        <div><span>柜子（高）</span><span>约 175cm</span><span>约 175cm</span></div>
+        <div><span>桌子</span><span>约 120cm 宽</span><span>约 100cm 宽</span></div>
+        <div><span>床 长×宽</span><span>约 200 × 86.5cm</span><span>约 195 × 86cm</span></div>
+        <div><span>床板到顶</span><span>约 105cm</span><span>约 135cm</span></div>
+      </div>
+      另外，A床的梯子就在床边，会顺带挡出一片自己的空间，所以更独立；有些楼栋 A床靠阳台那侧还有一块能自己用的空间（一般舍友也不会说什么）。
+      <span class="tip">⚠️ 以上是我住的 F8 实测，不同楼栋结构可能不一样，我没量过的不下结论。</span>
+    </div>
+  </div>
+  <details class="qa-item" id="xuanke">
+    <summary class="q">选课什么时候选？系统里找不到「研讨类校选课」怎么办？</summary>
+    <div class="a"><b>选课分轮次，过点系统就关；具体时间以教务系统通知为准</b>（下述流程按 2025 级 / 往届口径整理，本站不猜今年的日期）：<br>
+      · <b>研讨类校选课</b>：<b>不是所有专业都要选</b>，机器人、光电、计量类、法学、材料这些专业要选；不确定就问班助或学院教务<br>
+      · <b>体育课</b>：一般分两轮选，没选上的等下一轮，别拖到最后一天才想起来<br>
+      · <b>体育课选项目时一定看清「上课地点」</b>：东区和西区都有场地，<b>选错区上课来回要跑很久</b>，别只看项目名就点<br>
+      <b>有同学登录了说看不到「研讨类校选课」</b>，按这三步查：<br>
+      ① 先切到系统的「校选课 / 研讨类」这一栏 —— 它<b>不在体育课那一栏里</b>；<br>
+      ② 对一下时间：<b>没到开放时间之前是看不到的</b>，到了点刷新一次；<br>
+      ③ 还看不到就换浏览器 / 清一次缓存、用校园网重新登录；都不行就打电话问<b>学院教务老师</b>（校内常用电话那条里有）。<br>
+      <b>必修课学校已经排好，不用抢</b>；要自己选的就是体育课 + 这类选修。
+    </div>
+  </details>
+
+  <details class="qa-item" id="qa-15">
+    <summary class="q">A床正对厕所，会不会臭、吵、热？</summary>
+    <div class="a">逐条说：<br>
+      <b>会不会臭</b>：我住下来没觉得有味道，但我自己嗅觉不太灵，这点因人而异。实际做法就是注意清洁——备一把刷子，配合花洒定期清理就行。<br>
+      <b>会不会吵</b>：跟 A床关系不大，<b>主要看舍友</b>（打不打呼噜、晚上动静大不大）。<br>
+      <b>会不会热</b>：我的 A床是背对空调的，住下来没觉得热（个人体验，不代表所有楼栋）。<br>
+      <b>灯会不会被挡</b>：梯子会挡一部分灯光，晚上常在床上看东西可以买个酷毙灯——不用提前买，入住后觉得需要再买完全来得及。
+    </div>
+  </details>
+  <details class="qa-item" id="qa-16">
+    <summary class="q">宿舍用品哪些真用得上？要不要开学前买齐？</summary>
+    <div class="a">我觉得实用的四样：<b>刷子</b>（A床正对厕所，清理起来方便）、<b>酷毙灯</b>（梯子会挡光）、<b>挂墙收纳袋</b>（放手机、充电线、纸巾这类小东西）、<b>饮水机</b>（跟舍友商量着买，桶装水便宜还能喝热水；舍友不一定主动提，可以自己先提议）。<br>
+      <b>什么时候买</b>：大部分东西入住以后再买就行，<span class="hl-r">不用开学前一次性买齐</span>。尤其是<b>床帘 / 蚊帐 / 床垫</b>和一切跟床铺尺寸有关的——先入住、确认自己实际的床型和空间再买，不容易买错。<br>
+      <b>床帘怎么挑</b>：优先买<b>可伸缩款</b>（宽 0.8–1.0 米、高度能调的那种）。我们宿舍 A床 86.5cm 宽、其他床 86cm 宽，固定尺寸很容易买错，伸缩款基本都能套上。我自己用的就是这款（u 型一体式床帘蚊帐，可伸缩、遮光）：
+      <a class="buy" href="https://e.tb.cn/h.8qD0q2NR9eVl4H0?tk=EDDPT6y9p7f" target="_blank" rel="noopener">我用的这款床帘 · 淘宝点开看</a>
+      <span class="tip">⚠️ 微信里点淘宝链接一般打不开 —— 复制链接到浏览器，或到淘宝 App 里粘贴打开。</span>
+      <span class="say"><b>说清楚</b>：这就是我自己用的，觉得顺手才放上来。<b>我没拿这家店一分钱，也不返利</b>，链接就是普通商品链接；买不买、买哪家都随便你。你要是买到更好用的，回来告诉我，我换上去。</span>
+    </div>
+  </details>
+  <div class="qa-item" id="qa-7">
+    <div class="q">有开学考 / 分班考吗？需要提前备考吗？</div>
+    <div class="a">没有。本校<span class="hl-r">不组织开学考和分班考</span>，入学后按选课安排正常上课就行，不用提前准备什么。</div>
+  </div>
+  <div class="qa-item" id="qa-8">
+    <div class="q">校园卡和手机卡是一回事吗？</div>
+    <div class="a">不是一回事。<b>校园卡（一卡通）只用于食堂吃饭、无实体卡</b>，电子卡在「计量钉」App 领（想做成实物卡可自己 DIY）。<b>手机卡</b>是运营商电话卡：开学当天会有推销，认准本校学长学姐，常见参数约 39元/月、150G 通用流量+视频会员、无违约金、优惠 4 年——明显不符的别办。</div>
+  </div>
+  <div class="qa-item" id="qa-9">
+    <div class="q">计量钉是什么？必须装吗？</div>
+    <div class="a">学校的一站式应用，入学后基本天天用：交宿舍电费 / 本科生请假 / 一卡通充值（校园卡只用于食堂）/ 校园报修 / 人脸采集 / 智慧学工查学号 / 学校校历，都在里面。</div>
+  </div>
+  <div class="qa-item" id="qa-10">
+    <div class="q">线上安全课要什么时候上完？</div>
+    <div class="a">8/26–9/13 开放，账号=学号，<span class="hl-r">超时会自动关闭</span>。还没上的抓紧在报到前上完。</div>
+  </div>
+  <div class="qa-item" id="qa-11">
+    <div class="q">班级群加哪个？</div>
+    <div class="a">钉钉<b>官方群必加</b>，辅导员通知只走钉钉；QQ/微信里也有新生群，能共享信息，但群里收费、转账、不明链接要仔细确认（防骗提醒见页尾）。</div>
+  </div>
+  <div class="qa-item" id="qa-12">
+    <div class="q">军训是什么时候？</div>
+    <div class="a">冬训，1/11–1/24，在期末考试之后——不是 9 月开学军训。</div>
+  </div>
+  <div class="qa-item" id="qa-13">
+    <div class="q">身体不好，军训能免或缓吗？</div>
+    <div class="a">学校没有正式的「免训/缓训」说法，真有情况先问辅导员；「飞虎队」比正常军训轻松，身体问题需要医院证明。分数参考：未参加 60、正常参加 80、担任带队/表演等事务能到 90~100——本校无保研，军训分没想象中那么重要。</div>
+  </div>
+  <div class="qa-item" id="qa-14">
+    <div class="q">一个月生活费多少够？</div>
+    <div class="a">个人经验 2000/月够花。食堂早 4 / 午 15 / 晚 15，日均约 34 元，一个月吃饭 1000 出头，加聚餐零食水果约 1400。新生首月建议先留 3000 交杂费。经济独立比"够花"更重要。</div>
+  </div>
+
+  <div class="group-title">📋 报到周 ~ 9 月底要用 <span>到校后按需查阅，点开看答案</span></div>
+
+  <details class="qa-item" id="qa-17">
+    <summary class="q">宿舍电费 / 洗澡热水 / 喝的水怎么办？</summary>
+    <div class="a">
+      <b>电费</b>：只在钉钉「计量钉」的「电费充值」里交（没有别的渠道），交多少用多少、宿舍几个人分摊（电费偏贵）。<br>
+      <b>洗澡热水</b>：<b>24 小时不间断免费供应</b>，不用办水卡、不用挑时间。<br>
+      <b>喝的水</b>：三种办法都行 —— ① 自己租 / 买一台饮水机放宿舍（桶装水约 10 元/19L，送水上门）；② 去<b>一楼打热水，100° 的</b>（泡面一次两毛）；③ 用宿舍饮水机打。都是微信扫码，不用下 App、不用办卡。<br>
+      <b>空调</b>：租的，约 1760 元用四年、宿舍几个人分摊，开学当天就能办。
+      <span class="tip">⚠️ 以上是我住的这栋（F8）和西区的情况，东区、其它楼栋可能不一样 —— 以你入学后看到的为准。</span>
+    </div>
+  </details>
+  <details class="qa-item" id="qa-18">
+    <summary class="q">一卡通（电子校园卡）在哪领？</summary>
+    <div class="a">计量钉 App 里领和充值。它只用于食堂吃饭、没有实体卡，想做成实物卡可以自己 DIY。</div>
+  </details>
+  <details class="qa-item" id="qa-19">
+    <summary class="q">洗衣机、烘干机在哪？多少钱一次？</summary>
+    <div class="a"><b>位置</b>：在<b>二楼楼梯中间</b>，不是每层楼都有 —— 是<b>整栋宿舍楼共用</b>的。<br>
+      <b>洗衣机</b>：微信小程序「顺水漫生活」扫码预约，三种模式 —— <b>柔顺洗 3 元 / 标准洗 4 元 / 加强洗 5 元</b>；洗衣液 0.9 元、杀菌液 0.9 元，这两样<b>可加可不加</b>。<br>
+      <b>烘干机</b>：<b>1.5 元 / 10 分钟</b>，时长从 10 分钟到 90 分钟，按 10 分钟一档自己选（选多久付多少）。<br>
+      <span class="tip">⚠️ 洗衣机 / 烘干机是我住的这栋（F8）的情况，其它楼栋位置可能不同（喝的水、桶装水见上一条）。</span>
+    </div>
+  </details>
+  <details class="qa-item" id="qa-20">
+    <summary class="q">外卖柜在哪？</summary>
+    <div class="a">西区在 6/8 号楼之间、2/4 号楼之间。<span class="tip">⚠️ 东区的我不清楚，进群问一句更快。</span></div>
+  </details>
+  <details class="qa-item" id="qa-21">
+    <summary class="q">校园网怎么样？会断网断电吗？</summary>
+    <div class="a">连校园网要先办一张<b>手机流量卡</b>（大家都叫它「校园卡」，但跟食堂用的<b>一卡通不是一回事</b>），登录用<b>学号 + 密码</b>。用起来还行，一般不卡，能连的设备不限数量；晚上 23:00 只熄灯，不断电也不断网（以前"过了四六级才开网"的说法已经过时作废）。<br>
+      <span class="tip">⚠️ 两点提醒：学校后台能看到你的上网记录；校园 WiFi 和 VPN 会冲突（开了 VPN 容易连不上或掉线）。</span></div>
+  </details>
+
+  <details class="qa-item" id="qa-22">
+    <summary class="q">宿舍怎么查？床帘买多大？</summary>
+    <div class="a">宿舍在「<b>云莓智能</b>」小程序里查（还能看到室友是谁，在「群组成员 / 宿舍成员」那栏）。床帘建议买<b>可伸缩款</b>（宽 0.8–1.0 米、高度可调）—— 我们实测床宽是 86～86.5cm，不同楼栋会有差别，固定尺寸的 80×190 一般也能用，但<b>先确认自己的床型再买最稳</b>（买法和推荐见上面「宿舍用品」那条）。</div>
+  </details>
+  <details class="qa-item" id="qa-23">
+    <summary class="q">学平险和大学生医保要买吗？</summary>
+    <div class="a"><b>大学生医保约 130 元/年</b>、<b>学平险约 120 元/四年</b>；都是<b>支付宝扫二维码</b>缴费，钉钉上会发通知，开学初基本都报完了。<br>
+      <span class="tip">⚠️ 医保怎么用、什么时候生效：一般学校统一办、本人不用操作，待遇通常从 9 月 1 日起；看病用支付宝 / 浙里办里的<b>医保电子码</b>，在省内定点医院和校医院直接刷卡结算（门诊起付 300 元，三级医院报 40% / 其他 60% / 社区 70%）。这是杭州市口径，<b>具体以学校医务室通知为准</b>。</span></div>
+  </details>
+  <details class="qa-item" id="qa-24">
+    <summary class="q">图书馆要考试吗？</summary>
+    <div class="a">开学初有个<b>「图书馆入馆考」是必须做的</b>（不做可能影响进馆 / 借书）。具体网址、开放时间、怎么考每年可能变 —— <b>到校后看图书馆通知，或者进群问一句</b>，别拖过期。</div>
+  </details>
+  <details class="qa-item" id="qa-25">
+    <summary class="q">校内常用电话有哪些？</summary>
+    <div class="a">先把<b>校园报警 0571-86836110</b>（校内直拨 86836110）存进手机，再把<b>医务室、心理中心</b>的号码补上（宿舍楼下会贴、班会上也会讲）。<br>
+      <span class="tip">医务室和心理中心的号码我没查到（学校官网抓不到），<b>进群问我要</b>一份；心理中心官网 xlzx.cjlu.edu.cn 可以查预约方式。</span></div>
+  </details>
+  <details class="qa-item" id="qa-26">
+    <summary class="q">学校食堂怎么样？</summary>
+    <div class="a">一共两个：<b>F16</b> 里有肯德基，<b>G3</b> 是麦当劳（G3 更大、人也更多）。<b>支付宝和微信都能付</b>。军训期间大家都往 G3 跑，会比较挤。<br>
+      <span class="tip">⚠️ 品牌以你入学后看到的为准。</span></div>
+  </details>
+  <details class="qa-item" id="qa-27">
+    <summary class="q">门禁和熄灯时间？</summary>
+    <div class="a"><b>没有电子门禁</b>，是宿管阿姨关门 —— <b>每天 22:30 关门</b>（不分周末），晚归会被阿姨说。<br>
+      <b>熄灯</b>：工作日 23:00、周末 23:30，<b>但只是关灯，一点电都不会断</b>（插座、空调照常用）。</div>
+  </details>
+  <details class="qa-item" id="qa-28">
+    <summary class="q">宿舍能用烧水壶、吹风机吗？限电多少瓦？</summary>
+    <div class="a">规矩就一条：<b>单个电器 1200W 以下能用，超过的不让用</b> —— 吹风机、烧水壶、卷发棒 / 夹板、电热锅这些发热类的都算。<br>
+      注意限的是<b>单个电器</b>，不是整间宿舍总共只能用 1200W：买那种标着 2500W 的插排（插线板）没问题，那个数字是插排本身能扛的上限，不代表你超标。<br>
+      但也别在一个插排上同时插好几个大功率的，加起来太大还是容易跳闸。<br>
+      <span class="hl-r">查到会扣寝室分，还会连着扣宿舍里每个人的德育分</span>。说实话扣了影响也没多大，但那是<b>室友的分</b>，别让人替你背。</div>
+  </details>
+  <details class="qa-item" id="qa-29">
+    <summary class="q">快递站和学校出行方便吗？</summary>
+    <div class="a"><b>收货地址</b>：西区 = 杭州市钱塘区<b>学源街 258 号</b>，东区 = <b>学源街 168 号</b>（就差门牌号）。<br>
+      东西区各有快递点（东区多多驿站在校外、酸菜鱼店旁），具体驿站位置会变，<b>到校用菜鸟 / 驿站 App 定位最准</b>。<br>
+      <b>出行</b>：大一办电动车通行证比较难；校内共享单车是<b>小黄车 / 小蓝车</b>（不是免费的，按次计费）。</div>
+  </details>
+
+  <details class="qa-item" id="qa-30">
+    <summary class="q">快递地址怎么写？包裹到了去哪取？</summary>
+    <div class="a"><b>收货地址先看清自己住哪个区</b>：<b>西区 = 浙江省杭州市钱塘区学源街 258 号 中国计量大学（310018）</b>；<b>东区 = 学源街 168 号</b>（只差门牌号，写错区要多跑一趟）。<br>
+      收件人写<b>自己的名字 + 手机号</b>，大小件都到校区快递点（东区多多驿站在校外、酸菜鱼店旁），到货按短信去对应驿站取；<b>驿站位置会变，用菜鸟 / 驿站 App 定位最准</b>。<br>
+      <b>大件（床垫、收纳箱这类）直接寄到快递点</b>，宿舍楼下没人代收；急着用的当场买更快。</div>
+  </details>
+  <details class="qa-item" id="qa-31">
+    <summary class="q">有事儿该找谁？（选课 / 奖助学金 / 心理）</summary>
+    <div class="a"><b>选课、重修、退课、教材课程</b>这一类 → 找教务的<b>闫灿伟老师</b>；<b>奖学金、助学金、心理日常管理</b> → 找<b>辅导员</b>；<b>课外科技、就业</b>（带你去企业参观那位）→ 找教就业的老师。<br>
+      <span class="tip">⚠️ 团学活动、党员发展找谁，以及上面这些是不是全校通用，<b>班会都会讲</b>，报到那几天仔细听。</span></div>
+  </details>
+  <details class="qa-item" id="qa-32">
+    <summary class="q">想找学长答疑、拿资料，去哪儿找？</summary>
+    <div class="a">学院官方群（QQ / 易班）会发通知，但<b>想找学长答疑、拿资料的，直接进我这个新生群</b> —— 群里都是我一个个加进来的真新生，有各专业的学长，有问题在群里问就行。<br>
+      <b>网站底部扫码直接进</b>；码扫不了就加我微信，我拉你。</div>
+  </details>
+
+  <details class="qa-item" id="qa-33">
+    <summary class="q">四级什么时候报名、什么时候考？大一能考吗？</summary>
+    <div class="a"><b>⏳ 现在正在报名（到 9 月 28 日 17:00 截止，过期不补报）—— 还没报的尽快去 cet-bm.neea.edu.cn。</b><br>
+      <b>大一就能报四级</b> —— 先把四级过了，六级不用急（<b>六级要四级 425 分以上才能报</b>，全国统一规定）。<br>
+      <b>2026 下半年这批（浙江）</b>：报名 <b>9 月 10 日 10:00 — 9 月 28 日 17:00</b>（<span class="hl-r">截止后不补报</span>）；笔试 <b>12 月 12 日</b>；口试 11 月 21–22 日（选报，可以只报笔试）。<br>
+      <b>在哪报</b>：全国大学英语四六级报名网 <b>cet-bm.neea.edu.cn</b>（先注册通行证账号，用常用邮箱）。<br>
+      <b>上半年那批</b>：约 3 月报名、6 月笔试。<br>
+      <span class="tip">⚠️ 上面是浙江省的窗口，<b>具体哪天开始以学校教务处 / 辅导员通知为准</b>（各校在这段区间里定自己的时间）。</span>
+    </div>
+  </details>
+
+  <div class="link-row">
+    <a href="luggage.html">🧳 行李清单（必带 / 线上买 / 线下买）</a>
+    <a href="timeline.html">📅 完整入学时间线（报到/军训/宿舍详版）</a>
+  </div>
+
+  <details class="qa-item" id="qa-34">
+    <summary class="q">开学后有人推销 42 元的英语口语课 / 培训班，要报吗？</summary>
+    <div class="a">42 元那个课本身性价比还行，想试试可以报。<b>真正花钱的是后面</b>：上完会被带到线下机构体验，然后现场催你报那种几千上万的大课。<br>
+      机构本身实力还可以，不是骗子，就是<b>性价比不高</b>——钱多的可以去，钱不多真没必要。<br>
+      <span class="hl-r">别当场签字</span>：他们常用「今天报名减多少」「名额就剩几个」让你当场定，这叫<b>逼单</b>，就是不给你回去想清楚的机会。合同里有违约条款，中途退出要扣 20%。<br>
+      除非你是真对英语感兴趣、以后想靠英语赚钱，否则这笔钱大概率不值。拿不准的可以私信我，一起看看。
+    </div>
+  </details>
+  <details class="qa-item" id="qa-35">
+    <summary class="q">勤工俭学怎么申请？大概多少钱？</summary>
+    <div class="a">时薪大概 <b>20 元左右</b>，岗位多是去教学楼、办公楼这类地方帮忙。具体有哪些岗位、什么时候报名，开学后看辅导员和学院通知——<span class="hl-r">各学院不完全一样，以自己学院的通知为准</span>。</div>
+  </details>
+  <details class="qa-item" id="qa-36">
+    <summary class="q">社团什么时候招新？「百团大战」在哪看通知？</summary>
+    <div class="a">国庆后。招新通知主要在<b>公众号</b>上发（其他地方基本不发），到时候留意公众号就行，不用提前准备。<br>
+      想先看看有什么社团，可以打开「社团分类汇总」那一页挑几个感兴趣的。
+    </div>
+  </details>
+
+  <div class="warn-card" id="fangpian">
+    <div class="t">🚨 开学季防骗（每一条都值得记）</div>
+    <ul>
+      <li>不明链接：点开一般不中病毒，但会增加受骗风险——别乱点，更别在链接里填账号密码。</li>
+      <li>群里收费 / 转账 / 不明链接：别急着信，先找本校学长学姐或辅导员核实。</li>
+      <li>怎么确认是本校学长学姐：视频电话，或让对方拍实时学生证（图片可能复制造假）。</li>
+      <li>冒充班助 / 辅导员收费是高频骗局：凡是让转账的，一律先核实再付。</li>
+      <li>手机卡：开学当天推销多，认准本校学长学姐、参数对得上再办。</li>
+      <li><b>开学季的英语口语课 / 培训班</b>（摆摊、进宿舍、群里加你的那些）：先问三句 —— 是不是学校官方办的、上一期学生的真实评价、能不能无条件退费。答不上来的，<b>先别交定金</b>。</li>
+      <li><b>凡是「先交钱」的一律停一停</b>：报班、押金、兼职中介费、租房定金、资料费 —— 真机会不差你这一天；拿不准就拿到群里问一句，或者问辅导员。</li>
+    </ul>
+  </div>
+
+
+  <details class="qa-item" id="qa-37">
+    <summary class="q">宿舍好物：哪些买了真不后悔？</summary>
+    <div class="a">按「用了就回不去」的顺序排：<br>
+      ① <b>墙上收纳袋 / 床头挂篮</b>——床上那点地方，放手机、眼镜、纸巾全够了；<br>
+      ② <b>酷毙灯（磁吸床头灯）</b>——室友睡了还能看书，比台灯省地方；<br>
+      ③ <b>床帘 + 眼罩耳塞</b>——睡眠浅的救命组合，床帘宽 0.85m 那款就行；<br>
+      ④ <b>带开关的排插</b>——插座往往在床底下，带开关省得天天拔；<br>
+      ⑤ <b>小风扇</b>——刚开学那几天宿舍最闷，9 月还用得上；<br>
+      ⑥ <b>压缩袋 + 收纳箱</b>——换季衣服抽真空，衣柜小也不怕；<br>
+      ⑦ <b>洗澡篮 + 粘钩 + 晾衣杆</b>——去澡堂一次拿全，宿舍里挂东西不打孔。<br>
+      提醒：所有电器先看<b>限电 1200W</b> 那条，大功率的会被宿管收走。
+    </div>
+  </details>
+
+  <details class="qa-item" id="qa-38">
+    <summary class="q">宿舍避雷：哪些别买、容易踩坑？</summary>
+    <div class="a">① <b>别一开学就把大件买齐</b>：衣柜和桌面的尺寸每个楼不一样，先住两天再买收纳箱、鞋架这种「按尺寸买」的东西；<br>
+      ② <b>三无小电器别贪便宜</b>：排插、充电宝、小电锅，出问题就是安全问题，认牌子；<br>
+      ③ <b>超瓦数电器别带</b>：限电 1200W，吹风机 / 烧水壶 / 小电锅超了会被收走，还可能通报；<br>
+      ④ <b>床帘别买最便宜的</b>：味儿大的等于把甲醛围在床上，宁可买贵一点的牌子货；<br>
+      ⑤ <b>「宿舍神器」套装慎买</b>：微商 9.9 包邮那种，一半用不上，先搜一下再下单；<br>
+      ⑥ <b>报到点/群里推销的床上用品、电话卡</b>：不用当场买、当场办，回宿舍比一比价格和参数再说；<br>
+      ⑦ <b>二手交易只买非贴身</b>：书、收纳、台灯可以，被褥、贴身衣物别买。
+    </div>
+  </details>
+
+</div>
+
+  <section class="exp-zone" id="expired">
+    <details>
+        <summary>
+          <span class="exp-badge">已过期</span>
+          <span>报到那阵子才用得上的两条：家长进校 · 未满 18 岁办手机卡</span>
+          <span class="exp-hint"></span>
+        </summary>
+        <div class="exp-body">
+          <p class="exp-note">这两条只在<b>报到那几天</b>有人问，过了就用不上了，收在这里不占前面的位置。<br>明年（2027 级）报到前会重新放回上面的问答列表。</p>
+<details class="qa-item" id="qa-39">
+    <summary class="q">没满 18 岁能办手机卡吗？</summary>
+    <div class="a">手机流量卡<b>只能线下办</b>（不能在网上办），带好<b>身份证</b>。要不要监护人、本人是否必须到场，各运营商规定不一样 —— <b>办之前先打运营商客服问一句</b>最保险。</div>
+  </details>
+<details class="qa-item" id="qa-40">
+    <summary class="q">家长能进学校吗？</summary>
+    <div class="a">不用什么特别凭证，<b>规定时间内陪你来就行</b>（开学第一天进出的人多，管得不严）。<br>
+      <span class="hl-r">车开不进学校</span>，报到那天学校周边会很堵，建议早一点到。<br>
+      学校有班会，<b>没有家长会</b>。</div>
+  </details>
+        </div>
+    </details>
+  </section>
+  <div class="group-title">🤖 拿不准的事，直接问 AI <span>点开 → 复制 → 粘到豆包 / DeepSeek / ChatGPT 里</span></div>
+  <div class="ai-box">
+    <p class="ai-desc">选电脑、选社团、要不要转专业、四六级怎么准备 —— 这些事光看别人的答案没用，<b>问得对才有用</b>。下面 4 段是写好的提示词，复制过去，AI 会<b>先问你几个关键问题</b>，你答完它再给建议，比直接问一句「我该不该转专业」靠谱得多。</p>
+
+    <details class="ai-item">
+      <summary>① 选电脑</summary>
+      <pre class="ai-prompt">你是大学新生电脑选购顾问。我是中国计量大学 2026 级新生。
+
+【规则】
+1. 先问我下面这些必要问题，一次问完，我回答后你再给建议 —— 不要跳过提问阶段。
+2. 基于我的实际情况判断，不要套模板；信息不够就明说还缺什么，不要假装确定。
+3. 不要为了讨好我而一味认可，我的想法有问题就直接指出。建议要具体可执行，不要堆砌无关信息。
+
+第一步：先不要推荐电脑，只问我 4 个必要问题，一次问完，等我回答后再继续。
+1. 我的专业，以及课程中是否会用到编程、MATLAB、CAD、建模等软件
+2. 我的预算
+3. 我的主要用途（学习、写代码、剪视频、打游戏等）；如果打游戏，请问主要玩什么游戏
+4. 我是否经常需要把电脑带去教室，以及我是否在意重量和续航
+
+第二步：等我回答后，再根据我的实际需求分析。最后给我：
+1. 最适合我的 2-3 款具体机型
+2. 每款为什么适合我，以及主要优缺点
+3. 推荐购买什么配置
+4. 内存、硬盘、屏幕、散热需要注意什么
+5. 保修和售后需要注意什么
+6. 开学季购买时应该重点比较什么
+7. 如果预算有限，哪些配置可以降低，哪些不能妥协
+
+不要为了凑数量强行推荐电脑。如果我的需求更适合某一种电脑类型，直接告诉我。如果某款电脑只是营销宣传好看但实际不适合我，也要直接指出。涉及价格、最新型号、开学季优惠的，提醒我以最新官方或可靠渠道信息为准。</pre>
+      <button class="ai-copy" type="button">复制这段提示词</button>
+    </details>
+
+    <details class="ai-item">
+      <summary>② 选社团</summary>
+      <pre class="ai-prompt">你是大学新生社团选择顾问。我是中国计量大学 2026 级新生。
+
+【规则】
+1. 先问我下面这些必要问题，一次问完，我回答后你再给建议 —— 不要跳过提问阶段。
+2. 基于我的实际情况判断，不要套模板；信息不够就明说还缺什么，不要假装确定。
+3. 不要为了讨好我而一味认可，我的想法有问题就直接指出。建议要具体可执行，不要堆砌无关信息。
+
+第一步：先不要推荐任何社团，只问我 4 个必要问题，一次问完，等我回答后再继续。
+1. 我的专业
+2. 我的性格以及目前的社交需求
+3. 我每周可以投入多少时间
+4. 我加入社团最主要的目标，以及是否愿意承担长期事务或学生干部工作
+
+第二步：等我回答后，再根据我的情况分析。最后告诉我：
+1. 我适合加入几个社团
+2. 分别应该选择什么类型的社团
+3. 怎么判断一个社团到底值不值得加入
+4. 哪些社团或招新方式比较容易踩坑
+5. 报名或面试时应该问负责人什么
+6. 开学后什么时候报名、去哪里获取真实信息
+7. 如果只能选一个，我最应该选择什么类型，以及为什么
+
+不要因为「加综测」「认识学长学姐」「锻炼能力」这类宣传话术就默认一个社团有价值，要帮我区分宣传和实际收益。如果我不适合参加某类社团，也要直接告诉我。</pre>
+      <button class="ai-copy" type="button">复制这段提示词</button>
+    </details>
+
+    <details class="ai-item">
+      <summary>③ 要不要转专业</summary>
+      <pre class="ai-prompt">你是大学转专业决策顾问。我是中国计量大学 2026 级新生（本校大一到大二共有 4 次转专业申请机会，没有保研，读研只能考）。
+
+【规则】
+1. 先问我下面这些必要问题，一次问完，我回答后你再给建议 —— 不要跳过提问阶段。
+2. 基于我的实际情况判断，不要套模板；信息不够就明说还缺什么，不要假装确定。
+3. 不要为了讨好我而一味认可，我的想法有问题就直接指出。建议要具体可执行，不要堆砌无关信息。
+
+第一步：先不要告诉我要不要转，只问我 5 个必要问题，一次问完，等我回答后再继续。
+1. 我现在被什么专业录取
+2. 我考虑转去什么专业
+3. 我为什么想转，以及目前对现在专业的真实感受
+4. 我更看重就业、考研、兴趣、专业难度中的哪些因素
+5. 我的学习基础和目前成绩，以及我对目标专业了解多少
+
+第二步：等我回答后，再结合我的实际情况判断。最后给我：
+1. 我目前是否有必要转专业
+2. 转专业最大的收益和风险
+3. 什么情况下应该转，什么情况下不应该转
+4. 转专业之前必须查清楚的 5 件事情
+5. 大一上学期具体应该做什么
+6. 大一下学期具体应该做什么
+7. 如果最后决定不转，大一这一年应该怎么规划
+
+不要因为「热门专业」「就业好」「工资高」这类单一因素就建议我转，要综合考虑兴趣、能力、目标、专业差异和实际成本。涉及学校具体政策、时间、名额、成绩要求的，提醒我以学校最新官方通知为准。</pre>
+      <button class="ai-copy" type="button">复制这段提示词</button>
+    </details>
+
+    <details class="ai-item">
+      <summary>④ 四六级怎么准备</summary>
+      <pre class="ai-prompt">你是大学英语学习规划顾问。我是中国计量大学 2026 级新生。
+
+【规则】
+1. 先问我下面这些必要问题，一次问完，我回答后你再给建议 —— 不要跳过提问阶段。
+2. 基于我的实际情况判断，不要套模板；信息不够就明说还缺什么，不要假装确定。
+3. 不要为了讨好我而一味认可，我的想法有问题就直接指出。建议要具体可执行，不要堆砌无关信息。
+
+第一步：先不要给我学习计划，也不要推荐资料，只问我 4 个必要问题，一次问完，等我回答后再继续。
+1. 我的高考英语成绩以及目前英语基础
+2. 我有没有做过四级真题或模拟题；如果做过，大概多少分
+3. 我的听力、阅读、写作、翻译、词汇中最薄弱的部分
+4. 我每天或每周可以稳定投入多少时间
+
+第二步：等我回答后，再根据我的基础和目标制定计划。最后给我：
+1. 大一上学期怎么安排
+2. 大一下学期怎么安排
+3. 什么时候开始正式准备四级
+4. 推荐使用什么资料
+5. 每天具体应该做什么
+6. 如果基础较弱，最应该优先补什么
+7. 最容易踩的坑
+
+不要让我同时使用大量资料，优先给我一套简单、稳定、能长期执行的最小方案。如果我的目标不合理，直接指出并告诉我怎么调整。</pre>
+      <button class="ai-copy" type="button">复制这段提示词</button>
+    </details>
+
+    <p class="ai-tip">⚠️ 复制后建议先把里面的空补上（专业、预算、目标这些）再发出去，AI 答得更准。涉及价格、型号、学校政策和时间安排的，一律以最新官方信息为准。</p>
+  </div>
+
+  <script>
+  (function () {
+    document.querySelectorAll('.ai-copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var pre = btn.parentNode.querySelector('.ai-prompt');
+        var txt = pre ? pre.textContent : '';
+        var old = btn.textContent;
+        function ok() { btn.textContent = '已复制 ✓'; setTimeout(function () { btn.textContent = old; }, 1800); }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = txt; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); ok(); }
+          catch (e) { btn.textContent = '复制失败，请手动选中'; setTimeout(function () { btn.textContent = old; }, 2000); }
+          document.body.removeChild(ta);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(txt).then(ok, fallback);
+        } else { fallback(); }
+      });
+    });
+  })();
+  </script>
+
+<div class="cta-card">
+  <div class="cta-hook">没找到你想知道的？</div>
+  <p class="cta-sub">上面没覆盖到的具体问题，<b>进群和大家一起讨论</b> —— 报到、宿舍、选课、转专业都能聊，群里是 2026 级新生互助交流、没有广告。</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「问题」</span>
+  </div>
+  <p class="cta-note">资料可以直接查看，不需要添加好友<br>本页由在校学生整理，非中国计量大学官方平台；涉及学校政策、时间等重要信息，请以官方通知为准</p>
+  <a class="cta-home" href="index.html">← 返回总览</a>
+</div>
+
+<div class="footer">
+  新生问题汇总 · 整理于 2026-09-08 ｜ 长期补充中：又遇到新问题，欢迎回来看看<br>
+  本站非官方，具体安排以学校官方通知为准
+</div>
+
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="archive.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+</body>
+</html>

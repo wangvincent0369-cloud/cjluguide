@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJLU新生入学完全时间线 · 中国计量大学2026</title>
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+/* 本页专属：日历四色（其余颜色统一走 theme.css） */
+:root{--c1:#3B82F6;--c2:#059669;--c3:#F59E0B;--c4:#EF4444}
+body{zoom:75%;font-family:var(--font);background:var(--bg);color:var(--text);line-height:var(--lh);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+.header{text-align:center;padding:var(--gap-4xl) var(--gap-2xl) var(--gap-3xl)}
+.header h1{font-size:var(--fs-h1);font-weight:800;background:linear-gradient(135deg,var(--accent),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:var(--gap-sm)}
+.header .sub{color:var(--sub);font-size:var(--fs-md-em);margin-bottom:var(--gap-lg)}
+.copy-bar{display:inline-flex;align-items:center;gap:var(--gap);background:linear-gradient(135deg,var(--brand-soft),#FFFFFF);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--gap-sm) var(--gap-xl);cursor:pointer;transition:all .3s}
+.copy-bar:hover{border-color:var(--accent);transform:scale(1.02)}
+.copy-bar .wx{color:var(--accent);font-weight:600;letter-spacing:1px}
+.copy-bar .tip{color:var(--sub);font-size:var(--fs-2xs-em)}
+.copy-bar.copied{border-color:#34D399}
+.copy-bar.copied .tip{color:var(--green-d)}
+
+.stage-nav{display:flex;justify-content:center;gap:var(--gap-sm);padding:0 var(--gap-xl) var(--gap-2xl);flex-wrap:wrap}
+.stage-nav a{padding:var(--gap-xs) var(--gap-lg);border-radius:var(--r-lg);font-size:var(--fs-2xs-em);font-weight:600;text-decoration:none;transition:all .3s;border:1px solid transparent}
+.stage-nav a:hover{transform:scale(1.05)}
+.s1{background:var(--brand-soft);color:var(--accent);border-color:var(--brand-line)}
+.s2{background:#ECFDF5;color:var(--green-d);border-color:#A7F3D0}
+.s3{background:var(--yellow-soft);color:var(--yellow);border-color:var(--yellow-line)}
+.s4{background:var(--red-soft);color:var(--red);border-color:var(--red-line)}
+
+.timeline{max-width:var(--w-page);margin:0 auto;padding:0 var(--gap-xl) var(--gap-4xl);position:relative}
+.timeline::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--c1),var(--c2),var(--c3),var(--c4));border-radius:var(--r-xs);opacity:.5}
+@media(min-width:720px){.timeline::before{left:50%;transform:translateX(-1px)}}
+
+.stage{margin-bottom:var(--gap-3xl)}
+.stage-header{display:flex;align-items:center;gap:var(--gap-md);margin-bottom:var(--gap-lg);position:relative}
+.dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--fs-lg-em);font-weight:700;flex-shrink:0;position:relative;z-index:2;box-shadow:0 0 16px rgba(37,99,235,.15)}
+.dot.c1{background:var(--c1)}.dot.c2{background:var(--c2)}.dot.c3{background:var(--c3)}.dot.c4{background:var(--c4)}
+.stage-label{font-size:var(--fs-xl-em);font-weight:700}.stage-date{color:var(--sub);font-size:var(--fs-2xs-em)}
+@media(min-width:720px){.stage-header{justify-content:flex-end;transform:translateX(calc(-50% + 18px))}.stage:nth-child(even) .stage-header{justify-content:flex-start;transform:translateX(calc(50% - 18px))}}
+
+.items{padding-left:48px}
+@media(min-width:720px){.items{padding-left:0;padding-right:calc(50% + 24px)}.stage:nth-child(even) .items{padding-left:calc(50% + 24px);padding-right:0}}
+
+.card{background:var(--card);border-radius:var(--r-md);padding:var(--gap-lg) var(--gap-xl);margin-bottom:var(--gap);border-left:3px solid var(--accent);transition:all .25s}
+.card:hover{transform:translateX(3px);box-shadow:0 4px 16px rgba(15,23,42,.08)}
+.card.must{border-left-color:var(--red)}
+.card.tip{border-left-color:var(--yellow);background:var(--card2)}
+.card.info{border-left-color:var(--green)}
+.card.purple{border-left-color:var(--purple)}
+
+.card h3{font-size:var(--fs-sm-em);font-weight:700;margin-bottom:var(--gap-xs);display:flex;align-items:center;gap:var(--gap-xs);flex-wrap:wrap}
+.badge{font-size:var(--fs-2xs-em);padding:1px var(--gap-xs);border-radius:var(--r-xs);font-weight:600;white-space:nowrap}
+.badge-red{background:var(--red-soft);color:var(--red)}
+.badge-yellow{background:var(--yellow-soft);color:var(--yellow)}
+.badge-green{background:#ECFDF5;color:var(--green-d)}
+.badge-blue{background:var(--brand-soft);color:var(--accent)}
+.badge-purple{background:#F5F3FF;color:var(--purple)}
+
+.card ul{list-style:none;padding:0}
+.card li{font-size:var(--fs-xs-em);color:var(--sub);padding:var(--gap-2xs) 0 var(--gap-2xs) var(--gap-lg);position:relative}
+.card li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+.card strong{color:var(--text)}
+.hl{color:var(--accent);font-weight:600}
+.hl-y{color:var(--yellow);font-weight:600}
+.hl-r{color:var(--red);font-weight:600}
+.hl-g{color:var(--green-d);font-weight:600}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-sm);margin-top:var(--gap-sm)}
+@media(max-width:400px){.grid2{grid-template-columns:1fr}}
+.mini-card{background:var(--card);border-radius:var(--r-sm);padding:var(--gap) var(--gap-md);font-size:var(--fs-xs-em)}
+.mini-card .mc-title{font-weight:700;margin-bottom:var(--gap-2xs)}
+.mini-card .mc-sub{color:var(--sub);font-size:var(--fs-sm-em)}
+
+.table-wrap{overflow-x:auto;margin-top:var(--gap-sm)}
+.mini-table{width:100%;border-collapse:collapse;font-size:var(--fs-2xs-em)}
+.mini-table th{background:var(--card);padding:var(--gap-xs) var(--gap);text-align:left;font-weight:600;border-bottom:1px solid var(--line)}
+.mini-table td{padding:var(--gap-2xs) var(--gap);border-bottom:1px solid var(--line);color:var(--sub)}
+.mini-table td:first-child{color:var(--text);font-weight:500}
+
+.section-title{max-width:var(--w-page);margin:0 auto 12px;padding:0 var(--gap-xl);font-size:var(--fs-lg-em);font-weight:700;text-align:center;color:var(--sub)}
+.app-section{max-width:var(--w-page);margin:0 auto 20px;padding:0 var(--gap-xl)}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:var(--gap-sm)}
+.app-item{background:var(--card);border-radius:var(--r-sm);padding:var(--gap-md);text-align:center;transition:all .25s}
+.app-item:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(15,23,42,.08)}
+.app-item .an{font-weight:700;font-size:var(--fs-sm-em)}.app-item .au{color:var(--sub);font-size:var(--fs-2xs-em)}.app-item .ad{color:var(--accent);font-size:var(--fs-2xs-em);margin-top:var(--gap-2xs)}
+
+.date-section{max-width:var(--w-page);margin:0 auto 20px;padding:0 var(--gap-xl)}
+.date-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--gap-sm)}
+.date-item{background:var(--card);border-radius:var(--r-sm);padding:var(--gap-md) var(--gap-lg);border-left:3px solid var(--c3);transition:all .25s}
+.date-item:hover{transform:translateX(3px)}
+.date-item .dd{font-weight:700;font-size:var(--fs-xs-em);color:var(--yellow)}.date-item .de{color:var(--sub);font-size:var(--fs-2xs-em);margin-top:var(--gap-2xs)}
+
+.footer{text-align:center;padding:var(--gap-3xl) var(--gap-2xl);color:var(--sub);font-size:var(--fs-2xs-em);border-top:1px solid var(--line)}
+.footer a{color:var(--accent);text-decoration:none}
+
+.stage{opacity:0;transform:translateY(16px);animation:fadeIn .5s forwards}
+.stage:nth-child(1){animation-delay:.05s}.stage:nth-child(2){animation-delay:.15s}.stage:nth-child(3){animation-delay:.25s}.stage:nth-child(4){animation-delay:.35s}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
+
+.collapsible{cursor:pointer;user-select:none}
+.collapsible::after{content:' ▾';font-size:var(--fs-xs-em);opacity:.5}
+.collapsible.open::after{content:' ▴'}
+.collapse-content{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.collapse-content.show{max-height:2000px}
+
+/* ===== 结尾转化卡 ===== */
+.cta-card{max-width:var(--w-narrow);margin:26px auto 34px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 34px rgba(15,23,42,.08)}
+.cta-hook{margin:0 0 var(--gap-lg);color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+.cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+.cta-wx-id{color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+.cta-wx-tip{color:var(--sub2);font-size:var(--fs-xs)}
+.cta-ask{margin:var(--gap-lg) 0 0;color:var(--text);font-size:var(--fs-sm);line-height:var(--lh)}
+.cta-ask b{color:var(--accent)}
+.cta-note{margin:var(--gap-md) 0 0;color:var(--sub);font-size:var(--fs-2xs);line-height:var(--lh)}
+.cta-home{display:inline-block;margin-top:var(--gap-lg);color:var(--sub2);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.cta-home:hover{color:var(--text)}
+@media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+/* ===== 全年关键日期（校历） ===== */
+  #calendar{max-width:var(--w-page);margin:14px auto 0;padding:var(--gap-lg) var(--gap-xl);
+    background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:var(--r-md)}
+  #calendar .cal-t{font-weight:700;color:var(--accent);margin-bottom:var(--gap-md);font-size:var(--fs-md-em)}
+  #calendar table{width:100%;border-collapse:collapse;font-size:var(--fs-xs-em)}
+  #calendar td{padding:var(--gap-sm) var(--gap-xs);border-bottom:1px solid var(--line);vertical-align:top}
+  #calendar tr:last-child td{border-bottom:none}
+  #calendar td.d{color:var(--accent);font-weight:700;white-space:nowrap;width:88px}
+  #calendar td.e{color:var(--text)}
+  /* ===== 大图默认折叠卡（校历 / 校园地图）：默认收起，点卡片展开，正文不臃肿 ===== */
+  .img-fold{max-width:var(--w-page);margin:14px auto 0}
+  .img-fold summary{list-style:none;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+  .img-fold summary::-webkit-details-marker{display:none}
+  .img-fold .if-cap{display:block;background:var(--brand-soft);border:1px solid var(--brand-line);
+    border-radius:var(--r-md);padding:var(--gap-md) var(--gap-lg) var(--gap-lg);text-align:center}
+  .img-fold .if-cap:hover{background:var(--brand-soft)}
+  .img-fold .if-t{display:block;font-size:var(--fs-lg-em);color:var(--accent);font-weight:700}
+  .img-fold .if-s{display:block;font-size:var(--fs-xs-em);color:var(--sub2);margin-top:var(--gap-2xs)}
+  .img-fold .if-thumb{display:block;width:100%;height:150px;object-fit:cover;object-position:center top;
+    border-radius:var(--r-sm);margin:var(--gap-md) 0 var(--gap);background:var(--bg)}
+  .img-fold .if-hint{display:block;font-size:var(--fs-2xs-em);color:var(--accent)}
+  .img-fold[open] .if-hint{color:var(--green-d)}
+  .img-fold .if-full{margin-top:var(--gap-md);padding:var(--gap);background:var(--card);
+    border:1px solid var(--line);border-radius:var(--r-md);text-align:center}
+  .img-fold .if-full img{width:100%;border-radius:var(--r-sm);display:block}
+  .img-fold .if-note{font-size:var(--fs-2xs-em);color:var(--accent);margin-top:var(--gap);line-height:var(--lh)}
+  /* 重点速览：窄屏改为单列，避免手机上一行被切太碎 */
+  @media(max-width:640px){
+    .kv{grid-template-columns:1fr!important;gap:var(--gap-sm) 0!important}
+    .img-fold .if-thumb{height:130px}
+  }
+  /* 过期归档区：与正文同宽（本页正文 720px，主题默认 780px） */
+  .exp-zone{max-width:var(--w-page)}
+  .exp-zone .card:last-child{margin-bottom:0}
+</style>
+</head>
+<body><div style="text-align:center;padding:var(--gap) var(--gap-lg);background:var(--brand-soft);border-bottom:1px solid var(--brand-line);font-size:var(--fs-lg);color:var(--accent)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+
+<div class="header">
+  <h1>CJLU 新生入学完全时间线</h1>
+  <p class="sub">中国计量大学 2026 · 从录取通知书到第一个寒假</p>
+  <div style="max-width:var(--w-page);margin:8px auto 0;padding:var(--gap-md) var(--gap-xl);background:var(--yellow-soft);border:1px solid var(--yellow-line);border-radius:var(--r-sm);font-size:var(--fs-2xs-em);color:var(--yellow);text-align:center">
+    ⚠️ 9月13日报到已确认，其余具体安排以<strong>录取通知书</strong>和<strong>学校通知</strong>为准
+  </div>
+    <div style="max-width:var(--w-page);margin:12px auto 0;padding:var(--gap-lg) var(--gap-xl);background:rgba(102,126,234,0.08);border:1px solid rgba(102,126,234,0.2);border-radius:var(--r-md);font-size:var(--fs-xs-em);color:var(--text)">
+      <div style="font-weight:700;color:#4F46E5;margin-bottom:var(--gap);font-size:var(--fs-lg-em)">⚡ 重点速览</div>
+      <div class="kv" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-xs) var(--gap-lg);line-height:var(--lh)">
+        <div>🔴 <strong>证件带齐</strong>：通知书+身份证+档案+证件照</div>
+        <div>🔴 <strong>档案别拆封</strong>！拆了学校拒收</div>
+        <div>🟠 <strong>床上用品别买学校的</strong>，网购三件套+床垫寄过来</div>
+        <div>🟠 <strong>校园卡别被忽悠</strong>，学长推销有佣金</div>
+        <div>🟡 绩点<strong style="color:#4F46E5">5.0制</strong>，挂科拉低总绩点</div>
+        <div>🟡 拿快递约舍友一起，开学<strong>超热</strong>带太阳伞</div>
+        <div>🟢 水免费 · 电费钉钉计量钉充值 · 食堂微信支付宝都行</div>
+        <div>🟢 四级趁早考 · 有问题进群问，或用页面底部联系方式找站长</div>
+      </div>
+      <div style="margin-top:var(--gap-sm);font-size:var(--fs-md-em);color:var(--sub)">🔴必须做到 🟠容易踩坑 🟡很重要 🟢有用</div>
+    </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:var(--gap-md);flex-wrap:wrap">
+    <div class="copy-bar" onclick="downloadPage()" id="dlBtn" style="border-color:rgba(52,211,153,.3)">
+      <span style="color:var(--green-d);font-weight:600">📥 下载离线版</span>
+      <span class="tip" style="font-size:var(--fs-2xs-em)">保存到手机随时看</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 全年关键日期（校历）=====
+     数据在下方的 CALENDAR 数组里，改日期只改那一个数组即可。
+     数组为空时整个板块自动隐藏，不会显示空盒子。 -->
+<div id="calendar" style="display:none">
+  <div class="cal-t">📅 全年关键日期</div>
+  <table><tbody id="calendar-body"></tbody></table>
+</div>
+
+<script>
+/* ============================================================
+   校历数据：以后改日期，只改下面这个数组，别的都不用动。
+   格式：['日期', '事项']
+   目前为空 —— 填入后板块会自动显示出来。
+   ============================================================ */
+const CALENDAR = [
+  // ['9/13', '报到注册'],
+  // ['10/1-10/7', '国庆放假'],
+];
+(function(){
+  var box = document.getElementById('calendar');
+  var body = document.getElementById('calendar-body');
+  if (!box || !body || !CALENDAR || CALENDAR.length === 0) return; // 没数据就不显示
+  var html = '';
+  for (var i = 0; i < CALENDAR.length; i++) {
+    html += '<tr><td class="d">' + CALENDAR[i][0] + '</td><td class="e">' + CALENDAR[i][1] + '</td></tr>';
+  }
+  body.innerHTML = html;
+  box.style.display = 'block';
+})();
+
+</script>
+
+<!-- 校历原图：换图覆盖同名文件即可（默认折叠，点卡片展开） -->
+<details class="img-fold" id="calendar-photo">
+  <summary>
+    <span class="if-cap">
+      <span class="if-t">📅 完整校历</span>
+      <span class="if-s">2026—2027 学年详细校历</span>
+      <img class="if-thumb" src="calendar.jpg" alt="校历"
+           onerror="this.closest('details').style.display='none'">
+      <span class="if-hint">👉 点击查看大图</span>
+    </span>
+  </summary>
+  <div class="if-full">
+    <a href="calendar.jpg" target="_blank" rel="noopener">
+      <img src="calendar.jpg" alt="校历" loading="lazy">
+    </a>
+    <p class="if-note">👆 点开新标签看大图（可双指放大）· 再点上方卡片可收起</p>
+  </div>
+</details>
+
+<!-- ===== 常用网址汇总：改网址只改这一段 ===== -->
+<div id="links" style="max-width:var(--w-page);margin:16px auto 0;padding:var(--gap-lg) var(--gap-xl);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-md)">
+  <div style="font-weight:700;color:var(--accent);margin-bottom:var(--gap-sm);font-size:var(--fs-md-em)">🔗 常用网址</div>
+  <div style="font-size:var(--fs-2xs-em);color:var(--sub);margin-bottom:var(--gap-lg);line-height:var(--lh)">收藏这一页就够（或点上面的下载离线版），不用一个个存；想存进备忘录就点下面一键复制</div>
+
+  <div style="font-size:var(--fs-sm-em);line-height:var(--lh)">
+    <div style="margin-bottom:var(--gap-lg)">
+      <a href="https://jwxt.cjlu.edu.cn/jwglxt/xtgl/login_slogin.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">🎓 教务系统</a>
+      <div style="color:var(--sub2);font-size:var(--fs-md-em)">选课、查课表、查成绩</div>
+      <div style="color:var(--green);font-size:var(--fs-md-em)">✅ 谁要看：全体，开学后每周都要用</div>
+      <div style="color:var(--sub);font-size:var(--fs-md-em)">⏰ 什么时候看：9 月底选课、开学查课表、期末查成绩</div>
+    </div>
+
+    <div style="margin-bottom:var(--gap-lg)">
+      <a href="https://libopac.cjlu.edu.cn/space/index" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">📚 图书馆网站</a>
+      <div style="color:var(--sub2);font-size:var(--fs-md-em)">借阅、续借、入馆考</div>
+      <div style="color:var(--green);font-size:var(--fs-md-em)">✅ 谁要看：全体（入馆考是必须做的）</div>
+      <div style="color:var(--sub);font-size:var(--fs-md-em)">⏰ 什么时候看：9 月做入馆考、之后借书</div>
+    </div>
+
+    <div style="margin-bottom:var(--gap-lg)">
+      <a href="https://www.cjlu.edu.cn/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">🏫 学校官网</a>
+      <div style="color:var(--sub2);font-size:var(--fs-md-em)">看通知公告</div>
+      <div style="color:var(--green);font-size:var(--fs-md-em)">✅ 谁要看：想核对官方消息的（班级群通知为准）</div>
+      <div style="color:var(--sub);font-size:var(--fs-md-em)">⏰ 什么时候看：想确认放假/考试安排时</div>
+    </div>
+  </div>
+
+  <!-- 用不上的两个：默认折叠，塞角落吃灰 -->
+  <details style="margin-top:var(--gap-sm)">
+    <summary style="cursor:pointer;font-size:var(--fs-xs-em);color:var(--sub);list-style:none;padding:var(--gap-sm) 0">
+      🗄️ 这俩你现在用不上，点开看看也行（不看也行，先塞这儿吃灰）
+    </summary>
+    <ul style="list-style:none;padding:var(--gap) 0 0;margin:0;font-size:var(--fs-xs-em);line-height:var(--lh-loose)">
+      <li>🔍 <a href="https://slib.cjlu.edu.cn/databaseguide/web_dataBaseHome1?sorttype=1" target="_blank" rel="noopener" style="color:var(--accent)">图书馆数据库</a>
+        <div style="color:var(--sub);font-size:var(--fs-md-em)">查资料写论文用的 —— 大一大二基本用不上，等你要写课程论文了再来翻</div>
+      </li>
+      <li style="margin-top:var(--gap-sm)">🛠 <a href="https://e.cjlu.edu.cn/BPM/EhallNew" target="_blank" rel="noopener" style="color:var(--accent)">中量大办事中心</a>
+        <div style="color:var(--sub);font-size:var(--fs-md-em)">各类办事申请 —— 新生第一学期基本用不到（请假在钉钉里），留着备用</div>
+      </li>
+    </ul>
+  </details>
+  <p style="font-size:var(--fs-xs-em);color:var(--sub);margin-top:var(--gap-md);line-height:var(--lh)">
+    另外这三个<b>都在钉钉 App 里，不是网页</b>：计量钉（一卡通/请假/报修/查学号）、智慧学工、缴费（学校发二维码，扫码付）
+  </p>
+  <button id="copyLinksBtn" onclick="copyAllLinks()"
+    style="margin-top:var(--gap-lg);background:var(--brand-soft);color:var(--accent);
+    border:1px solid var(--brand-light);border-radius:var(--r-sm);
+    padding:var(--gap) var(--gap-xl);font-size:var(--fs-xs-em);cursor:pointer;font-family:inherit">
+    📋 一键复制全部网址
+  </button>
+  <script>
+  function copyAllLinks(){
+    var as = document.querySelectorAll('#links a'), t = '';
+    for (var i = 0; i < as.length; i++) {
+      t += as[i].textContent + '：' + as[i].href + '\n';
+    }
+    t += '\n（计量钉、智慧学工、缴费都在钉钉App里，不是网页）';
+    function done(){
+      var b = document.getElementById('copyLinksBtn');
+      if (!b) return;
+      b.textContent = '✅ 已复制，去粘贴到备忘录／发给自己';
+      setTimeout(function(){ b.textContent = '📋 一键复制全部网址'; }, 2500);
+    }
+    function fb(){
+      var ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(done, fb);
+    } else { fb(); }
+  }
+  </script>
+</div>
+
+<div class="stage-nav">
+  <a href="#s1" class="s1">📋 开学前（已过）</a>
+  <a href="#s2" class="s2">🏠 报到周（已过）</a>
+  <a href="#s3" class="s3">📚 开学后</a>
+  <a href="#s4" class="s4">📝 期末前</a>
+</div>
+
+<!-- ========== 阶段1：开学前 ========== -->
+<div class="timeline">
+
+<div class="stage" id="s1">
+  <div class="arch-note">⏳ ⏳ 这一段是「报到前」用的，已经过去了（报到 9/13 结束）。「证件清单」「校园卡怎么选」已经收到底部归档区，你现在直接看下面第三步「开学后」就行。</div>
+  <div class="stage-header">
+    <div class="dot c1">1</div>
+    <div><div class="stage-label">开学前 · 已过去</div><div class="stage-date">8月 - 9月初</div></div>
+  </div>
+  <div class="items">
+
+    <p class="arch-note">📌 报到前才需要看的那 4 条（入学准备 · 户口迁不迁 · 行李打包 · 电脑选购）时间窗已过，收在页面最底下：<a href="#expired">已过期那一栏 →</a></p>
+
+    
+
+    <div class="card must">
+      <h3 id="group"><span class="badge badge-red">必做</span> 关注公众号 + 加群</h3>
+      <ul>
+        <li>微信搜索关注 <strong>"中国计量大学"</strong> + <strong>"中国计量大学招生办"</strong></li>
+        <li>学校主要用<strong>钉钉群</strong>，也有QQ硕博交流群；微信群大多是学长学姐建的</li>
+        <li><span class="hl">有问题直接问：进新生群，或用页面底部联系方式找站长</span></li>
+        <li>招生办电话：<span class="hl">0571-86836060</span></li>
+      </ul>
+    </div>
+
+    
+
+    <div class="card tip">
+      <h3><span class="badge badge-yellow">你可能不知道</span></h3>
+      <ul>
+        <li>床位<strong>不能选</strong>，学校随机分配，同班同学住一个宿舍</li>
+        <li>食堂付款用<strong>钉钉内计量钉</strong>付款码，也支持微信支付宝直接扫</li>
+        <li>洗澡<strong>免费</strong>，洗浴热水也免费，不用单独办水卡</li>
+        <li>校园网免费，但<strong>需办校园卡绑定后才能连</strong>，没办卡之前只能用流量</li>
+        <li>宿舍上床下桌自带衣柜和书架，空间够日常用</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== 阶段2：报到周 ========== -->
+<div class="stage" id="s2">
+  <div class="arch-note">⏳ 报到那两天已经过完了。「报到当天流程」已经收到底部归档区；宿舍、食堂、快递这几条现在照样天天用得上。</div>
+  <details class="img-fold" id="map" style="margin:var(--gap-lg) 0 var(--gap-xs)">
+        <summary>
+          <span class="if-cap">
+            <span class="if-t">🗺️ 完整校园地图</span>
+            <span class="if-s">中国计量大学校园地图</span>
+            <img class="if-thumb" src="campus-map.jpg?v=20260918a" alt="中国计量大学校园地图"
+                 onerror="this.closest('details').style.display='none'">
+            <span class="if-hint">👉 点击查看大图</span>
+          </span>
+        </summary>
+        <div class="if-full">
+          <a href="campus-map.jpg?v=20260918a" target="_blank" rel="noopener">
+            <img src="campus-map.jpg?v=20260918a" alt="中国计量大学校园地图" loading="lazy">
+          </a>
+          <p class="if-note">👆 点开新标签看大图（可双指放大）· 再点上方卡片可收起</p>
+        </div>
+      </details>
+  <div class="stage-header">
+    <div class="dot c2">2</div>
+    <div><div class="stage-label">报到第一周</div><div class="stage-date">9月13日前后</div></div>
+  </div>
+  <div class="items">
+
+    
+
+    <div class="card info">
+      <h3 id="dorm"><span class="badge badge-green">认识</span> 你的宿舍</h3>
+      <ul>
+        <li><strong>房型</strong>：西区5人间、东区4人间，上床下桌，独立卫生间+阳台</li>
+        <li><strong>床铺尺寸</strong>：长约 200cm、宽约 86cm（A床 86.5cm，各楼栋略有差别）；床垫买 <strong>0.9×2.0m</strong>、床帘宽度买 <strong>0.85m</strong> 最稳（开学后网购寄到驿站一样收得到）</li>
+        <li style="margin-top:var(--gap-sm)">🛏️ 床垫、床帘、洗漱这些怎么买 → <a href="luggage.html#buy-offline" style="color:var(--accent);font-weight:700">到校再买那一栏 →</a></li>
+        <li><strong>住宿费</strong>：五人间1200元/年，四人间1600元/年</li>
+        <li><strong>空调</strong>：有，需付租赁费</li>
+        <li><strong>热水器</strong>：独立卫生间内配电热水器</li>
+        <li><strong>洗浴热水</strong>：24 小时不间断免费供应（不用办水卡，随时都能洗）</li>
+        <li><strong>门禁</strong>：没有电子门禁，是宿管阿姨关门 —— 每天 22:30 关门（不分周末），晚归会被阿姨说</li>
+        <li><strong>熄灯</strong>：工作日 23:00、周末 23:30，但只是关灯，一点电都不会断（插座、空调照常用）</li>
+        <li><span class="hl-r">违章电器</span>：规矩就一条 —— 发热类 1200W 以下能用、超过的不让用（热得快、电热褥、取暖器、电热锅、冰箱一般都超；电吹风、卷发棒/夹板看功率）。查到扣寝室分，还连坐扣每个人的德育分</li>
+        <li><strong>电费</strong>：寝室自行分摊，在钉钉→计量钉里电费充值</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="canteen"><span class="badge badge-green">认识</span> 食堂 & 吃饭</h3>
+      <ul>
+        <li><strong>G3食堂</strong>（东区）："G3大酒店"，全国高校百佳餐厅。一楼二楼大众菜+各地风味，三楼精品快餐+<strong>独立清真区域</strong></li>
+        <li><strong>F16食堂</strong>（西区）、<strong>T1食堂</strong>（东区）</li>
+        <li><strong>听沙美食餐厅</strong>：超多店家入驻，早餐到宵夜，还有免费点歌台</li>
+        <li>营业时间：早餐6:30-8:30，午餐11:00-13:30，晚餐17:00-19:30</li>
+        <li>高峰 11:30-12:30 / 17:30-18:30，<span class="hl">错峰去不排队</span></li>
+        <li><strong>付款</strong>：钉钉内计量钉付款码 / 微信支付宝直接扫都行</li>
+        <li><strong>咖啡</strong>：瑞幸（方圆楼北楼二楼）+ 量小驿（翔宇楼）</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="express"><span class="badge badge-green">认识</span> 快递 & 超市</h3>
+      <ul>
+        <li>收货地址：浙江省杭州市钱塘区学源街258号中国计量大学（310018）</li>
+        <!-- ⚠️ 09-17 站长现场更正（在校学生一手来源）：
+             取件点「实际上就是两个」—— 菜鸟驿站 + 妈妈驿站。
+             本节原写「西区2号楼楼下 / 含晖苑旁边菜鸟 / 东区学源街168号顺丰 / 正大门报刊亭」，
+             与他实际看到的不符，按他说的改掉了。若日后确认旧点位仍在，再补回来。 -->
+        <li><strong>取件点就两个</strong>：
+          <br>① <strong>菜鸟驿站</strong> —— 在 <strong>F2 楼下</strong>，宿舍区<b>从内、从外都能进</b>
+          <br>② <strong>妈妈驿站</strong> —— 从 F2 往<strong>西</strong>走（按高德地图的方位：上北下南、左西右东），<strong>过一个斑马线就到了</strong></li>
+        <li>方位拿不准就点<a href="#map" style="color:var(--accent);font-weight:700">🗺️ 完整校园地图</a>看一眼，比文字描述直观</li>
+        <li>买日用品去<strong>翔宇楼地下超市</strong>，种类全，水果也有</li>
+      </ul>
+    </div>
+
+    <div class="card tip">
+      <h3><span class="badge badge-yellow">你可能不知道</span></h3>
+      <ul>
+        <li>校园面积1580亩，宿舍到教学楼步行<strong>约10-15分钟</strong>（1楼约10分钟，4-5楼约15分钟）</li>
+        <li>校内<strong>有电动车充电桩</strong>，拿快递骑电动车很实用；校外有<strong>共享电动车</strong>，出行方便</li>
+        <li>校门口有<strong>共享单车</strong>，去地铁/商场方便</li>
+        <li>洗衣机在二楼楼梯中间、整栋楼共用（不是每层都有），微信小程序"顺水漫生活"预约，柔顺洗3元/标准洗4元/加强洗5元；洗衣液、杀菌液各0.9元（可不加）</li>
+        <li>桶装水下载"澄心送水"，10元/桶送寝室门口</li>
+        <li>外卖能不能送到宿舍楼下，入学后问学长学姐确认</li>
+      </ul>
+    </div>
+
+    <div class="card purple collapsible">
+      <h3 id="dorm-goods"><span class="badge badge-purple">选看</span> 寝室好物清单</h3>
+    </div>
+    <div class="collapse-content">
+      <div class="card purple" style="margin-top:-8px">
+        <div class="grid2">
+          <div class="mini-card"><div class="mc-title">桌面区</div><div class="mc-sub">磁吸酷毙灯（充电式）· 品牌排插 · 小功率吹风机 · 杯子/纸巾/笔筒</div></div>
+          <div class="mini-card"><div class="mc-title">床上区</div><div class="mc-sub">床帘（隐私+遮光神器）· 夹式小风扇 · 蚊帐/驱蚊水 · 抱枕坐垫</div></div>
+          <div class="mini-card"><div class="mc-title">洗护区</div><div class="mc-sub">洗漱全套 · 洗衣液/肥皂+皂盒 · 毛巾脸盆2个 · 镜子梳子</div></div>
+          <div class="mini-card"><div class="mc-title">常备药品</div><div class="mc-sub">感冒药/止泻药 · 创口贴/酒精棉片 · 花露水/风油精 · 眼药水</div></div>
+          <div class="mini-card"><div class="mc-title">公共区（合买）</div><div class="mc-sub">扫把/簸箕/拖把/垃圾桶/垃圾袋 · 全身镜 · 粘钩 · 饮水机</div></div>
+          <div class="mini-card"><div class="mc-title">军训防晒</div><div class="mc-sub">防晒霜SPF50+（男生也要！）· 防晒喷雾 · 晴雨伞 · 便携风扇</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== 阶段3：开学一个月 ========== -->
+<div class="stage" id="s3">
+  <div class="stage-header">
+    <div class="dot c3">3</div>
+    <div><div class="stage-label">开学第一个月</div><div class="stage-date">9月 - 10月</div></div>
+  </div>
+  <div class="items">
+
+    <div class="card must">
+      <h3 id="gpa"><span class="badge badge-red">必知</span> 绩点5.0制 · 比你想的重要</h3>
+      <ul>
+        <li>中量大是<strong>5.0制</strong>，不是4.0制！公式：绩点 = 分数 × 0.1 − 5</li>
+        <li>举例：90分→4.0 · 92分→4.2 · 85分→3.5 · 80分→3.0 · 60分→1.0</li>
+        <li>总绩点 = Σ(绩点×学分)÷总学分，<span class="hl">学分越高权重越大</span>，高数4学分挂了比1学分选修狠4倍</li>
+        <li>绩点影响：<strong>奖学金</strong>（综测学业占70%）· <strong>转专业</strong>（硬门槛）· <strong>考研复试</strong>（导师看成绩单）</li>
+        <li><span class="hl-r">中量大没有保研资格</span>，想读研只能考</li>
+        <li><span class="hl-r">挂一科该科绩点变0</span>，总绩点被大幅拉低；补考过了只算1.0还标"补考"，重修按实际分数算更划算</li>
+        <li>累计挂科学分过多触发学业预警，严重的可能留级</li>
+        <li style="margin-top:var(--gap-sm)">📚 绩点和选课直接挂钩 —— 怎么选看 <a href="course.html" style="color:var(--accent);font-weight:700">选课指南 →</a></li>
+      </ul>
+    </div>
+
+    <div class="card must">
+      <h3 id="cet4"><span class="badge badge-red">必做</span> 考四级</h3>
+      <ul>
+        <li><strong>大一就能报名</strong>，每年6月和12月各一次</li>
+        <li>四级过了才能考六级，<span class="hl">越拖越不想考，趁高考英语底子还在早点考</span></li>
+        <li>报名时间关注教务处通知</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="zongce"><span class="badge badge-green">攻略</span> 综测怎么算</h3>
+      <ul>
+        <li>综测决定<strong>奖学金和评优排名</strong>，公式：品德20 + 学业70 + 综合能力10</li>
+        <li>学业分 = <strong>绩点 × 14</strong>（5.0×14=70满分），绩点3.5→49分，绩点4.0→56分，<span class="hl">差0.5就差7分</span></li>
+        <li>综合能力10分：班委/竞赛/论文/志愿加分，同一项取最高不叠加</li>
+        <li><span class="hl-y">避坑</span>：各学院细则不同，入学后找辅导员要；别参加收费野鸡比赛学院不认；奖状存电子版申报有截止日</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="kaoyan"><span class="badge badge-green">攻略</span> 考研看什么</h3>
+      <ul>
+        <li><strong>初试</strong>（笔试）：政治+英语+数学/专业课+专业课 = 500分，<span class="hl">纯看分数跟绩点无关</span></li>
+        <li><strong>复试</strong>：过了初试线才进，导师会看本科成绩单，但重点盯<strong>专业课成绩</strong></li>
+        <li>别多门挂科（一门不要紧），成绩从低往高走比往下掉好</li>
+        <li>有论文/省奖很加分，深度做一个项目比挂名一堆强</li>
+        <li>初试分数是硬通货，比什么都管用</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="library"><span class="badge badge-green">攻略</span> 图书馆</h3>
+      <ul>
+        <li><strong>必须预约</strong>才能坐，系统预约+扫码签到入座</li>
+        <li>超时未签到自动释放，<span class="hl-r">用物品占座会被清理</span></li>
+        <li>靠墙/靠柱的位子有<strong>插座</strong>，带电脑优先选</li>
+        <li>两个馆：逸夫图书馆（西区）6:30-22:00，东区图书馆7:00-22:00</li>
+        <li>借阅：本科生15册/人，借期30天，可续借1次续期30天</li>
+        <li>咨询电话：86876595（流通）、86835722（参考咨询）</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="study-place"><span class="badge badge-green">攻略</span> 自习去处</h3>
+      <ul>
+        <li><strong>宿舍楼每层自习室</strong>：24小时开放，最近最方便</li>
+        <li><strong>图书馆自修室</strong>：6:30-22:00，需预约</li>
+        <li><strong>教学楼空教室</strong>：随时可用，考试周会紧张</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h3 id="zaowan"><span class="badge badge-green">攻略</span> 早晚自习</h3>
+      <ul>
+        <li>大一上学期各学院基本都有，但规定各学院不同</li>
+        <li>大一下学期一般没有</li>
+        <li>举例：去年理学院早自习周一到周五，晚自习是第二天有课就要上</li>
+        <li>具体以入学后各学院通知为准</li>
+      </ul>
+    </div>
+
+    <div class="card purple collapsible">
+      <h3 id="schedule"><span class="badge badge-purple">选看</span> 上课时间表</h3>
+    </div>
+    <div class="collapse-content">
+      <div class="card purple" style="margin-top:-8px">
+        <div class="table-wrap">
+          <table class="mini-table">
+            <tr><th>节次</th><th>时间</th></tr>
+            <tr><td>上午1-2</td><td>8:00 - 9:35</td></tr>
+            <tr><td>上午3-4</td><td>9:55 - 11:30</td></tr>
+            <tr><td>上午5</td><td>11:35 - 12:20</td></tr>
+            <tr><td>下午6-7</td><td>13:30 - 15:05</td></tr>
+            <tr><td>下午8-9</td><td>15:15 - 16:50</td></tr>
+            <tr><td>晚上10-12</td><td>18:00 - 20:25</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card purple collapsible">
+      <h3 id="pe-course"><span class="badge badge-purple">选看</span> 体育课选课攻略</h3>
+    </div>
+    <div class="collapse-content">
+      <div class="card purple" style="margin-top:-8px">
+        <div class="table-wrap">
+          <table class="mini-table">
+            <tr><th>项目</th><th>推荐老师</th><th>考试内容</th><th>备注</th></tr>
+            <tr><td>足球</td><td>苏阳</td><td>绕桩射门</td><td class="hl-g">强推</td></tr>
+            <tr><td>乒乓球</td><td>陈强/余广鑫/杨军</td><td>打50个满分</td><td>需找搭子</td></tr>
+            <tr><td>排球</td><td>冷帅</td><td>对垫排球</td><td>需找搭子</td></tr>
+            <tr><td>羽毛球</td><td>刘春梅/张建刚</td><td>发球+比赛加分</td><td>发球正手</td></tr>
+            <tr><td>瑜伽</td><td>徐钰芳</td><td>套动作</td><td>室内 基本80+</td></tr>
+            <tr><td>飞盘</td><td>周杰</td><td>上课好玩</td><td></td></tr>
+            <tr><td>匹克球</td><td>—</td><td>对墙/对打</td><td>15来回及格</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 id="tice"><span class="badge badge-blue">提醒</span> 体测（10-11月）</h3>
+      <ul>
+        <li>项目：BMI(15%) + 肺活量(15%) + 50米(20%) + 坐位体前屈(10%) + 立定跳远(10%) + 引体向上/仰卧起坐(10%) + 1000/800米(20%)</li>
+        <li>具体时间看体育军事部通知</li>
+      </ul>
+    </div>
+
+    <div class="card tip">
+      <h3><span class="badge badge-yellow">你可能不知道</span></h3>
+      <ul>
+        <li>大课教室大家<strong>都坐中后排</strong>，基本在玩手机（大一直接当水课上）；迟到跟老师说一声就行，点名了才要紧</li>
+        <li>有的课<strong>摸清点名规律</strong>就能翘，期末周认真补别挂科就行</li>
+        <li><span class="hl-r">人工智能网课记得考试</span>，不考直接挂科；刷课技巧找学长学姐问</li>
+        <li>入党流程约2-3年，<span class="hl">大一入学就递交申请书</span>（越早越好），成绩排名很关键</li>
+        <li><strong>校园跑</strong>每学期要刷，参加3个活动免一半，多跑可加分</li>
+        <li>宿舍可以挂床帘、贴墙纸、养绿植，管得不算严</li>
+        <li>偶尔查寝，不会每天来</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== 阶段4：期末前 ========== -->
+<div class="stage" id="s4">
+  <div class="stage-header">
+    <div class="dot c4">4</div>
+    <div><div class="stage-label">期末前</div><div class="stage-date">12月 - 1月</div></div>
+  </div>
+  <div class="items">
+
+    <div class="card must">
+      <h3 id="junxun"><span class="badge badge-red">必知</span> 冬训！不是开学军训</h3>
+      <ul>
+        <li><strong>1月11日-24日</strong>，在期末考试之后</li>
+        <li>服装学校统一采购，在团支书/班长处登记尺码</li>
+        <li>想缓训需医院证明+辅导员申请，缓训跟下一届补训</li>
+        <li><strong>军训后直接放寒假</strong>：1月25日起 🎉</li>
+      </ul>
+    </div>
+
+    <div class="card must">
+      <h3 id="final"><span class="badge badge-red">必知</span> 期末考试</h3>
+      <ul>
+        <li><strong>期末考试</strong>：1月4-10日</li>
+        <li>总评低于60分=挂科，下学期开学初补考</li>
+        <li>补考只看卷面分（平时分作废），通过按1.0绩点计</li>
+        <li>补考不过要<strong>重修</strong>，跟下一届重新上课交作业考试</li>
+        <li>累计挂科学分过多→<span class="hl-r">学业预警</span>，严重的可能留级</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 id="student-id"><span class="badge badge-blue">提醒</span> 学生证福利</h3>
+      <ul>
+        <li>国内大多数景区<strong>半价</strong>，杭州本地西湖免费、灵隐寺等半价</li>
+        <li>发放时间关注学院通知</li>
+      </ul>
+    </div>
+
+    <div class="card purple collapsible">
+      <h3 id="cert"><span class="badge badge-purple">选看</span> 考证规划</h3>
+    </div>
+    <div class="collapse-content">
+      <div class="card purple" style="margin-top:-8px">
+        <ul>
+          <li><strong>英语四级</strong>（最推荐）— <b>大一就能报，先考四级</b>；2026下半年（浙江）：<b>9月10日10:00–9月28日17:00报名</b>，笔试 <b>12月12日</b>，口试11月21-22日（选报）。报名在 cet-bm.neea.edu.cn，<span class="hl-r">截止不补报</span>。六级要四级 425 分以上才能报</li>
+          <li><strong>驾驶证</strong>（最推荐）— 随时报名，大学时间多趁早考</li>
+          <li><strong>计算机二级</strong>（选考）— 可以学一下计算机知识，考不考看个人</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card tip">
+      <h3><span class="badge badge-yellow">你可能不知道</span></h3>
+      <ul>
+        <li>创新创业学分可以拿竞赛/论文/专利认定，A类国一能认定8学分，具体看知识库</li>
+        <li>入党积极分子→发展对象需成绩排名班级40%内，<span class="hl">别挂科</span></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- 第一学期重要日期 -->
+<div class="section-title" >📅 第一学期重要日期</div>
+<div class="date-section">
+  <div class="date-grid">
+    <div class="date-item"><div class="dd">9月13日</div><div class="de">新生报到</div></div>
+    <div class="date-item"><div class="dd">9月14日</div><div class="de">开始上课</div></div>
+    <div class="date-item"><div class="dd">9月25-27日</div><div class="de">中秋节放假</div></div>
+    <div class="date-item"><div class="dd">10月1-7日</div><div class="de">国庆节放假</div></div>
+    <div class="date-item"><div class="dd">10月22-23日</div><div class="de">校田径运动会</div></div>
+    <div class="date-item"><div class="dd">10-11月</div><div class="de">体测</div></div>
+    <div class="date-item"><div class="dd">1月1日</div><div class="de">元旦放假</div></div>
+    <div class="date-item"><div class="dd">1月4-10日</div><div class="de">新生期末考试</div></div>
+    <div class="date-item"><div class="dd">1月11-24日</div><div class="de">新生冬训</div></div>
+    <div class="date-item"><div class="dd">1月25日起</div><div class="de">寒假 🎉</div></div>
+  </div>
+</div>
+
+<!-- APP速查 -->
+<div class="section-title">📱 常用APP & 小程序速查</div>
+<div class="app-section">
+  <div class="app-grid">
+    <div class="app-item"><div class="an">钉钉</div><div class="au">校内事务</div><div class="ad">课程群·充电费·请假</div></div>
+    <div class="app-item"><div class="an">学习通</div><div class="au">课程签到</div><div class="ad">网课签到+作业</div></div>
+    <div class="app-item"><div class="an">闪动校园</div><div class="au">校园跑</div><div class="ad">男80km/女60km 每学期，参加活动可免</div></div>
+    <div class="app-item"><div class="an">大学搜题酱</div><div class="au">刷题神器</div><div class="ad">悬浮窗搜题</div></div>
+    <div class="app-item"><div class="an">赞噢校园集市</div><div class="au">校园墙</div><div class="ad">CJLU最大校园社区</div></div>
+    <div class="app-item"><div class="an">澄心送水</div><div class="au">桶装水</div><div class="ad">10元/桶 送门口</div></div>
+    <div class="app-item"><div class="an">淘宝/菜鸟</div><div class="au">取快递</div><div class="ad">菜鸟驿站取件码</div></div>
+    <div class="app-item"><div class="an">志愿汇</div><div class="au">志愿服务</div><div class="ad">报名活动+时长</div></div>
+    <div class="app-item"><div class="an">豆包/秘塔AI</div><div class="au">国内AI助手</div><div class="ad">问答·写作·搜索</div></div>
+    <div class="app-item"><div class="an">浙里办</div><div class="au">创业注册</div><div class="ad">注册公司等政务</div></div>
+    <div class="app-item"><div class="an">抖音</div><div class="au">刷视频</div><div class="ad">无聊时的快乐</div></div>
+    <div class="app-item"><div class="an">顺水漫生活</div><div class="au">小程序·洗衣机</div><div class="ad">柔顺3/标准4/加强5元 不用下载</div></div>
+    <div class="app-item"><div class="an">计量钉→付款码</div><div class="au">钉钉内·食堂付款</div><div class="ad">也支持微信支付宝</div></div>
+    <div class="app-item"><div class="an">图书馆系统</div><div class="au">网页·预约座位</div><div class="ad">必须预约才能入座</div></div>
+    <div class="app-item"><div class="an">校园卡绑定</div><div class="au">钉钉内·连校园网</div><div class="ad">绑定后校园网免费</div></div>
+  </div>
+</div>
+
+<!-- 校园周边 -->
+<div class="section-title" >🗺️ 校园周边速查</div>
+<div class="app-section">
+  <div class="app-grid">
+    <div class="app-item"><div class="an">地铁</div><div class="au">1号线 文泽路站</div><div class="ad">报到当天有校车接站</div></div>
+    <div class="app-item"><div class="an">商场</div><div class="au">下沙物美商圈</div><div class="ad">最近·和达城·福雷德</div></div>
+    <div class="app-item"><div class="an">医院</div><div class="au">省中医院钱塘院区</div><div class="ad">最近的三甲</div></div>
+  </div>
+</div>
+
+
+
+
+
+<!-- ===== 过期归档：报到前后才需要看的 7 条 =====
+     9/13 报到结束后这些就用不上了，2026-09-11 收在这里，默认折叠。
+     明年新生季要重新上线：把 exp-body 里这 7 段剪回上面的「开学前 / 报到周」，这段壳删掉即可。
+     锚点 prep / hukou / pack / computer 原地保留，contents.html 的链接不会失效。 -->
+<section class="exp-zone" id="expired">
+  <details>
+    <summary>
+      <span class="exp-badge">已过期</span>
+      <span>已经过去的 7 条：入学准备 · 户口 · 行李打包 · 电脑选购 · 证件清单 · 报到当天流程 · 校园卡（手机卡）怎么办</span>
+      <span class="exp-hint"></span>
+    </summary>
+    <div class="exp-body">
+      <p class="exp-note">这几条只在<b>报到前后</b>有用，9 月 13 日报到当天起陆续失效，所以从上面「开学前」撤下来了。<br>
+      内容一个字没删，点开还能看；报到之后要用的东西，去上面「报到周」「开学月」两段找。<br>
+      <b>长期有用的信息已经挪走、不会跟着过期</b>：床铺尺寸 →「你的宿舍」，快递地址 →「快递 &amp; 超市」。<br>
+      明年 2027 级新生季，这 4 条会原样提回页面顶部。</p>
+
+      <div class="card must">
+        <h3 id="prep"><span class="badge badge-red">必做</span> 入学准备</h3>
+        <ul>
+          <li>按《新生缴费须知》要求<strong>缴费</strong>，凭证截图保存</li>
+          <li><strong>床上用品</strong>：<span class="hl-r">别买学校的</span>，自己网购三件套+床垫寄过来，质量好得多</li>
+          <li>完成<strong>新生入学教育课程</strong>（线上课，有截止时间，别拖）</li>
+        </ul>
+      </div>
+
+      <div class="card info">
+        <h3 id="hukou"><span class="badge badge-green">建议</span> 户口迁不迁？</h3>
+        <ul>
+          <li><strong>迁的好处</strong>：在校补办身份证/办护照/考驾照不用回老家；毕业后留杭州落户更方便</li>
+          <li><strong>迁的代价</strong>：农村户籍迁出变城镇，<span class="hl-r">村集体分红、土地、宅基地权益全没了</span>，多数地区无法恢复</li>
+          <li><strong>不迁也行</strong>：全国已支持异地身份证补办和异地驾考</li>
+          <li>如决定迁：带录取通知书+户口本+身份证到派出所开迁移证，报到时上交保卫处。户籍办电话：<span class="hl">87676119</span></li>
+        </ul>
+      </div>
+
+      <div class="card info">
+        <h3 id="pack"><span class="badge badge-green">建议</span> 行李打包</h3>
+        <ul>
+          <li>床铺尺寸约 <strong>200×86cm</strong>（A床 86.5cm、其他床 86cm，各楼栋略有差别），被褥可网购寄学校（别从家扛）</li>
+          <li>快递地址：浙江省杭州市钱塘区学源街258号中国计量大学（310018）</li>
+          <li>28寸行李箱放得下，但<strong>宿舍没电梯</strong>，大件自己搬</li>
+          <li>核心原则：<span class="hl">人带到、钱带到、证件带到</span>，大件发快递，日用品到校再买</li>
+        </ul>
+      </div>
+
+      <div class="card purple collapsible">
+        <h3 id="computer"><span class="badge badge-purple">选看</span> 电脑选购指南</h3>
+      </div>
+      <div class="collapse-content">
+        <div class="card purple" style="margin-top:-8px">
+          <ul>
+            <li><strong>轻薄本</strong>：一般够用，续航约10小时，携带轻便，上课带去带回不累</li>
+            <li><strong>游戏本</strong>：喜欢玩电脑游戏才需要，但续航只有约3小时，又重又沉</li>
+            <li>打比赛需要什么配置不太确定，有需要的同学可以问学长学姐</li>
+          </ul>
+        </div>
+      </div>
+    
+<div class="card must">
+      <h3 id="documents"><span class="badge badge-red">必带</span> 证件清单</h3>
+      <ul>
+        <li><span class="hl-r">录取通知书</span> + 高考准考证（带着，可能要出示）</li>
+        <li><span class="hl-r">身份证原件</span> + 正反面复印5张（A4纸）</li>
+        <li><span class="hl-r">户口本复印件</span> 每页复印2张</li>
+        <li>学生档案 + 团员团籍证明（自带或高中邮寄）</li>
+        <li style="margin-top:var(--gap-sm)">📦 要带的东西不止这些 —— 完整清单见 <a href="luggage.html" style="color:var(--accent);font-weight:700">行李清单 →</a></li>
+        <li>证件照 <strong>1寸2寸各一版</strong>，存好电子版（报名/社团/入党都要用）</li>
+        <li>银行卡 + 少量现金500元备用</li>
+      </ul>
+    </div>
+<div class="card must">
+      <h3 id="baodao"><span class="badge badge-red">必做</span> 报到当天流程</h3>
+      <ul>
+        <li><strong>报到时间</strong>：9/13 当天 8:00–20:00，<span class="hl-r">别提前到</span>（提前到进不了宿舍楼，只能住校外酒店）</li>
+        <li><strong>到校方式</strong>：直接问AI助手（豆包）查路线更准</li>
+        <li><strong>报到流程</strong>：①去学校后面那栋楼<strong>新生报到</strong>（签名+领袋子含新生手册）→ ②回宿舍<strong>整理床铺</strong>（装床垫、挂床帘、贴墙纸）→ ③<strong>缴费</strong> → ④认识学长学姐</li>
+        <li><strong>拿快递</strong>：约舍友一起去，别一个人去！开学快递多又重，<span class="hl-r">当天很热很累</span>，问学长学姐怎么拿最方便（代拿vs自己拿）</li>
+        <li>开学当天<strong>超热</strong>，记得带太阳伞！晚上有<strong>班会</strong></li>
+        <li>如果提前到：先把宿舍整理好（床铺、窗帘、改装），当天到的话先报到再整理</li>
+        <li style="margin-top:var(--gap-sm)">🧳 报到当天要交的材料、要带的东西，对照 <a href="luggage.html#must-bring" style="color:var(--accent);font-weight:700">必带清单 →</a></li>
+      </ul>
+      <!-- 校园地图：换图时直接覆盖同名文件即可，不用改代码（默认折叠，点卡片展开） -->
+      
+      <ul>
+        <li>开学期间管得松，<strong>父母可以进宿舍楼</strong></li>
+      </ul>
+    </div>
+    
+<div class="card must">
+      <h3 id="sim-card"><span class="badge badge-red">必看</span> 校园卡怎么选</h3>
+      <ul>
+        <li class="hl-y">先分清：这篇讲的是<strong>手机卡</strong>（运营商电话卡）；学校的<strong>电子校园卡</strong>（食堂一卡通，无实体卡）在「计量钉」App 领，是两回事</li>
+        <li><strong>月租</strong>：39元/月左右（含150G通用流量+视频会员）是常见档，别被忽悠办更贵的</li>
+        <li><strong>优惠期</strong>：优先长期优惠，短期的话1-4年皆可</li>
+        <li><strong>流量</strong>：注意区分通用和定向（定向只能刷指定APP，通用随便用），150G 通用够用</li>
+        <li><strong>违约金</strong>：选无违约金的，保留随时换卡的自由</li>
+        <li class="hl-y">⚠️ 学长学姐那么热情推销是因为每张卡有50-80元佣金，按自己需求判断别被带节奏</li>
+      </ul>
+    </div>
+    </div>
+  </details>
+</section>
+
+<div class="footer">
+  中国计量大学 2026新生入学完全时间线 · 开学后内容持续更新，其余以学校通知为准<br><span style="font-size:var(--fs-md-em);opacity:0.7">还有更多问题？站内搜一下，或者看新生问题汇总</span><br>
+  <a href="questions.html?v=20260918a">新生问题汇总 →</a>
+</div>
+
+<script>
+
+function copyWX(){const v=(window.SITE&&window.SITE.wx)||'YOUR_WX_HERE';navigator.clipboard?navigator.clipboard.writeText(v).then(ok):fallback();function ok(){done()}function fallback(){const t=document.createElement('textarea');t.value=v;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);done()}function done(){const b=document.getElementById('copyBtn');b.classList.add('copied');b.querySelector('.tip').textContent='已复制！';setTimeout(()=>{b.classList.remove('copied');b.querySelector('.tip').textContent='点击复制微信号'},2000)}}
+
+document.querySelectorAll('.stage-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const el=document.querySelector(a.getAttribute('href'));if(el)el.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+document.querySelectorAll('.collapsible').forEach(h=>{h.addEventListener('click',()=>{h.classList.toggle('open');const c=h.nextElementSibling;if(c&&c.classList.contains('collapse-content'))c.classList.toggle('show')})});
+
+function downloadPage(){const html=document.documentElement.outerHTML;const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='CJLU新生入学时间线.html';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);const b=document.getElementById('dlBtn');b.style.borderColor='#10B981';b.querySelector('.tip').textContent='下载成功！';setTimeout(()=>{b.style.borderColor='rgba(52,211,153,.3)';b.querySelector('.tip').textContent='保存到手机随时看'},2000)}
+</script>
+
+<div class="cta-card">
+  <p class="cta-hook">从拿到通知书到第一个寒假 · 整条入学时间线一条串起来</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「时间线」</span>
+  </div>
+  <p class="cta-ask">有页面没写到的具体问题？<b>进群和大家一起讨论</b> —— 群里是 2026 级新生互助交流，学长和同学都会参与回答；不方便在群里问的再私信我</p>
+  <p class="cta-note">本页由学长自发整理，非官方、与学校无关；具体安排以录取通知书和学校通知为准</p>
+  <a class="cta-home" href="index.html">← 返回总览 · 6 份指南</a>
+</div>
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+<script src="archive.js?v=20260918a"></script>
+</body>
+</html>

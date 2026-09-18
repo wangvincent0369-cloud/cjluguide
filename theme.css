@@ -1,0 +1,278 @@
+/* ============================================================
+   theme.css —— 全站唯一调色板 + 排版基线
+   建立于 2026-09-11
+
+   ① 改颜色只改这个文件，11 个页面同时生效。
+      最常改的 4 个：
+        --accent  主色（链接、按钮、标题高亮）
+        --bg      页面大背景
+        --text    正文颜色
+        --sub     灰色说明文字
+
+   ② 页面里不要再写死颜色，一律写 var(--名字)。
+      需要新颜色时，先在这里加一行，再去页面里引用。
+      rgba 阴影统一写 rgba(var(--shadow-rgb), .08)，这样昼夜两套值自动切换。
+
+   ③ 白天 / 黑夜模式：
+      深色值写在文件末尾的 [data-theme="dark"] 里，只覆盖同名变量，
+      页面一个字都不用改；切换按钮和记忆功能在 theme.js。
+      阴影里的 rgba(15,23,42,…) 要写成 rgba(var(--shadow-rgb),…) 才会跟着变。
+
+   ④ 排版基线（字号、行高、容器宽度、圆角）也在本文件，见最下方「统一排版」一节。
+   ============================================================ */
+
+:root{
+  color-scheme: light;
+
+  /* ── 背景与分隔线 ── */
+  --bg:#F5F8FC;            /* 页面大底 */
+  --card:#FFFFFF;          /* 白色卡片 */
+  --card2:#F8FAFC;         /* 次级卡片、表格头 */
+  --card3:#F1F5F9;         /* 再浅一档的块 */
+  --line:#DCE4EE;          /* 分隔线、浅边框 */
+  --line2:#C2CEDD;         /* 深一点的分隔线 */
+
+  /* ── 文字 ── */
+  --head:#0F172A;          /* 最深的标题字 */
+  --text:#1E293B;          /* 正文 */
+  --text2:#334155;         /* 正文与说明之间 */
+  --sub:#616F84;           /* 次要说明文字（2026-09-11 微调：原 #64748B 落在 --bg 上只有 4.47:1，差一点点不达 WCAG AA 的 4.5:1） */
+  --sub2:#475569;          /* 介于正文和次要之间 */
+
+  /* ── 主色（蓝）── */
+  --accent:#2563EB;        /* 主蓝：链接、按钮、强调 */
+  --accent-d:#1D4ED8;      /* 主蓝的深色版（hover、数字） */
+  --brand-soft:#EFF6FF;    /* 蓝色浅底 */
+  --brand-soft2:#DBEAFE;   /* 蓝色浅底（深一档）*/
+  --brand-line:#BFDBFE;    /* 蓝色浅边框 */
+  --brand-light:#93C5FD;   /* 蓝色淡（装饰、深底上的次要字）*/
+
+  /* ── 提示色 ── */
+  --red:#DC2626;           /* 红：警告、不能用 */
+  --red-soft:#FEF2F2;
+  --red-line:#FECACA;
+  --yellow:#B45309;        /* 黄褐：注意、提醒（文字用）*/
+  --yellow-soft:#FFFBEB;
+  --yellow-soft2:#FEF3C7;
+  --yellow-line:#FCD34D;
+  --yellow-light:#FDE68A;
+  --amber:#F59E0B;         /* 橙黄（图标、圆点）*/
+  --green:#16A34A;         /* 绿：可以、通过 */
+  --green-d:#059669;       /* 绿的深色版 */
+  --green-soft:#F0FDF4;
+  --purple:#7C3AED;        /* 紫：装饰、渐变第二色 */
+  --pink:#DB2777;          /* 粉：渐变第三色 */
+
+  /* ── 第二主色（青蓝，行李清单在用）── */
+  --accent2:#0E7490;
+  --accent2-d:#0891B2;
+  --accent2-soft:#EAF7FB;
+  --accent2-line:rgba(14,116,144,.25);
+
+  /* ── 其它辅助面 ── */
+  --purple-soft:#F5F3FF;
+  --purple-soft2:#E9D5FF;
+  --gray-bg:#F3F4F6;
+  --gray-line:#E5E7EB;
+  --card-soft:#FAFCFF;     /* 列表项那种极浅的底 */
+
+  /* ── 阴影 / 高亮白字 ── */
+  --shadow-rgb:15,23,42;   /* 阴影基色，深色模式转纯黑 */
+  --on-accent:#FFFFFF;     /* 彩色底上的白字，昼夜都不变 */
+
+  /* ── 兼容老写法（timeline 页在用）── */
+  --blue:#2563EB;
+}
+
+/* ============================================================
+   黑夜模式：只覆盖变量，页面无需改动
+   设计原则：背景不用纯黑（#0B1220），卡片比背景亮一档，
+             文字不用纯白（#E6EDF7），彩色文字一律提亮一档以保证对比度。
+   ============================================================ */
+[data-theme="dark"]{
+  color-scheme: dark;
+
+  --bg:#0B1220;
+  --card:#141E31;
+  --card2:#1A2438;
+  --card3:#202C42;
+  --line:#26334A;
+  --line2:#3A4861;
+
+  --head:#F1F5F9;
+  --text:#E6EDF7;
+  --text2:#CBD5E1;
+  --sub:#98A6BA;
+  --sub2:#BFCBDB;
+
+  --accent:#3B82F6;        /* ⚠️ 这个色同时用来做底（按钮/渐变卡，上面压白字），所以夜间不能调太亮 */
+  --accent-d:#A9CBFF;
+  --brand-soft:#15243D;
+  --brand-soft2:#1B2E4D;
+  --brand-line:#2E4670;
+  --brand-light:#3F6299;
+
+  --red:#FB7185;
+  --red-soft:#2C1619;
+  --red-line:#5C2A31;
+  --yellow:#FBBF24;
+  --yellow-soft:#241B0C;
+  --yellow-soft2:#2E2310;
+  --yellow-line:#6B5015;
+  --yellow-light:#4A3810;
+  --amber:#FBBF24;
+  --green:#4ADE80;
+  --green-d:#34D399;
+  --green-soft:#10261B;
+  --purple:#8B5CF6;        /* 同上：渐变第二色，做底压白字 */
+  --pink:#F472B6;
+
+  --accent2:#0891B2;       /* 同上：青，做底压白字（.cta-card 渐变第一色） */
+  --accent2-d:#5AD8EC;
+  --accent2-soft:#0F2530;
+  --accent2-line:rgba(56,200,224,.28);
+
+  --purple-soft:#1D1830;
+  --purple-soft2:#2A2145;
+  --gray-bg:#1B2436;
+  --gray-line:#2B3852;
+  --card-soft:#182234;
+
+  --shadow-rgb:0,0,0;
+  --blue:#7DB3FF;
+}
+
+/* 切换主题时给个 0.25 秒过渡（theme.js 临时加 .theme-anim，切完就摘掉） */
+html.theme-anim, html.theme-anim *{
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease !important;
+}
+
+/* ============================================================
+   统一排版（2026-09-11 定稿 · 全站唯一规则）
+   页面里不许再写死字号 / 行高 / 间距 / 圆角 / 容器宽度，一律用下面的变量。
+   ──────────────────────────────────────────────
+   ① 字体：全站只有一种 var(--font)，body 已设，页面不用再写。
+   ② 字号 10 档（px 用于页面级固定尺寸，em 用于卡片内相对字号，一一对应）：
+        --fs-2xs 11px / .75em   角标、徽标、脚注
+        --fs-xs  12px / .8em    辅助说明、表格小字
+        --fs-sm  13px / .85em   卡片正文、列表行
+        --fs-md  14px / .9em    正文（默认）
+        --fs-lg  16px / 1em     强调正文、卡片标题
+        --fs-xl  18px / 1.1em   小标题
+        --fs-h2  20px / 1.3em   板块标题
+        --fs-2xl 28px           大数字、装饰数字
+        --fs-h1  clamp(22px,5vw,34px)  页面大标题（自适应）
+   ③ 行高 3 档：--lh-tight 1.4（标题）/ --lh 1.7（正文）/ --lh-loose 1.85（小字长段）
+   ④ 间距 11 档（gap / padding / margin 都从这里取）：
+        2 4 6 8 10 12 16 20 24 32 40（--gap-2xs … --gap-5xl）
+        例外：1px 描边线宽、≥48px 的布局留白（如固定底栏预留 100px）保留。
+   ⑤ 容器 5 档：--w-narrow 640 / --w-page 720（阅读型）/ --w-wide 860（资料型）/
+      --w-home 1080（首页）/ --w-grid 1100（网格型）
+   ⑥ 圆角 4 档：--r-xs 4 / --r-sm 8 / --r-md 12 / --r-lg 16（正圆 50%、胶囊 --r-pill）
+   卡片统一配方 = var(--card) 底 + 1px var(--line) 边 + var(--r-md) 圆角 + 12px 16px 内边距。
+   ============================================================ */
+:root{
+  /* ① 字体 */
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+
+  /* ② 字号 */
+  --fs-2xs:11px;  --fs-xs:12px;  --fs-sm:13px;  --fs-md:14px;
+  --fs-lg:16px;   --fs-xl:18px;  --fs-h2:20px;  --fs-2xl:28px;
+  --fs-h1:clamp(22px,5vw,34px);
+  --fs-2xs-em:.75em; --fs-xs-em:.8em;  --fs-sm-em:.85em; --fs-md-em:.9em;
+  --fs-lg-em:1em;    --fs-xl-em:1.1em; --fs-h2-em:1.3em;
+
+  /* ③ 行高 */
+  --lh:1.7; --lh-tight:1.4; --lh-loose:1.85;
+
+  /* ④ 间距 */
+  --gap-2xs:2px; --gap-xs:4px;  --gap-sm:6px;  --gap:8px;
+  --gap-md:10px; --gap-lg:12px; --gap-xl:16px; --gap-2xl:20px;
+  --gap-3xl:24px; --gap-4xl:32px; --gap-5xl:40px;
+
+  /* ⑤ 容器 */
+  --w-narrow:640px; --w-page:720px; --w-wide:860px; --w-home:1080px; --w-grid:1100px;
+
+  /* ⑥ 圆角 */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-pill:999px;
+}
+
+body{font-family:var(--font);font-size:var(--fs-lg);line-height:var(--lh);color:var(--text);background:var(--bg)}
+
+.pg{max-width:var(--w-page);margin:0 auto;padding:0 var(--gap-xl)}
+.pg-wide{max-width:var(--w-wide);margin:0 auto;padding:0 var(--gap-xl)}
+
+.pg-head{text-align:center;padding:var(--gap-4xl) var(--gap-2xl) var(--gap-2xl)}
+.pg-title{font-size:var(--fs-h1);font-weight:800;line-height:var(--lh-tight);margin:0 0 var(--gap-sm);
+  background:linear-gradient(135deg,var(--accent),var(--purple),var(--pink));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pg-sub{color:var(--sub);font-size:var(--fs-md);margin:0}
+
+.pg-sec-title{max-width:var(--w-page);margin:24px auto 12px;padding:0 var(--gap-xl);
+  font-size:var(--fs-lg);font-weight:700;text-align:center;color:var(--sub)}
+
+.pg-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--gap-lg) var(--gap-xl)}
+
+/* ============================================================
+   过期归档区（全站通用）—— 建立了 2026-09-11
+   过了时间窗的内容不删，整段剪进这里，默认折叠、沉在页面最底部：
+
+     <section class="exp-zone" id="expired">
+       <details>
+         <summary>
+           <span class="exp-badge">已过期</span>
+           <span>标题：哪几条、为什么过期</span>
+           <span class="exp-hint"></span>
+         </summary>
+         <div class="exp-body">
+           <p class="exp-note">什么时候过期、明年什么时候回来</p>
+           （原来那几段内容原样粘回来，一个字都不用改）
+         </div>
+       </details>
+     </section>
+
+   明年要重新上线：把 exp-body 里的内容剪回原位，这段壳删掉即可。
+   配套 archive.js：从外部链接直接跳到 #prep 这类锚点时，自动展开归档区。
+   ============================================================ */
+.exp-zone{max-width:780px;margin:26px auto 12px;padding:0 var(--gap-xl)}
+.exp-zone details{background:var(--card2);border:1px dashed var(--line2);border-radius:var(--r-md);overflow:hidden}
+.exp-zone summary{display:flex;align-items:center;gap:var(--gap);flex-wrap:wrap;cursor:pointer;user-select:none;list-style:none;padding:var(--gap-lg) var(--gap-xl);font-size:var(--fs-sm-em);font-weight:700;color:var(--sub2)}
+.exp-zone summary::-webkit-details-marker{display:none}
+.exp-zone summary:hover{color:var(--text)}
+.exp-zone .exp-badge{font-size:var(--fs-2xs-em);font-weight:600;padding:var(--gap-2xs) var(--gap);border-radius:var(--r-lg);background:var(--card3);border:1px solid var(--line2);color:var(--sub);white-space:nowrap}
+.exp-zone .exp-hint{margin-left:auto;font-size:var(--fs-2xs-em);font-weight:600;color:var(--accent);white-space:nowrap}
+.exp-zone .exp-hint::after{content:'展开 ▾'}
+.exp-zone details[open] .exp-hint::after{content:'收起 ▴'}
+.exp-zone .exp-body{padding:0 var(--gap-xl) var(--gap-xl);padding-top:var(--gap-lg);border-top:1px dashed var(--line2)}
+.exp-zone .exp-note{font-size:var(--fs-2xs-em);color:var(--sub);line-height:var(--lh-loose);margin:0 0 var(--gap-lg)}
+.exp-zone .exp-note b{color:var(--sub2)}
+
+/* 页面正文里的「有内容被归档了」提示条 */
+.arch-note{font-size:var(--fs-2xs-em);color:var(--sub);background:var(--card2);border:1px dashed var(--line2);border-radius:var(--r-sm);padding:var(--gap) var(--gap-lg);margin-bottom:var(--gap);line-height:var(--lh)}
+.arch-note a{color:var(--accent);font-weight:600;text-decoration:none}
+
+/* ============================================================
+   昼夜切换按钮（theme.js 自动插入，页面不用管）
+   右下角悬浮，白天显示月亮、夜里显示太阳。
+   ============================================================ */
+.theme-btn{
+  position:fixed;left:16px;bottom:18px;z-index:999;
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;line-height:1;cursor:pointer;
+  background:var(--card);color:var(--text);
+  border:1px solid var(--line);
+  box-shadow:0 2px 8px rgba(var(--shadow-rgb),.14);
+  -webkit-tap-highlight-color:transparent;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.theme-btn:hover{border-color:var(--line2);box-shadow:0 3px 10px rgba(var(--shadow-rgb),.18)}
+.theme-btn:active{border-color:var(--line2)}
+.theme-btn .tb-tip{
+  position:absolute;left:46px;bottom:7px;white-space:nowrap;
+  font-size:var(--fs-xs);font-weight:600;color:var(--sub2);
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--r-sm);
+  padding:var(--gap-xs) var(--gap);opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.theme-btn:hover .tb-tip{opacity:1}
+@media(max-width:640px){.theme-btn{left:12px;bottom:14px;width:34px;height:34px;font-size:15px}}

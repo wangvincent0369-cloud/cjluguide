@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全部内容目录 · 中国计量大学2026新生指南</title>
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    zoom:75%;
+    font-family:var(--font);
+    background:var(--bg); color:var(--text); line-height:var(--lh);
+  }
+  /* ===== 首屏：天空渐变，和首页一个调子 =====
+     ⚠️ 这里不要写 margin:0 calc(50% - 50vw) 去「拉满宽度」：
+     body 上有 zoom:75%，vw 会跟着被缩放，结果左右各缩进 12.5%（实测 1254px 宽的窗口，背景只有 940px）。
+     .hero 本来就是 body 的直接子元素，宽度天然就是满屏，什么都不用写。 */
+  .hero { padding:var(--gap-5xl) var(--gap-2xl) var(--gap-4xl); background:linear-gradient(180deg, var(--brand-soft2) 0%, var(--brand-soft) 55%, var(--bg) 100%); text-align:center; }
+  .hero h1 { font-size:var(--fs-h1); font-weight:800; letter-spacing:2px; margin-bottom:var(--gap-md); background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+  .hero .sub { font-size:var(--fs-md-em); color:var(--sub2); line-height:var(--lh-loose); }
+  .hero .sub b { color:var(--accent-d); }
+  /* 页内跳转胶囊 */
+  .jump { max-width:var(--w-page); margin:20px auto 0; padding:0 var(--gap-2xl); display:flex; flex-wrap:wrap; gap:var(--gap); justify-content:center; }
+  .jump a { font-size:var(--fs-xs); color:var(--accent-d); text-decoration:none; background:var(--card); border:1px solid var(--brand-line); border-radius:var(--r-lg); padding:var(--gap-sm) var(--gap-lg); transition:all .2s; box-shadow:0 1px 4px rgba(30,64,175,.08); }
+  .jump a:hover { background:var(--brand-soft); border-color:var(--accent); }
+  /* 搜索提示 */
+  .hint { max-width:var(--w-page); margin:18px auto 0; padding:var(--gap-lg) var(--gap-xl); background:var(--brand-soft); border:1px solid var(--brand-line); border-radius:var(--r-md); font-size:var(--fs-xs); color:var(--text2); line-height:var(--lh-loose); text-align:center; }
+  .hint b { color:var(--accent-d); }
+  /* ===== 分组 ===== */
+  .wrap { max-width:var(--w-page); margin:30px auto 0; padding:0 var(--gap-2xl) var(--gap-md); }
+  .sec { margin-bottom:var(--gap-3xl); }
+  .sec-h { display:flex; align-items:baseline; gap:var(--gap-md); flex-wrap:wrap; margin-bottom:var(--gap-md); padding-left:var(--gap-lg); border-left:3px solid var(--accent); }
+  .sec-h b { font-size:var(--fs-lg); color:var(--head); font-weight:800; letter-spacing:.5px; }
+  .sec-h span { font-size:var(--fs-xs); color:var(--sub); }
+  /* ===== 条目列表：白卡 + 细分隔线 ===== */
+  .list { background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden; box-shadow:0 4px 16px rgba(15,23,42,.05); }
+  .it { display:flex; align-items:center; gap:var(--gap-md); padding:var(--gap-lg) var(--gap-xl); text-decoration:none; border-top:1px solid var(--card3); transition:background .2s; }
+  .it:first-child { border-top:none; }
+  .it:hover { background:var(--brand-soft); }
+  .it .txt { flex:1; min-width:0; }
+  .it .n { display:block; font-size:var(--fs-md); color:var(--text); font-weight:600; }
+  .it:hover .n { color:var(--accent); }
+  .it .d { display:block; font-size:var(--fs-xs); color:var(--sub); margin-top:var(--gap-2xs); line-height:var(--lh); }
+  .it .g { flex:0 0 auto; color:var(--brand-light); font-size:var(--fs-lg); }
+  .it:hover .g { color:var(--accent); }
+  .hot { display:inline-block; font-size:var(--fs-2xs); font-weight:700; color:var(--yellow); background:var(--yellow-soft2); border:1px solid var(--yellow-line); border-radius:var(--r-sm); padding:1px var(--gap-sm); margin-left:var(--gap-sm); vertical-align:1px; letter-spacing:0; }
+  /* ===== 已过期：整块灰化，只做归档，不抢视线 ===== */
+  .exp { display:inline-block; font-size:var(--fs-2xs); font-weight:700; color:var(--sub); background:var(--card3); border:1px solid var(--line2); border-radius:var(--r-sm); padding:1px var(--gap-sm); margin-left:var(--gap-sm); vertical-align:1px; letter-spacing:0; }
+  .sec.old .sec-h { border-left-color:var(--line2); }
+  .sec.old .sec-h b { color:var(--sub); }
+  .it.off { background:var(--card2); }
+  .it.off .n { color:var(--sub2); font-weight:600; }
+  .it.off:hover .n { color:var(--sub2); }
+  .it.off .d { color:var(--sub2); opacity:.85; }
+  .it.off .g { color:var(--line2); }
+  .sec-note { margin:0 0 var(--gap-md); padding:var(--gap) var(--gap-lg); background:var(--card2); border:1px dashed var(--line2); border-radius:var(--r-md); font-size:var(--fs-xs); color:var(--sub2); line-height:var(--lh); }
+  /* ===== 结尾转化卡（浅色版，与其它页一致） ===== */
+  .cta-card { max-width:var(--w-narrow); margin:30px auto 0; background:var(--card); border:1px solid var(--line2); border-radius:var(--r-lg); padding:var(--gap-2xl) var(--gap-2xl); text-align:center; box-shadow:0 10px 34px rgba(15,23,42,.08); }
+  .cta-hook { margin:0 0 var(--gap); color:var(--text); font-size:var(--fs-xl); font-weight:700; letter-spacing:.5px; }
+  .cta-sub { color:var(--sub2); font-size:var(--fs-xs); line-height:var(--lh); max-width:430px; margin:0 auto 14px; }
+  .cta-sub b { color:var(--accent); }
+  .cta-wx { display:inline-flex; align-items:center; gap:var(--gap-md); background:var(--card2); border:1px solid var(--line2); border-radius:var(--r-md); padding:var(--gap) var(--gap-2xl); }
+  .cta-wx-id { color:var(--text); font-size:var(--fs-xl); font-weight:700; letter-spacing:2px; user-select:all; -webkit-user-select:all; }
+  .cta-wx-tip { color:var(--sub2); font-size:var(--fs-xs); }
+  .cta-note { margin:var(--gap-md) 0 0; color:var(--sub); font-size:var(--fs-2xs); line-height:var(--lh); }
+  .cta-home { display:inline-block; margin-top:var(--gap-lg); color:var(--sub2); font-size:var(--fs-xs); text-decoration:none; border-bottom:1px solid var(--line2); padding-bottom:1px; }
+  .cta-home:hover { color:var(--text); }
+  .footer { text-align:center; padding:var(--gap-3xl) var(--gap-2xl) var(--gap-4xl); color:var(--sub); font-size:var(--fs-xs); border-top:1px solid var(--line); background:var(--card); margin-top:var(--gap-4xl); }
+  @media(max-width:640px){
+    .hero { padding:var(--gap-4xl) var(--gap-xl) var(--gap-3xl); }
+    .it { padding:var(--gap-lg) var(--gap-lg); }
+    .it .n { font-size:var(--fs-md); }
+    .sec-h b { font-size:var(--fs-md); }
+    .cta-card { padding:var(--gap-xl) var(--gap-lg); }
+  }
+</style>
+</head>
+<body>
+<div style="text-align:center;padding:var(--gap) var(--gap-lg);background:var(--brand-soft);border-bottom:1px solid var(--brand-line);font-size:var(--fs-lg);color:var(--accent)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+
+<div class="hero">
+  <h1>全部内容目录</h1>
+  <p class="sub">这里列着本站 <b>10 个页面</b> 里的全部内容，按「你什么时候用得上」排。<br>出门前才用得上的准备内容，已经收在页面最下面了（明年新生再提上来）。</p>
+</div>
+
+<div class="jump">
+  <a href="#s1">① 到校后</a>
+  <a href="#s2">② 住进来</a>
+  <a href="#s3">③ 开学后</a>
+  <a href="#s4">④ 专题资料库</a>
+  <a href="#s5">⑤ 问答 · 福利</a>
+</div>
+
+<div class="hint">翻得有点累？点右下角 <b>🔍</b> 直接搜 —— 「宿舍」「转专业」「吉他」这类词，全站内容一起搜。</div>
+
+<div class="wrap">
+
+  <section class="sec" id="s1">
+    <div class="sec-h"><b>一、到校后还要办的</b><span>校园卡、进群，还有住进去才想起来的</span></div>
+    <div class="list">
+      <a class="it" href="timeline.html#sim-card"><span class="txt"><span class="n">校园卡怎么选</span><span class="d">三家运营商套餐对比，别在宿舍楼下被推销带走</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#group"><span class="txt"><span class="n">关注公众号 + 加群</span><span class="d">官方通知从哪看，新生群怎么进</span></span><span class="g">›</span></a>
+    </div>
+  </section>
+
+  <section class="sec" id="s2">
+    <div class="sec-h"><b>二、住进来之后</b><span>宿舍、吃饭、快递 —— 天天都用得上</span></div>
+    <div class="list">
+      <a class="it" href="timeline.html#dorm"><span class="txt"><span class="n">宿舍介绍</span><span class="d">几人间、有没有独卫空调、几点断电</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#canteen"><span class="txt"><span class="n">食堂 &amp; 吃饭</span><span class="d">几个食堂、怎么算钱、几点还有饭</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#express"><span class="txt"><span class="n">快递 &amp; 超市</span><span class="d">快递点在哪、开学买的被子寄到哪</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#dorm-goods"><span class="txt"><span class="n">寝室好物清单</span><span class="d">住进去才会想起来要买的东西</span></span><span class="g">›</span></a>
+    </div>
+  </section>
+
+  <section class="sec" id="s3">
+    <div class="sec-h"><b>三、开学后</b><span>现在就在这一段：上课、快递、四级、社团</span></div>
+    <div class="list">
+      <a class="it" href="timeline.html#gpa"><span class="txt"><span class="n">绩点 5.0 制<span class="hot">必看</span></span><span class="d">绩点怎么算、为什么比你想的重要</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#cet4"><span class="txt"><span class="n">考四级</span><span class="d">什么时候考、要不要抢名额</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#zongce"><span class="txt"><span class="n">综测怎么算</span><span class="d">奖学金、评优看的就是它</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#kaoyan"><span class="txt"><span class="n">考研看什么</span><span class="d">本校没有保研，想读研要早点知道的事</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#library"><span class="txt"><span class="n">图书馆</span><span class="d">怎么进、怎么借、入馆考（10/1 前）</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#study-place"><span class="txt"><span class="n">自习去处</span><span class="d">教室、图书馆、自习室各自的好处</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#zaowan"><span class="txt"><span class="n">早晚自习</span><span class="d">大一有没有、要不要签到</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#schedule"><span class="txt"><span class="n">上课时间表</span><span class="d">一天几节课、每节几点到几点</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#pe-course"><span class="txt"><span class="n">体育课选课攻略</span><span class="d">哪些课好过、怎么抢</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#tice"><span class="txt"><span class="n">体测（10-11 月）</span><span class="d">测哪几项、不及格会怎样</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#junxun"><span class="txt"><span class="n">军训（冬训，1 月）<span class="hot">必看</span></span><span class="d">不是开学军训，是冬天 —— 很多人开学才知道</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#final"><span class="txt"><span class="n">期末考试</span><span class="d">怎么考、挂科了怎么办</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#student-id"><span class="txt"><span class="n">学生证福利</span><span class="d">景区半价、火车票打折怎么用</span></span><span class="g">›</span></a>
+      <a class="it" href="timeline.html#cert"><span class="txt"><span class="n">考证规划</span><span class="d">大学四年可以考哪些证、什么时候考</span></span><span class="g">›</span></a>
+    </div>
+  </section>
+
+  <section class="sec" id="s4">
+    <div class="sec-h"><b>四、专题资料库</b><span>想认真查的时候，整页看</span></div>
+    <div class="list">
+      <a class="it" href="major.html"><span class="txt"><span class="n">专业五维评价（58 个专业）</span><span class="d">就业、考研、难度、师资、潜力 —— 被调剂了先看这个</span></span><span class="g">›</span></a>
+      <a class="it" href="transfer.html"><span class="txt"><span class="n">转专业指南</span><span class="d">谁能转、怎么转、名额多少、成功率、要准备什么</span></span><span class="g">›</span></a>
+      <a class="it" href="course.html"><span class="txt"><span class="n">选课指南</span><span class="d">这一步选什么、按什么判断、不能退的检查、创新创业学分</span></span><span class="g">›</span></a>
+      <a class="it" href="curriculum.html"><span class="txt"><span class="n">培养方案查询（57 个专业）</span><span class="d">你的专业要修哪些课、总共多少学分</span></span><span class="g">›</span></a>
+      <a class="it" href="club.html"><span class="txt"><span class="n">社团总览（87 个社团）</span><span class="d">按类分好，招新一般在开学后</span></span><span class="g">›</span></a>
+    </div>
+  </section>
+
+  <section class="sec" id="s5">
+    <div class="sec-h"><b>五、问答 与 福利</b><span>随时能点开看看</span></div>
+    <div class="list">
+      <a class="it" href="questions.html"><span class="txt"><span class="n">新生问题汇总</span><span class="d">报到前 + 报到周 + 开学后（选课 / 宿舍好物 / 避雷），都是新生真实问过的，含防骗</span></span><span class="g">›</span></a>
+      <a class="it" href="welfare.html"><span class="txt"><span class="n">新生福利（3 条）</span><span class="d">12306 学生票（9/13 前买）、豆包 3 个月、夸克 3 个月</span></span><span class="g">›</span></a>
+    </div>
+  </section>
+
+  <section class="sec old" id="s6">
+    <div class="sec-h"><b>六、已过期 · 报到那一段</b><span>今年已经过去了，留着备份，明年新生再提上来</span></div>
+    <div class="sec-note">这些都是「过去了就用不上」的内容 —— 报到流程、证件、出发前的一次性准备，报到之后再点开也没意义了，所以统一收在这里，不占前面的位置。明年（2027 级）报到前会重新提到页面最上面。</div>
+    <div class="list">
+      <a class="it off" href="timeline.html#prep"><span class="txt"><span class="n">入学准备<span class="exp">已过期</span></span><span class="d">缴费、档案、团组织关系，走之前确认一遍</span></span><span class="g">›</span></a>
+      <a class="it off" href="timeline.html#hukou"><span class="txt"><span class="n">户口迁不迁<span class="exp">已过期</span></span><span class="d">迁与不迁分别影响什么，讲清楚再决定</span></span><span class="g">›</span></a>
+      <a class="it off" href="timeline.html#pack"><span class="txt"><span class="n">行李打包<span class="exp">已过期</span></span><span class="d">怎么装箱、哪些其实不用带</span></span><span class="g">›</span></a>
+      <a class="it off" href="timeline.html#computer"><span class="txt"><span class="n">电脑选购指南<span class="exp">已过期</span></span><span class="d">按专业说该买什么配置，别买错</span></span><span class="g">›</span></a>
+      <a class="it off" href="luggage.html#buy-online"><span class="txt"><span class="n">行李清单 · 线上买<span class="exp">已过期</span></span><span class="d">提前网购寄到学校，人还没到东西先到</span></span><span class="g">›</span></a>
+      <a class="it off" href="timeline.html#documents"><span class="txt"><span class="n">证件清单<span class="exp">已过期</span></span><span class="d">报到当天要交的材料，少带一样就得回家补</span></span><span class="g">›</span></a>
+      <a class="it off" href="luggage.html#must-bring"><span class="txt"><span class="n">行李清单 · 必带<span class="exp">已过期</span></span><span class="d">证件和贴身物品，一件件勾掉（能打勾、记得住进度）</span></span><span class="g">›</span></a>
+      <a class="it off" href="luggage.html#buy-offline"><span class="txt"><span class="n">行李清单 · 线下买<span class="exp">已过期</span></span><span class="d">到校再买的，学校周边就有</span></span><span class="g">›</span></a>
+      <a class="it off" href="timeline.html#baodao"><span class="txt"><span class="n">报到当天流程<span class="exp">已过期</span></span><span class="d">从进校门到进宿舍，按顺序一步步做什么</span></span><span class="g">›</span></a>
+    </div>
+  </section>
+
+</div>
+
+<div class="cta-card">
+  <div class="cta-hook">目录里没有你想找的？</div>
+  <p class="cta-sub">说明我们还没整理到，<b>进群和大家讨论</b>就行 —— 群里是 2026 级新生互助交流，学长和同学都会参与回答。</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「目录」</span>
+  </div>
+  <p class="cta-note">资料可以直接查看，不需要添加好友<br>本页由在校学生整理，非中国计量大学官方平台；涉及学校政策、时间等重要信息，请以官方通知为准</p>
+  <a class="cta-home" href="index.html">← 返回总览</a>
+</div>
+
+<div class="footer">
+  全部内容目录 · 共 10 个页面 ｜ 最后更新 2026.09.11
+</div>
+
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+</body>
+</html>

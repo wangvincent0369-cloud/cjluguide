@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国计量大学 · 2026新生指南</title>
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+/* ============================================================
+   首页 v3.1（09-18）：Apple 式克制排版
+   原则：搜索是唯一主角；用字号/字重/留白/细线组织信息，不用卡片；
+        一个主强调色（--accent）只给交互；状态色只有「现在」的圆点。
+   ── 首页专用 typography token ──
+   theme.css 是全站 13 页共享调色板，本页不改它；
+   下面的 token 只在本页生效（别的页面引不到这份 <style>）。
+   每个字号只有一个用途，互不混用：
+     --i-title 20px/600  搜索区标题（页面唯一的"大字"）
+     --i-input 16px      输入框文字（≥16 防iOS聚焦缩放）
+     --i-btn   14px/600  搜索按钮
+     --i-row   15px/600  入口行标题（学业/校园规则）
+     --i-desc  13px/400  入口行辅助说明
+     --i-sec   13px/600  区块标题（现在/学业/校园规则/校园资源）
+     --i-now   13px/500  「现在」条目
+     --i-hot   13px/400  热门词
+     --i-res   13px/400  校园资源行
+     --i-lite  12px/400  其他资料
+     --i-status 12px     顶部状态行
+     --i-foot  11px      页脚
+   ============================================================ */
+body {
+  --i-status:12px; --i-title:20px; --i-input:16px; --i-btn:14px;
+  --i-sec:13px; --i-row:15px; --i-desc:13px; --i-now:13px; --i-hot:13px;
+  --i-res:13px; --i-lite:12px; --i-foot:11px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); font-size:var(--i-desc); line-height:1.5;
+  color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+a { -webkit-tap-highlight-color:transparent; }
+
+/* ── 顶部状态行：开学第 N 天。轻到只剩一行小字 ── */
+.status { text-align:center; padding:8px 20px 0;
+  font-size:var(--i-status); color:var(--sub); }
+.status b { color:var(--text2); font-weight:600; font-variant-numeric:tabular-nums; }
+.status a { color:var(--accent); font-weight:600; text-decoration:none; }
+
+/* ── 搜索区 = 第一视觉 ──
+   标题只是说明，搜索框才是主角。（.hero 是 search.js 的插入锚点，⛔ 别改名） */
+.hero { text-align:center; padding:14px 20px 0; }
+.hero h1 { font-size:var(--i-title); font-weight:600; color:var(--head); letter-spacing:.5px; }
+
+/* search.js 运行时把样式注入 <head> 末尾，会盖住同权重规则；
+   本页所有搜索相关覆盖一律加 body 前缀，与注入顺序无关。 */
+body .ss-home { max-width:600px; margin:10px auto 0; padding:0 20px; }
+body .ss-home .ss-home-input { width:100%; font-family:inherit; font-size:var(--i-input);
+  font-weight:400; color:var(--text); background:var(--card);
+  border:1px solid var(--line); border-radius:11px; min-height:44px;
+  padding:10px 84px 10px 42px; outline:none; transition:border-color .15s; }
+body .ss-home .ss-home-input::placeholder { color:var(--sub); }
+body .ss-home .ss-home-input:focus { border-color:var(--accent); }
+body .ss-home-ico { position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  font-size:15px; line-height:1; color:var(--sub); pointer-events:none; }
+body .ss-home .ss-home-btn { position:absolute; right:5px; top:50%; transform:translateY(-50%);
+  border:none; cursor:pointer; font-family:inherit; font-size:var(--i-btn); font-weight:600;
+  color:var(--on-accent); background:var(--accent);      /* 单色，不要渐变 */
+  border-radius:9px; padding:0 16px; min-height:32px; }
+body .ss-home .ss-home-btn:hover { filter:brightness(1.06); }
+
+/* 热门词：一行浅灰提示，用「·」分隔，不是栏目 */
+body .ss-home .ss-home-hot { display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:2px 0; width:100%; margin:8px auto 0; padding:0;
+  background:transparent; border:none; border-radius:0; box-shadow:none; line-height:1.6; }
+body .ss-home .ss-home-hot-t { display:none; }
+body .ss-home .ss-home-chip { font-family:inherit; font-size:var(--i-hot); font-weight:400;
+  color:var(--sub); cursor:pointer; line-height:1.6; background:transparent; border:none;
+  border-radius:6px; padding:2px 6px; transition:color .15s; }
+body .ss-home .ss-home-chip:not(:last-of-type)::after { content:'·'; margin-left:12px;
+  color:var(--line2); }
+body .ss-home .ss-home-chip:hover { color:var(--accent); background:transparent; }
+
+/* 搜索结果面板（悬浮） */
+body .ss-home .ss-home-results { background:var(--card); border:1px solid var(--line);
+  border-radius:12px; box-shadow:0 10px 30px rgba(var(--shadow-rgb),.12); }
+body .ss-home-results .ss-item { border-bottom-color:var(--line); }
+body .ss-home-results .ss-item:hover { background:var(--brand-soft); }
+body .ss-home-results .ss-it { color:var(--text); }
+body .ss-home-results .ss-ik { color:var(--accent); background:var(--brand-soft); border-color:var(--brand-line); }
+body .ss-home-results .ss-id { color:var(--sub); }
+body .ss-home-results .ss-tip { color:var(--sub); }
+body .ss-home-results .ss-none-t { color:var(--text); }
+body .ss-home-results .ss-none-hint { color:var(--sub); }
+body .ss-home-results .ss-ask, body .ss-home-results .ss-submit {
+  background:var(--card); border:1px solid var(--line2); border-radius:10px;
+  color:var(--accent); font-family:inherit; font-size:13px; font-weight:600;
+  padding:6px 14px; text-decoration:none; cursor:pointer; }
+body .ss-home-results .ss-ask:hover, body .ss-home-results .ss-submit:hover { border-color:var(--accent); }
+body .ss-home-results .ss-req { background:var(--card2); }
+body .ss-home-results .ss-req-btn { background:var(--card); border-color:var(--line2); }
+body .ss-home .ss-home-input:focus-visible, body .ss-home .ss-home-btn:focus-visible,
+body .ss-home .ss-home-chip:focus-visible, body .ss-home-results .ss-ask:focus-visible,
+body .ss-home-results .ss-submit:focus-visible, body .ss-home-results .ss-req-btn:focus-visible {
+  outline:2px solid var(--accent); outline-offset:2px; }
+
+/* ── 主体 ── */
+.wrap { max-width:860px; margin:0 auto; padding:10px 20px 0; }
+.sec-t { font-size:var(--i-sec); font-weight:600; color:var(--sub);
+  letter-spacing:1px; margin-bottom:6px; }
+
+/* 现在：压成一条信息带（标签与条目同行），全过期整块消失 */
+#now { display:flex; flex-wrap:wrap; align-items:center; gap:6px 20px; margin-top:12px; }
+#now[hidden] { display:none; }
+#now .sec-t { margin-bottom:0; }
+.now-line { display:contents; }
+.now-line .ni { display:inline-flex; align-items:center; gap:7px;
+  font-size:var(--i-now); font-weight:500; color:var(--text); text-decoration:none; }
+.now-line .ni i { width:5px; height:5px; border-radius:50%; background:var(--amber); flex:0 0 auto; }
+.now-line a.ni:hover { color:var(--accent); }
+
+/* 核心：学业 / 校园规则。iOS 分组列表：每栏一个圆角面板（细边框、内嵌分隔线、整行高亮）。
+   桌面双栏并排；手机上下堆叠。 */
+.core { margin-top:28px; display:grid; grid-template-columns:1fr; row-gap:24px; }
+/* iOS 分组列表：每栏一个圆角面板，行内嵌分隔线，整行高亮 */
+.rows { list-style:none; background:var(--card); border:1px solid var(--line);
+  border-radius:14px; overflow:hidden; }
+.rows li { position:relative; }
+.rows li:not(:last-child)::after { content:''; position:absolute; left:14px; right:0;
+  bottom:0; height:1px; background:var(--line); }
+.rows a { display:flex; align-items:baseline; gap:12px;
+  padding:10px 14px; text-decoration:none; color:var(--text); }
+.rows .t { font-size:var(--i-row); font-weight:600; color:var(--head);
+  flex:0 0 auto; line-height:1.4; }
+.rows .d { flex:1; min-width:0; font-size:var(--i-desc); color:var(--sub); line-height:1.4;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }  /* 宁可截断也不破坏整行 */
+.rows .go { flex:0 0 auto; color:var(--sub); font-size:var(--i-row); }
+.rows a:hover { background:var(--brand-soft); }
+.rows a:active { background:var(--brand-soft); }
+@media (min-width:900px) {
+  .wrap { padding-top:14px; padding-left:24px; padding-right:24px; }
+  .hero { padding-top:18px; }
+  .core { margin-top:30px; grid-template-columns:1fr 1fr; column-gap:28px; }
+}
+
+/* 键盘可达性：Tab 聚焦时清晰描边（鼠标点击不触发） */
+.rows a:focus-visible, .now-line a:focus-visible, .res-line a:focus-visible, .lite a:focus-visible {
+  outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
+
+/* 校园资源：明显弱一档。快递是真链接；暂无承接端的 = 静态灰字，
+   不可点、不放假链接、不放「未上线」类字样（诚实降级，将来把灰字换成 <a> 即可） */
+.res { margin-top:32px; }
+.res-line { display:flex; flex-wrap:wrap; align-items:center; gap:6px 24px;
+  padding-top:2px; font-size:var(--i-res); color:var(--sub); }
+.res-line a { color:var(--text2); font-weight:500;
+  text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--line2); }  /* 弱化但明确可点 */
+.res-line a:hover { text-decoration:underline; }
+.res-line .off { opacity:.55; }
+
+/* 其他资料：最轻，单行文字链 */
+.lite { margin-top:14px; }
+.lite p { font-size:var(--i-lite); color:var(--sub); }
+.lite b { font-weight:600; margin-right:10px; }
+.lite a { color:var(--sub); text-decoration:none; border-bottom:1px solid var(--line2); }
+.lite a:hover { color:var(--accent); border-bottom-color:var(--accent); }
+.lite .sep { color:var(--line2); margin:0 8px; }
+.lite p + p { margin-top:6px; }
+
+/* 页脚：大幅减重（无线、11px、收紧），底部留白仍避开左下角昼夜按钮 */
+.footer { text-align:center; margin-top:32px;
+  padding:14px 20px 56px; font-size:var(--i-foot); color:var(--sub); line-height:1.7; }
+.footer b { color:var(--text2); }
+
+/* 仅首页隐藏（页面级控制，不改共享脚本）：群卡 / 分享卡 */
+.ct-card, .sh-card { display:none !important; }
+</style>
+</head>
+<body data-page="home">
+
+
+<!-- ===== 首页 v3.1（09-18 Apple 式排版）骨架不变：
+     状态行 → 搜索（第一视觉）→ 现在（轻横排）→ 学业/校园规则（桌面双栏行式目录）
+     → 校园资源（弱区）→ 其他资料（单行）→ 页脚。
+     搜索框由 search.js 注入到 .hero 之后；无结果面板有「问学长 / 提交需求」两个出口。 ===== -->
+
+<div class="status" id="status">开学第 <b>—</b> 天</div>
+
+<div class="hero">
+  <h1>想找什么，直接搜</h1>
+</div>
+
+<main class="wrap">
+  <section id="now" hidden>
+    <h2 class="sec-t">现在</h2>
+    <div class="now-line" id="now-list"></div>
+  </section>
+
+  <section class="core">
+    <div>
+      <h2 class="sec-t">学业</h2>
+      <ul class="rows">
+        <li><a href="course.html?v=20260918a#sec-now"><span class="t">选课怎么选</span><span class="d">你现在在哪一步、该做什么</span><span class="go">›</span></a></li>
+        <li><a href="timeline.html?v=20260918a#final"><span class="t">考试与重修</span><span class="d">期末安排 · 重修</span><span class="go">›</span></a></li>
+        <li><a href="timeline.html?v=20260918a#gpa"><span class="t">学分绩点</span><span class="d">绩点 5.0 制怎么算</span><span class="go">›</span></a></li>
+        <li><a href="transfer.html?v=20260918a#sec-conditions"><span class="t">转专业</span><span class="d">条件 · 流程 · 往年名额</span><span class="go">›</span></a></li>
+        <li><a href="timeline.html?v=20260918a#cet4"><span class="t">四级考试</span><span class="d">报名时间与入口</span><span class="go">›</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="sec-t">校园规则</h2>
+      <ul class="rows">
+        <li><a href="questions.html?v=20260918a"><span class="t">宿舍</span><span class="d">限电 · 热水 · 洗衣机 · 门禁</span><span class="go">›</span></a></li>
+        <li><a href="questions.html?v=20260918a#qa-27"><span class="t">门禁 / 熄灯</span><span class="d">门禁几点、几点熄灯</span><span class="go">›</span></a></li>
+        <li><a href="questions.html?v=20260918a#qa-21"><span class="t">校园卡 / 网络</span><span class="d">校园网、流量卡与断网断电</span><span class="go">›</span></a></li>
+        <li><a href="questions.html?v=20260918a#qa-29"><span class="t">电动车 / 出行</span><span class="d">出行方便吗 · 电动车单车</span><span class="go">›</span></a></li>
+        <li><a href="timeline.html?v=20260918a#library"><span class="t">图书馆</span><span class="d">要预约 · 占座会被清理</span><span class="go">›</span></a></li>
+        <li><a href="questions.html?v=20260918a#fangpian"><span class="t">防骗 / 安全</span><span class="d">开学季常见骗局</span><span class="go">›</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="res">
+    <h2 class="sec-t">校园资源</h2>
+    <div class="res-line">
+      <a href="timeline.html?v=20260918a#express">快递 / 驿站</a>
+      <span class="off">二手交易</span>
+      <span class="off">搭子 / 社群</span>
+      <span class="off">兼职 / 家教</span>
+    </div>
+  </section>
+
+  <section class="lite">
+    <p><b>其他资料</b><a href="luggage.html?v=20260918a">行李清单</a><span class="sep">·</span><a href="club.html?v=20260918a">社团</a><span class="sep">·</span><a href="timeline.html?v=20260918a#links">校历 / 常用网址</a><span class="sep">·</span><a href="curriculum.html?v=20260918a">培养方案</a><span class="sep">·</span><a href="major.html?v=20260918a">专业解读</a></p>
+    <p><a href="course.html?v=20260918a#sec-innovation">创新创业学分</a><span class="sep">·</span><a href="welfare.html?v=20260918a">新生福利</a></p>
+  </section>
+</main>
+
+<div class="footer">
+  <p>本站由在校学生自发整理，非官方、与学校无关；具体安排以<b>学校官方通知</b>和<b>录取通知书</b>为准</p>
+  <p style="margin-top:6px">最后更新：<span id="last-updated">2026.09.18</span> · 排版乱的话，点右上角「···」用浏览器打开</p>
+</div>
+
+<script>
+/* ===== 全站只有这里要手动改：DATA_VERSION（同时决定 ?v= 缓存版本和页脚日期） ===== */
+const DATA_VERSION = '20260918a';
+const REPORT_DATE  = new Date(2026, 8, 13, 0, 0, 0); // 报到日（月份从 0 起，8 = 9 月）
+
+/* ===== 截止事项（「现在」区唯一数据源）=====
+   每条带 from（什么时候开始提醒）：「现在」只显示 from ≤ 今天 < until 的条目，
+   远期事项（如体测）不到时间绝不出现 —— 这块不是校历，必须真有时间敏感性。
+   规矩：① 日期只录站内核实过的官方口径，不猜；
+        ② 过了 until 自动消失；③ 有新的官方时间 → 按截止日远近插进列表。 */
+const DEADLINES = [
+  { label: '四级报名 9/28 17:00 截止', from: new Date(2026, 8, 15),        until: new Date(2026, 8, 28, 17, 0, 0),  href: 'timeline.html?v=' + DATA_VERSION + '#cet4' },
+  { label: '社团招新进行中',           from: new Date(2026, 8, 13),        until: new Date(2026, 8, 30, 23, 59, 59), href: 'club.html?v=' + DATA_VERSION },
+  { label: '入馆考试 10/1 前完成',     from: new Date(2026, 8, 25),        until: new Date(2026, 9, 1, 0, 0, 0),     href: 'timeline.html?v=' + DATA_VERSION },
+  { label: '体测（10–11 月）',         from: new Date(2026, 9, 1, 0, 0, 0), until: new Date(2026, 10, 30, 23, 59, 59), href: '' }
+];
+
+(function () {
+  var now = new Date();
+  var dayN = Math.floor((now - REPORT_DATE) / 86400000) + 1;   /* 9/13 = 开学第 1 天 */
+
+  /* 顶部状态行：报到前 = 倒计时 + 行李入口；报到后 = 开学第 N 天 */
+  var st = document.getElementById('status');
+  if (st) {
+    if (dayN < 1) {
+      st.innerHTML = '距离报到还有 <b>' + (1 - dayN) + '</b> 天 · <a href="luggage.html?v=' + DATA_VERSION + '">行李准备 + 报到材料确认</a>';
+    } else {
+      st.innerHTML = '开学第 <b>' + dayN + '</b> 天';
+    }
+  }
+
+  /* 「现在」区：只渲染窗口内的条目；一条都没有 → 整块消失 */
+  var sec = document.getElementById('now');
+  var list = document.getElementById('now-list');
+  if (sec && list) {
+    var ok = DEADLINES.filter(function (d) { return now >= d.from && now < d.until; });
+    if (!ok.length) { sec.hidden = true; }
+    else {
+      list.innerHTML = ok.map(function (d) {
+        var inner = '<i></i><span>' + d.label + '</span>';
+        return d.href ? '<a class="ni" href="' + d.href + '">' + inner + '</a>'
+                      : '<span class="ni">' + inner + '</span>';
+      }).join('');
+      sec.hidden = false;
+    }
+  }
+
+  /* 页脚「最后更新」由 DATA_VERSION 自动推导 —— 改版本号就等于改日期 */
+  var el = document.getElementById('last-updated');
+  if (el) {
+    var v = String(DATA_VERSION).replace(/\D/g, '').slice(0, 8);
+    if (v.length === 8) {
+      var y = v.slice(0, 4), m = parseInt(v.slice(4, 6), 10), d2 = parseInt(v.slice(6, 8), 10);
+      function p2(n) { return n < 10 ? '0' + n : '' + n; }
+      if (m >= 1 && m <= 12 && d2 >= 1 && d2 <= 31) el.textContent = y + '.' + p2(m) + '.' + p2(d2);
+    }
+  }
+})();
+</script>
+
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+<script>
+/* 首页搜索框提示语：只在本页覆盖（search.js 是全站共用，不动它） */
+(function () {
+  function tweak() {
+    var i = document.getElementById('ss-home-input');
+    if (i) i.setAttribute('placeholder', '宿舍 / 快递 / 转专业 / 校园卡');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(tweak, 0); });
+  else setTimeout(tweak, 0);
+})();
+</script>
+</body>
+</html>

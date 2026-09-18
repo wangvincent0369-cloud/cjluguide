@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国计量大学 · 新生行李清单</title>
+<meta name="description" content="中国计量大学2026级新生行李清单：精简版/全面版可选，必带证件、提前网购、到校采购，勾选自动记住进度，照着勾就行。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%92%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    zoom:75%;
+    font-family:var(--font);
+    background:var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 45% at 15% -10%, rgba(6,182,212,0.10), transparent),
+      radial-gradient(ellipse 55% 40% at 100% 0%, rgba(139,92,246,0.08), transparent);
+    background-attachment: fixed;
+    min-height: 100vh; color:var(--text); line-height: var(--lh);
+    padding-bottom: 100px;
+  }
+
+  /* ===== 顶部 ===== */
+  .hero { text-align: center; padding: var(--gap-md) var(--gap-xl) var(--gap-lg); position: relative; }
+  .hero .icon { font-size: var(--fs-h2); }
+  .hero h1 {
+    font-size: var(--fs-h1); font-weight: 800; letter-spacing: 2px; margin: var(--gap-2xs) 0 var(--gap-2xs);
+    background:linear-gradient(90deg, var(--accent2), var(--purple));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .sub { font-size: var(--fs-xs); color:var(--sub); letter-spacing: 1px; }
+  .countdown {
+    display: inline-flex; align-items: center; gap: var(--gap-sm);
+    margin-top: var(--gap); padding: var(--gap-xs) var(--gap-lg); border-radius:var(--r-lg);
+    font-size: var(--fs-xs); font-weight: 600;
+    background: var(--card); border: 1px solid rgba(14,116,144,0.25);
+    box-shadow: 0 2px 10px rgba(14,116,144,0.10);
+    color:var(--accent2);
+  }
+  .countdown b { font-size: var(--fs-lg); color:var(--accent2-d); font-variant-numeric: tabular-nums; }
+
+  /* ===== 精简版 / 全面版切换 ===== */
+  .mode-switch { display: flex; justify-content: center; gap: var(--gap); max-width:var(--w-wide); margin: 0 auto; padding: 0 var(--gap-lg) 0; }
+  .mode-switch button {
+    flex: 1; max-width: 230px; padding: var(--gap) 0; border-radius:var(--r-md); border:1px solid var(--line);
+    background: var(--card); font-size: var(--fs-sm); font-weight: 700; color:var(--sub);
+    cursor: pointer; font-family: inherit; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: var(--gap-sm);
+  }
+  .mode-switch button .n { font-size: var(--fs-2xs); font-weight: 600; opacity: 0.75; }
+  .mode-switch button.active {
+    background:linear-gradient(135deg, var(--accent2), var(--purple)); color:var(--on-accent);
+    border-color: transparent; box-shadow: 0 4px 14px rgba(14,116,144,0.25);
+  }
+  .mode-tip { text-align: center; font-size: var(--fs-2xs); color:var(--sub); margin: var(--gap-2xs) 0 var(--gap-md); padding: 0 var(--gap-lg); }
+
+  /* ===== 容器 ===== */
+  .wrap { max-width:var(--w-wide); margin: 0 auto; padding: var(--gap-2xs) var(--gap-lg) 0; }
+  .letter {
+    background:linear-gradient(160deg, var(--accent2-soft), var(--card2));
+    border: 1px solid rgba(14,116,144,0.25);
+    border-radius:var(--r-md); padding: var(--gap-md) var(--gap-lg); margin-bottom: var(--gap-md);
+  }
+  .letter .who { font-size: var(--fs-xs); font-weight: 700; color:var(--accent2); letter-spacing: 1.5px; margin-bottom: var(--gap-2xs); }
+  .letter p { font-size: var(--fs-xs); color:var(--text2); line-height: var(--lh); }
+  .letter b { color:var(--accent2-d); font-weight: 600; }
+  .section-sub { font-size: var(--fs-2xs); color:var(--sub); padding: 0 var(--gap-sm) var(--gap-sm); margin-top: -6px; letter-spacing: 0.3px; }
+
+  /* ===== 类别卡片 ===== */
+  .section {
+    position: relative; overflow: hidden;
+    background: var(--card); border:1px solid rgba(var(--shadow-rgb),0.06);
+    border-radius:var(--r-lg); padding: var(--gap-md) var(--gap-md) var(--gap-sm); margin-bottom: var(--gap-md);
+    box-shadow:0 4px 18px rgba(var(--shadow-rgb),0.06);
+  }
+  .section::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .section-head { display: flex; align-items: center; gap: var(--gap); padding: var(--gap-2xs) var(--gap-sm) var(--gap-sm); }
+  .section-head .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .section-head h2 { font-size: var(--fs-md); font-weight: 700; letter-spacing: 0.5px; color:var(--text); }
+  .section-head .count { margin-left: auto; font-size: var(--fs-2xs); color:var(--sub); background:var(--card3); border:1px solid var(--line); padding: 1px var(--gap); border-radius:var(--r-md); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .sec-must::before { background:linear-gradient(90deg, var(--accent2-d), var(--green-d)); }
+  .sec-must .dot { background:var(--accent2-d); }
+  .sec-online::before { background:linear-gradient(90deg, var(--purple), var(--purple)); }
+  .sec-online .dot { background:var(--purple); }
+  .sec-offline::before { background:linear-gradient(90deg, var(--amber), var(--amber)); }
+  .sec-offline .dot { background: var(--amber); }
+
+  /* ===== 过期归档区（页面最底）：样式主体在 theme.css，这里只做本页微调 ===== */
+  .exp-zone .section { margin-bottom: 0; }
+  .exp-zone .grid { padding-bottom: var(--gap-md); }
+
+  /* ===== 清单项：双列网格（紧凑） ===== */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-sm); padding: 0 var(--gap-2xs) var(--gap-xs); }
+  .grid .item { flex-direction: column; gap: 0; padding: var(--gap) var(--gap) var(--gap-sm); border:1px solid var(--line); border-radius:var(--r-sm); background:var(--card-soft); position: relative; }
+  .grid .item + .item { border-top: none; }
+  .grid .item:hover { background: var(--brand-soft); }
+  .grid .box { position: absolute; top: 10px; left: 10px; margin: 0; }
+  .grid .txt { padding: 0 var(--gap-5xl) 0 var(--gap-3xl); font-size: var(--fs-sm); font-weight: 600; }
+  .grid .desc { font-size: var(--fs-2xs); margin-top: var(--gap-2xs); }
+  .grid .tag { position: absolute; top: 8px; right: 8px; margin: 0; }
+
+  /* ===== 清单项 ===== */
+  .item { display: flex; align-items: flex-start; gap: var(--gap-md); padding: var(--gap) var(--gap-sm); border-radius:var(--r-md); cursor: pointer; user-select: none; transition: background 0.2s; }
+  .item:hover { background: var(--card2); }
+  .item + .item { border-top:1px dashed var(--line); }
+
+  .item input { display: none; }
+  .box {
+    width: 18px; height: 18px; border-radius: var(--r-xs); flex-shrink: 0; margin-top: 1.5px;
+    border: 2px solid var(--line2); background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--fs-2xs); color: transparent; transition: all 0.2s;
+  }
+  .item input:checked + .box {
+    background:linear-gradient(135deg, var(--accent2-d), var(--purple)); border-color: transparent; color:var(--on-accent);
+    box-shadow: 0 2px 8px rgba(6,182,212,0.35);
+  }
+
+  .item .txt { flex: 1; font-size: var(--fs-sm); font-weight: 500; color:var(--text); transition: all 0.2s; }
+  .item .desc { display: block; font-size: var(--fs-2xs); color:var(--sub); font-weight: 400; margin-top: 0.5px; line-height: var(--lh); }
+  .item input:checked ~ .txt { color:var(--sub); text-decoration: line-through; }
+
+  .item .tag { flex-shrink: 0; font-size: var(--fs-2xs); padding: 1.5px var(--gap); border-radius:var(--r-md); font-weight: 600; margin-top: 1.5px; white-space: nowrap; }
+  .tag.cyan  { background:var(--accent2-soft); color:var(--accent2); border:1px solid var(--accent2-line); }
+  .tag.purple{ background:var(--purple-soft); color:var(--purple); border:1px solid var(--purple-soft2); }
+  .tag.amber { background: var(--yellow-soft2); color: var(--yellow); border: 1px solid var(--yellow-light); }
+  .tag.red   { background:var(--red-soft); color:var(--pink); border:1px solid var(--red-line); }
+  .tag.gray  { background:var(--card3); color:var(--text2); border:1px solid var(--line); }
+
+  /* ===== 提示条 ===== */
+  .report-link { display: inline-block; margin-top: var(--gap); font-size: var(--fs-xs); color:var(--accent2); text-decoration: none; border-bottom: 1px dashed rgba(14,116,144,0.45); padding-bottom: 1px; }
+  .addr-tip { font-size: var(--fs-2xs); color:var(--purple); background:var(--purple-soft); border:1px solid var(--purple-soft2); border-radius:var(--r-sm); padding: var(--gap-sm) var(--gap); margin: -2px var(--gap-2xs) var(--gap); line-height: var(--lh); }
+  .tip-safety { margin: var(--gap-2xs) 0 var(--gap-lg); padding: var(--gap) var(--gap-lg); background:var(--yellow-soft); border:1px solid var(--yellow-soft2); border-radius:var(--r-md); font-size: var(--fs-xs); color:var(--yellow); line-height: var(--lh); }
+  .tip-safety b { color:var(--yellow); }
+
+  /* ===== 底部进度 ===== */
+  .footer-bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background:var(--card); backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(14,116,144,0.2); padding: var(--gap-lg) var(--gap-2xl) var(--gap-lg);
+    box-shadow:0 -6px 26px rgba(var(--shadow-rgb),0.08);
+  }
+  .footer-inner { max-width:var(--w-wide); margin: 0 auto; }
+  .footer-info { display: flex; justify-content: space-between; align-items: center; font-size: var(--fs-xs); color:var(--sub); margin-bottom: var(--gap-sm); }
+  .footer-info b { color:var(--accent2-d); font-size: var(--fs-md); font-variant-numeric: tabular-nums; }
+  .bar-track { height: 6px; background:var(--line); border-radius:var(--r-sm); overflow: hidden; }
+  .bar-fill { height: 100%; width: 0%; border-radius:var(--r-sm); background:linear-gradient(90deg, var(--accent2-d), var(--purple)); transition: width 0.35s ease; }
+  .footer-note { text-align: center; font-size: var(--fs-2xs); color:var(--sub); margin-top: var(--gap-sm); }
+
+  /* ===== 结尾转化卡（浅色页用深色渐变卡） ===== */
+  .cta-card{max-width:var(--w-narrow);margin:26px auto 30px;background:linear-gradient(135deg,var(--accent2),var(--purple));border:1px solid rgba(255,255,255,.25);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 30px rgba(14,116,144,.25)}
+  .cta-hook{margin:0 0 var(--gap-lg);color:var(--on-accent);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+  .cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+  .cta-wx-id{color:var(--on-accent);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+  .cta-wx-tip{color:rgba(255,255,255,.7);font-size:var(--fs-xs)}
+  .cta-ask{margin:var(--gap-lg) 0 0;color:rgba(255,255,255,.88);font-size:var(--fs-sm);line-height:var(--lh)}
+  .cta-ask b{color:var(--yellow-light)}
+  .cta-note{margin:var(--gap-md) 0 0;color:rgba(255,255,255,.78);font-size:var(--fs-2xs);line-height:var(--lh)}
+  .cta-home{display:inline-block;margin-top:var(--gap-lg);color:rgba(255,255,255,.75);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px}
+  .cta-home:hover{color:var(--on-accent)}
+  @media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+</style>
+</head>
+<body>
+<div style="text-align:center;padding:var(--gap) var(--gap-lg);background:rgba(14,116,144,0.08);border-bottom:1px solid rgba(14,116,144,0.15);font-size:var(--fs-lg);color:var(--accent2)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+
+<div class="hero">
+  <div class="icon">🎒</div>
+  <h1>新生行李清单</h1>
+  <p class="sub">中国计量大学 · 2026级入学参考</p>
+  <div class="countdown" id="countdown">⏳ 距离开学还有 <b>--</b> 天</div>
+  <a class="report-link" href="contents.html">报到已经结束了 → 漏买的东西看这份「开学后」目录</a>
+</div>
+
+<div class="mode-switch" id="mode-switch">
+  <button class="active" data-mode="lite">🎒 精简版<span class="n" id="lite-n"></span></button>
+  <button data-mode="full">📦 全面版<span class="n" id="full-n"></span></button>
+  <button data-mode="super">🧳 超级无敌全面版<span class="n" id="super-n"></span></button>
+</div>
+<div class="mode-tip">精简版：只带核心，一个箱子就够 ｜ 全面版：连小件都列全，照着买不遗漏</div>
+
+<div class="wrap">
+
+  <div class="letter">
+    <div class="who">👋 学长有话说</div>
+    <p>学弟学妹好，恭喜来量大！说句掏心窝的话：当年我也恨不得把家搬来，最后一半都没用上。行李真不用多——<b>一个 24 寸行李箱加个双肩包就够</b>，「必带」那几样装好，其余提前下单寄到驿站、到校再买，都来得及。这页做了<b>精简 / 全面两个版本</b>：赶时间照着精简版勾，想带齐全就切全面版。尺寸、限电这些坑，学长都替你踩过了，备注写得明明白白——照着勾就行，勾过的会自动记住，放心。</p>
+  </div>
+
+  <!-- ===== 必带 ===== -->
+  <div class="section sec-must">
+    <div class="section-head">
+      <span class="dot"></span>
+      <h2 id="must-bring">🧾 必带 · 证件与贴身物品</h2>
+      <span class="count" id="must-count">0/10</span>
+    </div>
+    <div class="section-sub">出发前装进背包，这几样一个都不能少</div>
+
+    <div class="grid">
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">录取通知书<span class="desc">报到第一件事就是它，放进文件袋别弄皱，记得拍照存手机</span></span>
+      <span class="tag cyan">必带</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">身份证<span class="desc">原件随身带，复印件备 4 份就够用了</span></span>
+      <span class="tag cyan">必带</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">证件照<span class="desc">1寸/2寸各拍一版（红白蓝底都备），一寸多备几版</span></span>
+      <span class="tag gray">各一版</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">团员证<span class="desc">入团时发的团员证（绿色小本），转团组织关系要用；找不到了去高中团委补办</span></span>
+      <span class="tag cyan">必带</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">银行卡<span class="desc">带张常用卡兜底就行；到校学校统一组织办工商储蓄卡，平时手机银行 APP 全搞定</span></span>
+      <span class="tag purple">到校办</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">电脑 + 充电器<span class="desc">报到登记、填表选课都要用，充电器别落家里</span></span>
+      <span class="tag red">别忘了</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">换洗衣物 3 套<span class="desc">3 套换洗就够，9 月杭州还热，备件薄外套应对降温</span></span>
+      <span class="tag gray">3套</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">袜子<span class="desc">多带几双，纯棉吸汗换着穿</span></span>
+      <span class="tag gray">多备</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">抹布<span class="desc">从家带块旧毛巾，到校先把床板桌椅擦一遍再铺床</span></span>
+      <span class="tag red">别忘了</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">充电宝<span class="desc">路上和报到日全靠它续命，别带超过 2 万毫安的</span></span>
+      <span class="tag red">别忘了</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">档案袋<span class="desc">高中发的牛皮纸袋，装学籍档案，报到要交，千万别拆封</span></span>
+      <span class="tag red">别拆封</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">户口本复印件<span class="desc">印 1~2 张带着，或手机拍照存档，办手续偶尔要用</span></span>
+      <span class="tag gray">1~2张</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">耳机<span class="desc">路上听歌、宿舍接打电话都用得上，记得带充电盒</span></span>
+      <span class="tag gray">多备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">高考准考证<span class="desc">报到核验有时会看，和录取通知书放同一个文件袋</span></span>
+      <span class="tag gray">带上</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">少量现金<span class="desc">200~300 就够，报到当天小额缴费、买东西用得上</span></span>
+      <span class="tag gray">应急</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">眼镜盒 + 眼镜布 + 眼镜水<span class="desc">近视的同学务必带，在宿舍丢了配一副很折腾</span></span>
+      <span class="tag gray">近视必带</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">U 盘<span class="desc">打印店、交作业、拷课件都用得上，32G 够</span></span>
+      <span class="tag gray">别忘</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">睡衣睡裤<span class="desc">宿舍晚上穿，比外穿的衣服舒服</span></span>
+      <span class="tag gray">舒服</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">运动鞋<span class="desc">军训和体育课靠它，买舒服的不买贵的</span></span>
+      <span class="tag gray">脚痛预警</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">腰带<span class="desc">军训裤子普遍偏松，系上省事</span></span>
+      <span class="tag gray">军训用</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">针线盒（小）<span class="desc">军训扣子掉了能救急，几块钱</span></span>
+      <span class="tag gray">小东西</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">手表 / 手环<span class="desc">军训不让带手机，看时间得靠它</span></span>
+      <span class="tag gray">军训用</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="must">
+      <span class="box">✓</span>
+      <span class="txt">文件袋 2~3 个<span class="desc">报到材料分类装，翻的时候不手忙脚乱</span></span>
+      <span class="tag gray">材料</span>
+    </label>
+    </div>
+  </div>
+
+  <!-- ===== 线上买 =====
+       这一段（#buy-online，8 件床上用品）已在 2026-09-11 归档到页面最底的 #expired：
+       报到结束后「提前 3~5 天网购寄到校」的时间窗就关闭了。
+       明年新生季要重新上线：把 #expired 里的那一段原样剪回这里。 -->
+
+  <!-- ===== 线下买 ===== -->
+  <div class="section sec-offline">
+    <div class="section-head">
+      <span class="dot"></span>
+      <h2 id="buy-offline">🏪 线下买 · 到校再采购</h2>
+      <span class="count" id="offline-count">0/12</span>
+    </div>
+    <div class="section-sub">到校当天去生活区超市买，一次买齐不用提前</div>
+    <div style="margin-top:var(--gap-md);font-size:var(--fs-sm-em);color:var(--accent2);background:rgba(14,116,144,.08);border:1px solid rgba(14,116,144,.2);border-radius:var(--r-sm);padding:var(--gap-md) var(--gap-lg);line-height:var(--lh-loose)">
+      ✅ 东西齐了？下一步：<a href="timeline.html#dorm" style="color:var(--accent2);font-weight:700">看看宿舍那一节 →</a><br>
+      🗺️ 找不到地方？<a href="timeline.html#map" style="color:var(--accent2);font-weight:700">校园地图（点开看大图）→</a><br>
+      📅 想看全年安排？<a href="timeline.html#links" style="color:var(--accent2);font-weight:700">校历和常用网址 →</a>
+    </div>
+
+    <div class="grid">
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">洗漱用品<span class="desc">洗发水、沐浴露这些网上买更划算，急着用就线下一次买齐</span></span>
+      <span class="tag amber">线上更省</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">杯子<span class="desc">喝水杯 + 漱口杯各一个</span></span>
+      <span class="tag gray">2个</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">牙刷<span class="desc">到校买个新的就行，顺手的事</span></span>
+      <span class="tag gray">小事</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">牙膏<span class="desc">顺手的事</span></span>
+      <span class="tag gray">小事</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">脸盆<span class="desc">大小各一个，洗脸 + 泡脚洗衣服两不误</span></span>
+      <span class="tag gray">大小各1</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">衣架<span class="desc">普通款 + 晾衣夹都备点</span></span>
+      <span class="tag gray">多备</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">插线板<span class="desc">带 USB 口 + 独立开关的更好</span></span>
+      <span class="tag amber">选带开关</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">笔<span class="desc">入学要填各种表，先备支笔</span></span>
+      <span class="tag gray">先备1支</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">常用药<span class="desc">感冒药、肠胃药、创可贴，夜里不舒服或校医院关门时顶一顶</span></span>
+      <span class="tag amber">建议备</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">柜子锁<span class="desc">报到头几天人多眼杂，电脑证件锁柜子安心，超市几块钱就有</span></span>
+      <span class="tag gray">几块钱</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">拖鞋<span class="desc">宿舍洗漱洗澡都要用，买双防滑的</span></span>
+      <span class="tag red">第一晚就穿</span>
+    </label>
+    <label class="item">
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">雨伞 / 遮阳伞<span class="desc">杭州 9 月又晒又有台风，一把遮阳挡雨两用</span></span>
+      <span class="tag amber">两用</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">指甲剪 + 剪刀<span class="desc">指甲刀宿舍常备，剪刀拆快递、剪线头都用得上，水果刀学校超市有</span></span>
+      <span class="tag gray">日常刚需</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">卫生纸 + 抽纸<span class="desc">到校先买一提，桌面一包随身一包，消毒湿巾也顺带拿两包</span></span>
+      <span class="tag gray">刚需</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">毛巾 + 浴巾<span class="desc">洗脸洗澡各一条，超市买新的干净放心</span></span>
+      <span class="tag gray">早晚用</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">泡面碗 + 餐具<span class="desc">食堂打饭、泡面都用得上，配瓶洗洁精</span></span>
+      <span class="tag gray">宿舍开火</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">垃圾袋 + 垃圾桶<span class="desc">宿舍一人一个桶，垃圾袋多买几卷</span></span>
+      <span class="tag gray">宿舍标配</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">梳子 + 发夹 + 发圈<span class="desc">化妆镜想带个带灯的也行，小件超市都买得到</span></span>
+      <span class="tag purple">女生向</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">洗衣液 + 洗手液<span class="desc">内衣用专门的内衣皂/洗衣液，鞋刷子也备一把</span></span>
+      <span class="tag gray">洗护</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">卫生巾 + 安睡裤<span class="desc">报到后紧接军训，正好赶上姨妈期的提前备好，军训时量也别带少</span></span>
+      <span class="tag amber">按军训时间</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">体温计 + 布洛芬<span class="desc">感冒发烧夜里顶一顶，碘伏、创可贴药箱里也配齐</span></span>
+      <span class="tag amber">夜里顶一顶</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">鼠标垫 + 手机支架<span class="desc">桌面小件，U盘拷贝课件作业也用得上</span></span>
+      <span class="tag gray">桌面小件</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">帽子<span class="desc">军训遮阳，9 月杭州太阳还毒，日常出门也能挡</span></span>
+      <span class="tag amber">遮阳/军训</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">护肤品<span class="desc">高倍防晒先买好（敏感肌选不含酒精的），水乳面霜按自己肤质来，面膜买晒后修复款</span></span>
+      <span class="tag purple">按肤质选</span>
+    </label>
+    <label class="item" data-full>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">化妆品<span class="desc">粉底、眉笔、口红这些按自己习惯带，别贪多，开学后慢慢添都行</span></span>
+      <span class="tag purple">按需添</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">防潮垫<span class="desc">垫在床垫下面，南方的潮气真的会上来</span></span>
+      <span class="tag gray">20 块左右</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">酒精喷雾<span class="desc">桌椅床架先喷一遍再放东西，比杀虫剂常用</span></span>
+      <span class="tag gray">20 块左右</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">湿巾<span class="desc">随手擦桌子、出门带着用</span></span>
+      <span class="tag gray">九块九</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">洗脸巾<span class="desc">南方毛巾容易有味，一次一张更省心</span></span>
+      <span class="tag gray">20 块左右</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">干发帽<span class="desc">洗完头包一会儿，别湿着睡觉</span></span>
+      <span class="tag gray">20 块左右</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">内衣专用皂<span class="desc">内衣分开洗，配个皂盒一起买</span></span>
+      <span class="tag gray">十几块</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">花露水<span class="desc">晚上军训和宿舍蚊虫都用得上，买大牌</span></span>
+      <span class="tag gray">夏天刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">驱蚊液 / 电蚊液<span class="desc">宿舍有蚊子就点上（先看宿舍允许用什么）</span></span>
+      <span class="tag gray">夏天刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">防晒霜（高倍）<span class="desc">军训天天暴晒，便宜的等于没涂</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">防晒衣<span class="desc">军训和日常出门都能挡，选透气的</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">加厚软鞋垫<span class="desc">站军姿真的脚疼，软一点好太多</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">冰凉贴 / 退热贴<span class="desc">军训太热时贴一片，也能当退烧贴</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">藿香正气水<span class="desc">中暑先来一支，味道冲但管用</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">止汗露<span class="desc">军训出汗多，衣服贴身很难受</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">大容量水杯<span class="desc">军训一天要喝很多水，1L 左右最合适</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">鞋垫（卫生巾款）<span class="desc">垫在军训鞋里，比想象中好用</span></span>
+      <span class="tag gray">军训刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">小风扇（手持/桌面）<span class="desc">夏天宿舍最热的那几天救命</span></span>
+      <span class="tag gray">夏天刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">镜子 + 化妆镜<span class="desc">宿舍洗漱台不一定有大镜子</span></span>
+      <span class="tag gray">十几块</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">鞋刷<span class="desc">白鞋、运动鞋脏了自己刷</span></span>
+      <span class="tag gray">几块钱</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">晾衣杆 + 挂钩<span class="desc">阳台晾衣服、宿舍挂东西都用得上</span></span>
+      <span class="tag gray">刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">透明粘钩（一板）<span class="desc">挂毛巾挂包，墙上别打孔</span></span>
+      <span class="tag gray">几块钱</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">收纳箱 / 收纳盒<span class="desc">柜子不够用，装起来找东西也方便</span></span>
+      <span class="tag gray">10 块起</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">密封袋 / 压缩袋<span class="desc">换季衣服抽真空，省一半空间</span></span>
+      <span class="tag gray">十几块</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">除湿袋 / 干燥剂<span class="desc">衣柜里挂一个，衣服不发霉</span></span>
+      <span class="tag gray">十几块</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">衣柜香薰<span class="desc">柜子闷，挂一个味道好很多</span></span>
+      <span class="tag gray">可选</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">钢丝球 + 清洁海绵<span class="desc">洗饭盒、刷杯子用</span></span>
+      <span class="tag gray">几块钱</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">洗洁精（小瓶）<span class="desc">洗泡面碗、洗杯子，宿舍常备</span></span>
+      <span class="tag gray">几块钱</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">澡篮（洗漱篮）<span class="desc">端着去澡堂，一次拿全</span></span>
+      <span class="tag gray">十几块</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">棉签<span class="desc">掏耳朵、擦药、化妆都用</span></span>
+      <span class="tag gray">几块钱</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">蚊帐 + 蚊帐夹<span class="desc">宿舍蚊子多，挂上能睡好</span></span>
+      <span class="tag gray">刚需</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">凉席（可水洗）<span class="desc">怕热的同学，9 月还能用一阵</span></span>
+      <span class="tag gray">怕热再看</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">遮光帘<span class="desc">窗户漏光，想睡懒觉得靠它</span></span>
+      <span class="tag gray">睡觉大事</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">水果刀（带小砧板）<span class="desc">切水果方便，用完收好</span></span>
+      <span class="tag gray">小东西</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">桌面置物架<span class="desc">桌面小东西多，叠起来放</span></span>
+      <span class="tag gray">宿舍神器</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">小夜灯（USB）<span class="desc">床头灯太亮，起夜用这个刚好</span></span>
+      <span class="tag gray">宿舍神器</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">保温壶 / 热水壶<span class="desc">打一次热水放宿舍，泡面泡茶都用</span></span>
+      <span class="tag gray">宿舍神器</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">手帕纸<span class="desc">小包纸巾，随身带</span></span>
+      <span class="tag gray">小东西</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">内衣收纳盒<span class="desc">内衣袜子分开装，翻柜子不乱</span></span>
+      <span class="tag gray">10 块起</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">碘伏 + 棉签<span class="desc">磕碰擦伤先消毒，比创可贴更靠前</span></span>
+      <span class="tag gray">常备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">酒精棉片<span class="desc">擦手、擦手机屏幕，一盒能用很久</span></span>
+      <span class="tag gray">常备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">口罩<span class="desc">感冒或人多的时候用</span></span>
+      <span class="tag gray">常备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">肠胃药<span class="desc">水土不服、吃坏肚子很常见</span></span>
+      <span class="tag gray">常备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">晕车药<span class="desc">来回坐车用得上</span></span>
+      <span class="tag gray">常备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">润喉糖 / 口腔溃疡凝胶<span class="desc">熬夜上火容易口腔溃疡</span></span>
+      <span class="tag gray">常备</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">补水面膜 / 芦荟胶<span class="desc">晒后修复，军训完敷一片</span></span>
+      <span class="tag gray">晒后修复</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">身体乳<span class="desc">洗完澡抹，杭州冬天干</span></span>
+      <span class="tag gray">护理</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">磨砂膏 / 搓澡巾<span class="desc">洗澡搓一下舒服</span></span>
+      <span class="tag gray">护理</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">护手霜<span class="desc">冬天手容易裂</span></span>
+      <span class="tag gray">护理</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">卸妆棉 / 卸妆水<span class="desc">涂了防晒也要卸</span></span>
+      <span class="tag gray">护理</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">洗衣凝珠 / 洗衣袋<span class="desc">凝珠扔一颗就洗，袜子装袋洗不缠</span></span>
+      <span class="tag gray">洗护</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">电脑支架<span class="desc">笔记本垫高一点，脖子舒服</span></span>
+      <span class="tag gray">桌面</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">鼠标 + 键盘<span class="desc">笔记本外接一套，写作业更顺手</span></span>
+      <span class="tag gray">桌面</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">数据线收纳包<span class="desc">几根线绕在一起很难受</span></span>
+      <span class="tag gray">桌面</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">摄像头遮挡贴<span class="desc">几块钱，隐私安心</span></span>
+      <span class="tag gray">小东西</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">蓝牙耳机<span class="desc">有线耳机在教室、图书馆不方便</span></span>
+      <span class="tag gray">电子</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">移动硬盘 / 大 U 盘<span class="desc">存课件和视频，网盘不稳</span></span>
+      <span class="tag gray">电子</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">便利贴 + 书签<span class="desc">记作业、标记课本</span></span>
+      <span class="tag gray">学习</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">尺子 + 橡皮 + 2B 铅笔<span class="desc">填卡、画图用</span></span>
+      <span class="tag gray">学习</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">笔芯 + 黑笔<span class="desc">笔写完就没水了，多备两根</span></span>
+      <span class="tag gray">学习</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">订书机 + 回形针<span class="desc">交材料要装订</span></span>
+      <span class="tag gray">学习</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">草稿纸 / 笔记本<span class="desc">开学先备两本</span></span>
+      <span class="tag gray">学习</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">四六级词汇书<span class="desc">大一就能考，早点开始背</span></span>
+      <span class="tag gray">学习</span>
+    </label>
+    <label class="item" data-full data-super>
+      <input type="checkbox" data-group="offline">
+      <span class="box">✓</span>
+      <span class="txt">床上小桌<span class="desc">床上写作业、放电脑</span></span>
+      <span class="tag gray">宿舍神器</span>
+    </label>
+    </div>
+  </div>
+
+  <div class="tip-safety">🛡️ <b>防诈骗提醒</b>：学费、住宿费由学校统一收取，任何电话、短信、群聊里让你转账交费的都别信。到校后"热心学长学姐"推销电话卡、被褥、教材、网课、要交押金的兼职，也都别急掏钱，拿不准先问辅导员。</div>
+
+<style>
+  /* 手绘图对照（09-11 新增）：网上整理的手绘图，只能对照、不替代清单 */
+  .figs{max-width:var(--w-wide);margin:26px auto 0;padding:0 var(--gap-2xl)}
+  .figs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--gap-2xl)}
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--gap-md);margin:0}
+  .fig img{width:100%;display:block;border-radius:var(--r-sm);background:var(--card2)}
+  .fig figcaption{margin-top:var(--gap-sm);font-size:var(--fs-xs);color:var(--sub);line-height:var(--lh)}
+  .figs-note{margin-top:var(--gap-lg);font-size:var(--fs-2xs);color:var(--sub);line-height:var(--lh)}
+  </style>
+
+  <div class="figs">
+    <div class="section-head">看图对照：不知道怎么买，就照着这 9 张看</div>
+    <div class="section-sub">网上整理的手绘图，当参考用；具体以你自己的清单和学校通知为准</div>
+    <div class="figs-grid">
+      <figure class="fig"><img src="pack-dorm.jpg" alt="宿舍床桌衣柜总览手绘图" loading="lazy"><figcaption>宿舍总览：床、桌、衣柜各放什么，一眼看全</figcaption></figure>
+      <figure class="fig"><img src="pack-bed.jpg" alt="床垫防潮垫床上灯手绘图" loading="lazy"><figcaption>床：床垫厚度、防潮垫、床上灯（床头靠走廊有灯）</figcaption></figure>
+      <figure class="fig"><img src="pack-privacy.jpg" alt="宿舍隐私床帘手绘图" loading="lazy"><figcaption>床帘怎么选：轨道 + 纱帘，两种长度都行</figcaption></figure>
+      <figure class="fig"><img src="pack-desk.jpg" alt="桌面收纳手绘图" loading="lazy"><figcaption>桌面：照明灯、排插、收纳，插座安全 &gt; 价格</figcaption></figure>
+      <figure class="fig"><img src="pack-cabinet.jpg" alt="深柜收纳手绘图" loading="lazy"><figcaption>深柜收纳：上层收纳箱、下层抽纸盒，别买太多</figcaption></figure>
+      <figure class="fig"><img src="pack-bath.jpg" alt="阳台浴室用品手绘图" loading="lazy"><figcaption>阳台 / 浴室：洗漱、洗澡、洗衣各放什么</figcaption></figure>
+      <figure class="fig"><img src="pack-docs.jpg" alt="开学必带证件手绘图" loading="lazy"><figcaption>证件：原件带齐、复印件备好、手机存照</figcaption></figure>
+      <figure class="fig"><img src="pack-docs2.jpg" alt="证件与辅助文具手绘图" loading="lazy"><figcaption>证件 + 文具：文件袋、回形针、黑笔、本子</figcaption></figure>
+      <figure class="fig"><img src="pack-med.jpg" alt="常备药品手绘图" loading="lazy"><figcaption>常备药：感冒、中暑、肠胃、蚊虫叮咬，别叠着吃</figcaption></figure>
+    </div>
+    <div class="figs-note">⚠️ 这 9 张是网上整理的手绘图（不是本站实拍），只用来对照着看；具体买什么、买多少，还是以你自己那份清单和学校通知为准。</div>
+  </div>
+
+</div>
+
+<div class="footer-bar">
+  <div class="footer-inner">
+    <div class="footer-info">
+      <span>✅ 已勾选 <b id="done-num">0</b> / <span id="total-num">32</span> 件</span>
+      <span id="done-pct">0%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div>
+    <div class="footer-note">
+      报到后要军训，防晒霜、软鞋垫、大水杯按通知准备就行，别提前囤<br>
+      到校后按需添置：蚊帐/凉席、路由器、桶、床上桌等；小电锅等确认宿舍限电后再买<br>
+      信息由学长学姐整理，仅供参考 · 以学校官方通知为准
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== 距离开学倒计时（报到日：2026年9月13日） =====
+  (function () {
+    var target = new Date(2026, 8, 13); // 月份从 0 开始，8 = 9月
+    target.setHours(0, 0, 0, 0);
+    var now = new Date();
+    now.setHours(0, 0, 0, 0);
+    var days = Math.round((target - now) / (1000 * 60 * 60 * 24));
+    var el = document.getElementById('countdown');
+    if (days > 0) {
+      el.innerHTML = '⏳ 距离开学还有 <b>' + days + '</b> 天';
+    } else if (days === 0) {
+      el.innerHTML = '🎉 就是今天，欢迎入学！';
+    } else {
+      el.innerHTML = '📚 开学已 ' + (-days) + ' 天，新学期加油！';
+    }
+  })();
+
+  // ===== 勾选状态：按分组存 localStorage，增删物品不易错位 =====
+  var items = document.querySelectorAll('.item input');
+  var groups = { must: [], online: [], offline: [] };
+
+  items.forEach(function (cb) {
+    groups[cb.dataset.group].push(cb);
+  });
+
+  try {
+    var saved = JSON.parse(localStorage.getItem('cjl-luggage-v7') || '{}');
+    ['must', 'online', 'offline'].forEach(function (g) {
+      (saved[g] || []).forEach(function (v, i) {
+        if (v && groups[g][i]) groups[g][i].checked = true;
+      });
+    });
+  } catch (e) { /* 忽略损坏数据 */ }
+
+  function updateAll() {
+    var total = 0, done = 0;
+    ['must', 'online', 'offline'].forEach(function (g) {
+      var list = groups[g];
+      var gDone = 0, gVis = 0;
+      list.forEach(function (cb) {
+        if (cb.parentElement.style.display === 'none') return; // 精简版隐藏的全面版条目不计数
+        gVis++;
+        total++;
+        if (cb.checked) { done++; gDone++; }
+      });
+      document.getElementById(g + '-count').textContent = gDone + '/' + gVis;
+    });
+    document.getElementById('done-num').textContent = done;
+    document.getElementById('total-num').textContent = total;
+    document.getElementById('done-pct').textContent = total ? Math.round(done / total * 100) + '%' : '0%';
+    document.getElementById('bar-fill').style.width = total ? (done / total * 100) + '%' : '0%';
+  }
+
+  items.forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      try {
+        var state = {};
+        ['must', 'online', 'offline'].forEach(function (g) {
+          state[g] = [];
+          groups[g].forEach(function (c) { state[g].push(c.checked); });
+        });
+        localStorage.setItem('cjl-luggage-v7', JSON.stringify(state));
+      } catch (e) { /* 隐私模式下可能失败，忽略 */ }
+      updateAll();
+    });
+  });
+
+  // ===== 精简版 / 全面版切换 =====
+  var currentMode = 'lite';
+  try {
+    var savedMode = localStorage.getItem('cjl-luggage-mode');
+    if (savedMode === 'full' || savedMode === 'super') currentMode = savedMode;
+  } catch (err) { /* 忽略 */ }
+
+  function applyMode() {
+    var liteN = 0, fullN = 0, superN = 0;
+    document.querySelectorAll('.item').forEach(function (it) {
+      var isFull = it.hasAttribute('data-full');
+      var isSuper = it.hasAttribute('data-super');
+      superN++;
+      if (!isSuper) fullN++;
+      if (!isFull && !isSuper) liteN++;
+      var show = currentMode === 'super' ? true : (currentMode === 'full' ? !isSuper : (!isFull && !isSuper));
+      it.style.display = show ? '' : 'none';
+    });
+    document.getElementById('lite-n').textContent = liteN + ' 件';
+    document.getElementById('full-n').textContent = fullN + ' 件';
+    document.getElementById('super-n').textContent = superN + ' 件';
+    document.querySelectorAll('#mode-switch button').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.mode === currentMode);
+    });
+    updateAll();
+  }
+
+  document.getElementById('mode-switch').addEventListener('click', function (ev) {
+    var b = ev.target.closest('button');
+    if (!b) return;
+    currentMode = b.dataset.mode;
+    try { localStorage.setItem('cjl-luggage-mode', currentMode); } catch (err) { /* 忽略 */ }
+    applyMode();
+  });
+
+  applyMode();
+</script>
+
+<!-- ===== 过期归档：线上买（提前网购寄到校） =====
+     2026-09-11 从正文撤下来。勾选仍然可用（data-group="online" 不变）。
+     明年新生季要重新上线：把 exp-body 里整段剪回「线下买」上面，这段壳删掉即可。 -->
+<section class="exp-zone" id="expired">
+  <details>
+    <summary>
+      <span class="exp-badge">已过期</span>
+      <span>线上买 · 提前网购寄到校（9 月 13 日报到前才划算）</span>
+      <span class="exp-hint"></span>
+    </summary>
+    <div class="exp-body">
+      <p class="exp-note">这条讲的是「<b>提前 3~5 天下单、人没到货先到</b>」，报到结束这个时间点就过了，所以撤到这儿。<br>
+      并不是不能网购 —— 开学后照常下单寄到驿站，一样收得到；急着用的直接去生活区超市买更快。<br>
+      <b>床垫 0.9×2.0m、床帘宽 0.85m 这两个尺寸不会过期</b>，时间线的「你的宿舍」里也保留了一份。<br>
+      明年 2027 级新生季，这一段会原样提回上面。</p>
+
+      <div class="section sec-online">
+        <div class="section-head">
+          <span class="dot"></span>
+          <h2 id="buy-online">📦 线上买 · 提前网购寄到校</h2>
+          <span class="count" id="online-count">0/8</span>
+        </div>
+        <div class="section-sub">提前 3~5 天下单寄到学校驿站，人到货也到；嫌麻烦的，学校生活区超市也有卖，现场买也行</div>
+        <div class="addr-tip">📍 收货地址：浙江省杭州市钱塘区学源街 258 号 中国计量大学（驿站代收，人没到也能收）</div>
+
+        <div class="grid">
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">床垫<span class="desc">0.9×2.0 米（就是普通单人床那么宽），买大一点也能用，买小了才尴尬</span></span>
+          <span class="tag amber">0.9×2.0</span>
+        </label>
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">床帘<span class="desc">宽度买 0.85 的！高度选可伸缩；宽度也有伸缩款，更保险</span></span>
+          <span class="tag red">0.85m</span>
+        </label>
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">被子<span class="desc">薄被 + 夏凉被先够用，杭州冬天湿冷，后面再添厚被</span></span>
+          <span class="tag gray">先薄后厚</span>
+        </label>
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">枕头<span class="desc">认床的话带自己睡惯的那个</span></span>
+          <span class="tag gray">睡觉大事</span>
+        </label>
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">床单<span class="desc">按 0.9×2.0 的床配，多备一套换洗</span></span>
+          <span class="tag gray">换洗+1</span>
+        </label>
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">酷毙灯<span class="desc">贴顶 LED 灯管，上床下桌照明神器</span></span>
+          <span class="tag purple">神器</span>
+        </label>
+        <label class="item" data-full>
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">墙上收纳袋<span class="desc">挂床边的挂式收纳，手机眼镜随手放</span></span>
+          <span class="tag gray">挂式</span>
+        </label>
+        <label class="item">
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">吹风机<span class="desc">宿舍限电 1200W，买前确认功率；不急用就借舍友的</span></span>
+          <span class="tag red">≤1200W</span>
+        </label>
+        <label class="item" data-full>
+          <input type="checkbox" data-group="online">
+          <span class="box">✓</span>
+          <span class="txt">眼罩 + 耳塞<span class="desc">睡眠浅的必带，宿舍有人打呼噜、走廊有动静时救命</span></span>
+          <span class="tag purple">睡眠浅必带</span>
+        </label>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<div class="cta-card">
+  <p class="cta-hook">行李清单 · 精简/全面两版可选 · 勾选进度自动保存</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「行李」</span>
+  </div>
+  <p class="cta-ask">有页面没写到的具体问题？<b>进群和大家一起讨论</b> —— 群里是 2026 级新生互助交流，学长和同学都会参与回答；不方便在群里问的再私信我</p>
+  <p class="cta-note">本页由学长自发整理，非官方、与学校无关；采购前按宿舍实际尺寸为准</p>
+  <a class="cta-home" href="index.html">← 返回总览 · 6 份指南</a>
+</div>
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+<script src="archive.js?v=20260918a"></script>
+</body>
+</html>

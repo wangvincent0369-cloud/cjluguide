@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国计量大学 · 选课指南</title>
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    zoom:75%;
+    font-family:var(--font);
+    background:var(--bg); color:var(--text); line-height:var(--lh);
+  }
+  .hero {
+    text-align:center; padding:var(--gap-4xl) var(--gap-2xl) var(--gap-3xl);
+  }
+  .hero h1 { font-size:var(--fs-h1); font-weight:800; letter-spacing:2px; margin-bottom:var(--gap-sm); background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+  .hero .sub { font-size:var(--fs-md-em); color:var(--sub); }
+  /* ===== 本轮新增：年份标注徽标（2026级 / 往届经验）===== */
+  .year-badge{display:inline-block;padding:2px var(--gap-sm);border-radius:var(--r-xs);background:var(--card2);border:1px solid var(--line2);font-size:var(--fs-2xs);font-weight:500;color:var(--sub2);white-space:nowrap;vertical-align:middle}
+  .year-badge.past{background:var(--yellow-soft);border-color:var(--yellow-line);color:var(--yellow)}
+  .hero .tag-row { display:flex; flex-wrap:wrap; justify-content:center; gap:var(--gap); margin-top:var(--gap-xl); }
+  .hero .tag {
+    background:var(--card2); border:1px solid var(--line2);
+    padding:var(--gap-xs) var(--gap-lg); border-radius:var(--r-lg); font-size:var(--fs-xs);
+  }
+  .nav {
+    position:sticky; top:0; z-index:100;
+    background:var(--card); border-bottom:1px solid var(--line);
+    display:flex; gap:0; overflow-x:auto; padding:0 var(--gap-lg);
+    box-shadow:0 2px 8px rgba(15,23,42,.08);
+  }
+  .nav a {
+    flex-shrink:0; padding:var(--gap-md) var(--gap-lg); font-size:var(--fs-sm); font-weight:500;
+    color:var(--sub2); text-decoration:none; border-bottom:2px solid transparent;
+    transition:color 0.15s; white-space:nowrap;
+  }
+  .nav a:hover { color:var(--accent); }
+  .nav a.active { color:var(--accent); border-bottom-color:var(--brand-light); }
+  .container { max-width:var(--w-wide); margin:0 auto; padding:var(--gap-3xl) var(--gap-2xl) 60px; }
+  .section { margin-bottom:var(--gap-4xl); }
+  .section-title {
+    font-size:var(--fs-h2); font-weight:700; margin-bottom:var(--gap-lg); padding-left:var(--gap-lg);
+    border-left:4px solid var(--brand-light); line-height:var(--lh-tight);
+  }
+  .card {
+    background:var(--card); border-radius:var(--r-md); padding:var(--gap-2xl) var(--gap-3xl);
+    margin-bottom:var(--gap-lg); border:1px solid var(--line);
+  }
+  .card h3 { font-size:var(--fs-lg); font-weight:600; margin-bottom:var(--gap); color:var(--text); }
+  .card p, .card li { font-size:var(--fs-md); }
+  .card ul { padding-left:var(--gap-xl); }
+  .card ul li { margin-bottom:var(--gap-xs); }
+
+  /* Course type explain cards */
+  .type-card {
+    background:var(--card); border-radius:var(--r-md); padding:var(--gap-xl) var(--gap-2xl);
+    margin-bottom:var(--gap-lg); border:1px solid var(--line);
+    border-left:4px solid var(--brand-light);
+  }
+  .type-card.t-new { border-left-color:#e67e22; }
+  .type-card.t-ai { border-left-color:#e74c3c; }
+  .type-card.t-sel { border-left-color:#3498db; }
+  .type-card.t-cross { border-left-color:#9b59b6; }
+  .type-card.t-erya { border-left-color:#27ae60; }
+  .type-card.t-jp { border-left-color:#f39c12; }
+  .type-card.t-eng { border-left-color:#1abc9c; }
+  .type-card.t-pe { border-left-color:#e67e22; }
+  .type-card h4 { font-size:var(--fs-lg); font-weight:700; margin-bottom:var(--gap-sm); }
+  .type-card .what { font-size:var(--fs-md); color:var(--sub2); margin-bottom:var(--gap); }
+  .type-card .when { font-size:var(--fs-sm); color:#e67e22; margin-bottom:var(--gap-sm); font-weight:500; }
+  .type-card .courses { font-size:var(--fs-sm); color:var(--sub2); background:var(--card); border-radius:var(--r-sm); padding:var(--gap) var(--gap-lg); }
+  .type-card .note { font-size:var(--fs-sm); color:var(--sub); margin-top:var(--gap-sm); font-style:italic; }
+
+  /* Year timeline */
+  .year-row {
+    background:var(--card); border-radius:var(--r-md); padding:var(--gap-2xl) var(--gap-3xl);
+    margin-bottom:var(--gap-lg); border:1px solid var(--line);
+  }
+  .year-row h3 { font-size:var(--fs-xl); font-weight:700; margin-bottom:var(--gap-lg); display:flex; align-items:center; gap:var(--gap); }
+  .year-row h3 .yr { font-size:var(--fs-sm); padding:var(--gap-2xs) var(--gap-md); border-radius:var(--r-md); color:var(--text); }
+  .sem { margin-bottom:var(--gap-lg); }
+  .sem:last-child { margin-bottom:0; }
+  .sem h5 { font-size:var(--fs-md); font-weight:600; color:var(--accent); margin-bottom:var(--gap); }
+  .task {
+    display:flex; align-items:flex-start; gap:var(--gap-md); margin-bottom:var(--gap); font-size:var(--fs-md);
+    padding:var(--gap-sm) var(--gap-md); background:var(--card); border-radius:var(--r-sm);
+  }
+  .task .icon { font-size:var(--fs-md); flex-shrink:0; margin-top:var(--gap-2xs); }
+  .task .label { font-weight:600; color:var(--text); }
+  .task .detail { font-size:var(--fs-sm); color:var(--sub); }
+
+  .info-box {
+    background:var(--green-soft); border-radius:var(--r-sm); padding:var(--gap-lg) var(--gap-xl);
+    margin-bottom:var(--gap-md); border-left:3px solid var(--brand-light); font-size:var(--fs-md);
+  }
+  .info-box.warn { background:#FFF7ED; border-left-color:#e67e22; }
+  .info-box.danger { background:var(--red-soft); border-left-color:#e74c3c; }
+  .info-box strong { color:var(--text); }
+
+  /* FAQ */
+  .faq-item { margin-bottom:var(--gap-md); }
+  .faq-q { font-size:var(--fs-lg); font-weight:600; color:var(--text); margin-bottom:var(--gap-2xs); }
+  .faq-a { font-size:var(--fs-md); color:var(--sub2); padding-left:var(--gap-xl); }
+
+  .course-table { width:100%; border-collapse:collapse; font-size:var(--fs-sm); margin-top:var(--gap); }
+  .course-table th { background:var(--accent); color:#fff; padding:var(--gap-sm) var(--gap-md); text-align:left; font-weight:500; }
+  .course-table td { padding:var(--gap-sm) var(--gap-md); border-bottom:1px solid var(--line); }
+  .course-table tr:hover td { background:var(--card); }
+
+  .footer { text-align:center; padding:var(--gap-3xl) var(--gap-2xl); font-size:var(--fs-xs); color:var(--sub); border-top:1px solid var(--line); margin-top:var(--gap-4xl); }
+  code { background:var(--card2); padding:var(--gap-2xs) var(--gap-sm); border-radius:var(--r-xs); font-size:var(--fs-sm); }
+  .hl { background:#FEF9C3; padding:1px var(--gap-xs); border-radius:var(--r-xs); font-weight:600; }
+
+/* Watermark */
+/* ===== 结尾转化卡 ===== */
+.cta-card{max-width:var(--w-narrow);margin:26px auto 34px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 34px rgba(15,23,42,.08)}
+.cta-hook{margin:0 0 var(--gap-lg);color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+.cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+.cta-wx-id{color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+.cta-wx-tip{color:var(--sub2);font-size:var(--fs-xs)}
+.cta-ask{margin:var(--gap-lg) 0 0;color:var(--text);font-size:var(--fs-sm);line-height:var(--lh)}
+.cta-ask b{color:var(--accent)}
+.cta-note{margin:var(--gap-md) 0 0;color:var(--sub);font-size:var(--fs-2xs);line-height:var(--lh)}
+.cta-home{display:inline-block;margin-top:var(--gap-lg);color:var(--sub2);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.cta-home:hover{color:var(--text)}
+@media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+</style>
+</head>
+<body><div style="text-align:center;padding:var(--gap) var(--gap-lg);background:var(--brand-soft);border-bottom:1px solid var(--brand-line);font-size:var(--fs-lg);color:var(--accent)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+
+<div class="hero">
+  <h1>中国计量大学 · 选课指南</h1>
+  <p class="sub">你现在要选什么 · 每类课有什么区别 · 按什么顺序判断</p>
+<div style="max-width:var(--w-page);margin:8px auto 0;padding:var(--gap-md) var(--gap-xl);background:var(--yellow-soft);border:1px solid var(--yellow-line);border-radius:var(--r-sm);font-size:var(--fs-2xs-em);color:var(--yellow);text-align:center">
+  ⚠️ <strong>2026 级本页不写具体日期</strong>：本站目前没有 2026 级的准确选课时间可靠来源 —— 凡出现月份 / 轮次，都是 2025 级口径（<strong>往届经验｜仅供参考</strong>），一切以<strong>教务处通知和教务系统</strong>为准。
+</div>
+  <div class="tag-row">
+    <span class="tag">🧭 现在做什么</span>
+    <span class="tag">📊 课程区别</span>
+    <span class="tag">🧩 怎么判断</span>
+    <span class="tag">📖 课的类型</span>
+    <span class="tag">📆 选课时间</span>
+    <span class="tag">🥇 必修底线</span>
+    <span class="tag">✅ 不能退检查</span>
+    <span class="tag">📋 操作步骤</span>
+  </div>
+</div>
+
+<div class="nav" id="nav">
+  <a href="#sec-now" class="active">现在做什么</a>
+  <a href="#sec-diff">课程区别</a>
+  <a href="#sec-order">怎么判断</a>
+  <a href="#sec-unknown">暂不评价</a>
+  <a href="#sec-types">课的类型</a>
+  <a href="#sec-time">选课时间</a>
+  <a href="#sec-priority">必修底线</a>
+  <a href="#sec-checklist">不能退检查</a>
+  <a href="#sec-howto">操作步骤</a>
+  <a href="#sec-fouryear">四年清单</a>
+  <a href="#sec-innovation">双创学分</a>
+  <a href="#sec-faq">常见问题</a>
+</div>
+
+<div class="container">
+
+<!-- ==================== ① 你现在在哪一步 ==================== -->
+<div class="section" id="sec-now">
+  <h2 class="section-title">① 你现在在哪一步 <span class="year-badge">2026级｜2026-2027学年 · 第一学期</span></h2>
+
+  <div class="info-box">
+    <strong>一句话</strong>：你刚报到、开学第一周。这个学期和「选课」有关、对你现在有效的只有两件事：<b>新生研讨课</b>和 <b>AI 模块校选课</b>（AI 课要在大一第一学年内修完 1 门）。<b>校设选修课、校际选修课、英语、体育这学期都不参加</b>（校设 / 校际从大一下学期开始，英语和体育从大二开始）。
+  </div>
+
+  <div class="card">
+    <h3>这一阶段要处理什么</h3>
+    <table class="course-table">
+      <tr><th>课 / 事项</th><th>性质</th><th>什么时候处理</th></tr>
+      <tr>
+        <td><b>新生研讨课</b></td>
+        <td>1 学分 · 必修 / 选修本站未注明</td>
+        <td>开学初学校统一安排的补报轮次（<b>2025 级在 9 月中旬</b>）</td>
+      </tr>
+      <tr>
+        <td><b>AI 模块校选课</b></td>
+        <td><b>必修</b> · 限选 1 门 · 全学年开设</td>
+        <td>大一第一学年内修完；第一学期没选上，第二学期还有轮次，<b>别拖</b></td>
+      </tr>
+      <tr>
+        <td>研讨类校选课<br><span style="font-size:var(--fs-sm);color:var(--sub);">只有部分专业要选</span></td>
+        <td>校选课 · 视专业而定</td>
+        <td>同一轮补报。<b>2025 级</b>是机器人、光电、计量类、法学、材料等专业要选；<b>2026 级本站没有可靠名单</b></td>
+      </tr>
+      <tr>
+        <td>校设 / 校际选修课、英语、体育</td>
+        <td>—</td>
+        <td><b>这学期不用管</b>：校设 / 校际从大一下学期起，英语与体育从大二起</td>
+      </tr>
+    </table>
+    <div class="info-box warn" style="margin-top:var(--gap-md);">
+      ⚠️ <strong>本站目前没有 2026 级的准确选课时间表</strong>，所以这一页<b>不写具体日期</b>，也不用 2025 级的日期代替。唯一可靠的入口是教务系统：<code>jwxt.cjlu.edu.cn</code> → 选课 → 自主选课（外网也能登录），同时留意学院 / 教务处通知。
+    </div>
+    <div class="info-box">
+      <strong>这一步最容易错的两处</strong>：① 以为「开学初没选上就没机会了」—— AI 模块课在大一第一学年内修完就行，但别拖；② 以为研讨类校选课所有专业都要选 —— 只有部分专业需要，2026 级以教务处通知为准。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ② 课程客观区别 ==================== -->
+<div class="section" id="sec-diff">
+  <h2 class="section-title">② 这些课有什么客观区别</h2>
+
+  <div class="info-box">
+    只列客观信息：性质 / 谁要选 / 什么时候选 / 能不能退改。下面「什么时候选」里的月份都是 <b>2025 级</b>口径（往届经验｜仅供参考）。
+  </div>
+
+  <div class="card">
+    <table class="course-table">
+      <tr><th>课</th><th>性质</th><th>谁要选</th><th>什么时候选</th><th>能否退改</th></tr>
+      <tr><td><b>新生研讨课</b></td><td>1 学分 · 必修 / 选修本站未注明</td><td>大一（第一学期开课）</td><td>开学初统一补报（<b>2025 级</b> 9 月中旬）</td><td>一般不退</td></tr>
+      <tr><td><b>AI 模块校选课</b></td><td><b>必修</b>（2025 级起，含 2026 级）· 限选 1 门</td><td>全部专业</td><td>大一第一学年内（<b>2025 级</b> 9 月补报；最晚第二学期）</td><td>本站没有可靠数据</td></tr>
+      <tr><td><b>校设选修课</b></td><td>通识选修</td><td>大一下学期起</td><td>每学期放假前两轮（秋季 6-7 月 / 春季 12-1 月）+ 9 月第三轮补报</td><td>✅ 可试听（第 1-2 周）· 可退选 / 换课</td></tr>
+      <tr><td><b>校际选修课</b></td><td>通识选修（下沙园区跨校共享，可去其他学校上课或上网课）</td><td>同上</td><td>与校设选修课同一轮</td><td>❌ 不能退选 · 不试听 · 不换课</td></tr>
+      <tr><td><b>尔雅网络课</b></td><td>通识选修（超星尔雅平台）</td><td>同上</td><td>与校设选修课同一轮</td><td>❌ 不能退</td></tr>
+      <tr><td><b>校精品在线开放课</b></td><td>通识选修（学校认定）</td><td>同上</td><td>与校设选修课同一轮</td><td>❌ 不能退</td></tr>
+      <tr><td><b>语言与跨文化沟通英语</b></td><td><b>必修</b>（培养方案里要求这门学分的专业）</td><td>第三或第四学期修 1 门</td><td>大二每学期的英语 + 体育轮次（秋季 6 月中旬 / 春季 12 月底）</td><td>有名额限制要抢；大三第一轮后有余额可补选</td></tr>
+      <tr><td><b>体育选项课 / 体育俱乐部</b></td><td><b>必修</b></td><td>大二（选项课）/ 大三（俱乐部）</td><td>与英语同一轮</td><td>不选 = 自动放弃 = 重修，影响毕业</td></tr>
+    </table>
+    <p style="font-size:var(--fs-sm);color:var(--sub);margin-top:var(--gap);">本表由站内原有内容整理，没有新增未经核实的数字；<b>2026 级的时间与专业范围，本站没有可靠数据</b>。</p>
+  </div>
+</div>
+
+<!-- ==================== ③ 按什么顺序判断 ==================== -->
+<div class="section" id="sec-order">
+  <span id="sec-track"></span><!-- 兼容旧链接 course.html#sec-track（首页「选课攻略」入口指向这里） -->
+  <h2 class="section-title">③ 选的时候按什么顺序判断</h2>
+
+  <div class="info-box">
+    本站不替你做决定，也不排「哪门课好」。下面是判断顺序 —— 越靠前越优先。
+  </div>
+
+  <div class="card">
+    <div class="faq-item">
+      <div class="faq-q">1️⃣ 先看培养方案</div>
+      <div class="faq-a">你这专业毕业要多少学分、每个模块（通识 / 专业 / 双创）各要多少 —— 站内「培养方案查询」可以按专业查。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">2️⃣ 再看这个学期有没有必须选的</div>
+      <div class="faq-a">必修先占上（大一是 AI 模块课，大二起是英语和体育）；必修漏选 = 重修，直接影响毕业。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">3️⃣ 算学分和时间</div>
+      <div class="faq-a">这学期还能承受多少学分；课表有没有冲突（东西区之间赶不过来的课别选）。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">4️⃣ 看清「能不能退」</div>
+      <div class="faq-a">能试听能退的（校设选修课）可以大胆选；不能退的（尔雅 / 校精品在线 / 校际选修）点确认前先想清楚。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">5️⃣ 最后才是个人偏好</div>
+      <div class="faq-a">兴趣、时间安排、以后想做什么 —— 排在前面四条之后。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ④ 本站暂不评价 ==================== -->
+<div class="section" id="sec-unknown">
+  <h2 class="section-title">④ 这些事本站暂时不评价</h2>
+
+  <div class="info-box danger">
+    老师风格（严不严、好不好）、作业量大不大、考试难不难、给分 / 绩点高不高、课程有没有意思 —— 这些是<b>学生经验信息</b>，不是官方规则。<b>本站目前没有可靠来源，所以一个字都不写</b>，也不整理来源不明的「水课 / 杀手课」名单。等收集到足够真实反馈，再单独开一块「学长学姐经验」。
+  </div>
+</div>
+
+<!-- ==================== 课的类型 ==================== -->
+<div class="section" id="sec-types">
+  <h2 class="section-title">课的类型详解 <span class="year-badge past">时间口径：2025 级｜往届经验</span></h2>
+
+  <div class="info-box">
+    大学的「课」分好几种，每种选法不同、规则不同、能不能退也不同。下面是每一类的客观信息（是什么 / 谁要选 / 什么时候选 / 能不能退）；<b>卡里的月份都是 2025 级口径，2026 级以教务处通知为准</b>。
+  </div>
+
+  <div class="type-card t-new">
+    <h4>🆕 新生研讨课</h4>
+    <div class="what">专门给大一新生开的入门课，1 学分，内容是某个领域的初步接触。</div>
+    <div class="when">⏰ 什么时候选：大一第一学期开学初（2025 级为 9 月中旬补报）</div>
+    <div class="courses">
+      历年开设（2025 级口径｜仅供参考）：<br>
+      · 材料与生活<br>
+      · 机器人的控制感知与智能<br>
+      · 光电入门<br>
+      · 药品安全与药师职业修养<br>
+      · 检测、计量与生活<br>
+      · 民法案例与民法思维<br>
+      · 佛教与中国文化
+    </div>
+    <div class="note">选了就上，不需要试听，一般也不退</div>
+  </div>
+
+  <div class="type-card t-ai">
+    <h4>🤖 AI模块校选课</h4>
+    <div class="what">2025级起（含2026级）新增的必修要求，所有专业都必须在大一第一学年内修完<b>1门</b>。属于校设选修课的一种，但有限制：限报1门，全学年开设。</div>
+    <div class="when">⏰ 什么时候选：大一第一学年内（2025 级为第一学期 9 月补报；最晚第二学期的选课轮次，但别拖）</div>
+    <div class="courses">
+      9门可选（限选1门）：<br>
+      · 人工智能基础与创新实践<br>
+      · 人工智能基础A<br>
+      · 人工智能与社会<br>
+      · 人工智能与哲学<br>
+      · 人工智能与科学之美<br>
+      · 人工智能与信息社会<br>
+      · 人工智能与创业智慧<br>
+      · 人工智能导论<br>
+      · 人工智能与创新
+    </div>
+    <div class="note">⚠️ 必修！大一第一学年内不修完会影响培养方案要求</div>
+  </div>
+
+  <div class="type-card t-sel">
+    <h4>📚 校设选修课</h4>
+    <div class="what">学校自己开的通识选修课，各种方向都有 —— 人文、社科、自然、艺术、经管等；有线下课也有在线课，算通识选修学分。</div>
+    <div class="when">⏰ 什么时候选：每学期放假前两轮选课（往届口径：秋季 6-7 月 / 春季 12-1 月）+ 开学初第三轮补报</div>
+    <div class="courses">具体课单每学期不同，在教务系统「自主选课」里看</div>
+    <div class="note">✅ 可以试听（第1-2周），试听不满意可以退选或换课</div>
+  </div>
+
+  <div class="type-card t-cross">
+    <h4>🏫 校际选修课</h4>
+    <div class="what">下沙高教园区跨校共享课，可以去其他学校上课或上网课。<b>不能退选</b>。</div>
+    <div class="when">⏰ 什么时候选：和校设选修课同时选</div>
+    <div class="courses">
+      <b>2026-2027-1 校际选修课（20+门）：</b><br><br>
+      <b>杭州电子科技大学</b>：<br>
+      · 数学实验（周三18:00，线下杭电）<br>
+      · 人工智能数学思维与应用（周二18:30，线下杭电）<br><br>
+      <b>浙江工商大学</b>：<br>
+      · 文物与中国文化（周三18:30，线下）<br>
+      · 爱情心理学（周二18:30，线上）<br><br>
+      <b>浙江财经大学</b>：<br>
+      · 微信小程序开发实战（周四18:15，线下）<br><br>
+      <b>浙江理工大学</b>：<br>
+      · 中国社会变迁史专题讲座（周三18:30，线上）<br><br>
+      <b>中国计量大学</b>：<br>
+      · 走进标准（周一18:00，线上）<br>
+      · 现代社会与知识产权（周三18:00，线上）<br><br>
+      <b>杭州师范大学</b>：<br>
+      · 人工智能与电商视觉设计（周三18:00，线上）<br>
+      · 日常急救技能（周三18:00，线上）<br><br>
+      <b>浙江传媒学院</b>：<br>
+      · 电视与网络视频节目形态解析 · 广告不疯狂：中外优秀广告赏析<br><br>
+      <b>浙江水利水电学院</b>：<br>
+      · 宝玉石鉴赏 · 大运河文化 · 水：从地理密码到文化故事<br><br>
+      <b>其他</b>：<br>
+      · PS+AIGC图像处理实战 · 技术创新方法实践 · 智能网联汽车概论<br>
+      · 时尚饰品赏析 · 咖啡鉴赏与制作 · 艺术的故事 · 车辆驾驶技术（收费4880元）<br>
+      · 浙江文化 · 民事诉讼参与 · 旅游历史文化 · 跨境电子商务基础与实战
+    </div>
+    <div class="note">⚠️ 选了不能退！不试听、不退选、不换课。线下课要去别的学校上课，看清时间和地点再选。每校限报人数有限（3-25人不等），先选先得。</div>
+  </div>
+
+  <div class="type-card t-erya">
+    <h4>🌐 尔雅网络课</h4>
+    <div class="what">超星尔雅平台的在线通识课，自己看视频+做作业+考试。登录「学在计量」或手机「超星学习通」学习。</div>
+    <div class="when">⏰ 什么时候选：和校设选修课同时选</div>
+    <div class="courses">
+      <b>2026-2027-1 尔雅课单（23门）：</b><br><br>
+      🔥 <b>创新精神与创业教育类</b>（8门，配有线下教学团队）：<br>
+      · 创业基础 · 脑洞大开背后的创新思维 · 大学生创业导论<br>
+      · 品类创新 · 商业计划书制作与演示 · 创业法学<br>
+      · 创新创业 · 创新创业大赛赛前特训<br><br>
+      🎨 <b>艺术鉴赏与审美体验类</b>（8门）：<br>
+      · 音乐鉴赏 · 书法鉴赏 · 影视鉴赏 · 舞蹈鉴赏<br>
+      · 戏剧鉴赏 · 美术鉴赏 · 戏曲鉴赏 · 艺术导论<br><br>
+      📖 <b>社会科学类</b>（2门）：<br>
+      · 劳动通论 · 当代大学生国家安全教育<br><br>
+      🤖 <b>科技发展与科学素养类</b>（5门，含AI模块课）：<br>
+      · 人工智能与创新 · 人工智能导论 · 人工智能与创业智慧<br>
+      · 人工智能与信息社会 · 人工智能与科学之美
+      <br><span style="color:var(--yellow);font-size:var(--fs-sm-em);">💡 注：这5门AI课与上方「AI模块校选课」是同一批课，选课入口不同。走AI模块课入口=算必修，走尔雅入口=算通识选修。建议走AI模块课入口选（必修优先）。</span>
+    </div>
+    <div class="note">
+      📌 <b>考核方式</b>：视频观看40% + 章节测验20% + 访问100次10% + 考试30%<br>
+      📌 学习进度低于85%不能考试，视为自动放弃学分<br>
+      📌 10%学生会被抽参加线下考试<br>
+      📌 第一节课有线下见面会（9月底环宇楼T202）<br>
+      ⚠️ 选了不能退，不参加试听
+    </div>
+  </div>
+
+  <div class="type-card t-jp">
+    <h4>🏅 校精品在线开放课</h4>
+    <div class="what">学校认定的在线开放课，纯线上学习，有老师负责。</div>
+    <div class="when">⏰ 什么时候选：和校设选修课同时选</div>
+    <div class="courses">
+      目前5-6门：<br>
+      · 电力系统继电保护<br>
+      · 食品安全快速监测技术<br>
+      · 植物生物学<br>
+      · 质量管理学<br>
+      · 植物组织培养技术与应用<br>
+      （公共关系学原理 部分学期有开）
+    </div>
+    <div class="note">⚠️ 选了不能退，选前看课程介绍和学习方式</div>
+  </div>
+
+  <div class="type-card t-eng">
+    <h4>🗣️ 语言与跨文化沟通英语</h4>
+    <div class="what">大二的必修英语系列课，不是四六级那种，是学校开的跨文化沟通类英语课。如果你的专业培养方案在「通识选修课模块」里要求了这个学分，就必须在第三或第四学期选1门。</div>
+    <div class="when">⏰ 什么时候选：大二每学期的英语 + 体育选课轮次（往届口径：秋季 6 月中旬 / 春季 12 月底），比校设选修课先选</div>
+    <div class="note">有名额限制，要抢。广宇楼的课=东区专属。大三如果大二没选上且第一轮有余额可以补选。</div>
+  </div>
+
+  <div class="type-card t-pe">
+    <h4>🏃 体育选项课 / 体育俱乐部</h4>
+    <div class="what"><b>体育选项课</b>（大二）：选一个体育项目上课，如篮球、羽毛球、瑜伽、健美操等。<b>体育俱乐部</b>（大三）：俱乐部制，分俱乐部1（常规）和俱乐部2（体质促进），按体测成绩分层。</div>
+    <div class="when">⏰ 什么时候选：和英语同一轮选课（大二选项课 / 大三俱乐部），秋季6月中旬 / 春季12月底</div>
+    <div class="note">⚠️ 必修！不选=自动放弃，得重修，学分不够不能毕业。</div>
+  </div>
+</div>
+
+<!-- ==================== 选课时间 ==================== -->
+<div class="section" id="sec-time">
+  <h2 class="section-title">选课时间：每轮什么时候 <span class="year-badge past">往届经验｜仅供参考</span></h2>
+
+  <div class="info-box">
+    下表的月份整理自 <b>2025 级</b>的选课轮次，用来看"一年大致什么时候选"；<b>2026 级本站没有可靠时间数据</b>，具体以教务处通知和教务系统公告为准。
+  </div>
+
+  <div class="card">
+    <h3>🍂 秋季学期（6-7月选课）</h3>
+    <table class="course-table">
+      <tr><th>时间</th><th>选什么</th><th>谁选</th></tr>
+      <tr><td>6月中旬</td><td>英语 + 体育选项课 第一轮</td><td>大二</td></tr>
+      <tr><td>6月中旬</td><td>英语 + 体育选项课 第二轮</td><td>大二</td></tr>
+      <tr><td>6月下旬</td><td>校设/校际选修课 第一轮</td><td>大二大三大四</td></tr>
+      <tr><td>6月底-7月初</td><td>校设/校际选修课 第二轮</td><td>大二大三大四</td></tr>
+      <tr><td>9月中旬</td><td>第三轮补报 + 新生研讨课/AI模块</td><td>全年级</td></tr>
+      <tr><td>开学1-2周</td><td>试听周（可退选/换选校设课）</td><td>选了校设课的</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>🌸 春季学期（12月-1月选课）</h3>
+    <table class="course-table">
+      <tr><th>时间</th><th>选什么</th><th>谁选</th></tr>
+      <tr><td>12月底</td><td>英语 + 体育选项课 第一轮</td><td>大二</td></tr>
+      <tr><td>12月底-1月初</td><td>英语 + 体育选项课 第二轮</td><td>大二</td></tr>
+      <tr><td>1月初</td><td>校设/校际选修课 第一轮</td><td>大一(下)大三大四</td></tr>
+      <tr><td>1月初</td><td>校设/校际选修课 第二轮</td><td>大一(下)大三大四</td></tr>
+      <tr><td>3月开学</td><td>第三轮补报 + 试听</td><td>有需要的</td></tr>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <strong>选课系统</strong>：<code>https://jwxt.cjlu.edu.cn/</code> → 选课 → 自主选课（外网也能登录）<br>
+    <strong>通用流程</strong>：第一轮选 → 确认结果 → 第二轮改退选 → 确认结果 → 9月补报 → 试听周退换
+  </div>
+</div>
+
+<!-- ==================== 必修底线 ==================== -->
+<div class="section" id="sec-priority">
+  <h2 class="section-title">必修优先于选修：底线思维 <span class="year-badge past">依据 2025 级培养口径</span></h2>
+
+  <div class="info-box danger">
+    下面这三样是必修，<b>必须先搞定</b>；不要为了多选一门选修课，把必修的名额或时间让出去。
+  </div>
+
+  <div class="card">
+    <h3>必修优先级排序</h3>
+    <table class="course-table">
+      <tr><th style="width:50px;">优先级</th><th>课程</th><th>为什么是底线</th></tr>
+      <tr>
+        <td style="text-align:center;font-size:var(--fs-h2);">🥇</td>
+        <td><b>体育选项课</b>（大二）+ <b>体育俱乐部</b>（大三）</td>
+        <td>每学期必选，漏选=自动放弃=重修，<b>直接影响毕业</b></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-size:var(--fs-h2);">🥈</td>
+        <td><b>AI模块课</b>（大一）</td>
+        <td>第一学年内必须修完1门，错过要等一年</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-size:var(--fs-h2);">🥉</td>
+        <td><b>英语</b>（大二第三/第四学期）</td>
+        <td>有名额限制，手慢无，抢不到得等大三补选</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <strong>操作原则</strong>：每次选课季，<b>先把这三样占上</b>，再去考虑其他选修课。
+  </div>
+</div>
+
+<!-- ==================== 不能退检查清单 ==================== -->
+<div class="section" id="sec-checklist">
+  <h2 class="section-title">点确认前：3秒检查清单</h2>
+
+  <div class="info-box danger">
+    在你点「确认选课」之前，<b>停下来3秒</b>，过一遍这4个问题：
+  </div>
+
+  <div class="card">
+    <div class="faq-item">
+      <div class="faq-q">1️⃣ 这门课是<b>校精品在线课</b>吗？</div>
+      <div class="faq-a">是 → 选了不能退，想清楚再点</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">2️⃣ 这门课是<b>尔雅网络课</b>吗？</div>
+      <div class="faq-a">是 → 选了不能退，想清楚再点</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">3️⃣ 这门课是<b>校际选修课</b>吗？</div>
+      <div class="faq-a">是 → 选了不能退，线下课还要跑别的学校，想清楚！</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">4️⃣ 备注里有没有写<b>「需自费」</b>？</div>
+      <div class="faq-a">有 → 比如车辆驾驶技术收费4880元，掂量一下钱包</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    四项全「否」→ 放心选。有一项「是」→ 确认自己能接受再点确认。
+  </div>
+</div>
+
+<!-- ==================== 操作模板 ==================== -->
+<div class="section" id="sec-howto">
+  <h2 class="section-title">新手操作步骤：一步一步来</h2>
+
+  <div class="info-box">
+    第一次选课照这个顺序操作，不会乱。<b>大一第一学期只用到第 ④ 步</b>（②③ 是大二起的必修，⑤ 是大一下学期起才有的选修课）。具体开放轮次以教务系统显示为准。
+  </div>
+
+  <div class="card">
+    <h3>选课操作步骤</h3>
+    <div class="tl" style="padding-left:var(--gap-3xl);">
+      <div class="tl-item">
+        <div class="label">① 登录教务系统</div>
+        <div class="desc">jwxt.cjlu.edu.cn → 选课 → 自主选课</div>
+      </div>
+      <div class="tl-item red">
+        <div class="label">② 先搜必修：体育选项课 / 体育俱乐部</div>
+        <div class="desc">这是最不能漏的，选上再说</div>
+      </div>
+      <div class="tl-item red">
+        <div class="label">③ 再搜名额限制课：英语</div>
+        <div class="desc">有名额限制，抢（如果轮到你选了）</div>
+      </div>
+      <div class="tl-item warn">
+        <div class="label">④ 再看AI模块课（大一新生）</div>
+        <div class="desc">9门任选1门，选上</div>
+      </div>
+      <div class="tl-item">
+        <div class="label">⑤ 最后用剩余学分填选修课</div>
+        <div class="desc">先用培养方案看还差什么学分，再看这门课能不能退 —— 不能退的（尔雅 / 校精品 / 校际）想清楚再点</div>
+      </div>
+      <div class="tl-item warn">
+        <div class="label">⑥ 点确认前，过一遍「不能退检查清单」</div>
+        <div class="desc">校精品/尔雅/校际/自费 → 有任何一项是→想清楚再点</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 四年选课清单 ==================== -->
+<div class="section" id="sec-fouryear">
+  <h2 class="section-title">四年选课清单 <span class="year-badge past">往届经验｜仅供参考</span></h2>
+
+  <div class="info-box">
+    下面是 <b>2025 级</b>每学期实际要处理的事，用来做长期规划；<b>2026 级的具体轮次以教务处通知为准</b>。
+  </div>
+
+  <div class="card">
+    <div class="faq-item">
+      <div class="faq-q">🟠 大一 · 第一学期（你现在）</div>
+      <div class="faq-a">新生研讨课 1 门（1 学分）+ AI 模块课 1 门（必修，大一第一学年内修完）。校设 / 校际选修课、英语、体育这学期不参加。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">🌸 大一 · 第二学期</div>
+      <div class="faq-a">校设 / 校际选修课（最多 6 学分 4 门）；上学期没选 AI 模块课的话，这学期是最后机会。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">🔵 大二</div>
+      <div class="faq-a">每学期：英语（第三或第四学期修 1 门，有名额限制要抢）+ 体育选项课 1 门 + 校设 / 校际选修课；开学第 1-2 周可试听、退换校设课。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">🟣 大三</div>
+      <div class="faq-a">每学期：体育俱乐部 1 门（必修）+ 校设 / 校际选修课；英语若大二没选上，第一轮后有余额可补选。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">⚪ 大四</div>
+      <div class="faq-a">只剩选修课：看培养方案还差多少学分就选多少；缺英语学分先到系统补报，系统不行再去格致南楼 A210 找人文外语学院协商（往届口径）。</div>
+    </div>
+  </div>
+
+  <div class="info-box warn">
+    <strong>四年必修项（2025 级口径）</strong>：AI 模块课 1 门 + 英语 1 门 + 体育选项课 2 门 + 体育俱乐部 2 门 + 通识选修若干学分 —— 这些不修完不能毕业。
+  </div>
+</div>
+
+<!-- ==================== 创新创业学分 ==================== -->
+<div class="section" id="sec-innovation">
+  <h2 class="section-title">创新创业学分 <span class="year-badge past">官方文件口径｜往届执行</span></h2>
+
+  <div class="info-box danger">
+    <strong>双创学分不是选课拿的</strong>：靠竞赛获奖、发表论文、大创项目结题、专利等课外成果<b>认定</b>。依据《中国计量大学本科创新创业活动学分认定细则》（中量大〔2022〕169 号）。它和通识选修、专业选修<b>分开算，不能互相抵扣</b>，不够会影响毕业。
+  </div>
+
+  <div class="card">
+    <h3>🏆 认定分值（官方标准摘录）</h3>
+    <table class="course-table">
+      <tr><th>竞赛类别</th><th>国一及以上</th><th>国二 / 三</th><th>省一及以上</th><th>省二 / 三</th><th>校一及以上</th><th>校二 / 三</th></tr>
+      <tr><td><b>A 类</b></td><td>8</td><td>6</td><td>4</td><td>3</td><td>1.5</td><td>0.5</td></tr>
+      <tr><td><b>B 类</b></td><td>6</td><td>5</td><td>3</td><td>2</td><td>—</td><td>—</td></tr>
+      <tr><td>非 A / B 类</td><td>1.5</td><td>1.5</td><td>1.5</td><td>1.5</td><td>—</td><td>—</td></tr>
+    </table>
+    <table class="course-table" style="margin-top:var(--gap-lg);">
+      <tr><th>项目 / 成果</th><th>等级</th><th>分值</th></tr>
+      <tr><td>创新创业项目</td><td>国家级 / 省部级 / 校级 / 院级</td><td>3 / 2 / 1 / 0.5</td></tr>
+      <tr><td>学术论文</td><td>三大检索或一级期刊 / 核心期刊 / 其他公开发行 / 校内学生刊物</td><td>8 / 2 / 1 / 0.5</td></tr>
+      <tr><td>专利</td><td>发明专利 / 实用新型 / 外观专利</td><td>8 / 2 / 1（外观累计不超 3 学分）</td></tr>
+      <tr><td>文艺活动等</td><td>国家级或省部级一等奖 / 省部级二等奖 / 省部级三等奖 / 学年论文或技能证书</td><td>3 / 2 / 1 / 0.5</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>💯 认定后怎么用（官方加分标准）</h3>
+    <table class="course-table">
+      <tr><th>获奖等级</th><th>A 类 · 认定成绩</th><th>A 类 · 加分</th><th>B 类 · 认定成绩</th><th>B 类 · 加分</th></tr>
+      <tr><td>国家一等（特）奖</td><td>100</td><td>+16</td><td>95</td><td>+10</td></tr>
+      <tr><td>国家二等奖</td><td>95</td><td>+14</td><td>90</td><td>—</td></tr>
+      <tr><td>国家三等奖</td><td>90</td><td>+12</td><td>85</td><td>—</td></tr>
+      <tr><td>省一等（特）奖</td><td>90</td><td>+12</td><td>85</td><td>—</td></tr>
+      <tr><td>省二等奖</td><td>88</td><td>+10</td><td>82</td><td>+8</td></tr>
+      <tr><td>省三等奖</td><td>85</td><td>+8</td><td>82</td><td>+5</td></tr>
+    </table>
+    <div class="info-box" style="margin-top:var(--gap);">所有认定总学分不超过 <b>24 学分</b>（不含创新创业实践学分）。</div>
+  </div>
+
+  <div class="card">
+    <h3>⏰ 申请认定与关键规则</h3>
+    <table class="course-table">
+      <tr><th>轮次</th><th>时间</th><th>注意</th></tr>
+      <tr><td>每学期第一轮</td><td>开学初（9 月 / 3 月）</td><td>留意学院通知</td></tr>
+      <tr><td>每学期第二轮</td><td>期末前（12 月 / 6 月）</td><td>错过系统提交时间不再另安排</td></tr>
+    </table>
+    <ul style="margin-top:var(--gap);padding-left:var(--gap-xl);font-size:var(--fs-md);">
+      <li>只有教育部、省教育厅、团省委、校教务处主办的<b>官方赛事</b>能认定；商业赛、网络小众赛一律不认。</li>
+      <li>同一门课只能认定一次；三大检索论文要提供图书馆收录证明；已发奖状的必须提供奖状，只有公示的不认定。</li>
+      <li>无省 / 区域赛的国赛按省赛认定（降级处理）。</li>
+      <li>双创学分与课堂学分分开算、不能互相抵扣；不够会影响毕业，早参加比晚参加从容。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== 常见问题 ==================== -->
+<div class="section" id="sec-faq">
+  <h2 class="section-title">常见问题</h2>
+
+  <div class="card">
+    <div class="faq-item">
+      <div class="faq-q">Q：大一第一学期可以选校设选修课吗？</div>
+      <div class="faq-a">不行。大一上学期只能选新生研讨课和AI模块课。校设/校际选修课从大一下学期开始。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：AI模块课必须第一学期选吗？</div>
+      <div class="faq-a">不必须，但必须在<b>大一第一学年内</b>（两个学期）修完1门。建议第一学期就选掉，别拖到下学期。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：英语是四六级吗？</div>
+      <div class="faq-a">不是。「语言与跨文化沟通英语」是学校开的跨文化沟通类英语课，和四六级无关。四六级自己报名，不在这里选。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：校设选修课、校际选修课、尔雅课、校精品在线课，有什么区别？</div>
+      <div class="faq-a"><b>校设选修课</b>：学校自己开的，有线下也有线上，能试听能退选。<b>校际选修课</b>：跨校共享课，不能退。<b>尔雅课</b>：第三方平台网课，不能退。<b>校精品在线课</b>：学校精品网课（5-6门），不能退。四种都算通识选修学分。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：每学期6学分4门够用吗？毕业要多少选修学分？</div>
+      <div class="faq-a">看你的专业培养方案。一般通识选修课毕业要求8-12学分左右，分4学期选每学期2-3学分就够。加上英语、AI模块课的学分，规划好不会不够。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：选课没选上怎么办？</div>
+      <div class="faq-a">三个补救：①第二轮改选其他课；②9月第三轮补报名额未满的课；③试听周在教室容量允许下换选。还是没选上就下学期再选。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：体育课不选会怎样？</div>
+      <div class="faq-a">体育是<b>必修课</b>，不选=自动放弃，需重修才能拿学分，学分不够<b>不能毕业</b>。必须选！</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：东区学生选体育课要注意什么？</div>
+      <div class="faq-a">①选上课地点以「东区」开头的课；②西区晚上10-11节的课也供东区选；③<b>别选课间间隔太短的跨校区课</b>（如东区1-2节、西区3-4节，来不及跑）。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：每轮选课只能改退选本轮的课是什么意思？</div>
+      <div class="faq-a">比如第一轮选了A课和B课，第二轮想退A课——不行，A是第一轮选的，第二轮只能改退第二轮选的课。所以每轮选完一定要确认！</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：重修课怎么选？</div>
+      <div class="faq-a">校选课重修在常规两轮选课时间内选报，和正常选课一起操作。院设课重修留意9月补报通知。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：创新创业学分和选修课学分是一回事吗？</div>
+      <div class="faq-a"><b>不是</b>。创新创业学分是独立的学分板块，靠竞赛/论文/专利等课外成果认定，和课堂选修课分开算，不能互相抵扣。但竞赛加分可以提高课程成绩（拉绩点）。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：什么竞赛能认定双创学分？</div>
+      <div class="faq-a">只有教育部、省教育厅、团省委、校教务处主办的官方赛事能认定。数学建模、互联网+、挑战杯是最主流的。商业赛、网络小众赛一律不认。不确定的话看学院发布的竞赛白名单。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q：大一参加竞赛来得及吗？</div>
+      <div class="faq-a">大一不用急于参赛，先跟学长学姐观摩、学习基本功。大二开始正式参赛，大三冲击省赛国赛。数学建模竞赛每年9月，大一学完高数和线代后可以考虑试水。</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>整理自 2025-2027 学年教务处选课通知 · 仅供参考，以教务处最新通知为准</p>
+  <p>教务系统：<a href="https://jwxt.cjlu.edu.cn/" style="color:var(--accent);">jwxt.cjlu.edu.cn</a></p>
+</div>
+
+<script>
+document.querySelectorAll('.nav a').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    var t = document.querySelector(this.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+var ticking = false;
+var sections = document.querySelectorAll('.section');
+var navLinks = document.querySelectorAll('.nav a');
+function updateNav() {
+  var cur = '';
+  for (var i = 0; i < sections.length; i++) {
+    if (window.scrollY >= sections[i].offsetTop - 120) cur = sections[i].id;
+  }
+  for (var j = 0; j < navLinks.length; j++) {
+    navLinks[j].classList.toggle('active', navLinks[j].getAttribute('href') === '#' + cur);
+  }
+  ticking = false;
+}
+window.addEventListener('scroll', function() {
+  if (!ticking) { ticking = true; requestAnimationFrame(updateNav); }
+});
+updateNav();
+</script>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('selectstart',function(e){e.preventDefault()});
+document.addEventListener('copy',function(e){e.preventDefault()});
+</script>
+
+<div class="cta-card">
+  <p class="cta-hook">现在该选什么 + 课程区别 + 选课时间 + 操作步骤，全在这页</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「选课」</span>
+  </div>
+  <p class="cta-ask">有页面没写到的具体问题？<b>进群和大家一起讨论</b> —— 群里是 2026 级新生互助交流，学长和同学都会参与回答；不方便在群里问的再私信我</p>
+  <p class="cta-note">本页基于 2025 级选课政策整理，非官方；具体以教务处最新通知为准</p>
+  <a class="cta-home" href="index.html">← 返回总览 · 6 份指南</a>
+</div>
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+</body>
+</html>

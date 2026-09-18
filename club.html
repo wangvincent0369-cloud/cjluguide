@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国计量大学 · 社团分类汇总</title>
+<link rel="stylesheet" href="theme.css?v=20260918a">
+<script src="theme.js?v=20260918a"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:var(--font);
+    background:var(--bg);
+    min-height:100vh; padding:var(--gap-3xl) var(--gap-lg) var(--gap-3xl);
+  }
+  .container { max-width:var(--w-grid); margin:0 auto; }
+  .hero { text-align:center; color:var(--text); margin-bottom:var(--gap-md); }
+  .hero h1 { font-size:var(--fs-h2); font-weight:800; letter-spacing:1px; margin-bottom:var(--gap-sm); }
+  .hero p { font-size:var(--fs-sm); color:var(--sub); line-height:var(--lh-loose); }
+
+  /* ---------- 你想从社团里得到什么（决策入口） ---------- */
+  .pick { margin:0 0 var(--gap-lg); }
+  /* 标题和说明压成一行，别让它自己占两行 */
+  .pick-t { font-size:var(--fs-md); font-weight:700; color:var(--text); margin-bottom:var(--gap-sm); }
+  .pick-t small { display:inline; font-weight:400; color:var(--sub); font-size:var(--fs-xs); margin-left:var(--gap-xs); }
+  /* 6 个胶囊排一行横滚，不换行 —— 换行会变成三行、把首屏撑掉一半 */
+  .pick-bar { display:flex; flex-wrap:nowrap; gap:var(--gap-sm); justify-content:flex-start;
+              overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px;
+              scrollbar-width:none; -ms-overflow-style:none; }
+  .pick-bar::-webkit-scrollbar { display:none; }
+  /* ⚠️ flex:0 0 auto + nowrap 是必须的：.pick-bar 现在是横滚不换行，
+     缺了这两条，胶囊会被 flex 压扁成 60px 宽，文字竖着折成 99px 高（2026-09-16 踩过）。
+     .filter-btn 本来就有这两条，别只改一边。 */
+  .pick-btn { font-family:inherit; cursor:pointer; border-radius:var(--r-lg);
+              border:1px solid var(--brand-line); background:var(--brand-soft); color:var(--sub2);
+              font-size:var(--fs-md); padding:var(--gap) var(--gap-lg);
+              flex:0 0 auto; white-space:nowrap; }
+  .pick-btn:hover { color:var(--text); }
+  .pick-btn.active { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:600; }
+  /* 「想找清闲的」那段提示已移到页面底部的说明区，这里不再需要 .pick-note */
+
+  /* ---------- 折叠区块 ---------- */
+  .fold { margin:0 0 var(--gap); border:1px solid var(--line2); border-radius:var(--r-md);
+          background:var(--card); overflow:hidden; }
+  .fold > summary { list-style:none; cursor:pointer; padding:var(--gap-lg) var(--gap-xl);
+                    font-size:var(--fs-md); font-weight:600; color:var(--text);
+                    display:flex; align-items:center; gap:var(--gap-sm); line-height:var(--lh-tight); }
+  .fold > summary::-webkit-details-marker { display:none; }
+  .fold > summary::after { content:'▾'; margin-left:auto; color:var(--sub); font-size:var(--fs-sm); flex-shrink:0; }
+  .fold[open] > summary::after { content:'▴'; }
+  .fold-body { padding:0 var(--gap-xl) var(--gap-xl); color:var(--sub2);
+               font-size:var(--fs-sm); line-height:var(--lh-loose); }
+  .fold-body h4 { font-size:var(--fs-sm); color:var(--accent); font-weight:700; margin:var(--gap-lg) 0 var(--gap-sm); }
+  .fold-body h4:first-child { margin-top:0; }
+  .fold-body p { margin-bottom:var(--gap-sm); }
+  .fold-body .li { margin-bottom:var(--gap-sm); padding-left:var(--gap-lg); border-left:2px solid var(--brand-line); }
+  .fold-body strong { color:var(--text); }
+  .fold-body .warn { color:var(--red); font-weight:600; }
+
+  /* 手机上一行横向滚动，避免 12 个分类按钮占掉 4 行把列表挤出首屏 */
+  .filter-bar { display:flex; gap:var(--gap-sm); margin:var(--gap-xl) 0 var(--gap-md);
+                flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch;
+                padding-bottom:var(--gap-xs); scrollbar-width:none; }
+  .filter-bar::-webkit-scrollbar { display:none; }
+  .filter-btn { font-family:inherit; cursor:pointer; border-radius:var(--r-lg);
+                border:1px solid var(--brand-line); background:var(--brand-soft); color:var(--sub2);
+                font-size:var(--fs-md); padding:var(--gap) var(--gap-lg);
+                flex:0 0 auto; white-space:nowrap; }
+  .filter-btn:hover { color:var(--text); }
+  .filter-btn.active { background:var(--accent); color:var(--on-accent); border-color:var(--accent); font-weight:600; }
+  /* 底部说明区：原来的 .list-hint 搬到这里，并合并了原先放页面顶部的黄色免责框 */
+  .notes { background:var(--card); border:1px solid var(--line2); border-radius:var(--r-md);
+           padding:var(--gap-xl); margin:var(--gap-2xl) 0 0; }
+  .notes p { font-size:var(--fs-2xs); color:var(--sub); line-height:var(--lh-loose); }
+  .notes p + p { margin-top:var(--gap-md); }
+  .notes strong { color:var(--sub2); }
+
+  /* ---------- 列表收尾：进群问引导条（2026-09-18）----------
+     锚点 <a href="#join"> 跳到底部群码卡，本身零脚本；样式只用主题变量，昼夜自动切。 */
+  .join-hint { display:flex; align-items:center; justify-content:space-between; gap:var(--gap-md);
+               margin:var(--gap-xl) 0 0; padding:var(--gap-md) var(--gap-lg);
+               background:var(--brand-soft); border:1px solid var(--brand-line);
+               border-radius:var(--r-md); font-size:var(--fs-xs); color:var(--sub2);
+               text-decoration:none; }
+  .join-hint b { color:var(--accent); font-weight:700; }
+  .join-hint:hover { color:var(--text); }
+  .join-hint::after { content:'↓'; flex-shrink:0; color:var(--accent); font-size:var(--fs-md); }
+
+  /* ---------- 悬浮球避让（只在本页生效）----------
+     搜索球在右下、主题球在左下，都是 fixed 定位，滚动后会正好压住列表里的某一类，
+     看着像"排乱了"。滚动超过一屏就让它们淡下去，指到或聚焦时恢复原样。
+     ⚠️ 这两个球由 search.js / theme.js 注入，选择器必须带 body.scrolled，
+        否则同优先级下会被它们自己的样式压回去（它们的 <style> 注入在 head 末尾）。 */
+  .ss-fab, .theme-btn { transition:opacity .25s ease; }
+  body.scrolled .ss-fab, body.scrolled .theme-btn { opacity:.34; }
+  body.scrolled .ss-fab:hover, body.scrolled .theme-btn:hover,
+  body.scrolled .ss-fab:focus, body.scrolled .theme-btn:focus { opacity:1; }
+
+  /* ---------- 顶部速查数字条（单行内联式，2026-09-18 重排）----------
+     原来是 3 格网格、首屏要占约 90px 高；现在压成一行居中的内联旁注，把首屏让给分类卡。
+     内容仍是 3 条：社团数 / 分类数 / 百团大战时间。条数若变，分隔线规则要跟着改。 */
+  .stat-strip { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:center;
+                row-gap:var(--gap-2xs); margin:0 0 var(--gap-lg); }
+  .st { white-space:nowrap; font-size:var(--fs-2xs); color:var(--sub); }
+  /* ⚠️ 必须用子选择器：块内还有 <span id="stat-clubs"> / <span id="stat-cats">，
+     不能写成 .st span 把内层小 span 一起命中（2026-09-16 踩过的坑） */
+  .st > b { font-size:var(--fs-md); font-weight:800; color:var(--accent); }
+  .st + .st::before { content:'·'; margin:0 var(--gap-md); color:var(--sub); }
+
+  .category-card { background:var(--card); border-radius:var(--r-lg); margin-bottom:var(--gap-xl);
+                   overflow:hidden; border:1px solid var(--line2); }
+  .category-card.hidden { display:none; }
+  /* 10 个分类标题是页面上重复出现最多的元素，它的高度直接决定列表是"清爽"还是"笨重"。
+     上下内边距从 --gap-lg 收到 --gap-md：单个从 ~73px 降到 ~60px，10 个就省掉 130px。 */
+  .card-header { padding:var(--gap-md) var(--gap-lg); display:flex; align-items:center;
+                 justify-content:space-between; gap:var(--gap);
+                 cursor:pointer; -webkit-user-select:none; user-select:none; }
+  .card-header:hover { background:var(--brand-soft); }
+  /* 默认全部收起 → 标题旁必须有个「能点开」的指示：手机上没 hover，否则看不出这行可以点。
+     收起态用同一字符 ▾ 旋转 -90°（视觉等于 ▸）：换字符没法做过渡，旋转可以（2026-09-18）。
+     ⚠️ 这条是状态指示、不是装饰，不放进 reduced-motion 媒体查询 —— 降级时瞬时切换但仍然可见。 */
+  .card-header::after { content:'▾'; color:var(--sub); font-size:var(--fs-sm);
+                        flex-shrink:0; line-height:1; }
+  .category-card.collapsed .card-header::after { transform:rotate(-90deg); }
+  .category-card.collapsed .card-body { display:none; }
+  .category-card.collapsed .card-header .count { color:var(--sub2); }
+  .card-header .left { display:flex; align-items:center; gap:var(--gap); min-width:0; }
+  /* emoji 图标隐藏：11 个 emoji 在苹果/安卓/Windows 各渲染一套，风格不统一，
+     而且它和左边那道分类色表达的是同一件事。改 display 为 flex 即可恢复。 */
+  .card-header .icon { width:34px; height:34px; border-radius:var(--r-sm); display:none;
+                      align-items:center; justify-content:center; font-size:var(--fs-lg);
+                      color:var(--text); flex-shrink:0; }
+  .card-header .title { font-size:var(--fs-lg); font-weight:700; color:var(--text); }
+  .card-header .desc { font-size:var(--fs-2xs); color:var(--sub); margin-top:1px; }
+  .card-header .count { background:var(--card2); color:var(--sub); font-size:var(--fs-2xs);
+                      font-weight:600; padding:var(--gap-2xs) var(--gap-md);
+                      border-radius:var(--r-sm); flex-shrink:0;
+                      margin-left:auto; }   /* 把「N 个」和后面的展开箭头一起顶到右边 */
+  /* 没有详细信息的社团收进这个折叠，默认不展开（它们的 .club-item 仍在 DOM 里，搜索照样抓得到） */
+  .more { border-top:1px dashed var(--line2); margin-top:var(--gap-sm); }
+  .more > summary { list-style:none; cursor:pointer; padding:var(--gap-sm) 0;
+                    font-size:var(--fs-2xs); color:var(--sub2); }
+  .more > summary::-webkit-details-marker { display:none; }
+  .more > summary::after { content:' ▾'; }
+  .more[open] > summary::after { content:' ▴'; }
+  .more > summary:hover { color:var(--text); }
+  .card-body { padding:0 var(--gap-xl) var(--gap-lg); }
+  /* ⛔ 单列，不要改回多列！CSS grid 会把同一行的两项强制拉成等高，
+     内容一高一矮时矮的那列底下会拖出一大片空白，看着就是"排得很乱"（2026-09-16 踩过）。
+     一行一个社团 + 横线通栏 → 天然对齐；宽屏再把「名称」放左、「信息」放右来利用横向空间。 */
+  .club-grid { display:block; }
+
+  /* ---------- 社团速查条 ---------- */
+  .club-item { display:block; padding:var(--gap-sm) 0;
+               border-bottom:1px solid var(--line); background:transparent; }
+  .club-item:last-child { border-bottom:none; }
+  .club-item .sep { display:none; }   /* 老分隔点隐藏；.name / .info 保留，全站搜索靠它们 */
+  .ci-h { display:flex; align-items:baseline; gap:var(--gap-sm); flex-wrap:wrap; }
+  .club-item .name { font-size:var(--fs-sm); font-weight:700; color:var(--text); line-height:1.3; }
+  .ci-yr { font-size:var(--fs-2xs); color:var(--sub); flex-shrink:0; }
+  .club-item .info { display:block; margin-top:var(--gap-2xs); font-size:var(--fs-xs);
+                     color:var(--sub2); line-height:1.45; }
+  /* 没有可靠数据的字段一律不渲染，所以这里不需要"待补充/占位"相关样式 */
+  .ci-rows { margin-top:var(--gap-xs); }
+  .ci-r { display:flex; gap:var(--gap-xs); font-size:var(--fs-2xs); line-height:1.45;
+          padding:var(--gap-2xs) 0; border-top:1px solid var(--line); }
+  .ci-r:first-child { border-top:none; }
+  /* 标签列 4.2em：容得下「额外花费 / 课程冲突 / 干部区别」这种 4 字标签。
+     原来是 3.2em，4 字标签会折成两行、整行高度不齐（09-17 实测后放宽）。 */
+  .ci-r b { flex:0 0 4.2em; font-weight:600; color:var(--sub); }
+  .ci-r span { flex:1; min-width:0; color:var(--text); overflow-wrap:anywhere; }
+  .ci-r.w b { flex:0 0 5.8em; }          /* 六问块的长标签，比社团条的 3.2em 宽 */
+  .ci-sub { color:var(--sub); font-style:normal; }
+  .ci-hon { margin-top:var(--gap-sm); background:var(--yellow-soft); border:1px solid var(--yellow-line);
+            border-radius:var(--r-sm); padding:var(--gap-xs) var(--gap-sm);
+            font-size:var(--fs-2xs); color:var(--yellow); line-height:var(--lh-loose); }
+  .ci-note { margin-top:var(--gap-xs); background:var(--card3); border-radius:var(--r-sm);
+             padding:var(--gap-xs) var(--gap-sm); font-size:var(--fs-2xs);
+             color:var(--sub2); line-height:var(--lh-loose); }
+  /* 社员说：一手体验，写成引述的样子（左边一道竖线 + 原话 + 署名）。
+     视觉上比资料行更像"别人说的"，但仍然弱于社团名 —— 它是补强，不是主角。 */
+  .ci-say { margin-top:var(--gap-sm); border-left:3px solid var(--brand-line);
+            background:var(--card2); border-radius:0 var(--r-sm) var(--r-sm) 0;
+            padding:var(--gap-xs) var(--gap-sm); font-size:var(--fs-2xs);
+            color:var(--text); line-height:var(--lh-loose); }
+  .ci-say-by { display:block; margin-top:var(--gap-2xs); color:var(--sub); }
+
+  /* ---------- 社团标签 ----------
+     层级刻意做成：社团名 > 标签 > 简介 / 详细资料。
+     所以标签是小字 + 细描边 + 无填充的小标记，⚠️ 不要改成一排填充色的大按钮，那会盖过社团名。 */
+  .ci-tags { display:flex; flex-wrap:wrap; gap:var(--gap-xs); margin-top:var(--gap-2xs); }
+  .ci-tag { font-family:inherit; cursor:pointer; white-space:nowrap; line-height:1.7;
+            font-size:var(--fs-2xs); color:var(--sub);
+            background:transparent; border:1px solid var(--line2);
+            border-radius:var(--r-sm); padding:0 var(--gap-sm); }
+  .ci-tag:hover { color:var(--accent); border-color:var(--brand-line); background:var(--brand-soft); }
+  .ci-tag.active { color:var(--on-accent); background:var(--accent); border-color:var(--accent); }
+  /* 按标签筛选：不匹配的社团条隐藏，被掏空的分类卡也隐藏 */
+  .club-item.tag-out { display:none; }
+  .category-card.tag-empty { display:none; }
+  .tag-bar { display:flex; align-items:center; gap:var(--gap-sm); flex-wrap:wrap;
+             margin:0 0 var(--gap-lg); padding:var(--gap-sm) var(--gap-lg);
+             background:var(--brand-soft); border:1px solid var(--brand-line);
+             border-radius:var(--r-md); font-size:var(--fs-xs); color:var(--sub2); }
+  .tag-bar[hidden] { display:none; }
+  .tag-bar b { color:var(--text); font-weight:600; }
+  .tag-bar button { font-family:inherit; cursor:pointer; font-size:var(--fs-2xs);
+                    color:var(--accent); background:transparent;
+                    border:1px solid var(--brand-line); border-radius:var(--r-sm);
+                    padding:0 var(--gap-md); line-height:1.9; }
+  .tag-bar button:hover { background:var(--card); }
+
+  /* ---------- 征集块 / 待核实名单 ---------- */
+  .gather { background:var(--card); border:1px solid var(--brand-line); border-radius:var(--r-lg);
+            padding:var(--gap-lg); margin:var(--gap-xl) 0 var(--gap-lg); }
+  .gather h3 { font-size:var(--fs-md); font-weight:700; color:var(--text); margin-bottom:var(--gap-sm); }
+  .gather p { font-size:var(--fs-xs); color:var(--sub2); line-height:var(--lh-loose); }
+  .gather ol { margin:var(--gap-md) 0 0; padding-left:1.3em; font-size:var(--fs-xs);
+               color:var(--sub2); line-height:var(--lh-loose); }
+  .gather li { margin-bottom:var(--gap-xs); }
+  .gather-foot { margin-top:var(--gap-lg); }
+
+  /* 分类识别色：从内联样式收进来，全站唯一一处定义 */
+  .category-card[data-category="音乐舞台"] .card-header { border-left:4px solid #E74C8B; }
+  .category-card[data-category="音乐舞台"] .icon { background:#E74C8B; }
+  .category-card[data-category="文学阅读"] .card-header { border-left:4px solid #D35400; }
+  .category-card[data-category="文学阅读"] .icon { background:#D35400; }
+  .category-card[data-category="摄影设计"] .card-header { border-left:4px solid #34495E; }
+  .category-card[data-category="摄影设计"] .icon { background:#34495E; }
+  .category-card[data-category="语言表达"] .card-header { border-left:4px solid #F39C12; }
+  .category-card[data-category="语言表达"] .icon { background:#F39C12; }
+  .category-card[data-category="传统文化"] .card-header { border-left:4px solid #C0392B; }
+  .category-card[data-category="传统文化"] .icon { background:#C0392B; }
+  .category-card[data-category="运动娱乐"] .card-header { border-left:4px solid #16A085; }
+  .category-card[data-category="运动娱乐"] .icon { background:#16A085; }
+  .category-card[data-category="学术科技"] .card-header { border-left:4px solid #2980B9; }
+  .category-card[data-category="学术科技"] .icon { background:#2980B9; }
+  .category-card[data-category="商业创业"] .card-header { border-left:4px solid #8E44AD; }
+  .category-card[data-category="商业创业"] .icon { background:#8E44AD; }
+  .category-card[data-category="公益志愿"] .card-header { border-left:4px solid #2ECC71; }
+  .category-card[data-category="公益志愿"] .icon { background:#2ECC71; }
+  .category-card[data-category="生活兴趣"] .card-header { border-left:4px solid #E91E63; }
+  .category-card[data-category="生活兴趣"] .icon { background:#E91E63; }
+
+  .footer { text-align:center; color:var(--sub); font-size:var(--fs-2xs);
+            margin-top:var(--gap-3xl); line-height:var(--lh-loose); }
+
+  /* ---------- 动效（2026-09-18，克制版）----------
+     三条规矩：① 只动 transform / opacity 这两个合成器属性，不碰布局、不触发重排；
+     ② 全部包在 prefers-reduced-motion: no-preference 里 —— 系统开了「减弱动态效果」就一概不播，
+        直接呈现终态（箭头旋转除外：它是收起/展开的状态指示，降级时瞬时切换、不消失）；
+     ③ 全是一次性动画，不循环、不挂滚动监听。 */
+  @media (prefers-reduced-motion: no-preference) {
+    /* 首屏四块入场：级联淡入上移，只播一次；backwards 让有延迟的块在等待期保持隐藏 */
+    @keyframes riseIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+    .hero       { animation:riseIn .4s ease backwards; }
+    .stat-strip { animation:riseIn .4s ease .07s backwards; }
+    .pick       { animation:riseIn .4s ease .14s backwards; }
+    .filter-bar { animation:riseIn .4s ease .21s backwards; }
+
+    /* 分类卡展开：内容 240ms 淡入下移 —— display:none→block 会重放动画，正好当展开反馈 */
+    @keyframes cardOpen { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .category-card:not(.collapsed) .card-body { animation:cardOpen .24s ease; }
+    .card-header::after { transition:transform .2s ease; }
+
+    /* 按钮 / 标签按压反馈 */
+    .pick-btn:active, .filter-btn:active, .ci-tag:active { transform:scale(.97); }
+  }
+
+  /* ---------- 屏外内容惰性渲染（2026-09-18）----------
+     折叠块 / 六问 / 说明区都在首屏之外：content-visibility:auto 让浏览器跳过它们的
+     排版与绘制，快滚到时才画；contain-intrinsic-size 给个估算占位高，避免滚动条跳动。
+     ⚠️ 只加这三个块：分类卡列表绝不加 —— search.js 的 openTarget 要在卡内展开+滚动定位，
+     分类卡的渲染时机必须即时。 */
+  .fold   { content-visibility:auto; contain-intrinsic-size:auto 72px; }
+  .gather { content-visibility:auto; contain-intrinsic-size:auto 320px; }
+  .notes  { content-visibility:auto; contain-intrinsic-size:auto 200px; }
+
+  /* 手机优先：以上为窄屏默认。
+     宽屏（≥700px）把每个社团改成「左边名称 / 右边信息」的两栏，一行说完，横线依旧通栏对齐。 */
+  @media (min-width: 700px) {
+    body { padding:var(--gap-5xl) var(--gap-2xl) var(--gap-4xl); }
+    .hero h1 { font-size:var(--fs-h1); }
+    .hero p { font-size:var(--fs-sm); }
+    .pick-t { font-size:var(--fs-lg); }
+    .club-item { display:grid; grid-template-columns:minmax(150px, 20%) 1fr;
+                 column-gap:var(--gap-xl); align-items:start; padding:var(--gap-md) 0; }
+    .ci-h { grid-column:1; }
+    .club-item .info { grid-column:2; margin-top:0; }
+    .ci-rows, .ci-hon, .ci-note, .ci-say { grid-column:2; }
+    .ci-tags { grid-column:2; margin-top:0; }   /* 宽屏两栏：名称在左，标签和简介都排在右侧那一栏 */
+    .club-item .name { font-size:var(--fs-md); }
+    .filter-bar { justify-content:center; flex-wrap:wrap; overflow:visible; }
+    .pick-bar { gap:var(--gap); }
+    .pick-btn, .filter-btn { font-size:var(--fs-md); padding:var(--gap) var(--gap-xl); }
+  }
+
+/* Watermark */
+/* ===== 结尾转化卡 ===== */
+.cta-card{max-width:var(--w-narrow);margin:26px auto 34px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 34px rgba(var(--shadow-rgb),.08)}
+.cta-hook{margin:0 0 var(--gap-lg);color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+.cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+.cta-wx-id{color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+.cta-wx-tip{color:var(--sub2);font-size:var(--fs-xs)}
+.cta-ask{margin:var(--gap-lg) 0 0;color:var(--text);font-size:var(--fs-sm);line-height:var(--lh)}
+.cta-ask b{color:var(--accent)}
+.cta-note{margin:var(--gap-md) 0 0;color:var(--sub);font-size:var(--fs-2xs);line-height:var(--lh)}
+.cta-home{display:inline-block;margin-top:var(--gap-lg);color:var(--sub2);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.cta-home:hover{color:var(--text)}
+@media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+</style>
+</head>
+<body><div style="text-align:center;padding:var(--gap) var(--gap-lg);background:var(--brand-soft);border-bottom:1px solid var(--brand-line);font-size:var(--fs-lg);color:var(--accent)">排版乱的话：点右上角「···」→ 用浏览器打开</div>
+<div class="container">
+  <div class="hero">
+    <h1>中国计量大学 · 社团怎么选</h1>
+    <p>不用一个个翻：按你的目的筛一遍，或直接点开感兴趣的分类</p>
+  </div>
+
+  <!-- 速查数字条（2026-09-18 重排）：三格网格压成一行内联旁注，首屏高度让给分类卡。
+       内容仍是这 3 条（社团数 / 分类数 / 招新时间）；「启明广场 / 10~50 元 / QQ 招新群」
+       在下方「什么时候招新、怎么进、要花多少钱」折叠里全写着，不重复展出（2026-09-16 删）。 -->
+  <div class="stat-strip">
+    <div class="st"><b><span id="stat-clubs">87</span> 个</b><span>已整理的社团</span></div>
+    <div class="st"><b><span id="stat-cats">10</span> 类</b><span>兴趣大类</span></div>
+    <div class="st"><b>第 2-3 周</b><span>百团大战</span></div>
+  </div>
+
+  <div class="pick">
+    <div class="pick-t">想先按目的找？<small>点一下筛出对应分类，再点一下取消</small></div>
+    <div class="pick-bar" id="pick-bar">
+      <button class="pick-btn" type="button" data-cats="音乐舞台,运动娱乐,生活兴趣">交朋友、有人一起玩</button>
+      <button class="pick-btn" type="button" data-cats="音乐舞台,传统文化,生活兴趣,摄影设计">把某个爱好玩深一点</button>
+      <button class="pick-btn" type="button" data-cats="语言表达,商业创业,文学阅读,公益志愿">练点能写进简历的能力</button>
+      <button class="pick-btn" type="button" data-cats="学术科技,运动娱乐,语言表达">打比赛、拿奖</button>
+      <button class="pick-btn" type="button" data-cats="学术科技,商业创业">跟专业相关</button>
+      <button class="pick-btn" type="button" data-cats="公益志愿,商业创业,文学阅读,摄影设计">攒实践 / 志愿经历</button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <!-- ⚠️ data-cat 的值必须和分类卡的 data-category 完全一致（筛选逻辑按这个比对） -->
+    <button class="filter-btn active" data-cat="all">全部</button>
+    <button class="filter-btn" data-cat="音乐舞台">🎭 音乐舞台</button>
+    <button class="filter-btn" data-cat="文学阅读">📖 文学阅读</button>
+    <button class="filter-btn" data-cat="摄影设计">📷 摄影设计</button>
+    <button class="filter-btn" data-cat="语言表达">🗣️ 语言表达</button>
+    <button class="filter-btn" data-cat="传统文化">🏮 传统文化</button>
+    <button class="filter-btn" data-cat="运动娱乐">⚽ 运动娱乐</button>
+    <button class="filter-btn" data-cat="学术科技">🔬 学术科技</button>
+    <button class="filter-btn" data-cat="商业创业">💼 商业创业</button>
+    <button class="filter-btn" data-cat="公益志愿">💚 公益志愿</button>
+    <button class="filter-btn" data-cat="生活兴趣">✨ 生活兴趣</button>
+  </div>
+  <!-- 这里原来有一段 .list-hint 说明（"只列出已经核实到的信息…"），
+       它横在分类列表正前方、占 3 行，把第一个分类挤到一屏之外。
+       内容已移到页面底部的 .notes 区，一个字没删（2026-09-16）。 -->
+
+  <div class="category-card" data-category="音乐舞台">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">🎭</div>
+        <div>
+          <div class="title">音乐舞台</div>
+          <div class="desc">乐器、演唱、舞蹈、话剧、配音、魔术、脱口秀</div>
+        </div>
+      </div>
+      <div class="count">14 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-1">
+          <span class="name">吉他协会</span>
+          <span class="sep">·</span>
+          <span class="info">吉他演奏与交流</span>
+        </div>
+        <div class="club-item" id="club-2">
+          <span class="name">J舞社</span>
+          <span class="sep">·</span>
+          <span class="info">Jazz/韩舞/现代舞等多舞种</span>
+        </div>
+        <div class="club-item" id="club-3">
+          <span class="name">磐石打击乐社</span>
+          <span class="sep">·</span>
+          <span class="info">打击乐/鼓类演奏</span>
+        </div>
+        <div class="club-item" id="club-4">
+          <span class="name">Direct A嘻哈社</span>
+          <span class="sep">·</span>
+          <span class="info">嘻哈说唱/hiphop</span>
+        </div>
+        <div class="club-item" id="club-5">
+          <span class="name">STAR·T街舞协会</span>
+          <span class="sep">·</span>
+          <span class="info">街舞</span>
+        </div>
+        <div class="club-item" id="club-6">
+          <span class="name">SKY音乐社</span>
+          <span class="sep">·</span>
+          <span class="info">音乐演唱与创作</span>
+        </div>
+        <div class="club-item" id="club-7">
+          <span class="name">触弦音乐社</span>
+          <span class="sep">·</span>
+          <span class="info">弦乐器演奏</span>
+        </div>
+        <div class="club-item" id="club-8">
+          <span class="name">正经小品社</span>
+          <span class="sep">·</span>
+          <span class="info">小品/喜剧表演</span>
+        </div>
+        <div class="club-item" id="club-9">
+          <span class="name">念初配音社</span>
+          <span class="sep">·</span>
+          <span class="info">配音/声音表演</span>
+        </div>
+        <div class="club-item" id="club-10">
+          <span class="name">子午剧社</span>
+          <span class="sep">·</span>
+          <span class="info">戏剧/话剧（全国大艺展一等奖）</span>
+        </div>
+        <div class="club-item" id="club-11">
+          <span class="name">校器乐团</span>
+          <span class="sep">·</span>
+          <span class="info">管弦乐合奏（2026招新中）</span>
+        </div>
+        <div class="club-item" id="club-12">
+          <span class="name">黑光工作室</span>
+          <span class="sep">·</span>
+          <span class="info">荧光舞/光影舞表演</span>
+        </div>
+        <div class="club-item" id="club-13">
+          <span class="name">紫夜魔术社</span>
+          <span class="sep">·</span>
+          <span class="info">魔术表演教学</span>
+        </div>
+        <div class="club-item" id="club-14">
+          <span class="name">爱笑会议社</span>
+          <span class="sep">·</span>
+          <span class="info">脱口秀/喜剧幽默</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="文学阅读">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">📖</div>
+        <div>
+          <div class="title">文学阅读</div>
+          <div class="desc">校园杂志、文学写作、读书分享</div>
+        </div>
+      </div>
+      <div class="count">5 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-15">
+          <span class="name">计量青年杂志社</span>
+          <span class="sep">·</span>
+          <span class="info">校园杂志编辑出版</span>
+        </div>
+        <div class="club-item" id="club-16">
+          <span class="name">钱江潮杂志社</span>
+          <span class="sep">·</span>
+          <span class="info">文学杂志编辑出版</span>
+        </div>
+        <div class="club-item" id="club-17">
+          <span class="name">林夕文学社</span>
+          <span class="sep">·</span>
+          <span class="info">文学创作与交流</span>
+        </div>
+        <div class="club-item" id="club-18">
+          <span class="name">读书会</span>
+          <span class="sep">·</span>
+          <span class="info">读书分享研讨</span>
+        </div>
+        <div class="club-item" id="club-19">
+          <span class="name">书悦社</span>
+          <span class="sep">·</span>
+          <span class="info">阅读推广与书评</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="摄影设计">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">📷</div>
+        <div>
+          <div class="title">摄影设计</div>
+          <div class="desc">绘画、摄影、视频、产品设计</div>
+        </div>
+      </div>
+      <div class="count">4 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-20">
+          <span class="name">DPS艺术社</span>
+          <span class="sep">·</span>
+          <span class="info">绘画/视觉艺术</span>
+        </div>
+        <div class="club-item" id="club-21">
+          <span class="name">觅光摄影协会</span>
+          <span class="sep">·</span>
+          <span class="info">摄影技巧与创作</span>
+        </div>
+        <div class="club-item" id="club-22">
+          <span class="name">多媒体协会</span>
+          <span class="sep">·</span>
+          <span class="info">多媒体内容创作</span>
+        </div>
+        <div class="club-item" id="club-23">
+          <span class="name">工业设计协会</span>
+          <span class="sep">·</span>
+          <span class="info">产品设计与创新</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="语言表达">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">🗣️</div>
+        <div>
+          <div class="title">语言表达</div>
+          <div class="desc">英语、口语、演讲、辩论、思辨</div>
+        </div>
+      </div>
+      <div class="count">6 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-24">
+          <span class="name">三声口才协会</span>
+          <span class="sep">·</span>
+          <span class="info">演讲口才训练</span>
+        </div>
+        <div class="club-item" id="club-25">
+          <span class="name">辩论协会</span>
+          <span class="sep">·</span>
+          <span class="info">辩论赛与思辨</span>
+        </div>
+        <div class="club-item" id="club-26">
+          <span class="name">英语协会</span>
+          <span class="sep">·</span>
+          <span class="info">英语学习交流</span>
+        </div>
+        <div class="club-item" id="club-27">
+          <span class="name">一起英语吧</span>
+          <span class="sep">·</span>
+          <span class="info">英语口语/趣味英语</span>
+        </div>
+        <div class="club-item" id="club-28">
+          <span class="name">对外交流协会</span>
+          <span class="sep">·</span>
+          <span class="info">跨文化交流</span>
+        </div>
+        <div class="club-item" id="club-29">
+          <span class="name">十里思辨社</span>
+          <span class="sep">·</span>
+          <span class="info">哲学思辨/社会议题</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="传统文化">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">🏮</div>
+        <div>
+          <div class="title">传统文化</div>
+          <div class="desc">汉服、书画、民乐、传统手工艺等</div>
+        </div>
+      </div>
+      <div class="count">7 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-30">
+          <span class="name">华夏文化协会</span>
+          <span class="sep">·</span>
+          <span class="info">中华传统文化推广</span>
+        </div>
+        <div class="club-item" id="club-31">
+          <span class="name">脩远汉服社</span>
+          <span class="sep">·</span>
+          <span class="info">汉服文化/传统服饰</span>
+        </div>
+        <div class="club-item" id="club-32">
+          <span class="name">百工社</span>
+          <span class="sep">·</span>
+          <span class="info">传统手工艺/百工技艺</span>
+        </div>
+        <div class="club-item" id="club-33">
+          <span class="name">粤港澳文化社</span>
+          <span class="sep">·</span>
+          <span class="info">粤港澳地区文化研究</span>
+        </div>
+        <div class="club-item" id="club-34">
+          <span class="name">千百度酒文化协会</span>
+          <span class="sep">·</span>
+          <span class="info">酒文化/品酒鉴赏</span>
+        </div>
+        <div class="club-item" id="club-35">
+          <span class="name">西子书画社</span>
+          <span class="sep">·</span>
+          <span class="info">书法/国画</span>
+        </div>
+        <div class="club-item" id="club-36">
+          <span class="name">古韵乐府民乐社</span>
+          <span class="sep">·</span>
+          <span class="info">中国民族乐器演奏</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="运动娱乐">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">⚽</div>
+        <div>
+          <div class="title">运动娱乐</div>
+          <div class="desc">骑行、轮滑、滑板、桌游、棋类、电竞</div>
+        </div>
+      </div>
+      <div class="count">6 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-37">
+          <span class="name">计量Speed单车协会</span>
+          <span class="sep">·</span>
+          <span class="info">骑行/自行车运动</span>
+        </div>
+        <div class="club-item" id="club-38">
+          <span class="name">爵启轮滑社</span>
+          <span class="sep">·</span>
+          <span class="info">轮滑运动</span>
+        </div>
+        <div class="club-item" id="club-39">
+          <span class="name">黑•滑板社</span>
+          <span class="sep">·</span>
+          <span class="info">滑板运动</span>
+        </div>
+        <div class="club-item" id="club-40">
+          <span class="name">桌游协会</span>
+          <span class="sep">·</span>
+          <span class="info">桌游/棋牌娱乐</span>
+        </div>
+        <div class="club-item" id="club-41">
+          <span class="name">相和棋社</span>
+          <span class="sep">·</span>
+          <span class="info">棋类（围棋/象棋等）</span>
+        </div>
+        <div class="club-item" id="club-42">
+          <span class="name">eSport达人社</span>
+          <span class="sep">·</span>
+          <span class="info">电子竞技</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="学术科技">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">🔬</div>
+        <div>
+          <div class="title">学术科技</div>
+          <div class="desc">数学建模、电子、机械、专利、法律等</div>
+        </div>
+      </div>
+      <div class="count">19 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-43">
+          <span class="name">质安MCU电子创新协会</span>
+          <span class="sep">·</span>
+          <span class="info">单片机/嵌入式开发</span>
+        </div>
+        <div class="club-item" id="club-44">
+          <span class="name">数学建模协会</span>
+          <span class="sep">·</span>
+          <span class="info">数学建模竞赛</span>
+        </div>
+        <div class="club-item" id="club-45">
+          <span class="name">质安数模协会</span>
+          <span class="sep">·</span>
+          <span class="info">质量安全方向数模研究</span>
+        </div>
+        <div class="club-item" id="club-46">
+          <span class="name">物理协会</span>
+          <span class="sep">·</span>
+          <span class="info">物理学学术交流</span>
+        </div>
+        <div class="club-item" id="club-47">
+          <span class="name">生态与化学协会</span>
+          <span class="sep">·</span>
+          <span class="info">生态与化学交叉研究</span>
+        </div>
+        <div class="club-item" id="club-48">
+          <span class="name">IEEE协会</span>
+          <span class="sep">·</span>
+          <span class="info">IEEE学生分会（电气电子工程师学会）</span>
+        </div>
+        <div class="club-item" id="club-49">
+          <span class="name">机械设计协会</span>
+          <span class="sep">·</span>
+          <span class="info">机械设计实践</span>
+        </div>
+        <div class="club-item" id="club-50">
+          <span class="name">工业工程协会</span>
+          <span class="sep">·</span>
+          <span class="info">工业工程学术应用</span>
+        </div>
+        <div class="club-item" id="club-51">
+          <span class="name">标准化协会</span>
+          <span class="sep">·</span>
+          <span class="info">标准化理论与实践</span>
+        </div>
+        <div class="club-item" id="club-52">
+          <span class="name">求是电子科技协会</span>
+          <span class="sep">·</span>
+          <span class="info">电子设计/嵌入式开发</span>
+        </div>
+        <div class="club-item" id="club-53">
+          <span class="name">计测电子协会</span>
+          <span class="sep">·</span>
+          <span class="info">计量测试与电子技术</span>
+        </div>
+        <div class="club-item" id="club-54">
+          <span class="name">未来工程师协会</span>
+          <span class="sep">·</span>
+          <span class="info">工程能力培养</span>
+        </div>
+        <div class="club-item" id="club-55">
+          <span class="name">专利协会</span>
+          <span class="sep">·</span>
+          <span class="info">专利申请实务</span>
+        </div>
+        <div class="club-item" id="club-56">
+          <span class="name">知识产权协会</span>
+          <span class="sep">·</span>
+          <span class="info">知识产权法律</span>
+        </div>
+        <div class="club-item" id="club-57">
+          <span class="name">QS专利协会</span>
+          <span class="sep">·</span>
+          <span class="info">质量安全方向专利</span>
+        </div>
+        <div class="club-item" id="club-58">
+          <span class="name">光越科技社</span>
+          <span class="sep">·</span>
+          <span class="info">科技创新项目</span>
+        </div>
+        <div class="club-item" id="club-59">
+          <span class="name">仰仪智能车协会</span>
+          <span class="sep">·</span>
+          <span class="info">智能车/自动驾驶</span>
+        </div>
+        <div class="club-item" id="club-60">
+          <span class="name">法学会</span>
+          <span class="sep">·</span>
+          <span class="info">法学学术研究</span>
+        </div>
+        <div class="club-item" id="club-61">
+          <span class="name">翔羽生态社</span>
+          <span class="sep">·</span>
+          <span class="info">生态环保科研</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="商业创业">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">💼</div>
+        <div>
+          <div class="title">商业创业</div>
+          <div class="desc">管理、营销、财会、电商、求职、调研、创业</div>
+        </div>
+      </div>
+      <div class="count">12 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-62">
+          <span class="name">管理协会</span>
+          <span class="sep">·</span>
+          <span class="info">管理学理论与实践</span>
+        </div>
+        <div class="club-item" id="club-63">
+          <span class="name">市场营销协会</span>
+          <span class="sep">·</span>
+          <span class="info">市场营销策略</span>
+        </div>
+        <div class="club-item" id="club-64">
+          <span class="name">财会协会</span>
+          <span class="sep">·</span>
+          <span class="info">财务会计实务</span>
+        </div>
+        <div class="club-item" id="club-65">
+          <span class="name">公关协会</span>
+          <span class="sep">·</span>
+          <span class="info">公共关系与商务礼仪</span>
+        </div>
+        <div class="club-item" id="club-66">
+          <span class="name">电子商务协会</span>
+          <span class="sep">·</span>
+          <span class="info">电商运营</span>
+        </div>
+        <div class="club-item" id="club-67">
+          <span class="name">企业沙盘模拟经营协会</span>
+          <span class="sep">·</span>
+          <span class="info">企业经营模拟竞赛</span>
+        </div>
+        <div class="club-item" id="club-68">
+          <span class="name">经济与探索协会</span>
+          <span class="sep">·</span>
+          <span class="info">经济学研究</span>
+        </div>
+        <div class="club-item" id="club-69">
+          <span class="name">职业发展协会</span>
+          <span class="sep">·</span>
+          <span class="info">职业规划与就业</span>
+        </div>
+        <div class="club-item" id="club-70">
+          <span class="name">零点调查协会</span>
+          <span class="sep">·</span>
+          <span class="info">社会调研与实践</span>
+        </div>
+        <div class="club-item" id="club-71">
+          <span class="name">梦创社</span>
+          <span class="sep">·</span>
+          <span class="info">创意项目孵化</span>
+        </div>
+        <div class="club-item" id="club-72">
+          <span class="name">启明创业协会</span>
+          <span class="sep">·</span>
+          <span class="info">创业项目指导与落地</span>
+        </div>
+        <div class="club-item" id="club-73">
+          <span class="name">idea精英汇</span>
+          <span class="sep">·</span>
+          <span class="info">商业创意/头脑风暴</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="公益志愿">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">💚</div>
+        <div>
+          <div class="title">公益志愿</div>
+          <div class="desc">志愿服务、环保、助残、急救献血、手语</div>
+        </div>
+      </div>
+      <div class="count">9 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-74">
+          <span class="name">青年马克思主义者协会</span>
+          <span class="sep">·</span>
+          <span class="info">思想政治学习实践</span>
+        </div>
+        <div class="club-item" id="club-75">
+          <span class="name">蒲公英之家</span>
+          <span class="sep">·</span>
+          <span class="info">志愿服务/公益行动</span>
+        </div>
+        <div class="club-item" id="club-76">
+          <span class="name">雷锋社</span>
+          <span class="sep">·</span>
+          <span class="info">学雷锋/志愿服务</span>
+        </div>
+        <div class="club-item" id="club-77">
+          <span class="name">e绿环保社</span>
+          <span class="sep">·</span>
+          <span class="info">环保宣传与绿色行动</span>
+        </div>
+        <div class="club-item" id="club-78">
+          <span class="name">节能减排协会</span>
+          <span class="sep">·</span>
+          <span class="info">节能减排推广</span>
+        </div>
+        <div class="club-item" id="club-79">
+          <span class="name">心青手语社</span>
+          <span class="sep">·</span>
+          <span class="info">手语学习/助残公益</span>
+        </div>
+        <div class="club-item" id="club-80">
+          <span class="name">阳光逸澄</span>
+          <span class="sep">·</span>
+          <span class="info">心理健康推广</span>
+        </div>
+        <div class="club-item" id="club-81">
+          <span class="name">小橘灯助残服务队</span>
+          <span class="sep">·</span>
+          <span class="info">助残公益（省活力社团TOP5）</span>
+        </div>
+        <div class="club-item" id="club-82">
+          <span class="name">红十字会学生分会</span>
+          <span class="sep">·</span>
+          <span class="info">急救培训/献血/人道救助</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="category-card" data-category="生活兴趣">
+    <div class="card-header">
+      <div class="left">
+        <div class="icon">✨</div>
+        <div>
+          <div class="title">生活兴趣</div>
+          <div class="desc">美妆、布艺、甜点、调酒、动漫</div>
+        </div>
+      </div>
+      <div class="count">5 个</div>
+    </div>
+    <div class="card-body">
+      <div class="club-grid">
+        <div class="club-item" id="club-83">
+          <span class="name">魔仙堡美妆社</span>
+          <span class="sep">·</span>
+          <span class="info">美妆/化妆技巧</span>
+        </div>
+        <div class="club-item" id="club-84">
+          <span class="name">布艺协会</span>
+          <span class="sep">·</span>
+          <span class="info">手工布艺制作</span>
+        </div>
+        <div class="club-item" id="club-85">
+          <span class="name">SHOW蜜格调甜点社</span>
+          <span class="sep">·</span>
+          <span class="info">甜点烘焙制作</span>
+        </div>
+        <div class="club-item" id="club-86">
+          <span class="name">酷德调酒社</span>
+          <span class="sep">·</span>
+          <span class="info">调酒/鸡尾酒</span>
+        </div>
+        <div class="club-item" id="club-87">
+          <span class="name">婳羽动漫社</span>
+          <span class="sep">·</span>
+          <span class="info">动漫/二次元文化</span>
+        </div>
+      </div>
+    </div>
+  </div><!-- 六个问题：只写我们现在真能答的（原先把"答案"和"征集"分成两块、同一批问题写两遍，已合并） -->
+  <!-- 09-18 列表收尾：进群问引导条。锚点跳到底部群码卡（#join），不加站内报名/留言 ——
+       分流原则：报名/匹配型需求进群问，网站只做信息查阅。
+       ⚠️ contact.js 只认页面里第一个 .cta-wx 并把它整卡替换，所以这里绝不能再用 .cta-wx 类名。 -->
+  <a class="join-hint" href="#join"><span>没找到想看的社团？<b>报名 / 详情 进群问</b></span></a>
+
+  <!-- 09-18 重排：「什么时候招新、怎么进、要花多少钱」从筛选条上方移到这里 ——
+       新生先看社团列表，看完紧接着就是"怎么进"；它不该横在列表前面挡路。内容一字未改。 -->
+  <details class="fold">
+    <summary>📌 什么时候招新、怎么进、要花多少钱</summary>
+    <div class="fold-body">
+      <h4>什么时候招新（学校官方口径）</h4>
+      <p>社团的「<strong>百团大战</strong>」在<strong>开学后第 2-3 周</strong>（一般落在九月中下旬），全校 80 余个社团统一设点。另外两条线并行：<strong>校级学生组织</strong>在第 1-2 周招新，<strong>院级学生组织</strong>在第 2-3 周招新。</p>
+      <p>所有活动报名和组织招新信息，统一在本校团委公众号「青春计量」发布；具体日期以它当年通知为准。</p>
+
+      <h4>怎么进：两条路</h4>
+      <div class="li"><strong>途径一 · 百团大战（正式招新）</strong><br>
+        ① 开学后第 2-3 周，社团在<strong>启明活动中心</strong>和<strong>启明广场</strong>统一设点摆摊，自己去找感兴趣的摊位<br>
+        ② 摊位上一般会拉你进 <strong>QQ 招新群</strong>，后续面试时间地点都在群里通知<br>
+        ③ 部分社团需要面试，怎么答看页面下方「要面试的社团怎么答」</div>
+      <div class="li"><strong>途径二 · 中途加入（熟人内推）</strong><br>
+        如果你同学已经在某个社团里，直接让同学跟<strong>社长</strong>说一声就行。只要社团还没满人，基本都能进，比走正式招新简单得多。</div>
+
+      <h4>先搞清楚自己要什么</h4>
+      <p>想<strong>练技能、攒履历</strong>：优先看辩论、新媒体、数学建模、大创（大学生创新创业训练计划）相关社团<br>
+        想<strong>交朋友、放松解压</strong>：选兴趣类（摄影、汉服、动漫、轮滑等）<br>
+        想<strong>加综测 / 素拓分</strong>：关注志愿类，以及学生会、团委这类学生组织</p>
+      <p class="warn">建议控制在 1 个能力类 + 1 个兴趣类，最多不超过 2 个，贪多嚼不烂。</p>
+
+      <h4>现场：三问三看，快速筛掉不靠谱的</h4>
+      <p><strong>问活动频率</strong>：「每周大概花多少时间？」回答含糊或「看情况」的，要警惕<br>
+        <strong>问具体做了什么</strong>：「这学期办过哪些活动？」能具体说出来才是真做事的<br>
+        <strong>问新人能干嘛</strong>：「新成员加入后具体做什么？」有清晰成长路径的才值得加</p>
+
+      <h4>这几个坑提前避开</h4>
+      <p>⚠️ <strong>「画饼」型</strong>：招新说得天花乱坠，进去就是开会打杂，一学期没几次正经活动<br>
+        ⚠️ <strong>强制留任 / 频繁加班</strong>：开会排座位、「@全体成员 收到请回复」，官僚气重的直接跳过<br>
+        ⚠️ <strong>别被「名头响」迷惑</strong>：500 人的大社团你可能一直当路人，小社团反而更容易当核心骨干</p>
+
+      <h4>会费常识</h4>
+      <p>正常社团一年会费 <strong>10~50 元</strong>：兴趣类 10-20 元/年，体育文艺类 20-30 元/年，学术公益类有的免费。超过 50 元的先问清楚用途。<strong>缴费前问清有没有试用期、不合适能不能退。</strong></p>
+      <p>这是<strong>全校的参考区间</strong>，不是某个社团的实际费用。各社团的实际会费，我们没拿到可靠来源的就不写。</p>
+    </div>
+  </details>
+
+  <div class="gather">
+    <h3>❓ 你最想知道的六个问题</h3>
+    <div class="ci-r w"><b>时间花多少</b><span>网上公开资料里没人写过具体次数。到摊位上问一句「每周大概花多少时间」，比看任何介绍都准。</span></div>
+    <div class="ci-r w"><b>零基础能进吗</b><span>校艺术团（含均钟合唱团、器乐团、嘉量舞团、子午剧社）明确要面试考核、适合有基础的同学。其余社团的门槛目前没有可靠来源，我们不猜。</span></div>
+    <div class="ci-r w"><b>一周几次</b><span>同第一项，公开资料里查不到 —— 这是所有社团信息里最缺的一块。</span></div>
+    <div class="ci-r w"><b>要花多少钱</b><span>普遍 <strong>10~50 元/年</strong>（兴趣类 10-20，体育文艺类 20-30，学术公益类有的免费）。这是全校的参考区间，不是某个社团的实际数。</span></div>
+    <div class="ci-r w"><b>适合什么样的人</b><span>这个得你自己定 —— 回到页面顶部的「你想从社团里得到什么」，点一下就知道该看哪几类。</span></div>
+    <div class="ci-r w"><b>会后悔吗</b><span>目前没有任何在校社员的反馈，所以这一项我们一个字都没写。</span></div>
+    <p class="gather-foot">第 1、3、6 三条确实只有真正在社团里的人知道。你是在校社员的话，任意一条能答就发我，我加到对应社团上并注明是几年级、什么身份说的。通过页面底部的联系方式找站长，或者在群里直接说。</p>
+  </div>
+
+  <details class="fold">
+    <summary>🎤 要面试的社团怎么答</summary>
+    <div class="fold-body">
+      <h4>自我介绍按这五步走</h4>
+      <p>学院 + 专业 + 姓名 → 想加入的部门 → 匹配的经历或能力 → 你对这个部门的了解 → 你的期待</p>
+      <h4>一个可以直接套的模板</h4>
+      <div class="li">我是 XX 学院 XX 专业的 XX，想申请 XX 部门。高中时我做过 XX（相关经历），也自学过 XX（相关能力）。我了解到这个部门主要负责 XX，我最感兴趣的是 XX 活动。希望能加入，向大家学习。</div>
+      <h4>面试一般看这 4 项</h4>
+      <p>表达能力、组织能力、沟通能力、策划能力。</p>
+      <p>另外提醒一句：兴趣类社团多数是登记就能进，需要面试的通常是学生组织，以及文艺、辩论这类要上台的社团。具体哪个社团要面试，看社团卡片上的「招新」那一行 —— 我们核实到的才会显示，没显示的就是还没有可靠来源。</p>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>🏛️ 顺带一提：学生组织是另一条路</summary>
+    <div class="fold-body">
+      <p><strong>社团</strong>以兴趣为纽带，重在交流体验；<strong>学生组织</strong>承担具体职能工作，有选拔、考核与分工，锻炼值更高。两者不冲突，时间精力允许的话可以兼任。</p>
+      <h4>校级还是院级</h4>
+      <div class="li"><strong>校级</strong>：负责全校范围的大型活动，跨院认识新朋友的机会多，能接触更广的资源；工作任务量也相对较大。想锻炼综合能力、接触大型活动的，校级更合适。</div>
+      <div class="li"><strong>院级</strong>：更贴近本学院的同学和老师，活动规模小但参与感更强；招新时间一般晚于校级，具体时间看本学院通知。想稳步成长、深度参与的，院级更合适。</div>
+      <p>没有标准答案，两者也不冲突 —— 时间精力允许的话，可以兼报。</p>
+      <h4>校级团学组织有哪些</h4>
+      <p>校学生会 · 团委融媒体中心 · 团委团务中心 · 团委艺术实践中心 · 团委志愿服务中心 · 团委社团管理中心 · 党员之家（"党家"）· 国旗护卫队 · 大学生艺术团 · 科创实践中心</p>
+      <h4>院级组织的部门都在做什么</h4>
+      <p>以人文与外语学院为例（<strong>各学院设置不同，以本学院通知为准</strong>）：</p>
+      <div class="li">学生会：办公室（物资分管）、实践部（外联）、学科部（学科竞赛）、权益部（早晚自习签到、查寝）</div>
+      <div class="li">党家：办公室、实践部（活动策划）、学习部（党课学习）、组织部（培训宣讲）</div>
+      <div class="li">团学组织：团务中心、融媒体中心、艺术实践中心、志愿服务中心、文体社管中心</div>
+      <h4>招新时间</h4>
+      <p>校级学生组织在<strong>开学后第 1-2 周</strong>，院级学生组织在<strong>第 2-3 周</strong>，社团的「百团大战」也在<strong>第 2-3 周</strong>。所有活动报名和组织招新信息，统一在本校团委公众号「青春计量」发布；具体日期以「青春计量」当年通知为准。</p>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>❓ 这些社团也被提到过，但还没核实（没放进上面 87 个）</summary>
+    <div class="fold-body">
+      <p>下面这些名字来自网上公开资料（含十年前的社团名单和第三方汇总），<strong>是否还在正常活动我们没有核实</strong>，所以没有并进上面的列表。百团大战现场如果看到它们，可以放心去问。</p>
+      <p>均钟合唱团 · 嘉量舞团 · Soul拉丁舞协会 · Sunday舞社 · 馨声小品社 · 巨擘相声社 · 新莽朗诵团 · 亮苑影视协会 · 旅游协会 · 科源家电维修社 · 上善棍术协会 · 夜行者协会 · 散步社 · 思威跆拳道协会 · 创客行协会 · 科技创新协会 · 校辩论队（隶属辩论协会）· 志愿者社（校级）</p>
+      <p>另外，篮球、足球、羽毛球、跆拳道、游泳这类常规体育社团也是有的，只是没有逐个核实，就没单列。</p>
+      <h4>还没对上的名字</h4>
+      <p>同一个社团在不同资料里写法不一样，例如「姗羽动漫社」和本页的「婳羽动漫社」、「摄影协会」和本页的「觅光摄影协会」、「紫夜魔术协会」和本页的「紫夜魔术社」、「未来企业家协会」和本页的「未来工程师协会」。我们暂时按本页写法保留，正在核对现行名称。</p>
+    </div>
+  </details>
+
+  <!-- 底部说明区：这些文字原来散在页面顶部（黄色警示框）和分类列表正前方（.list-hint），
+       挡在新生看社团的路上。内容一个字没删，只挪到"看完了再读"的位置（2026-09-16 改）。 -->
+  <div class="notes">
+    <p><strong>⚠️ 信息来源</strong>：网上公开资料 + 学长学姐整理，<strong>不是学校官方发布</strong>；以开学后百团大战实际招新为准。</p>
+    <p><strong>为什么有的社团只有一句话</strong>：我们只写已经核实到的信息，查不到的就不写、不编。没写出来的字段，是我们还没拿到可靠来源，<strong>不代表那个社团没有门槛</strong>。</p>
+    <p><strong>想找「清闲、不占时间」的</strong>：公开资料里没人写过各社团的时间投入，所以这条我们不硬排 —— 到摊位直接问「每周花多少时间、能不能不来」，这个最准。</p>
+  </div>
+
+<div class="footer">中国计量大学 社团分类汇总 · 数据整理于 2026年9月</div>
+</div>
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    /* 埋点：记下点了哪个一级分类（含「全部」）。⚠️ 只上报动作，不参与筛选逻辑本身，
+       上报失败也不影响筛选（cjlt 内部全部 try/catch）。取按钮可见文字而不是 data-cat，
+       因为 data-cat 是功能键、显示名可能和它不一样（见上面 filter-bar 的说明）。 */
+    if (window.cjlt) {
+      window.cjlt('category_click', {
+        category: btn.textContent.replace(/[^\u4e00-\u9fa5A-Za-z0-9·]/g, '').trim()
+      });
+    }
+    let first = null;
+    document.querySelectorAll('.category-card').forEach(card => {
+      const show = cat === 'all' || card.dataset.category === cat;
+      card.classList.toggle('hidden', !show);
+      card.classList.add('collapsed');        /* 先全部收起，保持「一次只展开一个」 */
+      if (show && !first) first = card;       /* 记住第一张被筛出来的 */
+    });
+    /* 筛出来的第一张自动展开 —— 否则筛完只剩一行标题，还得再点一次才看到内容 */
+    if (first && cat !== 'all') first.classList.remove('collapsed');
+  });
+});
+
+/* ===== 埋点：社团点击 =====
+   用事件委托挂在 document 上：不给 87 个社团各加一个监听、也不改任何 HTML。
+   社团名取的是页面里真实的 .name（搜索抓的也是它，两边同一处）。
+   ⚠️ 点卡片上的标签（.ci-tag）不算「点社团」—— 那是在按标签筛社团，跳过。 */
+document.addEventListener('click', function (ev) {
+  if (!window.cjlt || !ev.target || !ev.target.closest) return;
+  var item = ev.target.closest('.club-item');
+  if (!item || ev.target.closest('.ci-tag')) return;
+  var n = item.querySelector('.name');
+  if (n) window.cjlt('club_click', { club: (n.textContent || '').trim() });
+});
+
+/* ===== 统计数字动态化：社团/分类数量直接数本页 DOM（无需 fetch，file:// 打开也能算）。
+   只在数出结果 > 0 时覆盖显示；任何异常都保留 HTML 里的原静态数字作兜底。 ===== */
+try {
+  var liveClubs = document.querySelectorAll('.club-item').length;
+  var liveCats = document.querySelectorAll('.category-card').length;
+  if (liveClubs > 0) {
+    ['hero-clubs', 'stat-clubs'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = liveClubs;
+    });
+  }
+  if (liveCats > 0) {
+    ['hero-cats', 'stat-cats'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = liveCats;
+    });
+  }
+} catch (e) { /* 统计失败 → 保留原静态数字 */ }
+
+/* ============================================================
+   社团资料表
+   ------------------------------------------------------------
+   规则：**只写已经查证过的**；没查到就整个字段不写，页面自动不渲染那一行。
+   ⛔ 不许写「待补充 / 据说 / 应该 / 一般来说 / 适合积极向上的同学」这类占位话，
+      也不许为了让某个团看起来"资料完整"去推测（09-17 站长任务里第四次明确）。
+   新查到信息 = 在这里加一行（或补一个字段），页面上对应那一行自己会出来。
+   字段（按页面渲染顺序）：
+        what 主要做什么 / base 零基础门槛 / rec 招新方式 / interview 面试看什么
+        time 时间投入 / conflict 是否和课程冲突 / fee 会费 / extra 额外花费
+        role 新生进去具体做什么 / diff 社员与干部区别
+        say + sayBy 社员真实体验（say 是原话，sayBy 是署名，如 '25 级 · 社员'）
+        yr 成立年份 / hon 历年表现 / note 待核实提示
+   ⚠️ 成立年份来自 2018 年学校 40 周年校庆官方公布的名单；
+      hon 全部是历年评比结果，已在页面上标注「非 2026 年现状」，用前需再核。
+   ⚠️ 现状（09-17 核对）：87 个社团里只有 29 个有资料，而且集中在 what / yr / hon；
+      新生最关心的 **时间 / 课程冲突 / 门槛 / 会费 / 进去做什么 / 社员体验** 基本都还是空的。
+      这几项只能等真实来源，不许编 —— 页面里那段「只有在校社员能答」的说明就是为它写的。
+   ============================================================ */
+/* ============================================================
+   社团标签表
+   ------------------------------------------------------------
+   一行一个社团：2~4 个标签，来自已收集的社团资料，不额外编造。
+   用途：① 显示在社团卡片上（比社团名弱一级）② 点标签筛出同类社团。
+   ⚠️ 一级分类不在这里 —— 它写在 HTML 的 .category-card[data-category] 上，
+      因为全站搜索抓的是源码，分类必须真实存在于 HTML 里。
+   ============================================================ */
+var CLUB_TAGS = {
+  '吉他协会':              ['吉他', '乐器', '音乐'],
+  'J舞社':                ['舞蹈', 'K-pop', 'Jazz'],
+  '磐石打击乐社':          ['打击乐', '乐器', '演出'],
+  'Direct A嘻哈社': ['嘻哈', '说唱', '舞台'],
+  'STAR·T街舞协会':  ['街舞', '舞蹈', '演出'],
+  'SKY音乐社':          ['音乐', '演唱', '创作'],
+  '触弦音乐社':            ['乐器', '乐队', '音乐'],
+  '正经小品社':            ['小品', '喜剧', '表演'],
+  '念初配音社':            ['配音', '声音', '广播剧'],
+  '子午剧社':              ['话剧', '戏剧', '编剧', '演出'],
+  '校器乐团':              ['器乐', '合奏', '演出'],
+  '黑光工作室':            ['光影舞', '舞蹈', '表演'],
+  '紫夜魔术社':            ['魔术', '表演', '技巧'],
+  '爱笑会议社':            ['脱口秀', '喜剧', '表演'],
+  '计量青年杂志社':        ['杂志', '编辑', '写作'],
+  '钱江潮杂志社':          ['杂志', '文学', '编辑'],
+  '林夕文学社':            ['文学', '写作', '阅读'],
+  '读书会':                ['阅读', '分享', '讨论'],
+  '书悦社':                ['阅读', '书评', '阅读推广'],
+  'DPS艺术社':          ['绘画', '美术', '视觉'],
+  '觅光摄影协会':          ['摄影', '相机', '创作'],
+  '多媒体协会':            ['视频', '多媒体', '内容创作'],
+  '工业设计协会':          ['工业设计', '产品', '设计'],
+  '三声口才协会':          ['演讲', '口才', '表达'],
+  '辩论协会':              ['辩论', '比赛', '思辨'],
+  '英语协会':              ['英语', '学习', '交流'],
+  '一起英语吧':            ['英语', '口语', '趣味学习'],
+  '对外交流协会':          ['外语', '跨文化', '交流'],
+  '十里思辨社':            ['思辨', '社会议题', '讨论'],
+  '华夏文化协会':          ['中华文化', '传统文化'],
+  '脩远汉服社':            ['汉服', '传统服饰', '文化'],
+  '百工社':                ['传统手工', '手作', '技艺'],
+  '粤港澳文化社':          ['地域文化', '粤港澳', '文化交流'],
+  '千百度酒文化协会':      ['酒文化', '鉴赏', '传统文化'],
+  '西子书画社':            ['书法', '国画', '传统艺术'],
+  '古韵乐府民乐社':        ['民乐', '乐器', '演出'],
+  '计量Speed单车协会': ['骑行', '单车', '户外'],
+  '爵启轮滑社':            ['轮滑', '运动', '户外'],
+  '黑•滑板社':            ['滑板', '运动', '户外'],
+  '桌游协会':              ['桌游', '棋牌', '社交'],
+  '相和棋社':              ['棋类', '围棋', '象棋'],
+  'eSport达人社':    ['电竞', '游戏', '竞技'],
+  '质安MCU电子创新协会': ['电子', '单片机', '嵌入式'],
+  '数学建模协会':          ['数学', '建模', '比赛'],
+  '质安数模协会':          ['数学', '建模', '质量安全'],
+  '物理协会':              ['物理', '学术交流'],
+  '生态与化学协会':        ['化学', '生态', '科研'],
+  'IEEE协会':          ['电子', '工程', '科技'],
+  '机械设计协会':          ['机械', '设计', '工程'],
+  '工业工程协会':          ['工业工程', '管理', '工程'],
+  '标准化协会':            ['标准化', '专业', '实践'],
+  '求是电子科技协会':      ['电子', '嵌入式', '比赛'],
+  '计测电子协会':          ['计量测试', '电子', '技术'],
+  '未来工程师协会':        ['工程', '实践', '技能'],
+  '专利协会':              ['专利', '知识产权', '实务'],
+  '知识产权协会':          ['知识产权', '法律', '专业'],
+  'QS专利协会':          ['专利', '知识产权', '质量安全'],
+  '光越科技社':            ['科技', '创新', '项目'],
+  '仰仪智能车协会':        ['智能车', '电子', '比赛'],
+  '法学会':                ['法律', '法学', '学术'],
+  '翔羽生态社':            ['生态', '环保', '科研'],
+  '管理协会':              ['管理', '竞赛', '案例'],
+  '市场营销协会':          ['营销', '市场', '商业'],
+  '财会协会':              ['财会', '会计', '实务'],
+  '公关协会':              ['公关', '礼仪', '沟通'],
+  '电子商务协会':          ['电商', '运营', '商业'],
+  '企业沙盘模拟经营协会':  ['商业', '沙盘', '经营'],
+  '经济与探索协会':        ['经济', '研究', '商业'],
+  '职业发展协会':          ['求职', '职业规划', '就业'],
+  '零点调查协会':          ['调研', '社会实践', '数据'],
+  '梦创社':                ['创业', '创意', '项目'],
+  '启明创业协会':          ['创业', '项目', '落地'],
+  'idea精英汇':        ['创意', '商业', '创业'],
+  '青年马克思主义者协会':  ['青年学习', '思想实践'],
+  '蒲公英之家':            ['志愿', '公益', '服务'],
+  '雷锋社':                ['志愿', '公益', '服务'],
+  'e绿环保社':            ['环保', '绿色行动', '公益'],
+  '节能减排协会':          ['环保', '节能', '实践'],
+  '心青手语社':            ['手语', '助残', '公益'],
+  '阳光逸澄':              ['心理健康', '公益', '服务'],
+  '小橘灯助残服务队':      ['助残', '志愿', '公益'],
+  '红十字会学生分会':      ['急救', '献血', '公益'],
+  '魔仙堡美妆社':          ['美妆', '化妆', '兴趣'],
+  '布艺协会':              ['布艺', '手作', '兴趣'],
+  'SHOW蜜格调甜点社':  ['甜点', '烘焙', '美食'],
+  '酷德调酒社':            ['调酒', '鸡尾酒', '兴趣'],
+  '婳羽动漫社':            ['动漫', '二次元', '兴趣']
+};
+
+var CLUB_INFO = {
+  '吉他协会':         { yr:'1994 年成立' },
+  '桌游协会':         { what:'狼人杀、剧本杀、桌游局' },
+  '计量Speed单车协会': { what:'以骑行活动为主，周末常去钱塘江边' },
+  '念初配音社':       { what:'广播剧、配音翻配' },
+  '计量青年杂志社':   { yr:'1995 年成立', what:'校刊背后的编辑部，做校园杂志的编辑与出版' },
+  '林夕文学社':       { yr:'1996 年成立' },
+  '西子书画社':       { yr:'2001 年成立' },
+  '相和棋社':         { yr:'2002 年成立' },
+  '古韵乐府民乐社':   { yr:'2003 年成立', what:'中西乐器都有 —— 古筝、二胡、琵琶、钢琴、电吉他都能玩；每学期有演出' },
+  '零点调查协会':     { yr:'2003 年成立', what:'做社会调研与实践', hon:'历年：浙江省十佳学生社团、全国十佳优秀学生社团；挑战杯全国一等奖。' },
+  '心青手语社':       { yr:'2003 年成立', what:'手语学习 + 助残公益' },
+  '爵启轮滑社':       { yr:'2004 年成立' },
+  'STAR·T街舞协会':   { yr:'2004 年成立', base:'零基础友好', hon:'历年：蝉联 15 届校十佳社团；杭州市大学生流行舞蹈翻跳大赛多项冠军。' },
+  '校器乐团':         { what:'弦乐、管乐、打击乐、民乐都有；2026 年招新中',
+                        note:'门槛有两种说法：本站此前写「只要还在练琴就行」，校艺术团口径写「需面试考核、适合有基础的同学」，待确认。' },
+  '子午剧社':         { what:'老牌话剧社，可以自己编剧、也可以上台演戏', rec:'需要面试',
+                        hon:'历年：浙江省十佳学生社团；原创剧目多次获省大学生话剧比赛奖项。（本站此前还写过「全国大艺展一等奖」）' },
+  'J舞社':            { what:'多舞种（Jazz / 韩舞 Kpop / 现代舞等），多次在校内外晚会登台',
+                        hon:'历年：蝉联 15 届校十佳社团；杭州市大学生流行舞蹈翻跳大赛冠军常客。' },
+  '数学建模协会':     { what:'数学建模竞赛', hon:'历年：连续多年校十佳；2024 年全国一等奖 2 项（含优秀论文奖）。' },
+  '管理协会':         { hon:'历年：浙江省十佳学生社团；组织管理案例分析大赛。' },
+  '仰仪智能车协会':   { what:'电子工程与智能硬件方向，参与智能车大赛' },
+  '求是电子科技协会': { what:'电子设计和嵌入式开发方向，有电赛经验' },
+  '红十字会学生分会': { what:'急救培训、献血活动策划；部门分工较细（急救部、组织部、人道部等）' },
+  '小橘灯助残服务队': { hon:'历年：省活力社团 TOP5、国赛银奖。' },
+  '辩论协会':         { what:'辩论赛与思辨；下设校辩论队，比赛机会多、有资深教练带训' },
+  '触弦音乐社':       { note:'描述有两种说法：本站写「弦乐器演奏」，另一份资料写「吉他、贝斯、键盘，组乐队的地方」，待核实。' },
+  '觅光摄影协会':     { note:'另一份资料写的是「摄影协会：单反、微单、手机都欢迎」，名称对不上，待确认是不是同一家。' },
+  '婳羽动漫社':       { note:'另一份资料写的是「姗羽动漫社（1997 年成立）」，名称对不上，待核实。' },
+  '紫夜魔术社':       { note:'另一份资料写的是「紫夜魔术协会」，另外还提到「尘煌魔术协会」，名称待核实。' },
+  '未来工程师协会':   { note:'十年前的名单里叫「未来企业家协会」，是同一家更名还是两家，待核实。' },
+  '蒲公英之家':       { note:'分类有分歧：本站放在「公益志愿」，另一份资料放在「心理健康类」。' }
+};
+
+/* ===== 把资料表渲染到每张社团卡片上 ===== */
+(function () {
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+
+  var nodes = document.querySelectorAll('.club-item');
+  for (var i = 0; i < nodes.length; i++) {
+    (function (item) {
+      var nameEl = item.querySelector('.name');
+      if (!nameEl) return;
+      var name = (nameEl.textContent || '').trim();
+      var d = CLUB_INFO[name] || {};
+      var head = el('div', 'ci-h');
+      nameEl.parentNode.insertBefore(head, nameEl);
+      head.appendChild(nameEl);
+      if (d.yr) head.appendChild(el('span', 'ci-yr', d.yr));
+
+      /* 标签：插在「名称」下面、「简介」上面 —— 层级 = 名称 > 标签 > 简介 / 详细资料。
+         做成 <button> 而不是 <span>，因为它是可点的（点一下按该标签筛社团）。
+         ⚠️ 千万别给它加 .name / .info 类名，那是全站搜索的挂钩。 */
+      var tagList = CLUB_TAGS[name];
+      if (tagList && tagList.length) {
+        var tbox = el('div', 'ci-tags');
+        for (var t = 0; t < tagList.length; t++) {
+          var chip = el('button', 'ci-tag', tagList[t]);
+          chip.type = 'button';
+          chip.setAttribute('data-tag', tagList[t]);
+          chip.title = '点一下，只看带「' + tagList[t] + '」标签的社团';
+          tbox.appendChild(chip);
+        }
+        head.parentNode.insertBefore(tbox, head.nextSibling);
+      }
+
+      /* 有可靠数据才出这一行；没有就整个字段不展示。
+         ⛔ 不要写「待补充 / 待填写」这类占位内容撑版面 —— 那会掉可信度。
+         ⛔ 但也不要因为没深度数据就把社团压成「只有名字」：.info 一句话、年份、荣誉照常显示。 */
+      var infoEl = item.querySelector('.info');
+      var infoText = infoEl ? (infoEl.textContent || '').trim() : '';
+      var whatRow = (d.what && d.what !== infoText) ? d.what : '';
+      /* 速查行的顺序 = 新生做决定时的思考顺序：是什么 → 门槛 → 怎么进 → 要花多少时间
+         → 跟不跟课冲突 → 花多少钱 → 进去具体做什么 → 跟干部有什么不一样。
+         ⚠️ 09-17 补：「课程冲突」和「干部区别」这两个位以前 CLUB_INFO 的注释里写了、
+            这里却没渲染 —— 就算填了数据也显示不出来。现在补上。
+         ⛔ 没有数据的行直接不渲染，不许写「待补充 / 据说」。 */
+      var ALL = [['做什么', whatRow], ['门槛', d.base], ['招新', d.rec], ['面试', d.interview],
+                 ['时间', d.time], ['课程冲突', d.conflict], ['费用', d.fee], ['额外花费', d.extra],
+                 ['进去做', d.role], ['干部区别', d.diff]];
+      var box = el('div', 'ci-rows');
+      for (var q = 0; q < ALL.length; q++) {
+        if (!ALL[q][1]) continue;                 /* 没数据 → 不显示这个字段 */
+        var line = el('div', 'ci-r');
+        line.appendChild(el('b', '', ALL[q][0]));
+        line.appendChild(el('span', '', ALL[q][1]));
+        box.appendChild(line);
+      }
+      if (box.childNodes.length) item.appendChild(box);
+
+      /* 社员说：只有拿到真实一手来源才写（CLUB_INFO 里的 say + sayBy）。
+         ⛔ 没有来源就不渲染 —— 不许编、不许写「据说」、不许把公开宣传语当社员体验。
+         格式照站长定的：「原话」＋ 署名（25 级 · 社员）。 */
+      if (d.say) {
+        var sy = el('div', 'ci-say');
+        sy.appendChild(document.createTextNode('“' + d.say + '”'));
+        if (d.sayBy) sy.appendChild(el('span', 'ci-say-by', '—— ' + d.sayBy));
+        item.appendChild(sy);
+      }
+
+      if (d.hon) item.appendChild(el('div', 'ci-hon', '历年：' + String(d.hon).replace(/^历年[：:]\s*/, '')));
+      if (d.note) item.appendChild(el('div', 'ci-note', '⚠️ ' + d.note));
+    })(nodes[i]);
+  }
+
+  /* 每个分类：把「没有一条速查数据」的社团收进折叠，默认只展开有信息的那些。
+     ⚠️ 分类副标题（.desc）**不再改写**：它现在是「这个类装的是什么」的说明，见下面的注释。
+     ⚠️ 被折叠的 .club-item 仍留在 DOM 里（只是搬进 details），全站搜索 parseClub 照样抓得到。 */
+  var cards = document.querySelectorAll('.category-card');
+  for (var ci = 0; ci < cards.length; ci++) {
+    (function (card) {
+      var body = card.querySelector('.card-body');
+      var grid = card.querySelector('.club-grid');
+      if (!body || !grid) return;
+      var all = card.querySelectorAll('.club-item');
+      var rich = [], plain = [], k;
+      for (k = 0; k < all.length; k++) {
+        (all[k].querySelector('.ci-rows') ? rich : plain).push(all[k]);
+      }
+      /* ⚠️ 这里从前有一行 `desc.textContent = rich.length + ' 个已收到详细信息'`，把分类说明整句
+         覆盖掉了（"音乐、舞蹈、戏剧、配音等表演艺术"），没有详细信息的分类更是被清成空白 ——
+         页面上只剩一个光秃秃的分类名，新生看不懂「艺术表演」「美食·手作·兴趣」到底指什么。
+         已删除，不再改写 .desc。三者分工、互不重复：
+           · 这个类有几个       → 右上角 .count 徽章
+           · 这个类装的是什么   → .desc（手写说明，保留原文）
+           · 还有几个没详细信息 → 下面的「还有 N 个」折叠
+         另外它那个「N 个有详细信息」后缀在手机上会把说明顶成 2 行、头部高度变得 71/90 不齐，
+         对新生也没有决策价值（"详细信息"是行话）。（2026-09-16 修） */
+
+      /* 把有信息的按原顺序归位到 .club-grid —— 顺手修掉原 HTML 里个别社团条掉在 grid 外面的问题 */
+      for (k = 0; k < rich.length; k++) grid.appendChild(rich[k]);
+
+      if (!plain.length) return;
+      var box = document.createElement('details');
+      box.className = 'more';
+      var sum = document.createElement('summary');
+      sum.textContent = '还有 ' + plain.length + ' 个社团 · 点开看';
+      var inner = document.createElement('div');
+      inner.className = 'more-body';
+      for (k = 0; k < plain.length; k++) inner.appendChild(plain[k]);
+      box.appendChild(sum);
+      box.appendChild(inner);
+      body.appendChild(box);
+    })(cards[ci]);
+  }
+
+  /* ---------- 分类的展开 / 收起：默认全部收起，一次只展开一个（手风琴） ----------
+     默认为什么收起：10 个分类全铺开时手机上要滚很久才看得到下一个类目。
+     ⚠️ 「收起」是脚本加上去的，不写进 HTML 的 class —— 万一脚本没跑起来，
+        页面仍按"全部展开"正常可读，而不是变成 10 个点不开的标题。 */
+  function expandOnly(card) {
+    var cs = document.querySelectorAll('.category-card');
+    for (var i = 0; i < cs.length; i++) cs[i].classList.toggle('collapsed', cs[i] !== card);
+  }
+  function collapseAll() {
+    var cs = document.querySelectorAll('.category-card');
+    for (var i = 0; i < cs.length; i++) cs[i].classList.add('collapsed');
+  }
+  collapseAll();
+  var heads = document.querySelectorAll('.card-header');
+  for (var hi = 0; hi < heads.length; hi++) {
+    heads[hi].addEventListener('click', function () {
+      var card = this.parentNode;
+      if (!card || !card.classList) return;
+      if (card.classList.contains('collapsed')) expandOnly(card);   /* 开一个 → 自动收起上一个 */
+      else card.classList.add('collapsed');                         /* 点已展开的那个 → 收起它 */
+    });
+  }
+
+  /* 「你想从社团里得到什么」→ 联动下面的分类筛选 */
+  var pickBar = document.getElementById('pick-bar');
+  var fBar = document.querySelector('.filter-bar');
+  function showOnly(cats) {
+    var cards = document.querySelectorAll('.category-card');
+    var shown = [];
+    for (var i = 0; i < cards.length; i++) {
+      var c = cards[i].getAttribute('data-category');
+      if (cats === null || cats.indexOf(c) >= 0) { cards[i].classList.remove('hidden'); shown.push(cards[i]); }
+      else cards[i].classList.add('hidden');
+    }
+    /* 筛完自动展开一张 —— 否则筛出来只剩一行标题，还得再点一次才看到内容。
+       「一次只展开一个」在这里同样成立：多选（目的按钮）时也只开第一张。 */
+    if (cats === null) collapseAll();
+    else if (shown.length) expandOnly(shown[0]);
+  }
+  function clearActive(sel) {
+    var b = document.querySelectorAll(sel);
+    for (var i = 0; i < b.length; i++) b[i].classList.remove('active');
+  }
+  if (pickBar) {
+    pickBar.addEventListener('click', function (ev) {
+      var btn = ev.target && ev.target.closest ? ev.target.closest('.pick-btn') : null;
+      if (!btn) return;
+      var wasOn = btn.classList.contains('active');
+      clearActive('.pick-btn');
+      if (wasOn) { showOnly(null); clearActive('.filter-btn'); document.querySelector('.filter-btn[data-cat="all"]').classList.add('active'); return; }
+      btn.classList.add('active');
+      showOnly((btn.getAttribute('data-cats') || '').split(','));
+      clearActive('.filter-btn');
+    });
+  }
+  if (fBar) fBar.addEventListener('click', function () { clearActive('.pick-btn'); });
+
+  /* ---------- 按标签筛社团 ----------
+     点社团卡片上的任意标签 → 只看带这个标签的社团（跨一级分类）。
+     再点同一个标签、或点提示条上的「清除筛选」→ 复位。
+     ⚠️ 标签筛选和一级分类筛选**互斥**：动了一边就把另一边让位，
+        否则会出现「分类里显示 A、却筛出 B 里的一条」这种自相矛盾的画面。 */
+  var tagBar = document.createElement('div');
+  tagBar.className = 'tag-bar';
+  tagBar.hidden = true;
+  var firstCard = document.querySelector('.category-card');
+  if (firstCard && firstCard.parentNode) firstCard.parentNode.insertBefore(tagBar, firstCard);
+
+  var activeTag = null;
+
+  /* 只复位「标签」这一层，不碰一级分类的显示状态（分类筛选要继续保留） */
+  function resetTagView() {
+    activeTag = null;
+    var i, m;
+    var items = document.querySelectorAll('.club-item');
+    for (i = 0; i < items.length; i++) items[i].classList.remove('tag-out');
+    var cs = document.querySelectorAll('.category-card');
+    for (m = 0; m < cs.length; m++) {
+      cs[m].classList.remove('tag-empty');
+      var ms = cs[m].querySelectorAll('details.more');
+      for (i = 0; i < ms.length; i++) ms[i].open = false;
+    }
+    var chips = document.querySelectorAll('.ci-tag');
+    for (i = 0; i < chips.length; i++) chips[i].classList.remove('active');
+    tagBar.hidden = true;
+  }
+
+  function applyTag(tag) {
+    resetTagView();
+    if (!tag) { collapseAll(); return; }   /* 清除筛选 → 回到默认状态：全部收起 */
+    activeTag = tag;
+
+    /* 标签是跨分类的 → 先解除一级分类筛选，避免两层筛叠加出空页面 */
+    showOnly(null);
+    clearActive('.pick-btn');
+    clearActive('.filter-btn');
+    var allBtn = document.querySelector('.filter-btn[data-cat="all"]');
+    if (allBtn) allBtn.classList.add('active');
+
+    var i, j, total = 0;
+    var items = document.querySelectorAll('.club-item');
+    for (i = 0; i < items.length; i++) {
+      var hit = false;
+      var chips = items[i].querySelectorAll('.ci-tag');
+      for (j = 0; j < chips.length; j++) {
+        if (chips[j].getAttribute('data-tag') === tag) { hit = true; break; }
+      }
+      items[i].classList.toggle('tag-out', !hit);
+      if (hit) total++;
+    }
+    var cards2 = document.querySelectorAll('.category-card');
+    for (i = 0; i < cards2.length; i++) {
+      var vis = cards2[i].querySelectorAll('.club-item:not(.tag-out)').length;
+      cards2[i].classList.toggle('tag-empty', vis === 0);
+      /* 命中的社团可能被收起，展开才看得见。
+         ⚠️ 这里是「一次只展开一个」的**例外**：标签筛选已经把范围收敛到少数几张卡
+         （实测多为 1~2 张），全展开不会把页面铺长；若只开第一张，其他卡里的命中
+         就被藏起来了，用户会以为没搜到。 */
+      cards2[i].classList.toggle('collapsed', vis === 0);
+      var ms = cards2[i].querySelectorAll('details.more');
+      for (j = 0; j < ms.length; j++) ms[j].open = true;   /* 命中也可能藏在「还有 N 个」里 */
+    }
+    var all2 = document.querySelectorAll('.ci-tag');
+    for (i = 0; i < all2.length; i++) {
+      all2[i].classList.toggle('active', all2[i].getAttribute('data-tag') === tag);
+    }
+
+    tagBar.innerHTML = '';
+    tagBar.appendChild(document.createTextNode('正在按标签筛选：'));
+    var bName = document.createElement('b');
+    bName.textContent = tag;
+    tagBar.appendChild(bName);
+    var bNum = document.createElement('span');
+    bNum.textContent = '共 ' + total + ' 个社团';
+    tagBar.appendChild(bNum);
+    var clr = document.createElement('button');
+    clr.type = 'button';
+    clr.textContent = '清除筛选';
+    tagBar.appendChild(clr);
+    tagBar.hidden = false;
+  }
+
+  document.addEventListener('click', function (ev) {
+    if (!ev.target || !ev.target.closest) return;
+    if (ev.target.closest('.tag-bar button')) { applyTag(null); return; }
+    var chip = ev.target.closest('.ci-tag');
+    if (!chip) return;
+    var t = chip.getAttribute('data-tag');
+    applyTag(t === activeTag ? null : t);
+  });
+
+  /* 点了一级分类 → 只清掉标签那一层，分类本身照常生效 */
+  if (fBar) fBar.addEventListener('click', function () { if (activeTag) resetTagView(); });
+})();
+
+/* 滚动超过一屏 → 给 body 加 .scrolled，让两个悬浮球淡下去（淡化的样式在页面 <style> 里） */
+(function () {
+  function onScroll() {
+    var y = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.classList.toggle('scrolled', y > 120);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+
+<div class="cta-card" id="join">
+  <p class="cta-hook">87 个社团按 10 大类整理 · 百团大战前先做功课</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">点一下复制 · 备注「社团」</span>
+  </div>
+  <p class="cta-ask">有页面没写到的具体问题？<b>进群和大家一起讨论</b> —— 群里是 2026 级新生互助交流，学长和同学都会参与回答；不方便在群里问的再私信我</p>
+  <p class="cta-note">社团信息仅供参考，非官方；以开学后百团大战实际招新为准</p>
+  <a class="cta-home" href="index.html">← 返回总览 · 6 份指南</a>
+</div>
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="archive.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+<script>
+/* ============================================================
+   09-17：搜索结果现在带 club-N 锚点，但光有锚点还不够 ——
+   本页默认「所有分类卡都收起」，没有详细信息的社团还被收进「还有 N 个」的
+   <details> 里，人会落在页面上却看不见目标。所以进页面 / 换 hash 时：
+     ① 打开目标所在的分类卡（其余照旧收起，和手点的行为一致）
+     ② 把它所在的那层 <details> 打开（archive.js 也会管，这里兜一道）
+     ③ 布局变了之后再滚一次，保证真的停在它上面
+   ⚠️ 必须等 collapseAll() 跑完 —— 它初始化时会把所有卡收起来，
+      我们要是先跑，会被它反过来收掉。所以延后 120ms。 */
+(function () {
+  function openTarget() {
+    var id = (location.hash || '').slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el || !el.classList || !el.classList.contains('club-item')) return;
+    var card = el.closest ? el.closest('.category-card') : null;
+    if (card) {
+      var all = document.querySelectorAll('.category-card');
+      for (var i = 0; i < all.length; i++) all[i].classList.add('collapsed');
+      card.classList.remove('collapsed');
+      card.classList.remove('hidden');                       /* 别被分类筛选藏住 */
+      var off = document.querySelectorAll('.club-item.tag-out');
+      for (var j = 0; j < off.length; j++) off[j].classList.remove('tag-out');
+      var empty = document.querySelectorAll('.category-card.tag-empty');
+      for (var k = 0; k < empty.length; k++) empty[k].classList.remove('tag-empty');
+    }
+    var d = el.closest ? el.closest('details') : null;
+    if (d) d.open = true;
+    setTimeout(function () {
+      try { el.scrollIntoView({ block: 'center', behavior: 'auto' }); } catch (e) {}
+    }, 60);
+  }
+  window.addEventListener('hashchange', openTarget);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(openTarget, 120); });
+  } else { setTimeout(openTarget, 120); }
+})();
+</script>
+</body>
+</html>

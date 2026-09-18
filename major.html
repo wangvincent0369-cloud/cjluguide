@@ -1,0 +1,5196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国计量大学专业全维度指南</title>
+    <link rel="stylesheet" href="theme.css?v=20260918a">
+    <script src="theme.js?v=20260918a"></script>
+<style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            zoom:75%;
+            font-family:var(--font);
+            background:var(--bg);
+            min-height:100vh;
+            color:var(--text);
+        }
+        .header {
+            padding:var(--gap-4xl) var(--gap-2xl) var(--gap-3xl);
+            text-align:center;
+        }
+        .header h1 { font-size:var(--fs-h1); font-weight:800; margin-bottom:var(--gap-md); background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+        .header p { color:var(--sub); font-size:var(--fs-md-em); }
+        .tip-text { color:var(--sub2); font-size:var(--fs-sm-em); margin-top:var(--gap-md); }
+        .search-container { max-width:var(--w-grid); margin:30px auto; padding:0 var(--gap-2xl); }
+        .search-box {
+            width:100%; padding:var(--gap-xl) var(--gap-3xl); font-size:var(--fs-xl-em); border:none; border-radius:var(--r-lg);
+            background:var(--card2); color:var(--text); backdrop-filter:blur(10px);
+            box-shadow:0 4px 15px rgba(15,23,42,.08); transition:all 0.3s ease;
+        }
+        .search-box:focus { outline:none; background:var(--card); box-shadow:0 4px 20px rgba(96,165,250,0.4); }
+        .search-box::placeholder { color:var(--sub2); }
+        .college-nav {
+            max-width:var(--w-grid); margin:20px auto; padding:0 var(--gap-2xl);
+            display:flex; flex-wrap:wrap; gap:var(--gap-md); justify-content:center;
+        }
+        .college-btn {
+            padding:var(--gap-md) var(--gap-2xl); border:none; border-radius:var(--r-lg);
+            background:var(--card2); color:var(--text); cursor:pointer;
+            transition:all 0.3s ease; font-size:var(--fs-md-em);
+        }
+        .college-btn:hover, .college-btn.active {
+            background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); color:#FFFFFF;
+            transform:translateY(-2px); box-shadow:0 4px 15px rgba(96,165,250,0.4);
+        }
+        .container {
+            max-width:var(--w-grid); margin:0 auto; padding:var(--gap-2xl);
+            display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:var(--gap-3xl);
+        }
+        .major-card {
+            background:var(--card); border-radius:var(--r-lg); padding:var(--gap-3xl);
+            backdrop-filter:blur(10px); border:1px solid var(--line);
+            transition:all 0.3s ease; cursor:pointer;
+        }
+        .major-card:hover {
+            transform:translateY(-5px); background:var(--card2);
+            border-color:var(--brand-light); box-shadow:0 10px 30px rgba(15,23,42,.08);
+        }
+        .major-name { font-size:var(--fs-h2-em); font-weight:bold; color:var(--accent); margin-bottom:var(--gap-xs); }
+        .college-tag {
+            display:inline-block; padding:var(--gap-xs) var(--gap-lg);
+            background:var(--brand-soft); border-radius:var(--r-lg);
+            font-size:var(--fs-sm-em); color:#2039B7;
+        }
+        .ace-tag {
+            display:inline-block; padding:var(--gap-xs) var(--gap-md); margin-left:var(--gap-sm);
+            background:#FEF9C3; border-radius:var(--r-lg);
+            font-size:var(--fs-xs-em); color:var(--yellow); border:1px solid rgba(250,204,21,0.3);
+        }
+        .dimension-row {
+            display:flex; gap:var(--gap); margin-top:var(--gap-xl); flex-wrap:wrap;
+        }
+        .dim-badge {
+            padding:var(--gap-xs) var(--gap-md); border-radius:var(--r-md); font-size:var(--fs-xs-em);
+            background:var(--card2); color:var(--sub);
+        }
+        .dim-badge.strong { background:rgba(34,197,94,0.15); color:var(--green); }
+        .dim-badge.medium { background:rgba(59,130,246,0.15); color:var(--accent); }
+        .dim-badge.weak { background:var(--red-soft); color:var(--red); }
+        .brief { margin-top:var(--gap-lg); font-size:var(--fs-md-em); color:var(--sub2); line-height:var(--lh); }
+        /* 弹窗 */
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; overflow-y:auto; padding:var(--gap-5xl) var(--gap-2xl); }
+        .modal.active { display:flex; justify-content:center; align-items:flex-start; }
+        .modal-content {
+            background:linear-gradient(135deg, #FFFFFF 0%, var(--bg) 100%);
+            border-radius:var(--r-lg); max-width:var(--w-wide); width:100%; padding:var(--gap-5xl);
+            position:relative; border:1px solid var(--line);
+            box-shadow:0 20px 60px rgba(15,23,42,.08);
+        }
+        .close-btn { position:absolute; top:20px; right:25px; font-size:var(--fs-h1); color:var(--sub); cursor:pointer; transition:color 0.3s; }
+        .close-btn:hover { color:var(--text); }
+        .modal-header { text-align:center; margin-bottom:var(--gap-4xl); padding-bottom:var(--gap-2xl); border-bottom:1px solid var(--line); }
+        .modal-header h2 { font-size:var(--fs-h1); color:var(--accent); margin-bottom:var(--gap-md); }
+        .modal-header .college-info { color:var(--sub); font-size:var(--fs-lg-em); }
+        .modal-ace { display:inline-block; padding:var(--gap-xs) var(--gap-lg); background:#FEF9C3; border-radius:var(--r-lg); font-size:var(--fs-sm-em); color:var(--yellow); margin-left:var(--gap); border:1px solid rgba(250,204,21,0.3); }
+        /* 五维度tabs */
+        .dim-tabs { display:flex; gap:var(--gap); margin-bottom:var(--gap-3xl); flex-wrap:wrap; justify-content:center; }
+        .dim-tab {
+            padding:var(--gap-md) var(--gap-xl); border:none; border-radius:var(--r-lg); cursor:pointer;
+            font-size:var(--fs-md-em); font-weight:600; transition:all 0.3s ease;
+            background:var(--card2); color:var(--sub);
+        }
+        .dim-tab:hover { background:var(--card2); }
+        .dim-tab.active { background:linear-gradient(135deg, var(--accent), var(--purple), var(--pink)); color:white; }
+        .dim-panel { display:none; }
+        .dim-panel.active { display:block; }
+        .section-block {
+            background:var(--card); border-radius:var(--r-md); padding:var(--gap-2xl);
+            margin-bottom:var(--gap-xl); border:1px solid var(--line);
+        }
+        .section-block h4 { color:var(--accent); margin-bottom:var(--gap-lg); font-size:var(--fs-lg-em); }
+        .section-block p, .section-block li { color:var(--sub2); font-size:var(--fs-md-em); line-height:var(--lh-loose); }
+        .section-block ul { list-style:none; padding:0; }
+        .section-block li { padding:var(--gap-xs) 0; border-bottom:1px solid var(--line); }
+        .section-block li:last-child { border-bottom:none; }
+        .section-block li::before { content: "▸ "; color:var(--accent); }
+        .highlight { color:var(--yellow); font-weight:600; }
+        .good { color:var(--green); }
+        .warn { color:var(--red); }
+        .info-box {
+            background:rgba(59,130,246,0.1); border-left:3px solid #3b82f6;
+            padding:var(--gap-lg) var(--gap-xl); border-radius:var(--r-sm); margin-top:var(--gap-md);
+            font-size:var(--fs-md-em); color:var(--accent);
+        }
+        .warn-box {
+            background:rgba(239,68,68,0.08); border-left:3px solid #ef4444;
+            padding:var(--gap-lg) var(--gap-xl); border-radius:var(--r-sm); margin-top:var(--gap-md);
+            font-size:var(--fs-md-em); color:var(--red);
+        }
+        .tag-list { display:flex; flex-wrap:wrap; gap:var(--gap); margin-top:var(--gap); }
+        .tag-item {
+            padding:var(--gap-xs) var(--gap-lg); background:var(--brand-soft); border-radius:var(--r-lg);
+            font-size:var(--fs-sm-em); color:#2039B7;
+        }
+        .stats { text-align:center; padding:var(--gap-2xl); color:var(--sub); font-size:var(--fs-md-em); }
+        .hidden { display:none !important; }
+        @media (max-width: 768px) {
+            .container { grid-template-columns:1fr; }
+            .modal-content { padding:var(--gap-3xl); }
+            .header h1 { font-size:var(--fs-h1); }
+        }
+        /* Watermark */
+/* ===== 结尾转化卡 ===== */
+.cta-card{max-width:var(--w-narrow);margin:26px auto 34px;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-lg);padding:var(--gap-2xl) var(--gap-2xl);text-align:center;box-shadow:0 10px 34px rgba(15,23,42,.08)}
+.cta-hook{margin:0 0 var(--gap-lg);color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:.5px}
+.cta-wx{display:inline-flex;align-items:center;gap:var(--gap-md);background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-md);padding:var(--gap) var(--gap-2xl)}
+.cta-wx-id{color:var(--text);font-size:var(--fs-xl);font-weight:700;letter-spacing:2px;user-select:all;-webkit-user-select:all}
+.cta-wx-tip{color:var(--sub2);font-size:var(--fs-xs)}
+.cta-ask{margin:var(--gap-lg) 0 0;color:var(--text);font-size:var(--fs-sm);line-height:var(--lh)}
+.cta-ask b{color:var(--accent)}
+.cta-note{margin:var(--gap-md) 0 0;color:var(--sub);font-size:var(--fs-2xs);line-height:var(--lh)}
+.cta-home{display:inline-block;margin-top:var(--gap-lg);color:var(--sub2);font-size:var(--fs-xs);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.cta-home:hover{color:var(--text)}
+@media(max-width:640px){.cta-card{padding:var(--gap-xl) var(--gap-lg)}.cta-hook{font-size:var(--fs-lg)}}
+    </style>
+</head>
+<body>    <div class="header">
+        <h1>🎯 中国计量大学专业全维度指南</h1>
+        <p>五维透视 · 选专业不再盲猜</p>
+<div style="max-width:var(--w-page);margin:8px auto 0;padding:var(--gap-md) var(--gap-xl);background:var(--yellow-soft);border:1px solid var(--yellow-line);border-radius:var(--r-sm);font-size:var(--fs-2xs-em);color:var(--yellow);text-align:center">
+  ⚠️ 基于<strong>2025级</strong>数据整理，<strong>2026级</strong>以学校公布为准
+</div>
+        <p class="tip-text">排版乱的话：点右上角「···」→ 用浏览器打开</p>
+    </div>
+    <div style="max-width:var(--w-wide);margin:14px auto 0;padding:var(--gap-md) var(--gap-xl);background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:var(--r-sm);font-size:var(--fs-sm-em);color:var(--text);line-height:var(--lh-loose)">
+      被调剂了、想换专业？先看这个专业的评价，再决定值不值得转 →
+      <a href="transfer.html" style="color:var(--accent);font-weight:700">转专业指南（含名额数据）→</a>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索专业名称或学院...">
+    </div>
+    <div class="college-nav" id="collegeNav">
+        <button class="college-btn active" data-college="all">全部学院</button>
+    </div>
+    <div class="container" id="majorContainer"></div>
+    <div class="stats" id="stats"></div>
+    <div class="modal" id="majorModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+<script>
+// === 专业数据 ===
+const majorsData = [
+  {
+    name: "机械设计制造及其自动化",
+    college: "机电工程学院",
+    brief: "传统工科核心专业，制造+自动化双轮驱动，CJLU国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["工程图学", "理论力学", "材料力学", "机械原理", "机械设计", "机械制造技术", "自动控制理论", "互换性与测量基础"],
+      suitFor: "对机械结构和制造工艺感兴趣、动手能力强、空间想象力好的同学。适合喜欢从图纸到实物全流程的工科生。"
+    },
+    employment: {
+      industries:["装备制造", "汽车工业", "精密仪器", "自动化设备"],
+      civil: "可报海关、质检、特种设备监察等岗位，但岗位少竞争大"
+    },
+    discipline: {
+      level: "强势",
+      strength: "CJLU老牌工科，有机械工程一级硕士点，工程教育认证专业，实力扎实",
+      feature: "计量检测+精密制造方向，对接制造业质量管控",
+      degrees: "硕士点：机械工程（一级学科）"
+    },
+    grad: {
+      directions:["机械工程", "机械制造及其自动化", "机械电子工程", "车辆工程", "智能制造"],
+      difficulty: "难度中等。本校机械工程硕士点承接友好，考外校985有一定难度",
+      cross: "可跨考机械电子、自动化、控制、车辆等方向，跨考范围较宽"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "机械是国家级一流不差，但薪资和深造上限不如王牌(测控/自动化)。想走制造可留，想高薪或深造建议转",
+      barrier: "转入王牌需绩点3.5+，门槛不低"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU强势工科，就业稳定但薪资一般，制造业方向对口"
+    },
+    newData: {
+      careers: [
+        {
+          title: "机械工程师",
+          desc: "画图+选材+工艺，制造企业核心岗，稳定但涨薪慢",
+          suit: "做事毛糙又重复做一件事就烦、只喜欢算和画、不想碰实物"
+        },
+        {
+          title: "设备工程师",
+          desc: "工厂设备维护保养，门槛低但偏累",
+          suit: "只想算和画、不想碰实物、跑现场/加班就怨"
+        },
+        {
+          title: "质量工程师",
+          desc: "产品质检+体系维护，CJLU计量特色对口",
+          suit: "容易漏细节、做事毛糙、让按规范填表就头疼"
+        },
+        {
+          title: "技术销售",
+          desc: "卖设备/仪器，收入靠提成，上限高但不稳定",
+          suit: "和陌生人说话就紧张、只懂技术、和陌生人搭不上话"
+        }
+      ],
+      suitFor: "大学要画图(CAD/SolidWorks)+金工实习摸机床，不是纯坐办公室。不排斥车间、喜欢从图纸到实物全流程的适合",
+      softSkills: "CAD/制图能力是硬门槛，英语好可进外企设备岗，PMP证书对项目管理加分",
+      paths: {
+        gradSchool: {
+          fit: "一般适配",
+          how: "本校机械工程硕士点承接友好，考浙大/上交等985需高分。考研方向：机械制造、机械电子、车辆",
+          tip: "考研对本专业提升有限，除非想做研发岗或转方向"
+        },
+        employment: {
+          fit: "适配",
+          how: "制造业岗位多但起薪偏低，杭州装备制造企业不少。建议在校多实习+学CAD/SolidWorks",
+          tip: "就业不愁但薪资天花板低，想高薪得转管理或技术销售"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "机械创业门槛高(资金+设备)，但精密加工小作坊有细分市场",
+          tip: "想创业建议先积累行业人脉和供应链经验"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "机械是国家级一流不差，但薪资和深造上限不如王牌(测控/自动化)。想走制造可留，想高薪或深造建议转",
+        barrier: "转入王牌需绩点3.5+，门槛不低"
+      }
+    }
+  },
+  {
+    name: "自动化",
+    college: "机电工程学院",
+    brief: "CJLU王牌专业之一，国家特色专业+卓越工程师，控制领域就业强",
+    ace: true,
+    learn: {
+      coreCourses:["自动控制理论", "现代控制理论", "电力电子技术", "电机与拖动", "过程控制", "计算机控制系统", "传感器与检测技术", "微机原理及其应用"],
+      suitFor: "逻辑思维强、对系统控制和智能算法感兴趣的同学。数学基础好的理科生尤其适合。"
+    },
+    employment: {
+      industries:["工业自动化", "智能制造", "机器人", "电力系统", "物联网"],
+      civil: "可报海关机电岗、质检自动化岗、应急管理岗，适配度较高"
+    },
+    discipline: {
+      level: "王牌",
+      strength: "CJLU顶级专业，国家特色+国家级一流+卓越工程师，控制学科浙江省A类",
+      feature: "工业控制+智能检测，CJLU控制方向全省认可度高",
+      degrees: "硕士点：控制科学与工程（一级学科）"
+    },
+    grad: {
+      directions:["控制科学与工程", "控制理论与控制工程", "检测技术与自动化装置", "模式识别与智能系统", "人工智能"],
+      difficulty: "考研竞争中等偏上。本校控制硕士点实力不错，考浙大等985需较高分数",
+      cross: "可跨考计算机、人工智能、电子信息等热门方向，跨考友好度高"
+    },
+    transfer: {
+      should: "不建议转出",
+      reason: "国家级一流+卓越工程师+控制学科省A类，就业深造双优，转出性价比低",
+      barrier: "转入竞争大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU王牌专业，就业强升学好，智能制造方向前景广阔"
+    },
+    newData: {
+      careers: [
+        {
+          title: "控制工程师",
+          desc: "设计PLC/DCS控制系统，工厂自动化核心，需求稳定",
+          suit: "条件一多就理不清、推理链一长就跟丢、不想从整体看问题、只想管自己那块"
+        },
+        {
+          title: "算法工程师",
+          desc: "做控制算法/优化算法，门槛高但薪资好，硕士起步",
+          suit: "看到长公式推导就头大、公式推导超过半页就放弃"
+        },
+        {
+          title: "嵌入式开发",
+          desc: "单片机/ARM开发，软硬结合，就业面广",
+          suit: "只想纯软或纯硬"
+        },
+        {
+          title: "工业互联网工程师",
+          desc: "工业4.0方向，新兴岗位，政策加持",
+          suit: "不想工业互联网两头沾"
+        }
+      ],
+      suitFor: "控制+编程+数学三合一，课表杂但每样都沾点。数学还行、不排斥编程、对'让机器自己跑'感兴趣的适合",
+      softSkills: "编程能力(Python/C)是加分项，英语好看英文技术文档优势大，数学建模竞赛对算法岗有帮助",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "本校控制科学与工程硕士点实力不错，考研方向多(控制理论/检测/模式识别/AI)。考浙大需高分",
+          tip: "考研性价比高，硕士可进算法岗薪资翻倍"
+        },
+        employment: {
+          fit: "很适配",
+          how: "工业自动化+智能制造需求大，杭州/长三角岗位多。体制内也有适配岗(海关机电/质检)",
+          tip: "本科就业就行，但想做算法建议读研"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "工业自动化项目制创业有空间，但需要行业资源和项目经验",
+          tip: "先在大厂积累3-5年再做自动化集成商"
+        }
+      },
+      transfer: {
+        should: "不建议转出",
+        reason: "国家级一流+卓越工程师+控制学科省A类，就业深造双优，转出性价比低",
+        barrier: "转入竞争大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "电气工程及其自动化",
+    college: "机电工程学院",
+    brief: "电力+控制交叉，国网就业热门，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["电路", "模拟电子技术", "数字电子技术", "电机学", "电力电子技术", "电力系统分析", "自动控制理论", "微机原理及其应用"],
+      suitFor: "对电力系统、新能源技术感兴趣，数学物理基础扎实的同学。想进国网/电力企业的首选。"
+    },
+    employment: {
+      industries:["电力系统", "新能源", "电气设备制造", "自动化"],
+      civil: "可报国家能源局、电力监管、应急管理岗，每年30+人进国家电网"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流专业，依托控制A类学科，央企招聘优势明显",
+      feature: "电力+计量检测，对接国家电网和新能源产业",
+      degrees: "硕士点：依托控制科学与工程（一级学科）"
+    },
+    grad: {
+      directions:["电气工程", "电力系统及其自动化", "电力电子与电力传动", "控制科学与工程", "新能源技术"],
+      difficulty: "考研竞争大，电气工程是热门方向。考本校控制方向相对友好",
+      cross: "可跨考控制、电子信息、计算机等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "进国电网是独有优势，但深造上限不如测控(有博士点)。想进体制可留，想深造转",
+      barrier: "转入竞争较大，需绩点3.3+"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU强势专业，国家电网直通车，就业稳定"
+    },
+    newData: {
+      careers: [
+        {
+          title: "电力系统工程师",
+          desc: "电网调度/变电站设计，铁饭碗中的铁饭碗",
+          suit: "不甘心安稳拿死工资、不接受倒班、要规律作息"
+        },
+        {
+          title: "电气设计工程师",
+          desc: "建筑/工厂电气设计，画图为主，稳定",
+          suit: "容易漏细节、画图超过一小时就坐办公室超过两小时就想走"
+        },
+        {
+          title: "新能源工程师",
+          desc: "光伏/风电/储能方向，政策红利期，成长快",
+          suit: "对新能源没兴趣、不想下车间/跑工地"
+        },
+        {
+          title: "国家电网",
+          desc: "每年30+人进国网，CJLU电气最强就业通道",
+          suit: "不甘心安稳拿死工资、想赚快钱、稳定工资看不上"
+        }
+      ],
+      suitFor: "和电力系统/国网挂钩最紧的专业。想进国网求稳的优先，但要接受工科节奏+部分现场",
+      softSkills: "进国网需提前准备考试(行测+专业)，英语四级是门槛，注册电气工程师证书含金量高",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "本校有电气硕士点，考研方向：电力系统/电力电子/新能源。考华电/浙大需高分",
+          tip: "想进国网省调/信通公司需硕士，本科进市局/县局"
+        },
+        employment: {
+          fit: "很适配",
+          how: "国网是第一选择每年30+人进，其次电力设计院/新能源企业/电气设备公司",
+          tip: "国网考试大三开始准备别等大四"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "电力行业垄断性强创业机会少，小型电气安装公司门槛低但利润薄",
+          tip: "新能源方向创业有政策支持但需要资金和人脉"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "进国电网是独有优势，但深造上限不如测控(有博士点)。想进体制可留，想深造转",
+        barrier: "转入竞争较大，需绩点3.3+"
+      }
+    }
+  },
+  {
+    name: "机械电子工程",
+    college: "机电工程学院",
+    brief: "机+电交叉融合，新工科方向，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["电路与模拟电子技术", "机电传动控制", "机电一体化系统设计", "机械设计", "机械原理", "检测技术", "理论力学", "数字电子技术"],
+      suitFor: "对机械和电子都感兴趣、喜欢动手做项目的同学。适合想做机器人、自动化设备的工科生。"
+    },
+    employment: {
+      industries:["智能制造", "机器人", "自动化设备", "汽车电子"],
+      civil: "适配度一般，岗位较少"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，依托机械工程B类学科，实力中等",
+      feature: "机电一体化方向，偏应用型",
+      degrees: "硕士点：依托机械工程（一级学科）"
+    },
+    grad: {
+      directions:["机械工程", "机械电子工程", "机器人工程", "控制科学与工程", "智能制造"],
+      difficulty: "难度中等，本校硕士点承接",
+      cross: "可跨考自动化、控制、计算机等方向"
+    },
+    transfer: {
+      should: "建议转",
+      reason: "机电什么都学什么都不精，自动化/测控学科实力更强且方向更明确",
+      barrier: "转入王牌需绩点3.5+，转入中等专业门槛一般"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU中等专业，就业面稍窄，转王牌更划算"
+    },
+    newData: {
+      careers: [
+        {
+          title: "机电工程师",
+          desc: "机械+电气+控制三合一，偏系统集成，应用面广",
+          suit: "只想钻单一方向、只想钻一个方向"
+        },
+        {
+          title: "机器人工程师",
+          desc: "工业机器人编程/集成，热门方向但岗位集中在大城市",
+          suit: "对机器人没兴趣、不会写代码"
+        },
+        {
+          title: "自动化维护工程师",
+          desc: "工厂产线维护，稳定但偏体力",
+          suit: "只想算和画、不想碰实物、不接受倒班、要规律作息"
+        }
+      ],
+      suitFor: "机械+电子+软件三个方向都学，万金油型。不想只学一个方向、想什么都懂一点的适合，但要接受课多且杂",
+      softSkills: "编程能力(C/Python)是加分项，PLC编程证书实用，英语好看德国/日本技术文档",
+      paths: {
+        gradSchool: {
+          fit: "一般适配",
+          how: "考研可走机械电子/机器人/控制方向，本校有硕士点承接",
+          tip: "考研方向比纯机械更灵活，可跨考控制/计算机"
+        },
+        employment: {
+          fit: "适配",
+          how: "制造业岗位多但不如自动化/测控薪资好，机器人方向热门但竞争也大",
+          tip: "建议自学编程提升竞争力，纯机电岗薪资一般"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "机电创业门槛中等，自动化集成/机器人应用有小机会",
+          tip: "先积累集成项目经验再考虑"
+        }
+      },
+      transfer: {
+        should: "建议转",
+        reason: "机电什么都学什么都不精，自动化/测控学科实力更强且方向更明确",
+        barrier: "转入王牌需绩点3.5+，转入中等专业门槛一般"
+      }
+    }
+  },
+  {
+    name: "能源与动力工程",
+    college: "机电工程学院",
+    brief: "能源转换与利用，传统工科就业稳，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["工程热力学", "传热学", "流体力学", "燃烧学", "锅炉原理", "汽轮机原理", "热工测量与仪表", "新能源技术"],
+      suitFor: "物理基础好、对能源转换和热力系统感兴趣的同学。适合想进电力/能源行业的工科生。"
+    },
+    employment: {
+      industries:["电力", "新能源", "暖通空调", "双碳节能"],
+      civil: "可报海关/质检/能源管理岗位，适配度中等"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流专业，双碳战略下需求增长",
+      feature: "碳计量+能源检测，紧跟国家双碳政策",
+      degrees: "硕士点：能源动力（专业学位）"
+    },
+    grad: {
+      directions:["动力工程及工程热物理", "工程热物理", "热能工程", "新能源技术", "制冷与低温工程"],
+      difficulty: "考研竞争中等，本校有能源动力专硕承接",
+      cross: "可跨考控制、环境、安全等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "双碳政策红利+就业稳定，转测控深造上限更高但丢双碳特色",
+      barrier: "转入测控竞争较大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "双碳政策加持，传统方向但前景好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "热能工程师",
+          desc: "锅炉/汽轮机/换热器设计，传统但稳定",
+          suit: "不甘心安稳拿死工资、受不了传统行业慢节奏"
+        },
+        {
+          title: "新能源工程师",
+          desc: "光伏/风电/氢能，政策红利方向，成长快",
+          suit: "对双碳新能源没兴趣"
+        },
+        {
+          title: "节能减排工程师",
+          desc: "企业能效评估+改造，CJLU计量特色对口",
+          suit: "对节能计量没兴趣"
+        },
+        {
+          title: "国家电网",
+          desc: "火电/新能源接入，稳定通道",
+          suit: "不甘心安稳拿死工资"
+        }
+      ],
+      suitFor: "围绕热能/新能源/双碳，偏传统工科节奏。求稳+跟政策走的适合，要接受部分现场工作",
+      softSkills: "双碳政策是最大加分项，注册能源管理师证书有用，英语好可进外企能源咨询",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "本校有动力工程硕士点，考研方向：热能/新能源/制冷。转测控深造上限更高",
+          tip: "新能源方向读研后岗位质量明显更好"
+        },
+        employment: {
+          fit: "很适配",
+          how: "双碳政策红利期就业稳定，国网/能源企业/节能公司都有岗位",
+          tip: "岗位有保障但不代表薪资高，想高薪得去新能源头部企业"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "节能服务公司(ESCO)创业门槛中等，有政策补贴",
+          tip: "先在节能公司积累项目经验再创业"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "双碳政策红利+就业稳定，转测控深造上限更高但丢双碳特色",
+        barrier: "转入测控竞争较大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "测控技术与仪器",
+    college: "计量测试与仪器学院",
+    brief: "CJLU最王牌专业，学校灵魂专业，全国前列，仪器科学B评估",
+    ace: true,
+    learn: {
+      coreCourses:["精密机械设计基础", "电路与模拟电子技术", "数字电子技术", "自动控制理论", "传感器与检测技术", "误差理论与数据处理", "智能仪器设计", "计量学基础"],
+      suitFor: "对精密测量、仪器设计感兴趣，数学物理基础好、做事细心的同学。CJLU计量特色最鲜明的专业。"
+    },
+    employment: {
+      industries:["计量检测", "精密仪器", "国防军工", "高端制造", "自动化"],
+      civil: "30%进市场监管局、计量院、质检所等体制内，专属岗位多"
+    },
+    discipline: {
+      level: "王牌",
+      strength: "CJLU绝对王牌，学科全国前20%有博士点+博士后流动站，行业垄断性就业",
+      feature: "精密测量+智能检测，计量质检系统核心人才来源，全国不可替代",
+      degrees: "博士点：仪器科学与技术（一级学科）+博士后流动站"
+    },
+    grad: {
+      directions:["仪器科学与技术", "精密仪器与机械", "测试计量技术及仪器", "光电检测技术", "生物医学工程"],
+      difficulty: "本校考研优势大，博士点直通。考外校如浙大、上交需高分",
+      cross: "可跨考控制、光学工程、电子信息等方向，跨考友好"
+    },
+    transfer: {
+      should: "绝对不要转出",
+      reason: "国家级一流+博士点+行业垄断性就业，CJLU最强专业转出是巨大浪费",
+      barrier: "转入竞争最激烈，需绩点3.8+且面试通过"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU最强王牌，行业垄断性就业，体制内专属通道，深造上限最高"
+    },
+    newData: {
+      careers: [
+        {
+          title: "计量检定员",
+          desc: "仪器仪表检定校准，体制内铁饭碗，CJLU独有对口",
+          suit: "不甘心安稳拿死工资、想闯、容易漏细节、做事毛糙"
+        },
+        {
+          title: "仪器研发工程师",
+          desc: "设计传感器/检测仪器，技术含量高，CJLU最强方向",
+          suit: "对精密仪器没兴趣、不想花几年死磕一个技术方向"
+        },
+        {
+          title: "质量/认证工程师",
+          desc: "质量体系+产品认证，企业刚需岗",
+          suit: "做事差不多就行、不爱抠细节、让按规范填表就头疼"
+        },
+        {
+          title: "特种设备检验员",
+          desc: "电梯/压力容器等检验，体制内+技术壁垒高",
+          suit: "不甘心安稳拿死工资、不愿跑现场"
+        }
+      ],
+      suitFor: "CJLU王牌——全国开测控的多但做计量的只有CJLU，行业垄断性就业。对精度有执念、细心到强迫症的适合",
+      softSkills: "注册计量师证书是行业硬通货，CMA/CNAS实验室经验加分大，英语好看国际标准(ISO/IEC)",
+      paths: {
+        gradSchool: {
+          fit: "很适配",
+          how: "本校有博士点+博士后流动站深造上限全校最高，考研方向：仪器科学/测试计量/精密仪器",
+          tip: "博士毕业可进计量院/高校，是本专业天花板路径"
+        },
+        employment: {
+          fit: "很适配",
+          how: "体制内(市场监管局/计量院/质检所)+大厂(华为/海康/大华)双通道，行业壁垒高",
+          tip: "体制内岗位是CJLU独有优势别浪费"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "检测服务/校准实验室创业门槛中等有资质要求",
+          tip: "先在计量院/检测机构积累资质和人脉"
+        }
+      },
+      transfer: {
+        should: "绝对不要转出",
+        reason: "国家级一流+博士点+行业垄断性就业，CJLU最强专业转出是巨大浪费",
+        barrier: "转入竞争最激烈，需绩点3.8+且面试通过"
+      }
+    }
+  },
+  {
+    name: "智能感知工程",
+    college: "计量测试与仪器学院",
+    brief: "新工科专业，传感器+AI+物联网交叉，就业前景好",
+    ace: false,
+    learn: {
+      coreCourses:["传感器原理", "智能感知技术", "物联网技术", "人工智能基础", "机器视觉", "信号处理", "嵌入式系统", "数据融合技术"],
+      suitFor: "对传感器、物联网、人工智能交叉领域感兴趣的同学。数学好、编程能力强的同学尤为适合。"
+    },
+    employment: {
+      industries:["智能传感", "物联网", "精密检测", "AI硬件"],
+      civil: "可报计量院、质检等技术岗位"
+    },
+    discipline: {
+      level: "强势",
+      strength: "新设专业，依托仪器科学与技术博士点，方向前沿",
+      feature: "智能传感+计量检测，紧跟AIoT趋势",
+      degrees: "硕士/博士点：依托仪器科学与技术（一级学科博士点）"
+    },
+    grad: {
+      directions:["仪器科学与技术", "人工智能", "电子信息", "计算机科学与技术", "控制科学与工程"],
+      difficulty: "考研方向灵活，本校仪器学科有博士点直通",
+      cross: "可跨考AI、计算机、控制等热门方向"
+    },
+    transfer: {
+      should: "不建议转出",
+      reason: "依托测控博士点+方向前沿新专业红利期，介意不确定性可转测控",
+      barrier: "转入竞争一般需绩点3.0+"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "新专业有博士点支撑，方向前沿，但还没毕业生验证"
+    },
+    newData: {
+      careers: [
+        {
+          title: "传感器研发工程师",
+          desc: "设计智能传感器，前沿方向需求增长快",
+          suit: "对传感器物联网没兴趣"
+        },
+        {
+          title: "感知算法工程师",
+          desc: "信号处理+AI算法，硕士起步薪资好",
+          suit: "数学或编程有一个跟不上"
+        },
+        {
+          title: "物联网工程师",
+          desc: "传感器网络+数据采集，应用面广",
+          suit: "只想纯软或纯硬"
+        }
+      ],
+      suitFor: "2026新专业(首次招生)，传感器/AI/物联网方向。愿意当新专业小白鼠的来，依托测控博士点方向前沿",
+      softSkills: "编程(Python/C++)是核心技能，数学建模竞赛加分，英语好看前沿论文",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托测控博士点考研方向：仪器科学/测试计量/AI",
+          tip: "新专业考研反而有差异化优势"
+        },
+        employment: {
+          fit: "一般适配",
+          how: "方向热门但专业太新无往届数据参考",
+          tip: "建议自学编程+算法提升竞争力"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "太新太前沿创业需要技术积累和行业认知",
+          tip: "先就业积累经验再考虑"
+        }
+      },
+      transfer: {
+        should: "不建议转出",
+        reason: "依托测控博士点+方向前沿新专业红利期，介意不确定性可转测控",
+        barrier: "转入竞争一般需绩点3.0+"
+      }
+    }
+  },
+  {
+    name: "电子信息工程",
+    college: "信息工程学院",
+    brief: "电子+通信+信息处理，IT行业就业面最宽的专业之一，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["电路", "模拟电子技术", "数字电子技术", "信号与系统", "数字信号处理", "通信原理", "微机原理及其应用", "电磁场与电磁波"],
+      suitFor: "对电子技术和信号处理感兴趣，数学物理基础好的同学。想做硬件工程师或通信工程师的首选。"
+    },
+    employment: {
+      industries:["电子制造", "通信", "物联网", "半导体", "嵌入式"],
+      civil: "可报信息中心、工信局等岗位，适配度中等"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，信息与通信工程学科支撑，实力中等",
+      feature: "嵌入计量检测场景，对接长三角电子制造业",
+      degrees: "硕士点：依托信息与通信工程/电子信息"
+    },
+    grad: {
+      directions:["信息与通信工程", "通信与信息系统", "信号与信息处理", "电子科学与技术", "集成电路工程"],
+      difficulty: "考研竞争中等偏上，本校硕士点承接友好",
+      cross: "可跨考计算机、人工智能、控制等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "就业还行但深造上限不如测控/光电(有博士点)，对硬件感兴趣可留",
+      barrier: "转入王牌竞争较大需绩点3.5+"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU中等专业，就业尚可，但不是学校重点方向"
+    },
+    newData: {
+      careers: [
+        {
+          title: "硬件工程师",
+          desc: "电路设计+PCB画板，门槛中等越老越吃香",
+          suit: "对电路没兴趣、调试超过一小时就坐办公室超过两小时就想走"
+        },
+        {
+          title: "嵌入式工程师",
+          desc: "单片机/ARM开发，软硬结合需求稳定",
+          suit: "只想纯软或纯硬"
+        },
+        {
+          title: "FPGA工程师",
+          desc: "数字逻辑设计，门槛高薪资好但岗位少",
+          suit: "数字电路逻辑理不清、不想碰底层细节"
+        },
+        {
+          title: "测试工程师",
+          desc: "电子产品测试验证，入门门槛低",
+          suit: "容易漏细节、不在乎东西做得好不好"
+        }
+      ],
+      suitFor: "硬件+电路为主，要画板子焊板子调试，不是纯写代码。喜欢看得见摸得着的东西、能接受调试枯燥的适合",
+      softSkills: "会画PCB是硬技能，示波器/逻辑分析仪操作是基本功，英语好看芯片英文手册",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "本校有电子信息硕士点，考研方向：电路与系统/信号处理/电磁场",
+          tip: "想做FPGA/射频建议读研，本科硬件岗也行"
+        },
+        employment: {
+          fit: "适配",
+          how: "硬件工程师岗位多但起薪不如CS，杭州电子企业不少",
+          tip: "建议精通一个方向(PCB/FPGA/射频)而非什么都懂一点"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "硬件创业需要资金(开模/打样)门槛高",
+          tip: "智能硬件方向有机会但需要供应链经验"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "就业还行但深造上限不如测控/光电(有博士点)，对硬件感兴趣可留",
+        barrier: "转入王牌竞争较大需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "通信工程",
+    college: "信息工程学院",
+    brief: "5G/6G时代核心专业，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["电路", "信号与系统", "数字信号处理", "通信原理", "电磁场与电磁波", "高频电子线路", "无线通信系统", "数据通信与网络"],
+      suitFor: "数学基础好、对无线通信和网络技术感兴趣的同学。适合想做通信系统研发的同学。"
+    },
+    employment: {
+      industries:["通信运营商", "网络设备", "物联网", "5G应用"],
+      civil: "可报工信局、通信管理局等，适配度一般"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，信息与通信工程B类学科，实力中等",
+      feature: "通信+计量，偏应用方向",
+      degrees: "硕士点：依托信息与通信工程"
+    },
+    grad: {
+      directions:["信息与通信工程", "通信与信息系统", "电子与通信工程", "网络空间安全", "人工智能"],
+      difficulty: "考研竞争较大，通信方向热门",
+      cross: "可跨考计算机、电子信息、网络安全等方向"
+    },
+    transfer: {
+      should: "建议转",
+      reason: "通信行业收缩中，CS就业更广薪资更高，测控深造更好",
+      barrier: "转入CS竞争大需绩点3.5+转入测控也需3.5+"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU中等专业，通信行业就业尚可，但不是学校重点"
+    },
+    newData: {
+      careers: [
+        {
+          title: "通信工程师",
+          desc: "基站/网络规划优化，运营商设备商都有5G方向",
+          suit: "对通信没兴趣、不想跑外地、要规律作息"
+        },
+        {
+          title: "射频工程师",
+          desc: "天线/射频电路设计，门槛高薪资好岗位少",
+          suit: "电磁场课完全听不懂、不喜欢高频"
+        },
+        {
+          title: "网络优化工程师",
+          desc: "移动网络测速优化，入门门槛低但偏累",
+          suit: "跑现场/加班就怨、不想下车间/跑工地"
+        }
+      ],
+      suitFor: "通信数学多(傅里叶/概率/矩阵)，数学基础要跟上。对5G/射频/通信技术感兴趣的适合，部分岗位需出差",
+      softSkills: "华为/中兴认证加分，英语好可进外企通信岗，MATLAB仿真能力实用",
+      paths: {
+        gradSchool: {
+          fit: "一般适配",
+          how: "考研方向：通信/信号处理/电磁场。本校有硕士点",
+          tip: "想做射频/基带算法建议读研"
+        },
+        employment: {
+          fit: "适配",
+          how: "运营商/设备商/通信服务公司都有岗，但5G建设高峰已过",
+          tip: "通信岗位在收缩建议学编程向CS靠拢"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "通信行业重资产个人创业机会极少",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "建议转",
+        reason: "通信行业收缩中，CS就业更广薪资更高，测控深造更好",
+        barrier: "转入CS竞争大需绩点3.5+转入测控也需3.5+"
+      }
+    }
+  },
+  {
+    name: "计算机科学与技术",
+    college: "信息工程学院",
+    brief: "IT行业万金油，就业面最宽，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["数据结构", "操作系统", "计算机组成原理", "计算机网络", "数据库系统", "算法设计与分析", "编译原理", "软件工程"],
+      suitFor: "逻辑思维强、喜欢编程和解决算法问题的同学。想进互联网大厂或做软件开发的首选。"
+    },
+    employment: {
+      industries:["互联网", "软件开发", "金融科技", "人工智能", "游戏"],
+      civil: "可报网信办、信息中心、公安网安等岗位，适配度较高"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，计算机科学ESI全球前1%但CJLU不是CS强校",
+      feature: "编程+数据分析，杭州互联网产业就业优势大",
+      degrees: "硕士点：计算机科学与技术（一级学科）+电子信息（专硕）"
+    },
+    grad: {
+      directions:["计算机科学与技术", "软件工程", "人工智能", "网络空间安全", "大数据技术"],
+      difficulty: "考研竞争激烈，计算机是热门方向，考名校需高分",
+      cross: "跨考范围极广，几乎所有工科/信息方向都能跨"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "CS在CJLU不是最强学科但就业最广，想进互联网可留想体制内转测控/自动化",
+      barrier: "转入王牌竞争大CS本身也是转入热门"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU不是CS强校，但杭州互联网就业+转行灵活是优势"
+    },
+    newData: {
+      careers: [
+        {
+          title: "后端开发工程师",
+          desc: "Java/Go/C++写服务端，互联网核心岗需求最大",
+          suit: "条件一多就理不清、推理链一长就跟丢、坐下来写代码就烦"
+        },
+        {
+          title: "前端开发工程师",
+          desc: "网页/小程序开发，入门相对容易更新快需持续学习",
+          suit: "对UI交互没兴趣、配色排版自己看了都别扭"
+        },
+        {
+          title: "算法工程师",
+          desc: "AI/推荐/搜索算法，硕士起步薪资最高档",
+          suit: "看到长公式推导就头大、公式推导超过半页就放弃"
+        },
+        {
+          title: "运维/DBA",
+          desc: "服务器/数据库维护，稳定但薪资不如开发",
+          suit: "容易漏细节、找bug找半小时就想放弃"
+        }
+      ],
+      suitFor: "写代码为主但也要学硬件/网络/操作系统，课表杂。逻辑好+能持续学新技术的适合，杭州互联网就业机会多",
+      softSkills: "GitHub项目/实习经历比绩点重要，LeetCode刷题是面试准备，英语好看官方文档",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：CS/AI/软件工程/网络安全。考浙大需高分本校有硕士点",
+          tip: "想做算法岗必须读研，开发岗本科就够"
+        },
+        employment: {
+          fit: "很适配",
+          how: "杭州互联网岗位全国第三(阿里/网易/海康)，本科开发岗薪资在杭州有优势",
+          tip: "实习经历极其重要大二就开始找实习"
+        },
+        startup: {
+          fit: "适配",
+          how: "互联网/SaaS/工具类创业门槛最低一个人就能做MVP",
+          tip: "先在大厂干2-3年积累认知再创业"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "CS在CJLU不是最强学科但就业最广，想进互联网可留想体制内转测控/自动化",
+        barrier: "转入王牌竞争大CS本身也是转入热门"
+      }
+    }
+  },
+  {
+    name: "软件工程",
+    college: "信息工程学院",
+    brief: "软件开发生态全链路，就业薪资高",
+    ace: false,
+    learn: {
+      coreCourses:["数据结构", "操作系统", "软件工程导论", "面向对象程序设计", "数据库系统", "软件测试", "软件体系结构", "项目管理"],
+      suitFor: "喜欢编程、对软件产品全生命周期感兴趣的同学。适合想做开发工程师/项目经理的人。"
+    },
+    employment: {
+      industries:["互联网", "软件开发", "金融科技", "SaaS", "游戏"],
+      civil: "可报网信办、信息中心等岗位"
+    },
+    discipline: {
+      level: "中等",
+      strength: "依托计算机学科ESI全球前1%平台，但非国家一流专业",
+      feature: "开发实践导向，杭州互联网就业方便",
+      degrees: "硕士点：依托计算机科学与技术（一级学科）"
+    },
+    grad: {
+      directions:["软件工程", "计算机科学与技术", "人工智能", "大数据", "云计算"],
+      difficulty: "考研竞争激烈，软件工程是热门方向",
+      cross: "跨考范围极广，与计算机科学互通"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "软件工程就业面广但非CJLU王牌专业，想进体制转测控/质量有优势",
+      barrier: "转入王牌专业竞争大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "和CS类似，CJLU不是强校但杭州就业弥补"
+    },
+    newData: {
+      careers: [
+        {
+          title: "后端开发工程师",
+          desc: "Java/Python/Go写服务端，互联网核心岗需求大但竞争激烈",
+          suit: "条件一多就理不清、推理链一长就跟丢、坐下来写代码就烦、新技术出来了不想学"
+        },
+        {
+          title: "前端开发工程师",
+          desc: "React/Vue写网页，入门相对容易但技术栈更新快需持续学习",
+          suit: "对UI交互没兴趣、配色排版自己看了都别扭"
+        },
+        {
+          title: "测试开发工程师",
+          desc: "自动化测试+测试工具开发，门槛比开发低但成长有限",
+          suit: "容易漏细节、找bug找半小时就想放弃、排斥写代码"
+        },
+        {
+          title: "DevOps工程师",
+          desc: "CI/CD/容器化/运维自动化，新兴方向薪资不错",
+          suit: "对运维架构没兴趣、不想花时间折腾系统配置"
+        }
+      ],
+      suitFor: "比CS更偏工程实践，大量项目+团队合作。坐得住写代码+逻辑好的适合，杭州实习就业方便",
+      softSkills: "GitHub项目/实习经历比绩点重要，LeetCode刷题是面试标配，英语好能读官方文档",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：CS/软件工程/AI。本校有计算机科学与技术硕士点，考浙大需高分",
+          tip: "想做算法/AI方向建议读研，开发岗本科就够"
+        },
+        employment: {
+          fit: "很适配",
+          how: "杭州互联网(阿里/网易/海康/大华)岗位多，本科开发岗在杭州薪资有竞争力",
+          tip: "大二开始找实习，项目经验比成绩更重要"
+        },
+        startup: {
+          fit: "适配",
+          how: "SaaS/工具类创业门槛最低，一个人就能做MVP",
+          tip: "先在大厂积累2-3年技术和管理经验再创业"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "软件工程就业面广但非CJLU王牌专业，想进体制转测控/质量有优势",
+        barrier: "转入王牌专业竞争大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "数据科学与大数据技术",
+    college: "信息工程学院",
+    brief: "大数据+AI时代核心专业，就业前景好",
+    ace: false,
+    learn: {
+      coreCourses:["数据结构", "数据库系统", "数据挖掘", "机器学习", "大数据技术原理", "统计分析", "Python数据分析", "分布式计算"],
+      suitFor: "数学和编程双强的同学，对数据分析和AI应用感兴趣。逻辑思维+统计直觉兼备者最佳。"
+    },
+    employment: {
+      industries:["数据分析", "互联网", "金融", "AI", "政务数据"],
+      civil: "可报统计局、数据中心等岗位"
+    },
+    discipline: {
+      level: "中等",
+      strength: "新设专业，依托数学和计算机学科平台",
+      feature: "大数据+计量，对接数字经济需求",
+      degrees: "硕士点：依托数学/计算机"
+    },
+    grad: {
+      directions:["计算机科学与技术", "统计学", "人工智能", "大数据", "应用统计"],
+      difficulty: "考研竞争中等偏上，热门方向",
+      cross: "可跨考计算机、统计、金融工程等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "数据方向热门但竞争激烈，数学是底层功底转AI/金融都方便",
+      barrier: "转入数学专业需有高数/线代/概率论基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "新专业，方向热门但CJLU非强校，靠杭州就业弥补"
+    },
+    newData: {
+      careers: [
+        {
+          title: "数据分析师",
+          desc: "SQL/Python分析数据给业务决策，入门容易但天花板不高",
+          suit: "统计弱、看报表只会看总数、看不出趋势和问题"
+        },
+        {
+          title: "大数据开发工程师",
+          desc: "Hadoop/Spark/Flink处理海量数据，技术栈较新薪资不错",
+          suit: "对大数据技术没兴趣、不接受加班"
+        },
+        {
+          title: "算法工程师",
+          desc: "机器学习/推荐系统/搜索算法，硕士起步薪资高但卷",
+          suit: "高数线代学得费劲、公式推导超过半页就放弃调参"
+        },
+        {
+          title: "数据挖掘工程师",
+          desc: "从数据中挖掘规律做预测模型，偏研发方向",
+          suit: "不想既懂技术又懂业务"
+        }
+      ],
+      suitFor: "数学+统计+编程三件套，偏数据分析方向。对数据感兴趣、数学还行、能持续学新技术的适合",
+      softSkills: "Python/SQL是基本功，Kaggle竞赛加分，Tableau/PowerBI可视化技能实用",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：CS/数据科学/统计。本校有数学一级硕士点可深造",
+          tip: "算法方向必须读研，本科数据分析可就业"
+        },
+        employment: {
+          fit: "很适配",
+          how: "数据岗位需求大但竞争也大，杭州互联网/电商公司都有岗",
+          tip: "建议精通一个方向(SQL/Python/可视化)而非样样都学"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "数据分析服务/BI工具创业有细分机会",
+          tip: "先在甲方积累行业经验再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "数据方向热门但竞争激烈，数学是底层功底转AI/金融都方便",
+        barrier: "转入数学专业需有高数/线代/概率论基础"
+      }
+    }
+  },
+  {
+    name: "人工智能",
+    college: "信息工程学院",
+    brief: "AI时代核心专业，就业前景极好",
+    ace: false,
+    learn: {
+      coreCourses:["机器学习", "深度学习", "计算机视觉", "自然语言处理", "数据结构与算法", "概率论与数理统计", "优化理论", "神经网络"],
+      suitFor: "数学极好、编程能力强、对AI前沿技术有热情的同学。适合想做算法工程师的人。"
+    },
+    employment: {
+      industries:["AI研发", "计算机视觉", "NLP", "智能制造", "自动驾驶"],
+      civil: "可报网信办、科技局等岗位"
+    },
+    discipline: {
+      level: "中等",
+      strength: "新设专业（2026首次中外合作招生），依托计算机/控制学科",
+      feature: "AI+计量检测，方向前沿但CJLU非AI强校",
+      degrees: "硕士点：依托计算机/控制学科"
+    },
+    grad: {
+      directions:["人工智能", "计算机科学与技术", "控制科学与工程", "模式识别与智能系统", "电子信息"],
+      difficulty: "考研竞争非常激烈，AI方向是当前最热",
+      cross: "可跨考计算机、控制、电子信息等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "AI是风口但极度内卷，需要持续投入才有竞争力",
+      barrier: "转入需补编程+数学基础，门槛不低"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "新专业方向热门，但在CJLU刚起步，就业不确定性较高"
+    },
+    newData: {
+      careers: [
+        {
+          title: "AI算法工程师",
+          desc: "深度学习/大模型/计算机视觉，热门高薪但极度内卷硕士起步",
+          suit: "看到长公式推导就头大、看论文看两页就走神"
+        },
+        {
+          title: "机器学习工程师",
+          desc: "模型训练/特征工程/模型部署，偏落地应用",
+          suit: "只想算和画、不想碰实物、不知道工程怎么做出来"
+        },
+        {
+          title: "自然语言处理工程师",
+          desc: "文本处理/对话系统/知识图谱，大模型时代需求爆发",
+          suit: "对语言细节不敏感、对文本处理没兴趣"
+        },
+        {
+          title: "AI产品经理",
+          desc: "AI产品规划+需求对接，比技术岗门槛低但需懂AI",
+          suit: "只会写代码/画图、说不清自己做了什么"
+        }
+      ],
+      suitFor: "数学要求最高(线代/概率/优化)，还要持续看论文追前沿。数学基础扎实+对AI有真实兴趣的适合，否则容易跟不上",
+      softSkills: "PyTorch/TensorFlow必须精通，GitHub项目加分，paper reading能力重要",
+      paths: {
+        gradSchool: {
+          fit: "很适配",
+          how: "AI方向读研几乎是必须的，考研浙大/上交等985有优势",
+          tip: "导师方向比学校排名更重要，提前进实验室做项目"
+        },
+        employment: {
+          fit: "很适配",
+          how: "大厂AI Lab/独角兽/传统企业AI部门都需要，但门槛越来越高",
+          tip: "没有paper和项目经验很难进核心岗"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "垂直领域AI应用有创业机会，但需要技术和行业认知",
+          tip: "先在成熟公司积累核心算法能力再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "AI是风口但极度内卷，需要持续投入才有竞争力",
+        barrier: "转入需补编程+数学基础，门槛不低"
+      }
+    }
+  },
+  {
+    name: "信息安全",
+    college: "信息工程学院",
+    brief: "网络安全人才缺口大，就业稳定",
+    ace: false,
+    learn: {
+      coreCourses:["密码学", "网络安全", "系统安全", "网络协议分析", "信息安全法规", "恶意代码分析", "数据隐私保护", "安全审计"],
+      suitFor: "对网络安全攻防感兴趣、逻辑缜密、细心负责的同学。适合想做安全工程师/渗透测试的人。"
+    },
+    employment: {
+      industries:["网络安全", "信息安全", "互联网", "金融", "政务"],
+      civil: "可报公安网安、网信办等岗位，适配度较高"
+    },
+    discipline: {
+      level: "中等",
+      strength: "依托计算机学科平台，非国家一流专业",
+      feature: "安全+计量，对接网安监管需求",
+      degrees: "硕士点：依托计算机科学与技术"
+    },
+    grad: {
+      directions:["网络空间安全", "计算机科学与技术", "密码学", "电子信息", "信息与通信工程"],
+      difficulty: "考研竞争中等，网安方向热门但不及CS/AI",
+      cross: "可跨考计算机、通信、法学（网络安全法方向）等"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "安全方向专业壁垒高，但就业面比CS窄",
+      barrier: "转入需补计网/编程基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "网安政策利好但岗位少，CJLU非强校"
+    },
+    newData: {
+      careers: [
+        {
+          title: "网络安全工程师",
+          desc: "渗透测试/安全运维/等保测评，入门需兴趣但稳定",
+          suit: "对安全没兴趣、对攻防对抗没兴趣"
+        },
+        {
+          title: "Web安全工程师",
+          desc: "Web漏洞挖掘/代码审计，圈子小但专业壁垒高",
+          suit: "Web和安全只懂一个"
+        },
+        {
+          title: "安全运维工程师",
+          desc: "安全设备运维/日志分析/应急响应，稳定偏蓝领",
+          suit: "容易漏细节、不接受7x24应急值班"
+        },
+        {
+          title: "等级保护测评师",
+          desc: "政府/国企等保合规检测，体制内对口稳定",
+          suit: "不甘心安稳拿死工资、合规要求看了就忘"
+        }
+      ],
+      suitFor: "门槛高但越老越吃香，要持续学漏洞/攻防新知识。对网络安全有真实兴趣+能持续学习的适合，入门阶段比较枯燥",
+      softSkills: "CTF比赛/CVE漏洞挖掘加分，OSCP等安全证书含金量高，渗透测试实战经验重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：网络空间安全/CS。本校有计算机科学与技术硕士点",
+          tip: "安全方向读研能进核心技术岗"
+        },
+        employment: {
+          fit: "适配",
+          how: "体制内(公安/网信办/国企)/安全厂商(奇安信/深信服)都有需求",
+          tip: "CTF比赛获奖和实战经验比学历重要"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "安全众测/安全服务有细分机会",
+          tip: "需要先在圈子积累名气"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "安全方向专业壁垒高，但就业面比CS窄",
+        barrier: "转入需补计网/编程基础"
+      }
+    }
+  },
+  {
+    name: "光电信息科学与工程",
+    college: "光学与电子科技学院",
+    brief: "CJLU王牌专业之一，国家特色专业，光学工程有博士点",
+    ace: true,
+    learn: {
+      coreCourses:["光学原理", "物理光学", "应用光学", "激光原理", "光电检测技术", "光纤通信", "光电子学", "薄膜光学"],
+      suitFor: "对光学和光电子技术感兴趣、物理基础好的同学。CJLU光电检测特色鲜明，适合想从事光学检测/激光技术的同学。"
+    },
+    employment: {
+      industries:["光电检测", "激光技术", "光学计量", "显示技术", "半导体光电器件"],
+      civil: "可报计量院、质检院等技术岗位，适配度较高"
+    },
+    discipline: {
+      level: "王牌",
+      strength: "CJLU王牌专业，国家特色+国家级一流，光学工程有博士点+博士后流动站",
+      feature: "光电检测+计量，对接华为/海康/大华等杭州企业，",
+      degrees: "博士点：光学工程（一级学科）+博士后流动站"
+    },
+    grad: {
+      directions:["光学工程", "光电信息工程", "物理电子学", "仪器科学与技术", "材料科学与工程"],
+      difficulty: "本校考研优势大，博士点直通。考浙大/上交光学方向需高分",
+      cross: "可跨考仪器、材料、电子等方向"
+    },
+    transfer: {
+      should: "不建议转出",
+      reason: "国家级一流+博士点+省属第一，转出浪费。光电+CJLU计量特色是独有优势",
+      barrier: "转入竞争大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU王牌，有博士点，杭州光电产业就业+深造都强"
+    },
+    newData: {
+      careers: [
+        {
+          title: "光学工程师",
+          desc: "光学设计/镜头研发，技术含量高越老越吃香",
+          suit: "物理课听着就懵、不喜欢精密光学"
+        },
+        {
+          title: "光电研发工程师",
+          desc: "光电检测/传感器/光通信器件，CJLU特色方向",
+          suit: "对光电没热情"
+        },
+        {
+          title: "光学检测工程师",
+          desc: "光学精密测量/计量校准，体制内对口稳定",
+          suit: "容易漏细节、做事毛糙、不知道计量是干嘛的"
+        },
+        {
+          title: "图像算法工程师",
+          desc: "图像处理/机器视觉，AI结合方向薪资好",
+          suit: "光学或算法只想选一个"
+        }
+      ],
+      suitFor: "CJLU王牌方向(光学工程博士点+省属第一)，物理光学为主。物理光学基础好+对光电技术感兴趣的适合",
+      softSkills: "Zemax/Code V光学设计软件必须会，英语好读英文文献，注册光学工程师证书加分",
+      paths: {
+        gradSchool: {
+          fit: "很适配",
+          how: "本校光学工程博士点省内第一，考研方向：光学工程/光电信息/仪器科学",
+          tip: "博士毕业可进高校/研究所天花板高"
+        },
+        employment: {
+          fit: "很适配",
+          how: "华为/舜宇/海康/大华等光电企业需求大，计量院/质检所也有岗位",
+          tip: "光学方向岗位稳定但薪资不如CS"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "光学精密仪器有创业机会但门槛高",
+          tip: "先在大厂积累技术和客户再考虑"
+        }
+      },
+      transfer: {
+        should: "不建议转出",
+        reason: "国家级一流+博士点+省属第一，转出浪费。光电+CJLU计量特色是独有优势",
+        barrier: "转入竞争大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "电子科学与技术",
+    college: "光学与电子科技学院",
+    brief: "微电子+半导体方向，国家级一流专业+卓越工程师",
+    ace: true,
+    learn: {
+      coreCourses:["电路分析", "模拟电子技术", "数字电子技术", "半导体物理", "微电子学", "集成电路设计", "信号与系统", "电磁场与电磁波"],
+      suitFor: "对芯片和半导体技术感兴趣、物理基础扎实的同学。想做集成电路/芯片设计的首选。"
+    },
+    employment: {
+      industries:["半导体", "电子器件", "集成电路", "光电技术"],
+      civil: "可报电子相关技术岗位"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流+卓越工程师，依托光学工程博士点，考研率高",
+      feature: "电子+光学，偏半导体和器件方向",
+      degrees: "硕士点：电子科学与技术；博士点：依托光学工程"
+    },
+    grad: {
+      directions:["电子科学与技术", "微电子学与固体电子学", "集成电路工程", "光学工程", "电磁场与微波技术"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考光学工程、仪器、计算机等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "国家级一流+认证+卓越计划背书强，但薪资天花板不如CS",
+      barrier: "转入CS/AI竞争大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU强势专业，考研率高，半导体方向前景好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "硬件工程师",
+          desc: "电路设计+PCB画板，门槛中等越老越吃香",
+          suit: "不想画电路板、坐办公室超过两小时就想走"
+        },
+        {
+          title: "半导体工艺工程师",
+          desc: "芯片制造/晶圆工艺，门槛高但稳定",
+          suit: "对半导体没兴趣、受不了穿无尘服待在车间"
+        },
+        {
+          title: "FPGA工程师",
+          desc: "数字逻辑设计，门槛高薪资好但岗位少",
+          suit: "条件一多就理不清、推理链一长就跟丢、不想碰寄存器/总线这些底层"
+        },
+        {
+          title: "光电子工程师",
+          desc: "光电检测/光通信器件，CJLU电子特色方向",
+          suit: "对光电交叉没兴趣"
+        }
+      ],
+      suitFor: "偏底层硬件/半导体/微电子，不是写代码。国家级一流+工程教育认证，喜欢硬件电路+能接受调试枯燥的适合",
+      softSkills: "Altium Designer/Cadence画PCB是硬技能，示波器操作是基本功，英语好读芯片手册",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "本校有电子科学与技术硕士点，考研方向：电路与系统/微电子/光电子",
+          tip: "想做FPGA/射频建议读研"
+        },
+        employment: {
+          fit: "很适配",
+          how: "半导体/光电子企业(华为/中芯/海康)都有需求",
+          tip: "精通一个方向比什么都学一点更有竞争力"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "硬件创业需要资金(开模/流片)门槛极高",
+          tip: "智能硬件有细分机会但需要供应链经验"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "国家级一流+认证+卓越计划背书强，但薪资天花板不如CS",
+        barrier: "转入CS/AI竞争大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "微电子科学与工程",
+    college: "光学与电子科技学院",
+    brief: "芯片/半导体方向，国家战略需求大，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["半导体物理", "微电子学", "集成电路设计", "半导体器件", "VLSI设计", "集成电路工艺", "模拟集成电路", "数字集成电路"],
+      suitFor: "对芯片设计/制造感兴趣、物理数学基础好的同学。国家半导体战略下就业前景极好。"
+    },
+    employment: {
+      industries:["半导体", "集成电路", "芯片设计", "电子制造"],
+      civil: "可报电子相关技术岗位"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，依托电子科学与技术，较新",
+      feature: "微电子+计量，芯片检测方向",
+      degrees: "硕士点：依托电子科学与技术/光学工程"
+    },
+    grad: {
+      directions:["微电子学与固体电子学", "集成电路工程", "电子科学与技术", "光学工程", "材料科学与工程"],
+      difficulty: "考研竞争中等，芯片方向热门",
+      cross: "可跨考光学工程、材料、计算机等方向"
+    },
+    transfer: {
+      should: "建议转",
+      reason: "微电子需要顶尖学校+长周期投入才有好出路，普通院校性价比低",
+      barrier: "转出需补半导体基础，CJLU不是微电子强校"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "方向热门（半导体国产替代），但CJLU不是微电子强校"
+    },
+    newData: {
+      careers: [
+        {
+          title: "芯片设计工程师",
+          desc: "数字/模拟IC设计，门槛极高但薪资天花板高",
+          suit: "对半导体没热情、不想在一个方向花几年死磕"
+        },
+        {
+          title: "半导体工艺工程师",
+          desc: "晶圆制造/工艺优化，稳定但偏制造",
+          suit: "对半导体没兴趣"
+        },
+        {
+          title: "封装测试工程师",
+          desc: "芯片封装/测试验证，门槛相对低",
+          suit: "只想算和画、不想碰实物"
+        },
+        {
+          title: "失效分析工程师",
+          desc: "芯片失效分析/可靠性测试，技术含量高",
+          suit: "容易漏细节、不想花时间分析问题根因"
+        }
+      ],
+      suitFor: "芯片/半导体方向，国家战略但学习周期长(本科只是入门)。对芯片有真实兴趣+能接受长周期投入的适合",
+      softSkills: "半导体物理/器件基础必须扎实，EDA工具会用，英语好读datasheet",
+      paths: {
+        gradSchool: {
+          fit: "很适配",
+          how: "微电子必须读研才有竞争力，考研方向：微电子/集成电路/电子科学与技术",
+          tip: "考研必须去好学校(复旦/东南/浙大)才有出路"
+        },
+        employment: {
+          fit: "适配",
+          how: "芯片国产化浪潮下机会增多，但高端岗位仍集中在大厂",
+          tip: "本科只能做封测/工艺，设计必须读研"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "芯片创业需要资金量极大不现实",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "建议转",
+        reason: "微电子需要顶尖学校+长周期投入才有好出路，普通院校性价比低",
+        barrier: "转出需补半导体基础，CJLU不是微电子强校"
+      }
+    }
+  },
+  {
+    name: "功能材料",
+    college: "光学与电子科技学院",
+    brief: "新材料研发方向，光学功能材料特色",
+    ace: false,
+    learn: {
+      coreCourses:["材料科学基础", "固体物理", "功能材料学", "薄膜材料与技术", "光电材料", "材料表征技术", "纳米材料", "材料制备工艺"],
+      suitFor: "对新材料研发感兴趣、化学物理基础好的同学。适合想从事材料研发/质检的同学。"
+    },
+    employment: {
+      industries:["材料研发", "新能源材料", "检测机构", "制造业"],
+      civil: "可报质检、海关等技术岗位，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，材料学科C评估，实力较弱",
+      feature: "功能材料+计量检测，偏研究型",
+      degrees: "硕士点：依托材料科学与工程"
+    },
+    grad: {
+      directions:["材料科学与工程", "材料物理与化学", "材料学", "光学工程", "化学"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考化学、光学工程、环境等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "功能材料+CJLU计量是特色组合，但材料整体薪资不如电子/CS",
+      barrier: "转入需有化学/物理基础"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，就业和薪资都偏弱，建议转王牌"
+    },
+    newData: {
+      careers: [
+        {
+          title: "功能材料研发工程师",
+          desc: "光电/磁性/新能源材料研发，前沿方向需求增长",
+          suit: "对材料没热情"
+        },
+        {
+          title: "材料检测工程师",
+          desc: "材料性能测试/质量评价，CJLU计量特色对口",
+          suit: "容易漏细节、不知道计量是干嘛的检测"
+        },
+        {
+          title: "工艺工程师",
+          desc: "材料制备工艺优化，稳定偏制造",
+          suit: "只想算和画、不想碰实物"
+        },
+        {
+          title: "标准化工程师",
+          desc: "材料行业标准制定/认证，CJLU标准特色加持",
+          suit: "让按规范填表就头疼"
+        }
+      ],
+      suitFor: "光电/磁性功能材料为主，大量实验。浙江省特色专业，喜欢做实验+对功能材料感兴趣的适合",
+      softSkills: "材料表征仪器(SEM/XRD)操作加分，材料类证书实用，英语好读文献",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托光学工程博士点，考研方向：材料科学与工程/光学工程",
+          tip: "功能材料读研后岗位质量明显提升"
+        },
+        employment: {
+          fit: "适配",
+          how: "新能源/电子材料企业有需求，计量院/检测机构也对口",
+          tip: "CJLU计量特色在检测方向有优势"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "材料创业需要资金和实验设备，门槛高",
+          tip: "先在企业积累经验再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "功能材料+CJLU计量是特色组合，但材料整体薪资不如电子/CS",
+        barrier: "转入需有化学/物理基础"
+      }
+    }
+  },
+  {
+    name: "材料科学与工程",
+    college: "材料与化学学院",
+    brief: "CJLU材料学科ESI全球前1%1%，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["材料科学基础", "材料力学", "材料物理", "材料化学", "材料表征技术", "材料加工工程", "材料热力学", "材料性能学"],
+      suitFor: "对材料研发和性能测试感兴趣、化学物理基础好的同学。CJLU材料检测特色鲜明。"
+    },
+    employment: {
+      industries:["材料制造", "新能源材料", "检测认证", "半导体材料"],
+      civil: "可报质检、海关等技术岗位"
+    },
+    discipline: {
+      level: "中等",
+      strength: "国家级一流专业，材料学科ESI全球前1%但评估仅C",
+      feature: "材料+计量检测，对接质量认证需求",
+      degrees: "硕士点：材料科学与工程（一级学科）"
+    },
+    grad: {
+      directions:["材料科学与工程", "材料物理与化学", "材料学", "光学工程", "化学"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考化学、光学工程、环境等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "材料是国家战略方向，但整体薪资不如电子/CS，想高薪可转",
+      barrier: "转入CS/电子竞争大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "国家级一流但学科评估一般，就业薪资偏低"
+    },
+    newData: {
+      careers: [
+        {
+          title: "材料研发工程师",
+          desc: "新材料开发/性能优化，技术含量高成长慢",
+          suit: "排斥泡实验室、不想在一个方向花几年死磕"
+        },
+        {
+          title: "材料检测工程师",
+          desc: "材料性能测试/质量评价，体制内/检测机构对口",
+          suit: "容易漏细节、不知道计量是干嘛的检测"
+        },
+        {
+          title: "质量管理工程师",
+          desc: "材料企业质量体系维护，CJLU质量特色加持",
+          suit: "做事差不多就行、不爱抠细节、让按规范填表就头疼"
+        },
+        {
+          title: "工艺工程师",
+          desc: "材料制备工艺控制，稳定偏工厂",
+          suit: "只想算和画、不想碰实物、不想下车间、受不了机器噪音"
+        }
+      ],
+      suitFor: "传统材料方向，大量实验+表征。国家级一流+工程教育认证，对材料研究有兴趣+动手能力强的适合",
+      softSkills: "材料表征仪器操作加分，材料工程师证书有用，CJLU计量/质量课程是加分项",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "本校有材料科学与工程硕士点，考研方向：材料学/材料加工/新能源材料",
+          tip: "读研后能进研发岗，本科偏检测/工艺"
+        },
+        employment: {
+          fit: "适配",
+          how: "材料企业/检测机构/质量部门都有需求，就业稳定",
+          tip: "CJLU计量特色在检测/质量方向有差异化优势"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "材料创业门槛高，需要设备和资金",
+          tip: "材料创业集中在特种材料/检测服务"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "材料是国家战略方向，但整体薪资不如电子/CS，想高薪可转",
+        barrier: "转入CS/电子竞争大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "材料化学",
+    college: "材料与化学学院",
+    brief: "材料+化学交叉，偏研究型",
+    ace: false,
+    learn: {
+      coreCourses:["无机化学", "有机化学", "物理化学", "分析化学", "材料科学基础", "材料化学", "高分子化学", "材料表征技术"],
+      suitFor: "对化学和材料都感兴趣、喜欢实验室研究的同学。适合想从事材料化学研发的同学。"
+    },
+    employment: {
+      industries:["化工", "材料研发", "检测机构", "制药"],
+      civil: "可报质检等技术岗位，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，依托材料学科ESI全球前1%",
+      feature: "化学+材料检测，偏研究型",
+      degrees: "硕士点：依托材料科学与工程/化学"
+    },
+    grad: {
+      directions:["材料科学与工程", "化学", "材料化学", "高分子化学与物理", "应用化学"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考化学、药学、环境等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "化学整体薪资一般，但CJLU化学计量方向有差异化优势",
+      barrier: "转入需有化学基础"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，就业薪资都弱，转王牌更划算"
+    },
+    newData: {
+      careers: [
+        {
+          title: "化学分析师",
+          desc: "成分分析/检测方法开发，体制内/第三方检测机构对口",
+          suit: "容易漏细节、排斥泡实验室做化学实验"
+        },
+        {
+          title: "工艺工程师",
+          desc: "化工工艺优化/安全控制，稳定偏制造",
+          suit: "只想算和画、不想碰实物、不想下车间"
+        },
+        {
+          title: "质量控制工程师",
+          desc: "化工产品质量管理，CJLU计量特色加持",
+          suit: "做事差不多就行、不爱抠细节、对标准规范没感觉、让按规范来就烦"
+        },
+        {
+          title: "研发工程师",
+          desc: "精细化学品/新材料研发，硕士起步",
+          suit: "对化学没热情"
+        }
+      ],
+      suitFor: "化学为主+材料应用，实验多。依托ESI全球前1%化学学科，喜欢化学实验+对分析检测有兴趣的适合",
+      softSkills: "仪器分析(色谱/光谱)操作加分，化学工程师证书有用，德语好有德国合作优势",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托ESI前化学学科深造，考研方向：化学/材料/化工",
+          tip: "有德国Aalen大学3+2项目可出国深造"
+        },
+        employment: {
+          fit: "适配",
+          how: "化工/制药/检测企业都有需求，体制内(质检/药监)也对口",
+          tip: "化学计量是CJLU特色在检测方向有优势"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "化工创业门槛高需要资质和安全许可",
+          tip: "化学品贸易/检测服务有细分机会"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "化学整体薪资一般，但CJLU化学计量方向有差异化优势",
+        barrier: "转入需有化学基础"
+      }
+    }
+  },
+  {
+    name: "应用化学",
+    college: "材料与化学学院",
+    brief: "化学应用方向，ESI前1%学科支撑",
+    ace: false,
+    learn: {
+      coreCourses:["无机化学", "有机化学", "分析化学", "物理化学", "仪器分析", "化工原理", "精细化工", "化学计量学"],
+      suitFor: "化学基础好、喜欢实验和检测的同学。CJLU的化学计量学特色值得关注。"
+    },
+    employment: {
+      industries:["化工", "制药", "检测机构", "日化"],
+      civil: "可报质检、海关等技术岗位"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，化学学科ESI全球前1%",
+      feature: "化学分析+计量检测，偏分析化学方向",
+      degrees: "硕士点：依托化学/材料学科"
+    },
+    grad: {
+      directions:["化学", "分析化学", "应用化学", "材料科学与工程", "环境科学与工程"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考材料、环境、药学等方向"
+    },
+    transfer: {
+      should: "想转建议往测控/光电/计算机转",
+      reason: "应用化学就业天花板不高，分析检测岗薪资偏低。CJLU王牌专业(测控/光电/质量管理)出路更明确",
+      barrier: "化学→理工科转专业需要补数学和物理基础，大一成绩要够好"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，化学检测就业尚可但薪资低"
+    },
+    newData: {
+      careers: [
+        {
+          title: "化学分析师",
+          desc: "做成分检测和质量控制，制药/食品/环保企业都需要，稳定但涨薪慢",
+          suit: "容易漏细节、做事毛糙、排斥泡实验室和检测分析"
+        },
+        {
+          title: "环境监测员",
+          desc: "检测水质/空气/土壤污染物，环保局和第三方检测公司招人多",
+          suit: "不关心环保政策、不想跑野外采样"
+        },
+        {
+          title: "研发助理",
+          desc: "在化工/制药企业做配方优化和工艺改进，积累经验后可升研发工程师",
+          suit: "实验重复做一件事就烦、想走技术路线"
+        },
+        {
+          title: "中学化学教师",
+          desc: "考教资后进中学，稳定有寒暑假，但竞争越来越激烈",
+          suit: "讲东西讲不清、汇报说不到重点、不想教别人东西、不甘心安稳拿死工资"
+        }
+      ],
+      suitFor: "和材料化学类似但更偏纯化学分析。依托ESI全球前1%化学学科+CJLU计量检测特色，喜欢化学实验的适合",
+      softSkills: "化学检验员资格证加分，分析仪器操作经验重要，英语过四级有帮助看文献",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托ESI前化学学科考研方向：分析化学/有机化学/应用化学。考浙大/浙工大有地理优势",
+          tip: "应用化学考研比材料方向选择更灵活，可跨考环境/药学"
+        },
+        employment: {
+          fit: "一般适配",
+          how: "分析检测岗位需求稳定但薪资天花板低，CJLU计量特色在检测行业有口碑优势",
+          tip: "第三方检测公司（SGS/华测）是就业大头，质量体系内晋升慢但稳"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "化学创业门槛高(资质+设备+资金)，个人很难启动",
+          tip: "可在检测服务细分领域做轻量咨询，但不如直接就业积累经验"
+        }
+      },
+      transfer: {
+        should: "想转建议往测控/光电/计算机转",
+        reason: "应用化学就业天花板不高，分析检测岗薪资偏低。CJLU王牌专业(测控/光电/质量管理)出路更明确",
+        barrier: "化学→理工科转专业需要补数学和物理基础，大一成绩要够好"
+      }
+    }
+  },
+  {
+    name: "环境工程",
+    college: "能源环境与安全工程学院",
+    brief: "环保方向，政策驱动型行业",
+    ace: false,
+    learn: {
+      coreCourses:["环境工程原理", "水污染控制工程", "大气污染控制工程", "固体废物处理", "环境监测", "环境影响评价", "环境微生物学", "环境规划与管理"],
+      suitFor: "对环境保护和污染治理感兴趣、有社会责任感的同学。"
+    },
+    employment: {
+      industries:["环保", "环境监测", "水处理", "固废处理", "碳排放"],
+      civil: "可报生态环境局、环境监测站等，适配度中等"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，环境与生态学ESI全球前1%",
+      feature: "环境监测+计量检测，碳计量方向",
+      degrees: "硕士点：依托环境相关学科"
+    },
+    grad: {
+      directions:["环境科学与工程", "环境工程", "环境科学", "市政工程", "生态学"],
+      difficulty: "考研竞争中等，环境方向不算热门",
+      cross: "可跨考安全、化学、材料等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "双碳政策红利+碳计量特色是独有优势，转出可惜",
+      barrier: "转入安全工程需竞争"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，碳计量有前景但就业薪资偏弱"
+    },
+    newData: {
+      careers: [
+        {
+          title: "环境监测工程师",
+          desc: "水质/土壤/大气监测，体制内/第三方检测机构",
+          suit: "容易漏细节、不想跑户外采样"
+        },
+        {
+          title: "环保工程师",
+          desc: "污染治理/工艺设计，稳定但偏工程",
+          suit: "对环保没热情、只想算和画、不想碰实物"
+        },
+        {
+          title: "碳排放管理员",
+          desc: "企业碳核算/碳交易，双碳政策红利新方向",
+          suit: "对双碳环境管理没兴趣"
+        },
+        {
+          title: "EHS工程师",
+          desc: "环境健康安全管理，稳定偏管理",
+          suit: "管理能力弱、不懂法规"
+        }
+      ],
+      suitFor: "环保+检测+治理，双碳政策风口。关心环境问题+愿意做检测治理工作的适合，CJLU碳计量是独特优势",
+      softSkills: "环境监测仪器操作加分，碳排放管理师证书有用，CJLU计量基础是加分项",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：环境工程/环境科学。依托ESI前环境与生态学科",
+          tip: "双碳方向读研后岗位质量更好"
+        },
+        employment: {
+          fit: "适配",
+          how: "环保企业/监测机构/政府环保部门都有需求",
+          tip: "碳计量是CJLU特色在双碳领域有独特优势"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "碳咨询服务/环保检测有细分机会",
+          tip: "双碳政策红利期创业机会较多"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "双碳政策红利+碳计量特色是独有优势，转出可惜",
+        barrier: "转入安全工程需竞争"
+      }
+    }
+  },
+  {
+    name: "安全工程",
+    college: "能源环境与安全工程学院",
+    brief: "安全生产+检验检疫特色，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["安全学原理", "安全系统工程", "安全人机工程", "安全管理学", "安全检测与监控", "工业防爆技术", "风险评估", "应急救援技术"],
+      suitFor: "对安全管理、风险评估感兴趣、细心负责的同学。CJLU安全检测特色鲜明。"
+    },
+    employment: {
+      industries:["安全生产", "应急管理", "特种设备", "职业健康", "检测认证"],
+      civil: "可报应急管理局、市场监管局、海关等，适配度较高"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流专业，安全科学与工程浙江省B类一流学科",
+      feature: "安全+计量检测，对接市场监管和应急管理",
+      degrees: "硕士点：安全科学与工程相关方向"
+    },
+    grad: {
+      directions:["安全科学与工程", "安全工程", "应急管理", "环境科学与工程", "管理科学与工程"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考环境、管理、控制等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "国家一流+省内唯一硕士点+工程认证，就业稳定有保障",
+      barrier: "转入需补工科基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "国家级一流，体制内就业适配度高，但薪资一般"
+    },
+    newData: {
+      careers: [
+        {
+          title: "安全工程师",
+          desc: "企业安全管理/隐患排查，稳定但责任大",
+          suit: "容易漏细节、安全规章看了就忘"
+        },
+        {
+          title: "特种设备检验员",
+          desc: "电梯/压力容器检验，体制内铁饭碗",
+          suit: "不甘心安稳拿死工资、不愿跑现场"
+        },
+        {
+          title: "安全评价师",
+          desc: "安全风险评估/应急预案，技术路线",
+          suit: "条件一多就理不清、推理链一长就跟丢、让评估风险就头大"
+        },
+        {
+          title: "应急管理专员",
+          desc: "政府应急管理/灾害防控，体制内通道",
+          suit: "对应急管理没热情"
+        }
+      ],
+      suitFor: "安全生产+监管方向，国家级一流专业(全国认定top级别)。细心+关注安全的适合，对口应急管理局/安检等体制内岗位",
+      softSkills: "注册安全工程师证书是行业硬通货，安全评价师证书加分，CJLU计量特色是亮点",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "浙江省唯一安全科学与工程一级学科硕士点，考研方向：安全工程/应急管理",
+          tip: "省内唯一硕士点深造承接友好"
+        },
+        employment: {
+          fit: "很适配",
+          how: "政府安监/特检院/企业安全管理部门都有需求",
+          tip: "体制内岗位是CJLU安全特色优势别浪费"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "安全咨询/安全培训有细分机会",
+          tip: "需要先积累资质和人脉"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "国家一流+省内唯一硕士点+工程认证，就业稳定有保障",
+        barrier: "转入需补工科基础"
+      }
+    }
+  },
+  {
+    name: "生物工程",
+    college: "生命科学学院",
+    brief: "生物+工程交叉，国家级一流专业，生物学C评估",
+    ace: true,
+    learn: {
+      coreCourses:["生物化学", "微生物学", "分子生物学", "细胞生物学", "基因工程", "发酵工程", "生物分离工程", "生物反应工程"],
+      suitFor: "对生物技术和工程应用感兴趣、实验动手能力强的同学。"
+    },
+    employment: {
+      industries:["生物制药", "食品加工", "检测机构", "医疗器械"],
+      civil: "可报海关、质检等技术岗位"
+    },
+    discipline: {
+      level: "中等",
+      strength: "国家级一流专业，生物学学科评估C",
+      feature: "生物+计量检测，微生物检测方向",
+      degrees: "硕士点：生物学相关方向"
+    },
+    grad: {
+      directions:["生物学", "生物工程", "生物医学工程", "食品科学与工程", "药学"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考食品、药学、环境等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "生物是国家战略方向但整体薪资一般，想高薪可转CS/金融",
+      barrier: "转入需有生物基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "国家级一流但就业薪资一般，生物方向考研可提升"
+    },
+    newData: {
+      careers: [
+        {
+          title: "生物研发工程师",
+          desc: "生物制品研发/基因工程，硕士起步技术含量高",
+          suit: "对生技没热情、排斥泡实验室"
+        },
+        {
+          title: "生物检测工程师",
+          desc: "生物制品质检/微生物检测，体制内/检测机构",
+          suit: "容易漏细节、不知道检测怎么做、报告怎么出"
+        },
+        {
+          title: "质量控制专员",
+          desc: "生物企业质量管理，CJLU计量特色加持",
+          suit: "做事差不多就行、不爱抠细节、对标准规范没感觉、让按规范来就烦"
+        },
+        {
+          title: "技术支持工程师",
+          desc: "生物仪器/试剂技术支持，偏销售",
+          suit: "只会写代码/画图、说不清自己做了什么"
+        }
+      ],
+      suitFor: "生物技术+实验为主，国家级一流专业。喜欢做生物实验+对生技有真实兴趣的适合，本科就业一般建议读研",
+      softSkills: "分子生物学实验技能加分，生物工程师证书有用，英语好读文献",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托省一流A类生物学学科，考研方向：生物工程/生物技术与工程",
+          tip: "读研后能进研发岗，本科偏检测/质量"
+        },
+        employment: {
+          fit: "适配",
+          how: "生物医药企业/检测机构/政府监管部门都有需求",
+          tip: "CJLU计量特色在检测/质量方向有优势"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "生物创业门槛高需要设备和资质",
+          tip: "生物技术服务/检测有细分机会"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "生物是国家战略方向但整体薪资一般，想高薪可转CS/金融",
+        barrier: "转入需有生物基础"
+      }
+    }
+  },
+  {
+    name: "食品质量与安全",
+    college: "生命科学学院",
+    brief: "食品安全检测特色，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["食品化学", "食品微生物学", "食品分析", "食品安全学", "食品标准与法规", "食品毒理学", "食品工艺学", "食品检测技术"],
+      suitFor: "对食品安全和检测感兴趣、细心负责的同学。CJLU食品检测特色鲜明。"
+    },
+    employment: {
+      industries:["食品检测", "质量管控", "认证机构", "餐饮连锁", "海关"],
+      civil: "可报市场监管局、海关、食品检验院等，适配度较高"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流专业，CJLU计量特色+食品检测，体制内适配度高",
+      feature: "食品质量管控+计量检测，对口市场监管体系",
+      degrees: "硕士点：食品科学与工程相关方向"
+    },
+    grad: {
+      directions:["食品科学与工程", "食品工程", "生物学", "公共卫生", "营养与食品卫生学"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考生物、药学、公共卫生等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "国家一流+市场监管局对口+体制内通道，转出可惜",
+      barrier: "转入需有化学/生物基础"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU特色强势专业，体制内就业好，薪资一般"
+    },
+    newData: {
+      careers: [
+        {
+          title: "食品检测工程师",
+          desc: "食品成分/安全检测，体制内/第三方检测机构",
+          suit: "容易漏细节、排斥泡实验室做化生实验"
+        },
+        {
+          title: "质量管理专员",
+          desc: "食品企业质量体系维护，CJLU计量特色加持",
+          suit: "做事差不多就行、不爱抠细节、对标准规范没感觉、让按规范来就烦"
+        },
+        {
+          title: "市场监管专员",
+          desc: "市场监管局对口，体制内稳定通道",
+          suit: "不甘心安稳拿死工资、对食品监管没热情"
+        },
+        {
+          title: "食品研发工程师",
+          desc: "食品配方/工艺研发，硕士起步",
+          suit: "对食品研究没兴趣"
+        }
+      ],
+      suitFor: "食品安全+检测，CJLU特色方向。关心食品安全+愿意做检测工作的适合，市场监管局岗位对口",
+      softSkills: "食品检验工证书是加分项，HACCP内审员证书有用，CJLU计量基础是亮点",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：食品科学/食品工程。依托生物学省一流A类学科",
+          tip: "读研后能进研发/更高质量岗位"
+        },
+        employment: {
+          fit: "很适配",
+          how: "市场监管局/海关/第三方检测/食品企业都有需求",
+          tip: "体制内通道是CJLU食品专业独特优势"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "食品检测服务/食品安全咨询有细分机会",
+          tip: "小食品创业门槛低但竞争激烈"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "国家一流+市场监管局对口+体制内通道，转出可惜",
+        barrier: "转入需有化学/生物基础"
+      }
+    }
+  },
+  {
+    name: "食品科学与工程",
+    college: "生命科学学院",
+    brief: "食品工艺+研发，偏工科",
+    ace: false,
+    learn: {
+      coreCourses:["食品化学", "食品微生物学", "食品工程原理", "食品工艺学", "食品机械与设备", "食品分析", "食品营养学", "食品包装学"],
+      suitFor: "对食品加工和产品研发感兴趣的同学。"
+    },
+    employment: {
+      industries:["食品加工", "饮料", "检测机构", "餐饮"],
+      civil: "可报市场监管局、食品检验院等"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，依托食品学科平台",
+      feature: "食品工艺+检测，偏生产方向",
+      degrees: "硕士点：依托食品科学与工程"
+    },
+    grad: {
+      directions:["食品科学与工程", "食品工程", "生物学", "生物工程", "营养学"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考生物、药学等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "食品就业稳定但薪资一般，转食品质量与安全(国家一流)性价比更高",
+      barrier: "转入食品质量与安全需竞争"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "不如食品质量与安全，建议转过去"
+    },
+    newData: {
+      careers: [
+        {
+          title: "食品研发工程师",
+          desc: "食品配方/工艺研发，技术路线成长慢但稳定",
+          suit: "对食品研发没热情"
+        },
+        {
+          title: "食品检测工程师",
+          desc: "食品成分/安全检测，体制内/第三方机构",
+          suit: "容易漏细节、排斥泡实验室"
+        },
+        {
+          title: "质量管理工程师",
+          desc: "食品质量体系维护，CJLU计量特色加持",
+          suit: "做事差不多就行、不爱抠细节、对标准规范没感觉、让按规范来就烦"
+        },
+        {
+          title: "生产管理专员",
+          desc: "食品生产车间管理，稳定偏工厂",
+          suit: "只想算和画、不想碰实物、不想下车间、受不了机器噪音"
+        }
+      ],
+      suitFor: "食品研发+加工+检测，实验多。对食品研发有兴趣+动手能力强的适合",
+      softSkills: "食品检验工证书加分，发酵工程/食品工艺实验技能有用",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：食品科学/食品工程。依托生物学省一流A类学科",
+          tip: "读研后能进研发岗位"
+        },
+        employment: {
+          fit: "适配",
+          how: "食品企业/检测机构/政府监管部门都有需求",
+          tip: "CJLU计量特色在检测/质量方向有差异化优势"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "小食品/健康产品创业门槛相对低",
+          tip: "食品创业需要配方和渠道"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "食品就业稳定但薪资一般，转食品质量与安全(国家一流)性价比更高",
+        barrier: "转入食品质量与安全需竞争"
+      }
+    }
+  },
+  {
+    name: "药学",
+    college: "生命科学学院",
+    brief: "药物研发+检验检疫特色，CJLU检验学科支撑，有硕士点",
+    ace: false,
+    learn: {
+      coreCourses:["药物化学", "药理学", "药剂学", "药物分析", "生药学", "药事管理学", "天然药物化学", "临床药物治疗学"],
+      suitFor: "对药物研发和质量控制感兴趣、化学和生物基础好的同学。"
+    },
+    employment: {
+      industries:["制药", "CRO", "药品检测", "医院药房", "注册申报"],
+      civil: "可报药监局、药品检验院等，适配度较高"
+    },
+    discipline: {
+      level: "中等",
+      strength: "有药学硕士点，药品计量检测是CJLU特色",
+      feature: "药品质量检测+计量，对口药监系统",
+      degrees: "硕士点：药学"
+    },
+    grad: {
+      directions:["药学", "药物化学", "药剂学", "药物分析学", "生物医学工程"],
+      difficulty: "考研竞争中等偏上，药学方向热门",
+      cross: "可跨考生物、化学、公共卫生等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "药学稳定但读研才有好出路，想快速就业可考虑食品/检测方向",
+      barrier: "转入需有化学/生物基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "药品检测是CJLU特色方向，药监体制内适配度高"
+    },
+    newData: {
+      careers: [
+        {
+          title: "药物研发工程师",
+          desc: "药物合成/制剂研发，硕士起步技术含量高",
+          suit: "对药物研发没热情、排斥泡实验室做化生实验"
+        },
+        {
+          title: "药品质量控制专员",
+          desc: "药品检验/质量评价，体制内/药企质量部",
+          suit: "容易漏细节、不知道检测怎么做、报告怎么出"
+        },
+        {
+          title: "药品注册专员",
+          desc: "药品法规注册/申报，专业壁垒高",
+          suit: "容易漏细节、法规条文看了就忘"
+        },
+        {
+          title: "医药代表",
+          desc: "药品销售，收入靠提成上限高但不稳定",
+          suit: "汇报工作说不到重点、受不了销售指标压力"
+        }
+      ],
+      suitFor: "药品+计量检测方向，CJLU特色。对医药行业有兴趣的适合，可走实验研发或医药销售两条路",
+      softSkills: "执业药师证书是行业硬通货，药品注册知识加分，药学英语重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "考研方向：药学/药物化学/药剂学。本校有药学专业硕士学位点",
+          tip: "药学读研后才能进研发岗"
+        },
+        employment: {
+          fit: "适配",
+          how: "制药企业/医院药房/药品监管部门都有需求",
+          tip: "药品质量/注册方向稳定，销售方向收入高但累"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "医药创业门槛高需要资质和资金",
+          tip: "药品销售/代理有细分机会"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "药学稳定但读研才有好出路，想快速就业可考虑食品/检测方向",
+        barrier: "转入需有化学/生物基础"
+      }
+    }
+  },
+  {
+    name: "动植物检疫",
+    college: "生命科学学院",
+    brief: "检验检疫特色方向，对口海关/检疫",
+    ace: false,
+    learn: {
+      coreCourses:["动物学", "植物学", "微生物学", "寄生虫学", "检疫学", "动植物检验检疫", "免疫学", "病害检测技术"],
+      suitFor: "对检验检疫工作感兴趣、有志于海关/检疫系统的同学。"
+    },
+    employment: {
+      industries:["海关检疫", "农产品检测", "市场监管", "检验认证"],
+      civil: "可报海关、市场监管局等，适配度较高，检疫岗位对口"
+    },
+    discipline: {
+      level: "中等",
+      strength: "CJLU检验检疫特色方向，对口海关系统",
+      feature: "动植物检疫+计量，海关直通方向",
+      degrees: "硕士点：依托生物学/食品学科"
+    },
+    grad: {
+      directions:["生物学", "预防兽医学", "植物保护", "微生物学", "公共卫生"],
+      difficulty: "考研竞争中等，方向较专",
+      cross: "跨考范围较窄，主要在生物/农业方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "检疫就业稳定但岗位有限，体制内通道是优势",
+      barrier: "转入需有生物基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU特色方向，海关检疫对口，薪资一般但稳定"
+    },
+    newData: {
+      careers: [
+        {
+          title: "动植物检疫员",
+          desc: "进出境动植物及其产品检疫，体制内海关对口",
+          suit: "容易漏细节、对动植物检疫没热情"
+        },
+        {
+          title: "质检工程师",
+          desc: "农产品/食品质量检测，体制内/第三方机构",
+          suit: "容易漏细节、不知道检测怎么做、报告怎么出"
+        },
+        {
+          title: "技术支持专员",
+          desc: "农业/检验检疫技术支持，偏技术",
+          suit: "只会写代码/画图、说不清自己做了什么"
+        },
+        {
+          title: "农业技术员",
+          desc: "农业技术推广/种植指导，稳定偏基层",
+          suit: "对农业没热情、不想去农村跑现场"
+        }
+      ],
+      suitFor: "海关/农产品安全对口方向，CJLU检验检疫特色。对动植物检疫/农产品安全有兴趣的适合，海关岗位有优势",
+      softSkills: "动植物检疫证书加分，植物学/动物学知识扎实，英语好有外贸检疫优势",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托生物学省一流A类学科，考研方向：植物保护/动物医学/检疫",
+          tip: "海关检疫方向读研有优势"
+        },
+        employment: {
+          fit: "适配",
+          how: "海关/农业部门/检验检疫机构/农产品企业都有需求",
+          tip: "体制内通道是特色优势"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "农产品/检验检疫创业门槛高",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "检疫就业稳定但岗位有限，体制内通道是优势",
+        barrier: "转入需有生物基础"
+      }
+    }
+  },
+  {
+    name: "卫生检验与检疫",
+    college: "生命科学学院",
+    brief: "公共卫生+检验检疫，政策驱动型",
+    ace: false,
+    learn: {
+      coreCourses:["卫生微生物学", "卫生理化检验", "免疫学检验", "生物材料检验", "水质检验", "食品卫生检验", "空气检验", "临床检验"],
+      suitFor: "对公共卫生和检验技术感兴趣、有社会责任感的同学。"
+    },
+    employment: {
+      industries:["疾控中心", "医院检验", "海关检疫", "第三方检测"],
+      civil: "可报疾控中心、海关、卫健委等，适配度较高"
+    },
+    discipline: {
+      level: "中等",
+      strength: "检验检疫特色，卫生检测方向",
+      feature: "卫生检测+计量，对口疾控和海关系统",
+      degrees: "硕士点：依托公共卫生/食品学科"
+    },
+    grad: {
+      directions:["公共卫生", "流行病学", "卫生检验学", "微生物学", "药学"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考生物、药学、食品等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "卫生检验就业稳定但薪资一般，体制内通道是优势",
+      barrier: "转入需有化学/生物基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "CJLU检验检疫特色，疾控/海关就业对口"
+    },
+    newData: {
+      careers: [
+        {
+          title: "卫生检验技师",
+          desc: "水质/空气/食品卫生检测，体制内/疾控对口",
+          suit: "容易漏细节、排斥泡实验室"
+        },
+        {
+          title: "疾病预防控制员",
+          desc: "疾控中心卫生监测/疫情处置，体制内稳定",
+          suit: "对公卫没热情"
+        },
+        {
+          title: "第三方检测工程师",
+          desc: "环境/食品/化妆品检测，市场化机构",
+          suit: "容易漏细节、愿意做检测"
+        },
+        {
+          title: "质量管理专员",
+          desc: "检验机构质量管理/CNAS认可，CJLU计量特色加持",
+          suit: "做事差不多就行、不爱抠细节、对标准规范没感觉、让按规范来就烦"
+        }
+      ],
+      suitFor: "公共卫生检测方向，疾控中心/海关对口。关心公共卫生+愿意做检测工作的适合",
+      softSkills: "卫生检验技师证书加分，CMA/CNAS知识有用，CJLU计量基础是亮点",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托省一流A类生物学学科，考研方向：公共卫生/卫生检验/环境科学",
+          tip: "疾控方向读研有优势"
+        },
+        employment: {
+          fit: "适配",
+          how: "疾控中心/医院检验科/第三方检测机构/卫生监督所都有需求",
+          tip: "体制内通道稳定"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "第三方检测创业需要资质认可",
+          tip: "先积累CNAS/CMA资质经验再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "卫生检验就业稳定但薪资一般，体制内通道是优势",
+        barrier: "转入需有化学/生物基础"
+      }
+    }
+  },
+  {
+    name: "数学与应用数学",
+    college: "理学院",
+    brief: "数学基础+计量应用，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["数学分析", "高等代数", "解析几何", "概率论与数理统计", "常微分方程", "实变函数", "数值分析", "数学建模"],
+      suitFor: "数学基础好、逻辑思维强、喜欢抽象思考的同学。想走量化/数据分析/考研数学方向的适合。"
+    },
+    employment: {
+      industries:["数据分析", "金融科技", "算法开发", "教育", "互联网"],
+      civil: "可报统计局、教育局等，适配度中等"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流专业（全国认定top级别），数学浙江省B类一流学科",
+      feature: "数学+计量大数据双方向，数学建模竞赛资源多（想打竞赛的来），考研深造比例高",
+      degrees: "硕士点：数学（一级学科）"
+    },
+    grad: {
+      directions:["数学", "应用数学", "计算数学", "概率论与数理统计", "运筹学与控制论"],
+      difficulty: "考研竞争中等，数学方向相对冷门但基础扎实",
+      cross: "可跨考计算机、金融、统计、控制等方向，跨考范围极广"
+    },
+    transfer: {
+      should: "不建议转出",
+      reason: "国家级一流+考研转CS/AI/金融有碾压优势，转出是浪费",
+      barrier: "转入需有化学/生物基础"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU强势专业，竞赛资源多，考研/转CS优势大"
+    },
+    newData: {
+      careers: [
+        {
+          title: "数据分析师",
+          desc: "数据分析/挖掘，商业智能方向，入门容易但天花板有限",
+          suit: "看报表只会看总数看不出趋势、不关心数据背后的业务含义"
+        },
+        {
+          title: "算法工程师",
+          desc: "机器学习/深度学习算法，硕士起步薪资高",
+          suit: "看到长公式推导就头大、公式推导超过半页就放弃"
+        },
+        {
+          title: "数学教师",
+          desc: "中小学/培训机构数学教学，稳定有寒暑假",
+          suit: "不想面对学生、讲东西没耐心、重复做一件事就烦"
+        },
+        {
+          title: "金融量化分析师",
+          desc: "量化交易/金融模型，数学+金融交叉方向",
+          suit: "看到长公式推导就头大、对金融没兴趣"
+        }
+      ],
+      suitFor: "大学数学和高中完全不一样——不是做题而是证定理，翻开数学分析课本看看就知道了。能接受'一个定理证明写满一页'的节奏、不排斥抽象推理，对量化/数据分析/考研转CS方向感兴趣的适合。国家级一流专业（全国认定top级别，简历加分）+竞赛资源多（想打数学建模竞赛的来）",
+      softSkills: "数学建模竞赛MCM/ICM数学建模竞赛（三人组队用数学解决实际问题，国奖含金量高，简历硬通货）、Python/R编程统计分析分析（数据岗必备，想走数据分析必学）、教师资格证（想当中小学老师才需要，不当老师没用）",
+      paths: {
+        gradSchool: {
+          fit: "很适配",
+          how: "数学深造比例在校内领先，考研/保研到985比例高，方向：CS/AI/统计/金融数学",
+          tip: "数学转CS/AI有碾压优势，考研成功率极高"
+        },
+        employment: {
+          fit: "适配",
+          how: "数据分析/金融/教育都有需求，但纯数学本科就业一般",
+          tip: "建议转CS/统计方向或读研"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "数学+技术有量化交易/FinTech创业机会",
+          tip: "需要补充编程和行业知识"
+        }
+      },
+      transfer: {
+        should: "不建议转出",
+        reason: "国家级一流+考研转CS/AI/金融有碾压优势，转出是浪费",
+        barrier: "转入需有化学/生物基础"
+      }
+    }
+  },
+  {
+    name: "信息与计算科学",
+    college: "理学院",
+    brief: "数学+计算机交叉，偏计算方向",
+    ace: false,
+    learn: {
+      coreCourses:["数学分析", "高等代数", "数值分析", "数据结构", "信息论基础", "运筹学", "算法设计与分析", "计算机图形学"],
+      suitFor: "数学和编程都好的同学，想做算法/量化/数据科学的适合。"
+    },
+    employment: {
+      industries:["数据分析", "算法开发", "金融建模", "软件开发", "教育"],
+      civil: "可报统计局、信息中心等"
+    },
+    discipline: {
+      level: "中等",
+      strength: "非国家一流专业，依托数学B类学科",
+      feature: "计算数学+编程，偏应用型",
+      degrees: "硕士点：依托数学（一级学科）"
+    },
+    grad: {
+      directions:["计算数学", "计算机科学与技术", "应用数学", "运筹学与控制论", "统计学"],
+      difficulty: "考研竞争中等，可考数学/计算机两方向",
+      cross: "可跨考计算机、统计、金融等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "比纯数学更好就业，但数学升学优势稍弱",
+      barrier: "CS方向转入需竞争"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "计算数学方向就业尚可，但不如数学专业有优势"
+    },
+    newData: {
+      careers: [
+        {
+          title: "算法工程师",
+          desc: "计算数学/优化算法/机器学习，硕士起步薪资高",
+          suit: "数学或编程有一个跟不上"
+        },
+        {
+          title: "软件开发工程师",
+          desc: "后端开发/嵌入式开发，互联网/工控都有需求",
+          suit: "坐下来写代码就烦"
+        },
+        {
+          title: "数据分析师",
+          desc: "数据分析/建模，商业智能方向",
+          suit: "看到抽象证明就懵、高中数学就费劲、看报表只会看总数、看不出趋势和问题"
+        },
+        {
+          title: "金融科技工程师",
+          desc: "FinTech/量化交易，数学+编程+金融交叉",
+          suit: "看到长公式推导就头大、对金融没兴趣"
+        }
+      ],
+      suitFor: "数学+编程双修，计算数学方向。数学还行+会编程的适合，是CS和金融考研的绝佳跳板",
+      softSkills: "编程能力是核心技能，数学建模竞赛加分，LeetCode刷题有用",
+      paths: {
+        gradSchool: {
+          fit: "很适配",
+          how: "可考研CS/AI/统计/金融，数学基础好跨考有优势",
+          tip: "信息与计算科学转CS比纯数学更容易"
+        },
+        employment: {
+          fit: "适配",
+          how: "互联网/金融/科技公司都有需求，比纯数学好就业",
+          tip: "编程能力决定就业质量"
+        },
+        startup: {
+          fit: "适配",
+          how: "计算数学+编程有技术创业优势",
+          tip: "比纯数学更适合创业"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "比纯数学更好就业，但数学升学优势稍弱",
+        barrier: "CS方向转入需竞争"
+      }
+    }
+  },
+  {
+    name: "应用物理学",
+    college: "理学院",
+    brief: "物理应用+计量检测，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["力学", "电磁学", "光学", "热学", "量子力学", "固体物理", "物理实验", "应用光学"],
+      suitFor: "物理基础好、对实验和检测技术感兴趣的同学。"
+    },
+    employment: {
+      industries:["光电技术", "半导体", "计量检测", "科研", "教育"],
+      civil: "可报计量院、质检等技术岗位"
+    },
+    discipline: {
+      level: "强势",
+      strength: "省级一流专业，深造比例高，双一流及中科院超50%，学科实力强",
+      feature: "量子计量+多物理场测量，CJLU物理方向科研产出高",
+      degrees: "硕士点：依托电子科学与技术/仪器科学与技术"
+    },
+    grad: {
+      directions:["物理学", "光学工程", "材料科学与工程", "电子科学与技术", "仪器科学与技术"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考光学工程、材料、仪器等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "物理就业一般，但转声学/光电方向有独特优势",
+      barrier: "转入声学专业需竞争"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "非常高，考研跳板价值大，科研产出强"
+    },
+    newData: {
+      careers: [
+        {
+          title: "光学/光电工程师",
+          desc: "光学设计/光电检测，CJLU特色方向",
+          suit: "物理课听着就懵、对光电没兴趣"
+        },
+        {
+          title: "测试计量工程师",
+          desc: "精密测量/计量校准，CJLU计量特色对口",
+          suit: "容易漏细节、做事毛糙、不知道计量是干嘛的"
+        },
+        {
+          title: "科研助理",
+          desc: "高校/研究所基础研究，硕士起步",
+          suit: "对物理提不起劲"
+        },
+        {
+          title: "物理教师",
+          desc: "中小学/培训机构物理教学，稳定有假期",
+          suit: "不想面对学生、讲东西没耐心"
+        }
+      ],
+      suitFor: "物理为主+实验，声学是CJLU特色方向。省一流专业，物理基础好+愿意做实验研究的适合",
+      softSkills: "物理实验技能加分，Python/MATLAB仿真有用，教师资格证（想当老师才需要）",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研物理学/光学工程/仪器科学，依托省一流学科",
+          tip: "声学方向读研有独特优势"
+        },
+        employment: {
+          fit: "适配",
+          how: "光电企业/计量机构/教育机构都有需求",
+          tip: "CJLU计量特色在检测/测量方向有优势"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "物理创业门槛高",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "物理就业一般，但转声学/光电方向有独特优势",
+        barrier: "转入声学专业需竞争"
+      }
+    }
+  },
+  {
+    name: "声学",
+    college: "理学院",
+    brief: "全国少见专业，CJLU特色方向，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["声学基础", "理论声学", "电声学", "噪声控制", "超声学", "声学测量", "信号处理", "声学材料"],
+      suitFor: "对声学感兴趣、物理数学基础好的同学。全国开设声学的本科院校极少，竞争小。"
+    },
+    employment: {
+      industries:["电声", "超声", "噪声控制", "音频算法", "语音交互"],
+      civil: "可报计量院声学计量岗等，岗位较专"
+    },
+    discipline: {
+      level: "强势",
+      strength: "全国仅3所高校开设，A+级专业全国第二，浙江省唯一",
+      feature: "声学计量是CJLU独有特色，人才供不应求",
+      degrees: "硕士点：依托电子科学与技术/仪器科学与技术"
+    },
+    grad: {
+      directions:["声学", "仪器科学与技术", "电子信息", "信号与信息处理", "物理学"],
+      difficulty: "考研竞争小，声学方向冷门但有特色",
+      cross: "跨考范围较窄，主要在仪器/信号处理方向"
+    },
+    transfer: {
+      should: "绝对不要转出",
+      reason: "全国仅4所高校开设+省唯一+CJLU软科A+，转出是巨大浪费",
+      barrier: "转入需有物理基础"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "全国稀缺专业，就业供不应求，声学计量CJLU独有"
+    },
+    newData: {
+      careers: [
+        {
+          title: "声学工程师",
+          desc: "电声/超声/噪声控制，技术壁垒高人才稀缺",
+          suit: "对声学没热情"
+        },
+        {
+          title: "音频工程师",
+          desc: "音响/耳机/音频算法，大厂需求",
+          suit: "对音频技术提不起劲、对声音质量分辨不出来"
+        },
+        {
+          title: "超声检测工程师",
+          desc: "超声无损检测/医学超声，CJLU计量特色方向",
+          suit: "只想做理论不想碰应用"
+        },
+        {
+          title: "声学检测工程师",
+          desc: "噪声测量/声学计量，体制内/检测机构",
+          suit: "容易漏细节、不知道计量是干嘛的"
+        }
+      ],
+      suitFor: "全国仅4所高校开设，极度稀缺。省唯一+CJLU软科A+，对声学物理有真实兴趣的适合",
+      softSkills: "声学仿真软件(Comsol)加分，超声检测证书有用，英语好读英文文献",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "声学读研是必须的，考研方向：声学/物理/光学。本科生考研率",
+          tip: "声学硕士稀缺就业质量极高"
+        },
+        employment: {
+          fit: "很适配",
+          how: "声学人才稀缺，企业抢着要，毕业生供不应求",
+          tip: "本科就业也能找到好工作但读研质量更高"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "声学仪器/音频设备有细分创业机会",
+          tip: "先在大厂积累经验再考虑"
+        }
+      },
+      transfer: {
+        should: "绝对不要转出",
+        reason: "全国仅4所高校开设+省唯一+CJLU软科A+，转出是巨大浪费",
+        barrier: "转入需有物理基础"
+      }
+    }
+  },
+  {
+    name: "法学",
+    college: "法学院",
+    brief: "法学+质量监管交叉，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["法理学", "宪法学", "民法学", "刑法学", "行政法与行政诉讼法学", "经济法学", "民事诉讼法学", "刑事诉讼法学"],
+      suitFor: "逻辑思维强、口才好、有正义感、记忆力和分析力兼具的同学。"
+    },
+    employment: {
+      industries:["律所", "企业法务", "公务员", "金融合规", "知识产权代理"],
+      civil: "可报法院、检察院、司法局等，竞争激烈但路径明确"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，有法学一级硕士点，但法学整体竞争激烈",
+      feature: "法学+计量标准，对接市场监管法律方向",
+      degrees: "硕士点：法学（一级学科）+法律（专硕）"
+    },
+    grad: {
+      directions:["法学", "经济法学", "民商法学", "知识产权法", "宪法与行政法学"],
+      difficulty: "法考+考研双重压力，竞争激烈",
+      cross: "跨考公共管理、知识产权等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "法学就业竞争激烈，但CJLU法学+计量特色在知识产权方向有优势",
+      barrier: "转入需通过法考才有出路"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "法学竞争激烈，CJLU非法学强校，转知识产权更好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "律师",
+          desc: "诉讼/非诉业务，稳定但法考难通过",
+          suit: "条件一多就理不清、推理链一长就跟丢、遇到困难容易放弃"
+        },
+        {
+          title: "法务专员",
+          desc: "企业法律顾问/合同审核，稳定偏文职",
+          suit: "容易漏细节、不懂法律条文"
+        },
+        {
+          title: "公务员",
+          desc: "法院/检察院/司法局，体制内稳定通道",
+          suit: "不甘心安稳拿死工资、没过司法考试"
+        },
+        {
+          title: "法律编辑/研究员",
+          desc: "法律内容生产/政策研究，稳定偏文字",
+          suit: "写个汇报都要改好几遍"
+        }
+      ],
+      suitFor: "逻辑好+能背法条+通过法考才有出路。省一流专业，对法律事业有真实兴趣+能接受法考压力的适合",
+      softSkills: "司法考试是必须通过的门槛，法律写作能力重要，英语好有涉外优势",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研法学硕士/法律硕士(JD)，依托法学一级学科硕士点",
+          tip: "法学读研才能进好律所/法务"
+        },
+        employment: {
+          fit: "适配",
+          how: "律所/企业法务/政府法律部门都有需求",
+          tip: "法考通过率是关键门槛"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "法律创业需要资质和经验",
+          tip: "先积累经验再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "法学就业竞争激烈，但CJLU法学+计量特色在知识产权方向有优势",
+        barrier: "转入需通过法考才有出路"
+      }
+    }
+  },
+  {
+    name: "知识产权",
+    college: "法学院",
+    brief: "CJLU特色王牌，全国前10%，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["法理学", "民法学", "知识产权法总论", "著作权法", "专利法", "商标法", "知识产权管理", "知识产权贸易"],
+      suitFor: "对法律+科技交叉感兴趣、逻辑思维好的同学。想做专利代理/知识产权律师的首选。"
+    },
+    employment: {
+      industries:["知识产权代理", "专利审查", "企业IP管理", "律所", "科技公司的IP部门"],
+      civil: "可报知识产权局、专利局、市场监管局等，专属岗位多"
+    },
+    discipline: {
+      level: "王牌",
+      strength: "CJLU王牌专业，全国前10%，全国首个知识产权国家级一流本科专业",
+      feature: "知识产权+计量标准，专利审查和IP管理方向稀缺",
+      degrees: "硕士点：依托法学/管理科学与工程"
+    },
+    grad: {
+      directions:["法学", "知识产权法", "民商法学", "经济法学", "专利代理实务"],
+      difficulty: "考研竞争中等，知识产权方向相对小众",
+      cross: "可跨考法学其他方向或公共管理"
+    },
+    transfer: {
+      should: "绝对不要转出",
+      reason: "全国首批+省唯一国一流+软科第4+独有硕士点，转出是巨大浪费",
+      barrier: "转入需对法律有真实兴趣"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "CJLU王牌，全国稀缺专业，IP行业薪资前景好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "专利代理师",
+          desc: "专利撰写/申请/诉讼，前景好但需持证",
+          suit: "只会技术但写不了东西"
+        },
+        {
+          title: "知识产权律师",
+          desc: "知识产权诉讼/非诉，法律+技术复合",
+          suit: "法律和技术只懂一个"
+        },
+        {
+          title: "企业知识产权专员",
+          desc: "企业专利/商标/版权管理，稳定偏管理",
+          suit: "容易漏细节、不知道专利/商标怎么保护"
+        },
+        {
+          title: "标准化工程师",
+          desc: "标准制修订/标准化管理，CJLU标准化特色加持",
+          suit: "让按规范填表就头疼"
+        }
+      ],
+      suitFor: "全国首批+省唯一国家级一流专业，CJLU软科全国第4。懂技术+对法律有兴趣的适合，是法律+技术的交叉方向",
+      softSkills: "专利代理师证书是行业硬通货，法考加分，理工科背景是优势",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研知识产权法/法律硕士，依托知识产权硕士点和CJLU理工特色",
+          tip: "全国首批硕士点深造承接好"
+        },
+        employment: {
+          fit: "很适配",
+          how: "专利代理所/企业IP部门/法院/政府部门都有需求",
+          tip: "专利代理师+法考是黄金组合"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "专利代理所/知识产权咨询有细分机会",
+          tip: "先在机构积累经验和资质再考虑"
+        }
+      },
+      transfer: {
+        should: "绝对不要转出",
+        reason: "全国首批+省唯一国一流+软科第4+独有硕士点，转出是巨大浪费",
+        barrier: "转入需对法律有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "汉语言文学",
+    college: "人文与外语学院",
+    brief: "中文基础+公文写作，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["现代汉语", "古代汉语", "中国现当代文学", "中国古代文学", "外国文学", "文学理论", "写作", "语言学概论"],
+      suitFor: "喜欢阅读写作、文字功底好、有文化底蕴的同学。想考公/当老师的适合。"
+    },
+    employment: {
+      industries:["教育", "媒体", "出版", "公务员", "企业文案"],
+      civil: "可报党政机关、教育局等，考公选择面广但竞争大"
+    },
+    discipline: {
+      level: "一般",
+      strength: "省级一流专业，但文科在CJLU不是重点方向",
+      feature: "中文+标准化，对接标准编写方向",
+      degrees: "硕士点：依托中国语言文学"
+    },
+    grad: {
+      directions:["中国语言文学", "汉语言文字学", "中国古代文学", "中国现当代文学", "学科教学（语文）"],
+      difficulty: "考研竞争非常激烈，文学类国家线高",
+      cross: "跨考范围较窄，主要是教育/公共管理方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "汉语言文学就业稳定但薪资一般，考公是主要出口",
+      barrier: "转入需对文学有真实兴趣"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU文科一般，薪资低，但考公/教师有出路"
+    },
+    newData: {
+      careers: [
+        {
+          title: "语文教师",
+          desc: "中小学语文教学，稳定有寒暑假",
+          suit: "对文学提不起劲、不想面对学生、讲东西没耐心"
+        },
+        {
+          title: "文案编辑",
+          desc: "出版社/媒体内容编辑，稳定偏文字",
+          suit: "写个汇报都要改好几遍"
+        },
+        {
+          title: "公务员",
+          desc: "文秘/宣传/文化部门，体制内通道",
+          suit: "不甘心安稳拿死工资、写东西费劲"
+        },
+        {
+          title: "企业文化专员",
+          desc: "企业文化建设/品牌传播，稳定偏文职",
+          suit: "文字或让策划个活动就头大"
+        }
+      ],
+      suitFor: "大学语文不是高中作文——大量文学理论+批评写作。省一流专业，真喜欢读书写东西+不排斥理论的适合",
+      softSkills: "教师资格证（想当老师加分），普通话证书(有二甲最好)，写作发表作品有用",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研中国语言文学/新闻传播，学术成果丰富可申好学校",
+          tip: "汉语言文学考公优势大"
+        },
+        employment: {
+          fit: "适配",
+          how: "教育/出版/媒体/政府文化部门都有需求",
+          tip: "考公是汉语言文学的重要出口"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "自媒体/内容创业门槛低",
+          tip: "文字能力可以快速变现"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "汉语言文学就业稳定但薪资一般，考公是主要出口",
+        barrier: "转入需对文学有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "汉语国际教育",
+    college: "人文与外语学院",
+    brief: "对外汉语+跨文化交流，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["现代汉语", "古代汉语", "语言学概论", "对外汉语教学概论", "汉语作为第二语言教学", "中华文化", "跨文化交际", "英语听说"],
+      suitFor: "中文好、外语也好、对跨文化交流感兴趣的同学。"
+    },
+    employment: {
+      industries:["教育", "对外汉语", "文化交流", "出版", "公务员"],
+      civil: "可报教育局、外事办等，岗位少"
+    },
+    discipline: {
+      level: "一般",
+      strength: "省级一流专业，有汉语国际教育硕士点",
+      feature: "对外汉语+文化传播",
+      degrees: "硕士点：汉语国际教育"
+    },
+    grad: {
+      directions:["汉语国际教育", "语言学及应用语言学", "中国语言文学", "教育学", "跨文化交际"],
+      difficulty: "考研竞争中等",
+      cross: "跨考范围较窄"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "汉语国际教育就业稳定但需出国/外派，不适合所有人",
+      barrier: "转入需英语基础好"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU文科一般，就业面窄，建议转出"
+    },
+    newData: {
+      careers: [
+        {
+          title: "对外汉语教师",
+          desc: "汉语教学/文化传播，海外孔子学院机会",
+          suit: "不想教语言、不关心海外怎么做、不看英文资料"
+        },
+        {
+          title: "海外中文教育管理",
+          desc: "海外孔子学院/教育机构管理，稳定有外派",
+          suit: "不想和外国学生打交道"
+        },
+        {
+          title: "外贸业务员",
+          desc: "外贸/跨境电商运营，汉语+英语复合优势",
+          suit: "看英文文档要靠翻译软件、汇报工作说不到重点"
+        },
+        {
+          title: "中文编辑/翻译",
+          desc: "中英双语内容编辑/翻译，稳定偏文字",
+          suit: "中英文都不够用"
+        }
+      ],
+      suitFor: "教外国人中文，可能需要出国/外派。省一流专业+布拉格孔子学院，想教中文+有国际视野的适合",
+      softSkills: "汉语教师资格证（想当老师加分），HSK教学经验有用，英语好是必须",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研国际中文教育/语言学，依托国际中文教育硕士点",
+          tip: "海外孔子学院/教育机构是主要出口"
+        },
+        employment: {
+          fit: "适配",
+          how: "孔子学院/海外教育机构/语言培训机构/外贸都有需求",
+          tip: "英语好是差异化竞争优势"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "汉语在线教育/文化传播创业有细分机会",
+          tip: "海外市场是蓝海"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "汉语国际教育就业稳定但需出国/外派，不适合所有人",
+        barrier: "转入需英语基础好"
+      }
+    }
+  },
+  {
+    name: "英语",
+    college: "人文与外语学院",
+    brief: "英语语言+翻译，就业需另辟蹊径",
+    ace: false,
+    learn: {
+      coreCourses:["基础英语", "高级英语", "英语听力", "英语口语", "英语写作", "翻译理论与实践", "口译", "英美文学"],
+      suitFor: "英语基础好、对翻译或跨文化交流感兴趣的同学。语言天赋+刻苦训练缺一不可。"
+    },
+    employment: {
+      industries:["教育", "翻译", "外贸", "跨境电商", "外企"],
+      civil: "可报外事办、海关等，岗位少"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，英语在CJLU不是重点",
+      feature: "英语+标准化，对接国际标准方向",
+      degrees: "硕士点：依托外国语言文学"
+    },
+    grad: {
+      directions:["外国语言文学", "英语语言文学", "翻译学", "学科教学（英语）", "跨文化交际"],
+      difficulty: "考研竞争中等，英语方向不算最热",
+      cross: "跨考范围较窄，主要是教育/翻译方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "英语是工具型专业，需要结合其他技能才有竞争力",
+      barrier: "转入需英语基础好"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU文科一般，英语就业竞争大，建议转出"
+    },
+    newData: {
+      careers: [
+        {
+          title: "英语教师",
+          desc: "中小学/培训机构英语教学，稳定有寒暑假",
+          suit: "对英语提不起劲、不想面对学生、讲东西没耐心"
+        },
+        {
+          title: "翻译",
+          desc: "笔译/口译，专业壁垒高但竞争激烈",
+          suit: "看英文文档要靠翻译软件、英语撑不住日常工作"
+        },
+        {
+          title: "外贸业务员",
+          desc: "外贸/跨境电商运营，英语是核心工具",
+          suit: "看英文文档要靠翻译软件、汇报工作说不到重点"
+        },
+        {
+          title: "英语编辑/记者",
+          desc: "英文媒体/出版编辑，稳定偏文字",
+          suit: "英语或写作有一个跟不上"
+        }
+      ],
+      suitFor: "大量精读+翻译+语言学，不是高中英语的延续。杭州外贸/跨境电商机会多，真喜欢英语+想走外贸/教育方向的适合",
+      softSkills: "专八/雅思7.5+是硬门槛，CATTI证书加分，外贸实务知识有用",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研英语语言文学/翻译/教育学",
+          tip: "英语专业读研性价比一般，工作经验更重要"
+        },
+        employment: {
+          fit: "适配",
+          how: "教育/外贸/翻译/跨境电商都有需求，杭州机会多",
+          tip: "英语+技能(外贸/运营)是王炸组合"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "翻译公司/语言培训/跨境电商创业有细分机会",
+          tip: "杭州跨境电商生态丰富"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "英语是工具型专业，需要结合其他技能才有竞争力",
+        barrier: "转入需英语基础好"
+      }
+    }
+  },
+  {
+    name: "行政管理",
+    college: "人文与外语学院",
+    brief: "公共管理+政府治理，考公友好",
+    ace: false,
+    learn: {
+      coreCourses:["政治学原理", "行政管理学", "公共政策学", "组织行为学", "人力资源管理", "政府经济学", "公共关系学", "行政法学"],
+      suitFor: "对公共事务和政府管理感兴趣、文字表达好的同学。想考公/进事业单位的首选。"
+    },
+    employment: {
+      industries:["公务员", "事业单位", "企业行政", "HR", "社区管理"],
+      civil: "可报党政机关、街道办等，考公选择面广但竞争大"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，有公共管理硕士点",
+      feature: "行政管理+标准化管理方向",
+      degrees: "硕士点：公共管理"
+    },
+    grad: {
+      directions:["公共管理", "行政管理", "社会保障", "公共政策", "人力资源管理"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考法学、社会学等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "行政管理就业稳定但薪资一般，考公是主要出口",
+      barrier: "转入需对公共管理有真实兴趣"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，考公面广但竞争大，转王牌更划算"
+    },
+    newData: {
+      careers: [
+        {
+          title: "公务员",
+          desc: "政府机关/事业单位，稳定铁饭碗",
+          suit: "不甘心安稳拿死工资、考试发挥不稳定"
+        },
+        {
+          title: "行政专员",
+          desc: "企业行政/办公室管理，稳定偏文职",
+          suit: "容易漏细节、安排事情丢三落四"
+        },
+        {
+          title: "人力资源专员",
+          desc: "HR招聘/培训/绩效，稳定偏管理",
+          suit: "汇报工作说不到重点、看不出别人话里的意思度低"
+        },
+        {
+          title: "政策研究员",
+          desc: "政策分析/公共管理研究，偏学术",
+          suit: "对公共管理提不起劲"
+        }
+      ],
+      suitFor: "考公为主出口，就业稳定但薪资天花板低。善于沟通协调+对公共管理有兴趣的适合",
+      softSkills: "公务员行测/申论是必须准备的，教师资格证（想当老师加分），学生干部经历有用",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研MPA/公共管理，依托公共管理硕士点",
+          tip: "行政管理考公有优势"
+        },
+        employment: {
+          fit: "适配",
+          how: "政府/事业单位/企业行政都有需求",
+          tip: "考公是主要出口提前准备"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "行政管理创业机会少",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "行政管理就业稳定但薪资一般，考公是主要出口",
+        barrier: "转入需对公共管理有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "工商管理",
+    college: "经济与管理学院",
+    brief: "管理学万金油，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["管理学", "微观经济学", "宏观经济学", "会计学", "市场营销", "人力资源管理", "财务管理", "战略管理"],
+      suitFor: "性格外向、沟通能力强、对企业管理感兴趣的同学。"
+    },
+    employment: {
+      industries:["质量管理", "标准化", "企业管理", "品牌管理", "咨询"],
+      civil: "可报市场监管局、标准化管理等，适配度较高"
+    },
+    discipline: {
+      level: "强势",
+      strength: "国家级一流专业，标准化+质量管理特色，70%+从事质量相关工作",
+      feature: "质量管理+标准化，CJLU特色商科，行业人脉强",
+      degrees: "硕士点：依托管理科学与工程（A类）"
+    },
+    grad: {
+      directions:["工商管理", "企业管理", "管理科学与工程", "会计学", "MBA"],
+      difficulty: "考研竞争中等，管理类热门",
+      cross: "可跨考经济、金融、会计等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "国家一流+质量特色加持，性价比高",
+      barrier: "转入需对公共管理有真实兴趣"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "国家级一流+标准化特色，但商科薪资上限一般"
+    },
+    newData: {
+      careers: [
+        {
+          title: "质量/认证工程师",
+          desc: "质量体系维护/认证审核，CJLU质量特色核心对口",
+          suit: "做事差不多就行、不爱抠细节、让按规范填表就头疼"
+        },
+        {
+          title: "品牌管理专员",
+          desc: "企业品牌战略/市场策划，稳定偏管理",
+          suit: "策划或执行有一个跟不上"
+        },
+        {
+          title: "供应链管理师",
+          desc: "采购/物流/运营管理，稳定有发展空间",
+          suit: "让协调两个部门就头大"
+        },
+        {
+          title: "管理培训生",
+          desc: "企业管培轮岗，稳定但竞争激烈",
+          suit: "各方面都不突出"
+        }
+      ],
+      suitFor: "国家一流专业+质量/品牌管理特色。综合能力强+对管理有兴趣的适合，但商科在CJLU不是最重点",
+      softSkills: "质量管理体系内审员证书加分，六西格玛绿带有用，实习经历重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研企业管理/MBA，依托管理科学与工程省一流A类学科",
+          tip: "有质量管理方向读研更有优势"
+        },
+        employment: {
+          fit: "很适配",
+          how: "质量/认证/品牌/供应链方向需求大，CJLU质量特色就业对口率高",
+          tip: "CJLU质量特色在就业市场有差异化优势"
+        },
+        startup: {
+          fit: "适配",
+          how: "质量咨询/品牌策划/供应链服务有创业机会",
+          tip: "先积累行业经验再考虑"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "国家一流+就业质量特色加持，性价比高",
+        barrier: "转入需对公共管理有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "财务管理",
+    college: "经济与管理学院",
+    brief: "企业财务+会计，省级一流专业，就业稳定",
+    ace: false,
+    learn: {
+      coreCourses:["会计学", "财务管理", "成本会计", "管理会计", "财务分析", "审计学", "税法", "投资学"],
+      suitFor: "数字敏感、细心严谨、对财务和投资感兴趣的同学。"
+    },
+    employment: {
+      industries:["银行", "会计师事务所", "企业财务", "证券", "保险"],
+      civil: "可报财政局、审计局、税务局等，银行录用79人"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，银行就业优势明显（79人被银行录用）",
+      feature: "财务+质量成本管理方向",
+      degrees: "硕士点：依托应用经济学/管理科学与工程"
+    },
+    grad: {
+      directions:["会计学", "财务管理", "审计学", "MBA", "金融学"],
+      difficulty: "考研竞争中等，财务方向热门",
+      cross: "可跨考经济、金融、会计等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "财务管理就业稳定但CPA是分水岭，想高薪需考CPA",
+      barrier: "转入需对财务有真实兴趣"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "银行就业好（79人），省级一流，就业稳定"
+    },
+    newData: {
+      careers: [
+        {
+          title: "财务分析师",
+          desc: "财务分析/预算管理，稳定偏财务",
+          suit: "容易漏细节、对数字没直觉、算东西老算错"
+        },
+        {
+          title: "会计",
+          desc: "会计核算/报表编制，稳定但竞争激烈",
+          suit: "容易漏细节、没考初级会计证"
+        },
+        {
+          title: "审计专员",
+          desc: "内部审计/外部审计，稳定偏财务",
+          suit: "容易漏细节、不懂财务报表"
+        },
+        {
+          title: "投融资专员",
+          desc: "投资/融资项目管理，高挑战高回报",
+          suit: "财务+给一堆信息理不出头绪"
+        }
+      ],
+      suitFor: "省一流专业+质量智慧财务特色。细心+对财务有兴趣的适合，建议考初级会计证+CPA",
+      softSkills: "初级会计职称是门槛，CPA/ACCA加分，财务软件熟练",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研会计/审计/MBA，依托金融专硕点",
+          tip: "CPA通过是财务职业的分水岭"
+        },
+        employment: {
+          fit: "适配",
+          how: "企业财务/会计事务所/金融机构都有需求",
+          tip: "四大会计师事务所是财务专业常见出口"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "财务创业需要资质和经验",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "财务管理就业稳定但CPA是分水岭，想高薪需考CPA",
+        barrier: "转入需对财务有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "市场营销",
+    college: "经济与管理学院",
+    brief: "营销策划+品牌管理，经管类万金油专业，就业面宽但门槛低",
+    ace: false,
+    learn: {
+      coreCourses:["市场营销学", "消费者行为学", "市场调查与预测", "品牌管理", "广告学", "推销学", "商务谈判", "网络营销"],
+      suitFor: "性格外向、创意思维强、善于沟通的同学。"
+    },
+    employment: {
+      industries:["快消", "互联网运营", "品牌营销", "电商", "广告"],
+      civil: "可报市场监管局等，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，商科在CJLU非重点",
+      feature: "营销+标准化，品牌管理方向",
+      degrees: "硕士点：依托管理科学与工程/工商管理"
+    },
+    grad: {
+      directions:["市场营销", "企业管理", "MBA", "传播学", "消费者行为"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考管理、传播等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "市场营销就业容易但薪资一般，创业机会多",
+      barrier: "转入需对营销有真实兴趣"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般商科，就业薪资都一般，转王牌更划算"
+    },
+    newData: {
+      careers: [
+        {
+          title: "营销策划专员",
+          desc: "市场策划/活动执行，稳定偏创意",
+          suit: "策划或想不出新点子"
+        },
+        {
+          title: "电商运营",
+          desc: "淘宝/京东/跨境电商运营，杭州优势明显",
+          suit: "不知道平台怎么运营规则、不善数据分析"
+        },
+        {
+          title: "品牌专员",
+          desc: "品牌推广/新媒体运营，稳定偏内容",
+          suit: "写不出吸引人的文案"
+        },
+        {
+          title: "销售代表",
+          desc: "B2B/大客户销售，收入靠提成",
+          suit: "汇报工作说不到重点、压力大就容易崩"
+        }
+      ],
+      suitFor: "浙江省特色专业+项目化教学。沟通能力强+对营销有兴趣的适合，CJLU义乌电商优势可利用",
+      softSkills: "电商运营经验加分，营销策划案例重要，PS/视频剪辑是加分项",
+      paths: {
+        gradSchool: {
+          fit: "一般适配",
+          how: "可考研市场营销/工商管理",
+          tip: "市场营销读研性价比一般，工作经验更重要"
+        },
+        employment: {
+          fit: "很适配",
+          how: "电商/品牌/销售方向需求大，岗位选择多",
+          tip: "杭州电商生态丰富是大优势"
+        },
+        startup: {
+          fit: "适配",
+          how: "电商/品牌/直播创业门槛相对低",
+          tip: "义乌电商资源是CJLU独特优势"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "市场营销就业容易但薪资一般，创业机会多",
+        barrier: "转入需对营销有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "国际经济与贸易",
+    college: "经济与管理学院",
+    brief: "国际贸易+跨境电商，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["微观经济学", "宏观经济学", "国际贸易理论", "国际贸易实务", "国际金融", "国际商法", "外贸英语", "跨境电商"],
+      suitFor: "英语好、对国际贸易和跨境电商感兴趣的同学。"
+    },
+    employment: {
+      industries:["外贸", "跨境电商", "银行", "海关", "国际商务"],
+      civil: "可报海关、商务局等，适配度中等"
+    },
+    discipline: {
+      level: "中等",
+      strength: "国家级一流专业，但外贸行业下行压力",
+      feature: "国贸+标准化，对接国际标准互认方向",
+      degrees: "硕士点：依托应用经济学/国际商务"
+    },
+    grad: {
+      directions:["国际贸易学", "国际商务", "应用经济学", "金融学", "MBA"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考金融、管理、法律等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "国家一流+外贸区位优势，性价比高",
+      barrier: "转入需对营销有真实兴趣"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "国家级一流但外贸下行，标准化特色是亮点"
+    },
+    newData: {
+      careers: [
+        {
+          title: "外贸业务员",
+          desc: "进出口业务/跟单，稳定靠提成",
+          suit: "看英文文档要靠翻译软件、汇报工作说不到重点"
+        },
+        {
+          title: "报关员",
+          desc: "报关/报检，体制内/物流企业对口",
+          suit: "容易漏细节、不知道进出口怎么做流程"
+        },
+        {
+          title: "跨境电商运营",
+          desc: "亚马逊/eBay/速卖通运营，杭州义乌优势",
+          suit: "不知道平台怎么运营规则、看报表只会看总数、看不出趋势和问题"
+        },
+        {
+          title: "国际商务专员",
+          desc: "国际市场开拓/客户维护，稳定偏销售",
+          suit: "看英文文档要靠翻译软件、各方面都不突出"
+        }
+      ],
+      suitFor: "国家一流专业，杭州义乌外贸优势。英语好+对国际贸易有兴趣的适合，但外贸行业有下行压力",
+      softSkills: "英语六级/雅思是门槛，外贸实务证书加分，跨境电商平台运营经验重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研国际商务/国际贸易，依托国际商务硕士点",
+          tip: "国际贸易方向读研有优势"
+        },
+        employment: {
+          fit: "很适配",
+          how: "外贸/跨境电商/物流企业需求大，杭州义乌区位优势明显",
+          tip: "英语+技能是外贸的核心竞争力"
+        },
+        startup: {
+          fit: "适配",
+          how: "跨境电商/外贸SOHO创业门槛低",
+          tip: "义乌是跨境电商创业圣地"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "国家一流+外贸区位优势，性价比高",
+        barrier: "转入需对营销有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "国际商务",
+    college: "经济与管理学院",
+    brief: "国际商务+跨文化管理",
+    ace: false,
+    learn: {
+      coreCourses:["国际商务管理", "跨文化管理", "国际贸易实务", "国际市场营销", "国际金融", "国际商法", "商务英语", "国际物流"],
+      suitFor: "英语好、对国际商业和跨文化管理感兴趣的同学。"
+    },
+    employment: {
+      industries:["外贸", "跨境电商", "国际物流", "跨国企业", "咨询"],
+      civil: "可报商务局、海关等，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，有国际商务硕士点",
+      feature: "国际商务+标准认证方向",
+      degrees: "硕士点：国际商务（专硕）"
+    },
+    grad: {
+      directions:["国际商务", "国际贸易学", "MBA", "应用经济学", "跨文化管理"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考经济、管理、法律等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "国际商务就业方向广，但需要英语极好才有竞争力",
+      barrier: "转入需英语基础好"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般商科，转国贸或质管更好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "国际商务专员",
+          desc: "跨国业务/海外市场拓展，高挑战高回报",
+          suit: "看英文文档要靠翻译软件、不关心海外怎么做、不看英文资料"
+        },
+        {
+          title: "跨境电商运营",
+          desc: "亚马逊/eBay运营，杭州义乌优势赛道",
+          suit: "不知道平台怎么运营、看报表只会看总数、看不出趋势和问题"
+        },
+        {
+          title: "海外商务拓展",
+          desc: "海外客户开发/维护，高提成",
+          suit: "汇报工作说不到重点、看英文文档要靠翻译软件"
+        },
+        {
+          title: "标准化专员",
+          desc: "国际标准制定/推广，CJLU标准化特色加持",
+          suit: "让按规范填表就头疼"
+        }
+      ],
+      suitFor: "英语要求高+国际视野。有国际商务硕士点，英语极好+对国际商务有兴趣的适合",
+      softSkills: "英语雅思7+/BEC高级是加分项，跨境电商平台运营经验重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研国际商务/国际贸易，依托国际商务硕士点+标准化特色",
+          tip: "标准化+国际商务是CJLU独特组合"
+        },
+        employment: {
+          fit: "很适配",
+          how: "跨国企业/外贸企业/跨境电商都有需求",
+          tip: "英语+国际商务是核心竞争力"
+        },
+        startup: {
+          fit: "适配",
+          how: "跨境电商/国际商务服务创业机会多",
+          tip: "义乌是跨境创业圣地"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "国际商务就业方向广，但需要英语极好才有竞争力",
+        barrier: "转入需英语基础好"
+      }
+    }
+  },
+  {
+    name: "金融工程",
+    college: "经济与管理学院",
+    brief: "金融+数学+编程交叉，量化方向",
+    ace: false,
+    learn: {
+      coreCourses:["金融学", "金融工程", "衍生品定价", "随机过程", "投资学", "金融风险管理", "数值计算", "Python金融分析"],
+      suitFor: "数学好、对金融和量化投资感兴趣的同学。编程能力也重要。"
+    },
+    employment: {
+      industries:["银行", "证券", "金融科技", "风控", "保险"],
+      civil: "可报财政局、银保监等，银行录用优势"
+    },
+    discipline: {
+      level: "中等",
+      strength: "非国家一流专业，金融+数学交叉",
+      feature: "金融风控+计量，量化金融方向",
+      degrees: "硕士点：依托应用经济学/金融（专硕）"
+    },
+    grad: {
+      directions:["金融学", "金融工程", "应用经济学", "统计学", "数量经济学"],
+      difficulty: "考研竞争大，金融方向热门",
+      cross: "可跨考统计、数学、计算机等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "金融工程就业方向广，但需要数学+编程基础才有好出路",
+      barrier: "转入需有数学/编程基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "金融+数学交叉有特色，但CJLU非金融强校"
+    },
+    newData: {
+      careers: [
+        {
+          title: "金融工程师",
+          desc: "金融产品设计/量化开发，高门槛高回报",
+          suit: "数学/编程/金融有短板"
+        },
+        {
+          title: "量化分析师",
+          desc: "量化交易策略/模型开发，数学+金融交叉",
+          suit: "看到长公式推导就头大、对金融没热情"
+        },
+        {
+          title: "风险管理师",
+          desc: "金融风险评估/控制，稳定偏金融",
+          suit: "看到抽象证明就懵、高中数学就费劲、容易漏细节"
+        },
+        {
+          title: "金融科技工程师",
+          desc: "FinTech/互联网金融，科技+金融交叉",
+          suit: "不会写代码、对金融没兴趣"
+        }
+      ],
+      suitFor: "数学+编程+金融三合一，难度大。国家战略方向+新文科认证，数学/编程/金融有两项强的适合",
+      softSkills: "Python/SQL是基本技能，CFA/FRM证书加分，数学建模竞赛加分",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研金融工程/金融专硕，依托金融专硕点",
+          tip: "量化方向读研必须有数学或编程特长"
+        },
+        employment: {
+          fit: "适配",
+          how: "金融机构/金融科技/互联网金融都有需求",
+          tip: "杭州互联网金融机会多"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "金融科技/量化交易有创业机会但门槛极高",
+          tip: "不太适合普通创业者"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "金融工程就业方向广，但需要数学+编程基础才有好出路",
+        barrier: "转入需有数学/编程基础"
+      }
+    }
+  },
+  {
+    name: "信息管理与信息系统",
+    college: "经济与管理学院",
+    brief: "管理+IT交叉，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["管理学", "运筹学", "数据库系统", "信息系统分析与设计", "计算机网络", "数据结构", "企业资源计划", "项目管理"],
+      suitFor: "对管理和信息技术交叉感兴趣的同学。既懂管理又懂技术的复合型人才。"
+    },
+    employment: {
+      industries:["企业信息化", "数据分析", "ERP实施", "咨询", "互联网"],
+      civil: "可报信息中心、统计局等"
+    },
+    discipline: {
+      level: "中等",
+      strength: "省级一流专业，管理科学与工程A类学科支撑",
+      feature: "信息管理+质量大数据方向",
+      degrees: "硕士点：依托管理科学与工程（A类）"
+    },
+    grad: {
+      directions:["管理科学与工程", "信息管理", "计算机科学与技术", "工商管理", "大数据"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考计算机、管理、数据科学等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "信管就业面广但不够精深，转CS/产品经理有优势",
+      barrier: "转入需补技术基础"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "省级一流，A类学科支撑，企业信息化就业稳定"
+    },
+    newData: {
+      careers: [
+        {
+          title: "ERP实施顾问",
+          desc: "SAP/Oracle实施运维，稳定偏技术",
+          suit: "只会写代码/画图、说不清自己做了什么业务"
+        },
+        {
+          title: "数据分析师",
+          desc: "企业数据分析/BI，需求稳定",
+          suit: "给一堆数据看不出结论"
+        },
+        {
+          title: "产品经理",
+          desc: "B端/SaaS产品规划，互联网方向",
+          suit: "不想既懂技术又懂业务"
+        },
+        {
+          title: "项目管理专员",
+          desc: "企业信息化项目管理，稳定偏管理",
+          suit: "让协调两个部门就头大"
+        }
+      ],
+      suitFor: "技术+管理都学但都不深，就业面广。既懂技术又懂管理的适合，但要注意'什么都学什么都不精'的风险",
+      softSkills: "ERP系统(SAP/用友)经验加分，PMP证书有用，项目管理经验重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研管理科学与工程/CS，依托省一流A类管理科学学科",
+          tip: "转CS方向有管理优势"
+        },
+        employment: {
+          fit: "适配",
+          how: "企业信息化/SaaS/ERP实施方向需求稳定",
+          tip: "产品经理是信管转互联网的好出口"
+        },
+        startup: {
+          fit: "适配",
+          how: "SaaS/企业服务创业有细分机会",
+          tip: "先积累技术和行业经验再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "信管就业面广但不够精深，转CS/产品经理有优势",
+        barrier: "转入需补技术基础"
+      }
+    }
+  },
+  {
+    name: "质量管理工程",
+    college: "质量与标准化学院",
+    brief: "CJLU灵魂专业，软科全国第一，国家级一流专业+卓越工程师",
+    ace: true,
+    learn: {
+      coreCourses:["质量管理学", "计量学基础", "质量统计学", "质量管理体系", "质量认证与认可", "供应商质量管理", "六西格玛管理", "质量经济学"],
+      suitFor: "对质量管理和标准化感兴趣、逻辑思维好、细心严谨的同学。想进质检/认证行业的首选。"
+    },
+    employment: {
+      industries:["质量管理", "认证审核", "标准化", "企业质量部门", "第三方检测"],
+      civil: "40%进市场监管局、海关、标准化院等体制内，专属岗位多竞争小"
+    },
+    discipline: {
+      level: "王牌",
+      strength: "CJLU绝对王牌，软科全国排名第一，国家特色+国家级一流+卓越工程师，行业垄断性就业",
+      feature: "质量管理+计量检测，全国仅6所公办院校开设，人才供不应求",
+      degrees: "硕士点：管理科学与工程（A类，一级学科）"
+    },
+    grad: {
+      directions:["管理科学与工程", "质量管理", "工业工程", "标准化工程", "MBA"],
+      difficulty: "考研竞争中等，本校管理科学与工程硕士点承接",
+      cross: "可跨考工业工程、标准化、工商管理方向"
+    },
+    transfer: {
+      should: "绝对不要转出",
+      reason: "全国唯一本科专业+软科第一+体制内专属通道，转出是巨大浪费",
+      barrier: "转入需补技术基础"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "全国第一，行业垄断性就业，体制内专属通道，人才供不应求"
+    },
+    newData: {
+      careers: [
+        {
+          title: "质量工程师",
+          desc: "质量体系维护/质量改进，CJLU质量特色核心对口",
+          suit: "做事差不多就行、不爱抠细节、质量出了问题遇到突发情况反应不过来"
+        },
+        {
+          title: "质量体系审核员",
+          desc: "ISO9001等体系认证审核，出差多",
+          suit: "容易漏细节、不想跑外地、要规律作息"
+        },
+        {
+          title: "供应商质量管理",
+          desc: "供应商质量控制/审核，稳定偏管理",
+          suit: "沟通或技术有一个跟不上"
+        },
+        {
+          title: "六西格玛黑带",
+          desc: "精益生产/质量改进专家，高薪但需认证",
+          suit: "给一堆信息理不出头绪、新技术出来了不想学"
+        }
+      ],
+      suitFor: "全国唯一本科专业(软科第一)，独特赛道。对质量管理工作有真实兴趣的适合，CJLU计量特色加持",
+      softSkills: "质量管理体系内审员证书是基础，六西格玛绿带/黑带证书含金量高",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托管理科学与工程省一流A类学科，考研方向：质量管理/管理科学",
+          tip: "质量管理深造有独特优势"
+        },
+        employment: {
+          fit: "很适配",
+          how: "质量/认证/供应链企业需求大，毕业生持续供不应求",
+          tip: "体制内质量岗位是CJLU独特优势"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "质量咨询/认证服务有细分机会",
+          tip: "先积累资质和客户再考虑"
+        }
+      },
+      transfer: {
+        should: "绝对不要转出",
+        reason: "全国唯一本科专业+软科第一+体制内专属通道，转出是巨大浪费",
+        barrier: "转入需补技术基础"
+      }
+    }
+  },
+  {
+    name: "标准化工程",
+    college: "质量与标准化学院",
+    brief: "全国唯一本科专业，软科全国第一，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["标准化概论", "质量管理学", "标准化原理与方法", "产品标准化设计", "标准制定与编写", "质量管理体系", "认证与认可", "计量学基础"],
+      suitFor: "对标准化和规则制定感兴趣、文字表达好、逻辑严谨的同学。想做标准制定者的首选。"
+    },
+    employment: {
+      industries:["标准化", "认证", "质量管理", "国际标准", "政策研究"],
+      civil: "30%进市场监管局、海关、标准化院等体制内，专属岗位几乎无竞争"
+    },
+    discipline: {
+      level: "王牌",
+      strength: "CJLU绝对王牌，软科全国排名第一，国家级一流专业，全国首个开设",
+      feature: "标准化+计量，对接国家标准化战略，一带一路标准互认项目",
+      degrees: "硕士点：依托管理科学与工程/标准化相关方向"
+    },
+    grad: {
+      directions:["管理科学与工程", "标准化", "质量管理", "公共管理", "MBA"],
+      difficulty: "考研竞争中等，本校硕士点承接",
+      cross: "可跨考质量管理、工业工程、公共管理方向"
+    },
+    transfer: {
+      should: "绝对不要转出",
+      reason: "全国唯二+软科第一+国家战略+ISO培训基地，转出是巨大浪费",
+      barrier: "转入王牌专业竞争大，需绩点3.5+"
+    },
+    rating: {
+      verdict: "推荐",
+      summary: "全国第一，体制内专属通道，政策红利加持，稀缺性极强"
+    },
+    newData: {
+      careers: [
+        {
+          title: "标准化工程师",
+          desc: "标准制修订/标准化管理，国家战略方向",
+          suit: "对规范标准提不起劲"
+        },
+        {
+          title: "标准技术委员会秘书",
+          desc: "标准组织运营/技术协调，稳定偏管理",
+          suit: "容易漏细节、让协调几个人就头大"
+        },
+        {
+          title: "认证认可专员",
+          desc: "认证/认可体系建设，CJLU认证特色加持",
+          suit: "做事差不多就行、不爱抠细节、不知道标准是什么、怎么查"
+        },
+        {
+          title: "质量管理体系审核员",
+          desc: "ISO等体系认证审核，体制内/第三方机构",
+          suit: "容易漏细节、不想跑外地、要规律作息"
+        }
+      ],
+      suitFor: "全国唯二本科专业(软科第一)，国家战略方向。对标准化工作有真实兴趣的适合，CJLU独有优势",
+      softSkills: "标准化知识是核心竞争力，参与标准制修订经历是加分项",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托管理科学与工程省一流A类学科，考研方向：标准化/管理科学",
+          tip: "标准化深造有独特优势"
+        },
+        employment: {
+          fit: "很适配",
+          how: "政府标准化部门/标准化研究院/企业标准化岗位，CJLU标准化方向深造有独特优势",
+          tip: "体制内标准化岗位是CJLU独特优势"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "标准化服务/咨询有细分机会",
+          tip: "需要先积累行业人脉"
+        }
+      },
+      transfer: {
+        should: "绝对不要转出",
+        reason: "全国唯二+软科第一+国家战略+ISO培训基地，转出是巨大浪费",
+        barrier: "转入王牌专业竞争大，需绩点3.5+"
+      }
+    }
+  },
+  {
+    name: "工业工程",
+    college: "质量与标准化学院",
+    brief: "精益生产+效率优化，管理科学与工程A类学科支撑",
+    ace: false,
+    learn: {
+      coreCourses:["管理学", "运筹学", "基础工业工程", "人因工程", "生产计划与控制", "质量管理学", "物流工程", "设施规划与设计"],
+      suitFor: "对生产效率优化和精益管理感兴趣、数学好的同学。"
+    },
+    employment: {
+      industries:["制造业", "流程优化", "质量管理", "供应链", "咨询"],
+      civil: "可报工信局、市场监管局等，适配度中等"
+    },
+    discipline: {
+      level: "中等",
+      strength: "非国家一流专业，管理科学与工程A类学科支撑",
+      feature: "工业工程+质量优化，偏制造效率方向",
+      degrees: "硕士点：依托管理科学与工程（A类）"
+    },
+    grad: {
+      directions:["管理科学与工程", "工业工程", "物流工程", "工商管理", "MBA"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考管理、质量、物流等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "工业工程就业稳定，但想高薪需积累经验或转管理",
+      barrier: "转入需对制造业管理有真实兴趣"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "A类学科支撑但非一流专业，转质管/标准化更好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "精益生产工程师",
+          desc: "生产流程优化/效率提升，稳定偏管理",
+          suit: "给一堆信息理不出头绪、对制造业没兴趣"
+        },
+        {
+          title: "生产管理专员",
+          desc: "车间/工厂生产管理，稳定偏执行",
+          suit: "让协调几个部门就头大"
+        },
+        {
+          title: "质量管理工程师",
+          desc: "产品质量控制/改进，CJLU质量特色加持",
+          suit: "做事差不多就行、不爱抠细节、质量出了问题遇到突发情况反应不过来"
+        },
+        {
+          title: "供应链管理师",
+          desc: "采购/物流/库存控制，稳定有发展空间",
+          suit: "条件一多就理不清、推理链一长就跟丢、安排事情丢三落四"
+        }
+      ],
+      suitFor: "制造业+管理优化方向。对制造业管理有兴趣+善于优化流程的适合，依托质量与安全学院",
+      softSkills: "精益生产/六西格玛知识加分，CAD/MES系统会用，PMP证书有用",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "依托管理科学与工程省一流A类学科，考研方向：工业工程/管理科学",
+          tip: "工业工程读研有工程背景优势"
+        },
+        employment: {
+          fit: "适配",
+          how: "制造业企业需求大，就业稳定",
+          tip: "杭州制造业+电商供应链机会多"
+        },
+        startup: {
+          fit: "一般适配",
+          how: "精益咨询/工厂管理服务有细分机会",
+          tip: "先积累制造业经验再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "工业工程就业稳定，但想高薪需积累经验或转管理",
+        barrier: "转入需对制造业管理有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "工业设计",
+    college: "艺术与传播学院",
+    brief: "产品+用户体验设计，国家级一流专业",
+    ace: true,
+    learn: {
+      coreCourses:["工业设计史", "设计素描", "设计色彩", "三大构成", "人机工程学", "产品设计方法", "计算机辅助工业设计", "模型制作"],
+      suitFor: "审美能力好、创新思维强、对产品设计感兴趣的同学。艺术+技术复合型人才。"
+    },
+    employment: {
+      industries:["产品设计", "UI/UX", "制造业", "智能硬件", "汽车设计"],
+      civil: "可报质检等技术岗位，适配度一般"
+    },
+    discipline: {
+      level: "中等",
+      strength: "国家级一流专业，但设计类在CJLU非重点",
+      feature: "工业设计+质量体验，产品可用性方向",
+      degrees: "硕士点：依托机械/设计学科"
+    },
+    grad: {
+      directions:["工业设计", "设计学", "机械工程", "人机交互", "用户体验"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考机械、视觉传达、交互设计等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "国家一流+艺科融合+产教融合，性价比高",
+      barrier: "转入需对制造业管理有真实兴趣"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "国家级一流但设计非CJLU重点，工科交叉是亮点"
+    },
+    newData: {
+      careers: [
+        {
+          title: "工业设计师",
+          desc: "产品造型/结构设计，国家一流+艺科融合",
+          suit: "配色排版自己看了都别扭、不会PS/AI/Figma"
+        },
+        {
+          title: "用户体验设计师",
+          desc: "UX/交互设计，互联网方向需求大",
+          suit: "做出来的东西自己用着都别扭"
+        },
+        {
+          title: "标准化设计工程师",
+          desc: "产品标准化设计，CJLU标准特色加持",
+          suit: "懂设计又不知道标准是什么、怎么查"
+        },
+        {
+          title: "设计项目管理",
+          desc: "设计项目规划/团队管理，稳定偏管理",
+          suit: "设计或管理有一个跟不上"
+        }
+      ],
+      suitFor: "设计+工程双修，国家一流专业。有设计热情+审美+不排斥学工程基础的适合，产教融合+阿里国际合作",
+      softSkills: "Rhino/Keyshot/Adobe全家桶是基本功，红点/iF/DIA获奖是加分项",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研艺术设计(MFA)，依托艺术设计专业硕士学位点",
+          tip: "工业设计读研能进更高平台"
+        },
+        employment: {
+          fit: "很适配",
+          how: "制造业/互联网/设计公司都有需求，阿里/网易/吉利等名企对口",
+          tip: "获奖作品集是进入名企的敲门砖"
+        },
+        startup: {
+          fit: "适配",
+          how: "设计工作室/设计+制造创业有细分机会",
+          tip: "浦江/温岭/义乌有设计创业资源"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "国家一流+艺科融合+产教融合，性价比高",
+        barrier: "转入需对制造业管理有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "视觉传达设计",
+    college: "艺术与传播学院",
+    brief: "平面+品牌设计，省级一流专业",
+    ace: false,
+    learn: {
+      coreCourses:["设计素描", "设计色彩", "三大构成", "字体设计", "标志设计", "包装设计", "广告设计", "品牌视觉设计"],
+      suitFor: "审美能力强、创意思维好、喜欢视觉表达的同学。"
+    },
+    employment: {
+      industries:["广告", "品牌设计", "UI设计", "电商视觉", "包装设计"],
+      civil: "适配度低，艺术类岗位少"
+    },
+    discipline: {
+      level: "一般",
+      strength: "省级一流专业，但艺术类就业整体偏弱",
+      feature: "视觉设计+标准化包装方向",
+      degrees: "硕士点：依托设计学"
+    },
+    grad: {
+      directions:["设计学", "视觉传达设计", "数字媒体艺术", "交互设计", "品牌设计"],
+      difficulty: "考研竞争中等",
+      cross: "跨考范围较窄，主要在设计领域"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "视觉传达就业稳定，但需持续提升设计能力才有竞争力",
+      barrier: "转入需有美术基础和设计热情"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，艺术类就业薪资都弱"
+    },
+    newData: {
+      careers: [
+        {
+          title: "视觉设计师",
+          desc: "平面设计/品牌视觉，互联网/广告公司",
+          suit: "配色排版自己看了都别扭、不会PS/AI/Figma"
+        },
+        {
+          title: "品牌设计师",
+          desc: "品牌形象/包装设计，稳定偏创意",
+          suit: "不关心品牌是什么调性"
+        },
+        {
+          title: "UI设计师",
+          desc: "界面设计/图标设计，互联网方向",
+          suit: "对互联网UI提不起劲"
+        },
+        {
+          title: "插画师",
+          desc: "商业插画/绘本创作，自由度大",
+          suit: "手绘完全不会、想不出新点子"
+        }
+      ],
+      suitFor: "省一流专业，平面/品牌设计方向。有美术功底+设计热情的适合",
+      softSkills: "Adobe全家桶/figma是基本功，个人作品集是核心",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研艺术设计(MFA)，依托艺术设计专业硕士学位点",
+          tip: "视觉传达读研能进更高平台"
+        },
+        employment: {
+          fit: "适配",
+          how: "广告/互联网/出版/品牌设计公司都有需求",
+          tip: "作品集质量决定就业质量"
+        },
+        startup: {
+          fit: "适配",
+          how: "设计工作室/自由设计师创业门槛低",
+          tip: "接单平台是入行好起点"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "视觉传达就业稳定，但需持续提升设计能力才有竞争力",
+        barrier: "转入需有美术基础和设计热情"
+      }
+    }
+  },
+  {
+    name: "环境设计",
+    college: "艺术与传播学院",
+    brief: "室内+景观设计，设计类靠作品集就业，行业景气度波动大",
+    ace: false,
+    learn: {
+      coreCourses:["设计素描", "设计色彩", "三大构成", "建筑史", "室内设计原理", "景观设计原理", "计算机辅助设计", "装饰材料与构造"],
+      suitFor: "对空间设计和环境美学感兴趣、手绘能力好的同学。"
+    },
+    employment: {
+      industries:["室内设计", "景观设计", "建筑设计", "软装", "展览设计"],
+      civil: "适配度低"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，艺术类就业整体偏弱",
+      feature: "环境设计+计量展示方向",
+      degrees: "硕士点：依托设计学"
+    },
+    grad: {
+      directions:["设计学", "环境设计", "建筑学", "城市规划", "景观设计"],
+      difficulty: "考研竞争中等",
+      cross: "跨考范围较窄"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "环境设计就业稳定，但初期薪资一般需要积累",
+      barrier: "转入需有设计基础和审美能力"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU弱专业，就业薪资都弱，建议转出"
+    },
+    newData: {
+      careers: [
+        {
+          title: "室内设计师",
+          desc: "住宅/商业空间设计，稳定偏创意",
+          suit: "三维空间想象不出来、配色排版自己看了都别扭"
+        },
+        {
+          title: "景观设计师",
+          desc: "园林/景观规划设计，稳定偏设计",
+          suit: "对景观设计提不起劲"
+        },
+        {
+          title: "软装设计师",
+          desc: "室内软装配饰设计，偏审美",
+          suit: "配色排版自己看了都别扭"
+        },
+        {
+          title: "展示设计师",
+          desc: "展览/展厅设计，稳定偏创意",
+          suit: "创意或空间感有一个跟不上"
+        }
+      ],
+      suitFor: "室内/景观设计方向。有空间感+设计热情的适合，艺术与传播学院资源支撑",
+      softSkills: "AutoCAD/SketchUp/3DMAX是基本功，作品集重要",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研艺术设计(MFA)环境方向，依托艺术设计专业硕士学位点",
+          tip: "环境设计读研能进设计院等更高平台"
+        },
+        employment: {
+          fit: "适配",
+          how: "设计院/装饰公司/地产公司都有需求",
+          tip: "实习经历和作品集是关键"
+        },
+        startup: {
+          fit: "适配",
+          how: "设计工作室/装修公司创业门槛相对低",
+          tip: "先积累经验和客户再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "环境设计就业稳定，但初期薪资一般需要积累",
+        barrier: "转入需有设计基础和审美能力"
+      }
+    }
+  },
+  {
+    name: "产品设计",
+    college: "艺术与传播学院",
+    brief: "产品造型+功能设计，与工业设计有重叠，靠作品集突围",
+    ace: false,
+    learn: {
+      coreCourses:["设计素描", "设计色彩", "三大构成", "产品造型设计", "人机工程学", "产品语义学", "计算机辅助设计", "模型制作"],
+      suitFor: "审美+功能兼备、对产品造型感兴趣的同学。"
+    },
+    employment: {
+      industries:["产品设计", "文创", "家具设计", "日用品设计", "3D打印"],
+      civil: "适配度低"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，艺术类就业整体偏弱",
+      feature: "产品设计+质量体验方向",
+      degrees: "硕士点：依托设计学"
+    },
+    grad: {
+      directions:["设计学", "产品设计", "工业设计", "交互设计", "服务设计"],
+      difficulty: "考研竞争中等",
+      cross: "跨考范围较窄"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "产品设计就业稳定，需结合工业设计或用户体验才有竞争力",
+      barrier: "转入需有设计基础"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU弱专业，和工业设计差距大，建议转出"
+    },
+    newData: {
+      careers: [
+        {
+          title: "产品设计师",
+          desc: "产品造型/功能设计，制造企业核心岗",
+          suit: "设计或工程有一个跟不上"
+        },
+        {
+          title: "CMF设计师",
+          desc: "颜色/材料/工艺设计，制造企业新兴方向",
+          suit: "不了解材料工艺"
+        },
+        {
+          title: "用户体验设计师",
+          desc: "产品UX/交互设计，互联网方向",
+          suit: "做出来的东西自己用着都别扭"
+        },
+        {
+          title: "设计项目管理",
+          desc: "产品设计项目管理，稳定偏管理",
+          suit: "设计或管理有一个跟不上"
+        }
+      ],
+      suitFor: "产品外观+结构设计。有工程思维+设计热情的适合，艺术与传播学院资源支撑",
+      softSkills: "Rhino/Keyshot/工业设计软件是基本功，作品集是核心",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研艺术设计(MFA)产品方向，依托艺术设计专业硕士学位点",
+          tip: "产品设计读研能进更高平台"
+        },
+        employment: {
+          fit: "适配",
+          how: "制造业/互联网/设计公司都有需求",
+          tip: "制造业产品设计是传统出口"
+        },
+        startup: {
+          fit: "适配",
+          how: "产品设计工作室/制造业设计服务有细分机会",
+          tip: "义乌/温岭制造业设计需求大"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "产品设计就业稳定，需结合工业设计或用户体验才有竞争力",
+        barrier: "转入需有设计基础"
+      }
+    }
+  },
+  {
+    name: "广告学",
+    college: "艺术与传播学院",
+    brief: "广告策划+新媒体传播",
+    ace: false,
+    learn: {
+      coreCourses:["广告学概论", "广告策划与创意", "广告文案写作", "品牌传播", "新媒体营销", "消费者行为学", "广告设计", "公共关系学"],
+      suitFor: "创意思维好、文字能力强、对传播和营销感兴趣的同学。"
+    },
+    employment: {
+      industries:["广告", "品牌传播", "新媒体", "市场营销", "公关"],
+      civil: "可报宣传部、广电局等，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，文科在CJLU非重点",
+      feature: "广告+标准化传播方向",
+      degrees: "硕士点：依托新闻传播学/相关学科"
+    },
+    grad: {
+      directions:["新闻传播学", "广告学", "传播学", "市场营销", "公共管理"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考营销、传播、公共管理等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "广告就业容易但初期薪资低，需要持续积累作品和经验",
+      barrier: "转入需有创意和写作热情"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU弱专业，就业薪资都一般，建议转出"
+    },
+    newData: {
+      careers: [
+        {
+          title: "广告策划",
+          desc: "广告创意/活动策划，稳定偏创意",
+          suit: "想不出新点子、懂传播"
+        },
+        {
+          title: "文案策划",
+          desc: "广告文案/内容创作，文字驱动",
+          suit: "写东西费劲、憋半天憋不出来"
+        },
+        {
+          title: "新媒体运营",
+          desc: "微博/抖音/小红书运营，互联网方向",
+          suit: "不知道平台怎么运营规则、抓不住什么内容会火"
+        },
+        {
+          title: "品牌公关",
+          desc: "品牌传播/危机公关，稳定偏沟通",
+          suit: "汇报工作说不到重点、遇到突发情况反应不过来"
+        }
+      ],
+      suitFor: "创意+传播方向。创意丰富+善于传播的适合，杭州互联网生态有优势",
+      softSkills: "文案写作是核心技能，PS/视频剪辑加分，运营经验重要",
+      paths: {
+        gradSchool: {
+          fit: "一般适配",
+          how: "可考研新闻传播/广告学",
+          tip: "广告读研性价比一般，作品和经验更重要"
+        },
+        employment: {
+          fit: "适配",
+          how: "广告公司/互联网/品牌方都有需求",
+          tip: "杭州互联网新媒体机会多"
+        },
+        startup: {
+          fit: "适配",
+          how: "MCN/内容创业门槛低",
+          tip: "自媒体是广告人的练兵场"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "广告就业容易但初期薪资低，需要持续积累作品和经验",
+        barrier: "转入需有创意和写作热情"
+      }
+    }
+  },
+  {
+    name: "公共关系学",
+    college: "艺术与传播学院",
+    brief: "公关策划+危机管理，全国开设院校少，公关人才稀缺度高",
+    ace: false,
+    learn: {
+      coreCourses:["公共关系学", "传播学", "公关策划与案例", "危机管理", "企业形象战略", "公关写作", "新媒体运营", "社会心理学"],
+      suitFor: "沟通能力强、应变能力好、对品牌形象管理感兴趣的同学。"
+    },
+    employment: {
+      industries:["公关", "企业传播", "政府关系", "品牌管理", "危机管理"],
+      civil: "可报党政机关宣传岗等，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，文科在CJLU非重点",
+      feature: "公关+标准化传播方向",
+      degrees: "硕士点：依托公共管理/新闻传播"
+    },
+    grad: {
+      directions:["公共管理", "传播学", "行政管理", "新闻学", "MBA"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考管理、传播、行政等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "公共关系就业稳定，但需要积累人际网络和经验",
+      barrier: "转入需有沟通协调能力"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU弱专业，就业面窄，建议转出"
+    },
+    newData: {
+      careers: [
+        {
+          title: "公关专员",
+          desc: "企业公关/媒体关系，稳定偏沟通",
+          suit: "汇报工作说不到重点、看不出别人话里的意思"
+        },
+        {
+          title: "品牌传播专员",
+          desc: "品牌形象/内容传播，稳定偏内容",
+          suit: "写不出吸引人的文案"
+        },
+        {
+          title: "活动策划",
+          desc: "公关活动/会议展览策划，稳定偏执行",
+          suit: "组织让协调两个部门就头大"
+        },
+        {
+          title: "危机公关",
+          desc: "企业危机处理，高挑战高回报",
+          suit: "遇到突发情况反应不过来、压力大就容易崩"
+        }
+      ],
+      suitFor: "公关+传播方向。沟通协调能力强+对公关传播有兴趣的适合",
+      softSkills: "公关实务知识是核心，PS/视频剪辑加分，人际网络重要",
+      paths: {
+        gradSchool: {
+          fit: "一般适配",
+          how: "可考研新闻传播/公共关系",
+          tip: "公关读研性价比一般，工作经验更重要"
+        },
+        employment: {
+          fit: "适配",
+          how: "公关公司/企业公关部/政府传播部门都有需求",
+          tip: "实习和实践经验是关键"
+        },
+        startup: {
+          fit: "适配",
+          how: "公关公司/活动策划公司创业门槛相对低",
+          tip: "先积累客户和人脉再考虑"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "公共关系就业稳定，但需要积累人际网络和经验",
+        barrier: "转入需有沟通协调能力"
+      }
+    }
+  },
+  {
+    name: "哲学",
+    college: "马克思主义学院",
+    brief: "哲学基础+计量伦理交叉，冷门但考研优势大",
+    ace: false,
+    learn: {
+      coreCourses:["哲学导论", "马克思主义哲学", "中国哲学史", "西方哲学史", "伦理学", "逻辑学", "美学", "科技哲学"],
+      suitFor: "思维深度好、喜欢哲学思辨、文字表达强的同学。冷门但跨考优势大。"
+    },
+    employment: {
+      industries:["教育", "公务员", "科研", "出版", "文化机构"],
+      civil: "可报党政机关、党校等，适配度中等但岗位少"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，有哲学硕士点",
+      feature: "哲学+计量伦理方向",
+      degrees: "硕士点：哲学"
+    },
+    grad: {
+      directions:["马克思主义哲学", "中国哲学", "西方哲学", "伦理学", "逻辑学"],
+      difficulty: "考研竞争小，哲学方向冷门，上岸率高",
+      cross: "跨考范围极广：法硕、行管、新闻、心理等均可"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "哲学就业稳定但学术路线漫长，需有真实学术热情",
+      barrier: "转入需有哲学阅读基础和思辨能力"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU最弱专业之一，但考研跳板"
+    },
+    newData: {
+      careers: [
+        {
+          title: "哲学教师",
+          desc: "高校/研究机构哲学研究，博士起步",
+          suit: "对哲学提不起劲"
+        },
+        {
+          title: "文化研究员",
+          desc: "文化政策/传统文化研究，稳定偏学术",
+          suit: "理论功底不扎实"
+        },
+        {
+          title: "编辑/文案",
+          desc: "出版社/媒体内容编辑，稳定偏文字",
+          suit: "写个汇报都要改好几遍"
+        },
+        {
+          title: "公务员",
+          desc: "文秘/政策研究/宣传，体制内通道",
+          suit: "不甘心安稳拿死工资、写东西费劲"
+        }
+      ],
+      suitFor: "大量阅读+思辨+论文，就业面窄但考研跨考灵活。对哲学思辨有真实兴趣+有志于学术的适合，CJLU计量哲学特色",
+      softSkills: "论文写作是核心技能，英语好读原版哲学著作，教师资格证（想当老师加分）",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研哲学/宗教学/伦理学等，依托哲学一级学科硕士点",
+          tip: "哲学读博才能进高校"
+        },
+        employment: {
+          fit: "适配",
+          how: "高校/研究机构/出版社/政府文化部门都有需求",
+          tip: "考公是哲学专业的重要出口"
+        },
+        startup: {
+          fit: "不太适配",
+          how: "哲学创业机会少",
+          tip: "不太适合创业方向"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "哲学就业稳定但学术路线漫长，需有真实学术热情",
+        barrier: "转入需有哲学阅读基础和思辨能力"
+      }
+    }
+  },
+  {
+    name: "物流管理",
+    college: "经济与管理学院",
+    brief: "物流+供应链管理，电商时代需求大",
+    ace: false,
+    learn: {
+      coreCourses:["物流学导论", "供应链管理", "仓储与配送管理", "物流信息技术", "运输管理", "物流系统规划", "采购管理", "国际物流"],
+      suitFor: "对物流和供应链管理感兴趣、逻辑思维好的同学。"
+    },
+    employment: {
+      industries:["物流", "供应链", "电商物流", "制造业", "第三方物流"],
+      civil: "可报交通局、商务局等，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "非国家一流专业，管理科学与工程支撑",
+      feature: "物流+质量管控，供应链质量管理方向",
+      degrees: "硕士点：依托管理科学与工程"
+    },
+    grad: {
+      directions:["管理科学与工程", "物流工程", "供应链管理", "工商管理", "MBA"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考管理、工业工程等方向"
+    },
+    transfer: {
+      should: "看个人",
+      reason: "物流就业稳定，杭州义乌区位优势明显",
+      barrier: "转入需对物流供应链有真实兴趣"
+    },
+    rating: {
+      verdict: "慎重",
+      summary: "CJLU一般专业，建议转质管更好"
+    },
+    newData: {
+      careers: [
+        {
+          title: "物流管理师",
+          desc: "仓储/运输/配送管理，稳定偏运营",
+          suit: "条件一多就理不清、推理链一长就跟丢、安排事情丢三落四"
+        },
+        {
+          title: "供应链管理师",
+          desc: "供应链规划/采购管理，高薪有发展空间",
+          suit: "综合让协调两个部门就头大"
+        },
+        {
+          title: "跨境物流专员",
+          desc: "国际物流/报关报检，杭州义乌优势",
+          suit: "看英文文档要靠翻译软件、不知道进出口怎么做"
+        },
+        {
+          title: "电商运营",
+          desc: "仓储物流运营/供应链优化，互联网方向",
+          suit: "看报表只会看总数、看不出趋势和问题、不知道平台怎么运营"
+        }
+      ],
+      suitFor: "物流/供应链方向。对物流供应链有兴趣+善于规划协调的适合，杭州义乌物流优势+CJLU质量管理加持",
+      softSkills: "供应链管理知识加分，WMS/TMS系统会用，英语好有国际物流优势",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研物流管理/供应链管理，依托管理科学与工程省一流A类学科",
+          tip: "供应链方向读研有优势"
+        },
+        employment: {
+          fit: "很适配",
+          how: "物流/电商/制造业供应链都有需求，杭州义乌区位优势明显",
+          tip: "跨境物流是杭州义乌特色赛道"
+        },
+        startup: {
+          fit: "适配",
+          how: "物流服务/供应链解决方案创业有细分机会",
+          tip: "义乌是物流创业圣地"
+        }
+      },
+      transfer: {
+        should: "看个人",
+        reason: "物流就业稳定，杭州义乌区位优势明显",
+        barrier: "转入需对物流供应链有真实兴趣"
+      }
+    }
+  },
+  {
+    name: "跨境电子商务",
+    college: "经济与管理学院",
+    brief: "跨境电商+外贸，新兴热门方向",
+    ace: false,
+    learn: {
+      coreCourses:["电子商务概论", "跨境电子商务实务", "国际贸易", "网络营销", "供应链管理", "电商平台运营", "数据分析", "外贸英语"],
+      suitFor: "英语好、对跨境电商和外贸感兴趣的同学。"
+    },
+    employment: {
+      industries:["跨境电商", "外贸", "互联网运营", "供应链", "直播电商"],
+      civil: "可报商务局、海关等，适配度一般"
+    },
+    discipline: {
+      level: "一般",
+      strength: "新设专业，依托管理科学与工程",
+      feature: "跨境电商+标准认证，杭州电商产业优势",
+      degrees: "硕士点：依托管理科学与工程/国际商务"
+    },
+    grad: {
+      directions:["管理科学与工程", "国际商务", "电子商务", "应用经济学", "MBA"],
+      difficulty: "考研竞争中等",
+      cross: "可跨考管理、经济、国际商务等方向"
+    },
+    transfer: {
+      should: "不必转",
+      reason: "杭州义乌跨境电商核心区+创业就业双重优势，性价比高",
+      barrier: "转入需对跨境电商有真实兴趣"
+    },
+    rating: {
+      verdict: "可考虑",
+      summary: "新专业，杭州电商产业优势大但CJLU非电商强校"
+    },
+    newData: {
+      careers: [
+        {
+          title: "跨境电商运营",
+          desc: "亚马逊/eBay/速卖通运营，杭州义乌核心赛道",
+          suit: "看英文文档要靠翻译软件、不知道平台怎么运营规则"
+        },
+        {
+          title: "海外推广专员",
+          desc: "海外市场推广/社媒运营，出海方向",
+          suit: "写不出吸引人的文案、看英文文档要靠翻译软件"
+        },
+        {
+          title: "外贸业务员",
+          desc: "进出口业务/客户开发，传统外贸",
+          suit: "看英文文档要靠翻译软件、汇报工作说不到重点"
+        },
+        {
+          title: "供应链专员",
+          desc: "跨境供应链管理/采购，稳定偏运营",
+          suit: "条件一多就理不清、推理链一长就跟丢、不知道进出口怎么做"
+        }
+      ],
+      suitFor: "杭州义乌跨境电商核心区+CJLU计量特色。英语好+对跨境电商有兴趣的适合，实操机会多",
+      softSkills: "平台运营经验是核心，英语六级/BEC是门槛，跨境电商技能证书加分",
+      paths: {
+        gradSchool: {
+          fit: "适配",
+          how: "可考研国际商务/国际贸易，依托国际商务硕士点",
+          tip: "跨境电商读研方向更有针对性"
+        },
+        employment: {
+          fit: "很适配",
+          how: "跨境电商/外贸/出海企业需求大，杭州义乌区位优势明显",
+          tip: "义乌是跨境电商创业和就业的圣地"
+        },
+        startup: {
+          fit: "很适配",
+          how: "跨境电商创业门槛相对低，一个人就能开始",
+          tip: "先做FBM积累经验再做FBA"
+        }
+      },
+      transfer: {
+        should: "不必转",
+        reason: "杭州义乌跨境电商核心区+创业就业双重优势，性价比高",
+        barrier: "转入需对跨境电商有真实兴趣"
+      }
+    }
+  }
+];
+
+
+let currentCollege = 'all';
+let currentSearch = '';
+
+function getDimBadges(m) {
+    const r = m.rating || {};
+    const vc = {'推荐':'var(--green)','可考虑':'var(--yellow)','慎重':'var(--red)'}[r.verdict]||'var(--sub)';
+    const badges = [];
+    if(m.ace) badges.push(`<span class="dim-badge" style="background:rgba(34,197,94,0.15);color:#17823E">王牌</span>`);
+    badges.push(`<span class="dim-badge" style="background:${vc}22;color:${vc}">${r.verdict||'—'}</span>`);
+    const dl = (m.discipline||{}).level;
+    if(dl && dl !== '一般') badges.push(`<span class="dim-badge" style="background:var(--brand-soft);color:var(--accent)">${dl}</span>`);
+    return badges.join('');
+}
+
+
+function renderMajors() {
+    const container = document.getElementById('majorContainer');
+    const filtered = majorsData.filter(m => {
+        const matchCollege = currentCollege === 'all' || m.college === currentCollege;
+        const matchSearch = currentSearch === '' || m.name.includes(currentSearch) || m.college.includes(currentSearch);
+        return matchCollege && matchSearch;
+    });
+    container.innerHTML = filtered.map(m => `
+        <!-- ⚠️ 09-17：id 用**专业名**派生（major-<专业名>），不用序号 ——
+             这一页是 filter+map 渲染的，筛一次序号就全变，序号做锚点必然指错。
+             全站搜索的 parseMajor 会生成同样的锚点，点结果直接落到这个专业。 -->
+        <div class="major-card" id="major-${m.name}" onclick="openModal('${m.name.replace(/'/g,"\\'")}')">
+            <div class="major-name">${m.name}${m.ace ? '<span class="ace-tag">王牌</span>' : ''}</div>
+            <span class="college-tag">${m.college}</span>
+            <div class="dimension-row">${getDimBadges(m)}</div>
+            <div class="brief">${m.brief || ''}</div>
+        </div>
+    `).join('');
+    document.getElementById('stats').textContent = `共 ${filtered.length} 个专业`;
+}
+
+function openModal(name) {
+    const m = majorsData.find(x => x.name === name);
+    if(!m) return;
+    const tabs = ['rating','careers','paths','prompt'];
+    const tabNames = ['专业总评','就业岗位','三条路','AI规划提示词'];
+    let tabsHTML = '<div class="dim-tabs">' + tabs.map((t,i) =>
+        `<button class="dim-tab${i===0?' active':''}" onclick="switchTab('${t}',this)">${tabNames[i]}</button>`
+    ).join('') + '</div>';
+
+    let panelsHTML = '';
+    
+// 0. 专业总评
+    const r = m.rating || {};
+    const disObj = m.discipline || {};
+    const verdictColor = {'推荐':'var(--green)','可考虑':'var(--yellow)','慎重':'var(--red)'}[r.verdict]||'var(--sub)';
+    const levelColor = {'王牌':'var(--green)','强势':'var(--accent)','中等':'var(--yellow)','一般':'var(--sub)'}[disObj.level]||'var(--sub)';
+    panelsHTML += `<div class="dim-panel active" id="panel-rating">
+        <div class="section-block" style="text-align:center;padding:var(--gap-2xl) var(--gap-lg)">
+            <div style="font-size:var(--fs-h1);font-weight:900;color:${verdictColor};margin-bottom:var(--gap)">${r.verdict||'暂无'}</div>
+            <div style="font-size:var(--fs-md-em);color:var(--sub);line-height:var(--lh)">${(r.summary||'').replace(/\n/g,'<br>')}</div>
+        </div>
+        <div class="section-block">
+            <h4>🏫 学科定位</h4>
+            <div style="display:flex;align-items:center;gap:var(--gap);margin-bottom:var(--gap-md)">
+                <span style="background:${levelColor};color:var(--text);font-weight:700;font-size:var(--fs-md-em);padding:var(--gap-xs) var(--gap-lg);border-radius:var(--r-xs)">${disObj.level||'未知'}</span>
+                ${disObj.feature ? `<span style="font-size:var(--fs-xs-em);color:var(--sub)">${disObj.feature}</span>` : ''}
+            </div>
+            <p style="font-size:var(--fs-md-em);line-height:var(--lh)">${(disObj.strength||'').replace(/\n/g,'<br>')}</p>
+            ${disObj.degrees ? `<p style="font-size:var(--fs-xs-em);color:var(--sub);margin-top:var(--gap)">${disObj.degrees}</p>` : ''}
+        </div>
+        ${m.newData && m.newData.suitFor ? `<div class="section-block"><h4>👤 适合什么人</h4><p style="font-size:var(--fs-md-em);line-height:var(--lh)">${m.newData.suitFor}</p></div>` : ''}
+        ${m.newData && m.newData.softSkills ? `<div class="section-block"><h4>💡 加分项</h4><p style="font-size:var(--fs-sm-em);color:var(--sub);line-height:var(--lh)">${m.newData.softSkills}</p></div>` : ''}
+    </div>`;
+
+    // 1. 就业岗位
+    const nd = m.newData || {};
+    const careers = nd.careers || [];
+    const fitEmoji = {'很适配':'🟢','适配':'🟡','一般适配':'🟠','不太适配':'🔴'};
+    panelsHTML += `<div class="dim-panel" id="panel-careers">
+        ${careers.length > 0 ? `<div class="section-block"><h4>💼 具体岗位</h4>
+            <div style="display:flex;flex-direction:column;gap:var(--gap-md);margin-top:var(--gap)">
+                ${careers.map(c => `<div style="background:var(--bg);border-radius:var(--r-sm);padding:var(--gap-md) var(--gap-lg)">
+                    <div style="font-weight:600;font-size:var(--fs-md-em);margin-bottom:var(--gap-xs)">${c.title}</div>
+                    <div style="font-size:var(--fs-xs-em);color:var(--sub);margin-bottom:var(--gap-xs)">${c.desc}</div>
+                    <div style="font-size:var(--fs-2xs-em);color:var(--sub)">🚫 ${c.suit}</div>
+                </div>`).join('')}
+            </div>
+        </div>` : ''}
+        ${m.employment && m.employment.civil ? `<div class="section-block"><h4>🏛️ 体制内适配</h4><p style="font-size:var(--fs-sm-em)">${m.employment.civil.replace(/\n/g,'<br>')}</p></div>` : ''}
+    </div>`;
+
+    // 2. 三条路
+    const p = nd.paths || {};
+    const tr = nd.transfer || m.transfer || {};
+    const pathCard = (icon, label, data) => {
+        if (!data) return '';
+        const fc = {'很适配':'var(--green)','适配':'var(--accent)','一般适配':'var(--yellow)','不太适配':'var(--red)'}[data.fit]||'var(--sub)';
+        return `<div style="background:var(--bg);border-radius:var(--r-md);padding:var(--gap-lg);margin-bottom:var(--gap-md)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--gap)">
+                <span style="font-weight:700;font-size:var(--fs-md-em)">${icon} ${label}</span>
+                <span style="background:${fc}22;color:${fc};font-size:var(--fs-2xs-em);font-weight:600;padding:var(--gap-2xs) var(--gap);border-radius:var(--r-xs)">${data.fit||'—'}</span>
+            </div>
+            <p style="font-size:var(--fs-sm-em);line-height:var(--lh);margin-bottom:var(--gap-sm)">${(data.how||'').replace(/\n/g,'<br>')}</p>
+            ${data.tip ? `<div style="font-size:var(--fs-2xs-em);color:var(--yellow);background:var(--yellow-soft);padding:var(--gap-sm) var(--gap-md);border-radius:var(--r-sm)">💡 ${data.tip}</div>` : ''}
+        </div>`;
+    };
+    const shouldColor = {'绝对不要转出':'var(--green)','不建议转出':'var(--green)','不必转':'var(--accent)','看个人':'var(--yellow)','建议转':'var(--red)'}[tr.should]||'var(--sub)';
+    panelsHTML += `<div class="dim-panel" id="panel-paths">
+        <div class="section-block">
+            <h4>🛤️ 三条路</h4>
+            ${pathCard('📖','考研',p.gradSchool)}
+            ${pathCard('💼','就业',p.employment)}
+            ${pathCard('🚀','创业',p.startup)}
+        </div>
+        <div class="section-block" style="background:var(--brand-soft);border-radius:var(--r-md);padding:var(--gap-lg)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--gap)">
+                <h4 style="color:var(--accent);margin:0">🔄 转专业</h4>
+                <span style="background:${shouldColor}22;color:${shouldColor};font-size:var(--fs-xs-em);font-weight:600;padding:var(--gap-2xs) var(--gap-md);border-radius:var(--r-xs)">${tr.should||'—'}</span>
+            </div>
+            <p style="font-size:var(--fs-sm-em);line-height:var(--lh)">${(tr.reason||'').replace(/\n/g,'<br>')}</p>
+            ${tr.barrier ? `<p style="font-size:var(--fs-xs-em);color:var(--sub);margin-top:var(--gap)">🚪 门槛：${tr.barrier}</p>` : ''}
+        </div>
+    </div>`;
+
+    // 3. AI规划提示词
+    const promptText = `我是中国计量大学${m.name}专业的大一新生，请帮我做专业规划。
+
+【专业基本情况】
+- 学校：中国计量大学（一本，以计量/标准/质量为特色）
+- 专业：${m.name}（${m.college}）
+- 学科等级：${disObj.level||'未知'}${disObj.feature ? '，'+disObj.feature: ''}
+${disObj.degrees ? '- 学位点：'+disObj.degrees: ''}
+
+【我的情况】
+- 高考分数/位次：（请填写）
+- 兴趣方向：（请填写你喜欢什么/对什么好奇）
+- 性格特点：（请填写你是内向/外向、求稳/爱冒险等）
+- 擅长的事：（请填写你擅长什么）
+- 不擅长/讨厌的事：（请填写）
+- 家庭经济情况：（请填写是否需要尽快赚钱/可以支持读研等）
+- 目标优先级：（请排序：高薪/稳定/兴趣/社会地位/自由度）
+
+请基于以上信息，帮我分析：
+1. 这个专业是否适合我？为什么？
+2. 考研/就业/创业三条路我该选哪条？具体怎么走？
+3. 是否建议转专业？转什么？为什么？
+4. 大学四年每一年该做什么？
+
+推荐使用的AI工具：
+- Kimi（kimi.moonshot.cn）：搜索能力最强，能联网查最新就业/考研信息
+- DeepSeek（chat.deepseek.com）：推理能力最强，适合深度规划分析
+- 豆包（doubao.com）：免费好用，中文理解好`;
+
+    panelsHTML += `<div class="dim-panel" id="panel-prompt">
+        <div class="section-block">
+            <h4>🤖 AI规划提示词</h4>
+            <p style="font-size:var(--fs-sm-em);color:var(--sub);margin-bottom:var(--gap-md)">复制下面的提示词，填入你的个人信息，发给AI即可获得个性化规划建议</p>
+            <div style="position:relative">
+                <textarea id="aiPrompt" readonly style="width:100%;height:320px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:var(--r-sm);padding:var(--gap-lg);font-size:var(--fs-xs-em);line-height:var(--lh);resize:vertical;font-family:inherit">${promptText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
+                <button onclick="navigator.clipboard?navigator.clipboard.writeText(document.getElementById('aiPrompt').value).then(()=>this.textContent='✅已复制').catch(()=>this.textContent='复制失败'):this.textContent='请手动选中复制'" style="position:absolute;top:8px;right:8px;background:var(--accent);color:#FFFFFF;border:none;padding:var(--gap-sm) var(--gap-lg);border-radius:var(--r-sm);font-size:var(--fs-2xs-em);font-weight:600;cursor:pointer">复制</button>
+            </div>
+        </div>
+        <div class="section-block">
+            <h4>📌 推荐AI工具</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap)">
+                <div style="background:var(--bg);border-radius:var(--r-sm);padding:var(--gap-md);text-align:center">
+                    <div style="font-weight:600;font-size:var(--fs-sm-em)">Kimi</div>
+                    <div style="font-size:var(--fs-2xs-em);color:var(--sub);margin-top:var(--gap-xs)">搜索最强<br>查就业/考研</div>
+                </div>
+                <div style="background:var(--bg);border-radius:var(--r-sm);padding:var(--gap-md);text-align:center">
+                    <div style="font-weight:600;font-size:var(--fs-sm-em)">DeepSeek</div>
+                    <div style="font-size:var(--fs-2xs-em);color:var(--sub);margin-top:var(--gap-xs)">推理最强<br>深度规划</div>
+                </div>
+                <div style="background:var(--bg);border-radius:var(--r-sm);padding:var(--gap-md);text-align:center">
+                    <div style="font-weight:600;font-size:var(--fs-sm-em)">豆包</div>
+                    <div style="font-size:var(--fs-2xs-em);color:var(--sub);margin-top:var(--gap-xs)">免费好用<br>中文理解好</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    document.getElementById('modalContent').innerHTML = `
+        <div class="modal-header">
+            <h2>${m.name}${m.ace ? '<span class="modal-ace">王牌</span>' : ''}</h2>
+            <div class="college-info">${m.college}</div>
+        </div>
+        ${tabsHTML}${panelsHTML}
+    `;
+    document.getElementById('majorModal').classList.add('active');
+}
+
+function closeModal() { document.getElementById('majorModal').classList.remove('active'); }
+function switchTab(id, btn) {
+    document.querySelectorAll('.dim-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.dim-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+id).classList.add('active');
+}
+document.getElementById('majorModal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
+document.getElementById('searchInput').addEventListener('input', function() {
+    currentSearch = this.value.trim();
+    renderMajors();
+});
+
+// 学院导航
+function initCollegeNav() {
+    const colleges = [...new Set(majorsData.map(m=>m.college))];
+    const nav = document.getElementById('collegeNav');
+    colleges.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'college-btn';
+        btn.dataset.college = c;
+        btn.textContent = c;
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.college-btn').forEach(b=>b.classList.remove('active'));
+            this.classList.add('active');
+            currentCollege = this.dataset.college;
+            renderMajors();
+        });
+        nav.appendChild(btn);
+    });
+}
+
+initCollegeNav();
+renderMajors();
+</script>
+
+
+<div class="cta-card">
+  <p class="cta-hook">58 个专业五维评价 · 就业 / 考研 / 难度 / 师资 / 潜力</p>
+  <div class="cta-wx">
+    <span class="cta-wx-id">YOUR_WX_HERE</span>
+    <span class="cta-wx-tip">长按复制 · 备注「选专业」</span>
+  </div>
+  <p class="cta-ask">有页面没写到的具体问题？<b>进群和大家一起讨论</b> —— 群里是 2026 级新生互助交流，学长和同学都会参与回答；不方便在群里问的再私信我</p>
+  <p class="cta-note">本页为评价性参考，非官方，仅供选方向时对照</p>
+  <a class="cta-home" href="index.html">← 返回总览 · 6 份指南</a>
+</div>
+<script src="config.js"></script>
+<script src="contact.js?v=20260918a"></script>
+<script src="share.js?v=20260918a"></script>
+<script src="analytics.js?v=20260918a"></script>
+<script src="archive.js?v=20260918a"></script>
+<script src="search.js?v=20260918a"></script>
+<script>
+/* ============================================================
+   09-17：搜索结果带 major-<专业名> 锚点跳进来时，必须真的停在那个专业上。
+   ⚠️ 本页的专业卡是 JS 渲染的（filter+map），浏览器自带的「跳到锚点」很可能
+      发生在卡片生成之前 —— 那样人会停在页面顶部，锚点等于没用。
+      所以这里在渲染完成后再自己滚一次（decodeURIComponent：专业名是中文，hash 是编码过的）。
+   ============================================================ */
+(function () {
+  function go() {
+    var id = '';
+    try { id = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { id = (location.hash || '').slice(1); }
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.closest ? el.closest('details') : null;
+    if (d) d.open = true;                                  /* 被折叠就展开 */
+    setTimeout(function () {
+      try { el.scrollIntoView({ block: 'center', behavior: 'auto' }); } catch (e) {}
+    }, 80);
+  }
+  window.addEventListener('hashchange', go);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(go, 200); });
+  else setTimeout(go, 200);
+})();
+</script>
+</body>
+</html>
